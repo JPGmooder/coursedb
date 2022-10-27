@@ -19,6 +19,7 @@ mixin _$AuthEvent {
   @optionalTypeArgs
   TResult when<TResult extends Object?>({
     required TResult Function(String login, String password) logIn,
+    required TResult Function(AddressModel addressModel) addAddress,
     required TResult Function(String login, String password, String email)
         regNew,
     required TResult Function(String name, String lname, String? patronymic,
@@ -29,6 +30,7 @@ mixin _$AuthEvent {
   @optionalTypeArgs
   TResult? whenOrNull<TResult extends Object?>({
     TResult? Function(String login, String password)? logIn,
+    TResult? Function(AddressModel addressModel)? addAddress,
     TResult? Function(String login, String password, String email)? regNew,
     TResult? Function(String name, String lname, String? patronymic,
             DateTime birthday, String mobileNumber)?
@@ -38,6 +40,7 @@ mixin _$AuthEvent {
   @optionalTypeArgs
   TResult maybeWhen<TResult extends Object?>({
     TResult Function(String login, String password)? logIn,
+    TResult Function(AddressModel addressModel)? addAddress,
     TResult Function(String login, String password, String email)? regNew,
     TResult Function(String name, String lname, String? patronymic,
             DateTime birthday, String mobileNumber)?
@@ -48,6 +51,7 @@ mixin _$AuthEvent {
   @optionalTypeArgs
   TResult map<TResult extends Object?>({
     required TResult Function(_$AuthLogInEvent value) logIn,
+    required TResult Function(_$AuthAddAddressEvent value) addAddress,
     required TResult Function(_$AuthRegNewEvent value) regNew,
     required TResult Function(_$AutAddPersonalDataEvent value) addPersonalData,
   }) =>
@@ -55,6 +59,7 @@ mixin _$AuthEvent {
   @optionalTypeArgs
   TResult? mapOrNull<TResult extends Object?>({
     TResult? Function(_$AuthLogInEvent value)? logIn,
+    TResult? Function(_$AuthAddAddressEvent value)? addAddress,
     TResult? Function(_$AuthRegNewEvent value)? regNew,
     TResult? Function(_$AutAddPersonalDataEvent value)? addPersonalData,
   }) =>
@@ -62,6 +67,7 @@ mixin _$AuthEvent {
   @optionalTypeArgs
   TResult maybeMap<TResult extends Object?>({
     TResult Function(_$AuthLogInEvent value)? logIn,
+    TResult Function(_$AuthAddAddressEvent value)? addAddress,
     TResult Function(_$AuthRegNewEvent value)? regNew,
     TResult Function(_$AutAddPersonalDataEvent value)? addPersonalData,
     required TResult orElse(),
@@ -160,6 +166,7 @@ class _$_$AuthLogInEvent implements _$AuthLogInEvent {
   @optionalTypeArgs
   TResult when<TResult extends Object?>({
     required TResult Function(String login, String password) logIn,
+    required TResult Function(AddressModel addressModel) addAddress,
     required TResult Function(String login, String password, String email)
         regNew,
     required TResult Function(String name, String lname, String? patronymic,
@@ -173,6 +180,7 @@ class _$_$AuthLogInEvent implements _$AuthLogInEvent {
   @optionalTypeArgs
   TResult? whenOrNull<TResult extends Object?>({
     TResult? Function(String login, String password)? logIn,
+    TResult? Function(AddressModel addressModel)? addAddress,
     TResult? Function(String login, String password, String email)? regNew,
     TResult? Function(String name, String lname, String? patronymic,
             DateTime birthday, String mobileNumber)?
@@ -185,6 +193,7 @@ class _$_$AuthLogInEvent implements _$AuthLogInEvent {
   @optionalTypeArgs
   TResult maybeWhen<TResult extends Object?>({
     TResult Function(String login, String password)? logIn,
+    TResult Function(AddressModel addressModel)? addAddress,
     TResult Function(String login, String password, String email)? regNew,
     TResult Function(String name, String lname, String? patronymic,
             DateTime birthday, String mobileNumber)?
@@ -201,6 +210,7 @@ class _$_$AuthLogInEvent implements _$AuthLogInEvent {
   @optionalTypeArgs
   TResult map<TResult extends Object?>({
     required TResult Function(_$AuthLogInEvent value) logIn,
+    required TResult Function(_$AuthAddAddressEvent value) addAddress,
     required TResult Function(_$AuthRegNewEvent value) regNew,
     required TResult Function(_$AutAddPersonalDataEvent value) addPersonalData,
   }) {
@@ -211,6 +221,7 @@ class _$_$AuthLogInEvent implements _$AuthLogInEvent {
   @optionalTypeArgs
   TResult? mapOrNull<TResult extends Object?>({
     TResult? Function(_$AuthLogInEvent value)? logIn,
+    TResult? Function(_$AuthAddAddressEvent value)? addAddress,
     TResult? Function(_$AuthRegNewEvent value)? regNew,
     TResult? Function(_$AutAddPersonalDataEvent value)? addPersonalData,
   }) {
@@ -221,6 +232,7 @@ class _$_$AuthLogInEvent implements _$AuthLogInEvent {
   @optionalTypeArgs
   TResult maybeMap<TResult extends Object?>({
     TResult Function(_$AuthLogInEvent value)? logIn,
+    TResult Function(_$AuthAddAddressEvent value)? addAddress,
     TResult Function(_$AuthRegNewEvent value)? regNew,
     TResult Function(_$AutAddPersonalDataEvent value)? addPersonalData,
     required TResult orElse(),
@@ -240,6 +252,161 @@ abstract class _$AuthLogInEvent implements AuthEvent {
   String get password;
   @JsonKey(ignore: true)
   _$$_$AuthLogInEventCopyWith<_$_$AuthLogInEvent> get copyWith =>
+      throw _privateConstructorUsedError;
+}
+
+/// @nodoc
+abstract class _$$_$AuthAddAddressEventCopyWith<$Res> {
+  factory _$$_$AuthAddAddressEventCopyWith(_$_$AuthAddAddressEvent value,
+          $Res Function(_$_$AuthAddAddressEvent) then) =
+      __$$_$AuthAddAddressEventCopyWithImpl<$Res>;
+  @useResult
+  $Res call({AddressModel addressModel});
+}
+
+/// @nodoc
+class __$$_$AuthAddAddressEventCopyWithImpl<$Res>
+    extends _$AuthEventCopyWithImpl<$Res, _$_$AuthAddAddressEvent>
+    implements _$$_$AuthAddAddressEventCopyWith<$Res> {
+  __$$_$AuthAddAddressEventCopyWithImpl(_$_$AuthAddAddressEvent _value,
+      $Res Function(_$_$AuthAddAddressEvent) _then)
+      : super(_value, _then);
+
+  @pragma('vm:prefer-inline')
+  @override
+  $Res call({
+    Object? addressModel = null,
+  }) {
+    return _then(_$_$AuthAddAddressEvent(
+      null == addressModel
+          ? _value.addressModel
+          : addressModel // ignore: cast_nullable_to_non_nullable
+              as AddressModel,
+    ));
+  }
+}
+
+/// @nodoc
+
+class _$_$AuthAddAddressEvent implements _$AuthAddAddressEvent {
+  const _$_$AuthAddAddressEvent(this.addressModel);
+
+  @override
+  final AddressModel addressModel;
+
+  @override
+  String toString() {
+    return 'AuthEvent.addAddress(addressModel: $addressModel)';
+  }
+
+  @override
+  bool operator ==(dynamic other) {
+    return identical(this, other) ||
+        (other.runtimeType == runtimeType &&
+            other is _$_$AuthAddAddressEvent &&
+            (identical(other.addressModel, addressModel) ||
+                other.addressModel == addressModel));
+  }
+
+  @override
+  int get hashCode => Object.hash(runtimeType, addressModel);
+
+  @JsonKey(ignore: true)
+  @override
+  @pragma('vm:prefer-inline')
+  _$$_$AuthAddAddressEventCopyWith<_$_$AuthAddAddressEvent> get copyWith =>
+      __$$_$AuthAddAddressEventCopyWithImpl<_$_$AuthAddAddressEvent>(
+          this, _$identity);
+
+  @override
+  @optionalTypeArgs
+  TResult when<TResult extends Object?>({
+    required TResult Function(String login, String password) logIn,
+    required TResult Function(AddressModel addressModel) addAddress,
+    required TResult Function(String login, String password, String email)
+        regNew,
+    required TResult Function(String name, String lname, String? patronymic,
+            DateTime birthday, String mobileNumber)
+        addPersonalData,
+  }) {
+    return addAddress(addressModel);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult? whenOrNull<TResult extends Object?>({
+    TResult? Function(String login, String password)? logIn,
+    TResult? Function(AddressModel addressModel)? addAddress,
+    TResult? Function(String login, String password, String email)? regNew,
+    TResult? Function(String name, String lname, String? patronymic,
+            DateTime birthday, String mobileNumber)?
+        addPersonalData,
+  }) {
+    return addAddress?.call(addressModel);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult maybeWhen<TResult extends Object?>({
+    TResult Function(String login, String password)? logIn,
+    TResult Function(AddressModel addressModel)? addAddress,
+    TResult Function(String login, String password, String email)? regNew,
+    TResult Function(String name, String lname, String? patronymic,
+            DateTime birthday, String mobileNumber)?
+        addPersonalData,
+    required TResult orElse(),
+  }) {
+    if (addAddress != null) {
+      return addAddress(addressModel);
+    }
+    return orElse();
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult map<TResult extends Object?>({
+    required TResult Function(_$AuthLogInEvent value) logIn,
+    required TResult Function(_$AuthAddAddressEvent value) addAddress,
+    required TResult Function(_$AuthRegNewEvent value) regNew,
+    required TResult Function(_$AutAddPersonalDataEvent value) addPersonalData,
+  }) {
+    return addAddress(this);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult? mapOrNull<TResult extends Object?>({
+    TResult? Function(_$AuthLogInEvent value)? logIn,
+    TResult? Function(_$AuthAddAddressEvent value)? addAddress,
+    TResult? Function(_$AuthRegNewEvent value)? regNew,
+    TResult? Function(_$AutAddPersonalDataEvent value)? addPersonalData,
+  }) {
+    return addAddress?.call(this);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult maybeMap<TResult extends Object?>({
+    TResult Function(_$AuthLogInEvent value)? logIn,
+    TResult Function(_$AuthAddAddressEvent value)? addAddress,
+    TResult Function(_$AuthRegNewEvent value)? regNew,
+    TResult Function(_$AutAddPersonalDataEvent value)? addPersonalData,
+    required TResult orElse(),
+  }) {
+    if (addAddress != null) {
+      return addAddress(this);
+    }
+    return orElse();
+  }
+}
+
+abstract class _$AuthAddAddressEvent implements AuthEvent {
+  const factory _$AuthAddAddressEvent(final AddressModel addressModel) =
+      _$_$AuthAddAddressEvent;
+
+  AddressModel get addressModel;
+  @JsonKey(ignore: true)
+  _$$_$AuthAddAddressEventCopyWith<_$_$AuthAddAddressEvent> get copyWith =>
       throw _privateConstructorUsedError;
 }
 
@@ -325,6 +492,7 @@ class _$_$AuthRegNewEvent implements _$AuthRegNewEvent {
   @optionalTypeArgs
   TResult when<TResult extends Object?>({
     required TResult Function(String login, String password) logIn,
+    required TResult Function(AddressModel addressModel) addAddress,
     required TResult Function(String login, String password, String email)
         regNew,
     required TResult Function(String name, String lname, String? patronymic,
@@ -338,6 +506,7 @@ class _$_$AuthRegNewEvent implements _$AuthRegNewEvent {
   @optionalTypeArgs
   TResult? whenOrNull<TResult extends Object?>({
     TResult? Function(String login, String password)? logIn,
+    TResult? Function(AddressModel addressModel)? addAddress,
     TResult? Function(String login, String password, String email)? regNew,
     TResult? Function(String name, String lname, String? patronymic,
             DateTime birthday, String mobileNumber)?
@@ -350,6 +519,7 @@ class _$_$AuthRegNewEvent implements _$AuthRegNewEvent {
   @optionalTypeArgs
   TResult maybeWhen<TResult extends Object?>({
     TResult Function(String login, String password)? logIn,
+    TResult Function(AddressModel addressModel)? addAddress,
     TResult Function(String login, String password, String email)? regNew,
     TResult Function(String name, String lname, String? patronymic,
             DateTime birthday, String mobileNumber)?
@@ -366,6 +536,7 @@ class _$_$AuthRegNewEvent implements _$AuthRegNewEvent {
   @optionalTypeArgs
   TResult map<TResult extends Object?>({
     required TResult Function(_$AuthLogInEvent value) logIn,
+    required TResult Function(_$AuthAddAddressEvent value) addAddress,
     required TResult Function(_$AuthRegNewEvent value) regNew,
     required TResult Function(_$AutAddPersonalDataEvent value) addPersonalData,
   }) {
@@ -376,6 +547,7 @@ class _$_$AuthRegNewEvent implements _$AuthRegNewEvent {
   @optionalTypeArgs
   TResult? mapOrNull<TResult extends Object?>({
     TResult? Function(_$AuthLogInEvent value)? logIn,
+    TResult? Function(_$AuthAddAddressEvent value)? addAddress,
     TResult? Function(_$AuthRegNewEvent value)? regNew,
     TResult? Function(_$AutAddPersonalDataEvent value)? addPersonalData,
   }) {
@@ -386,6 +558,7 @@ class _$_$AuthRegNewEvent implements _$AuthRegNewEvent {
   @optionalTypeArgs
   TResult maybeMap<TResult extends Object?>({
     TResult Function(_$AuthLogInEvent value)? logIn,
+    TResult Function(_$AuthAddAddressEvent value)? addAddress,
     TResult Function(_$AuthRegNewEvent value)? regNew,
     TResult Function(_$AutAddPersonalDataEvent value)? addPersonalData,
     required TResult orElse(),
@@ -523,6 +696,7 @@ class _$_$AutAddPersonalDataEvent implements _$AutAddPersonalDataEvent {
   @optionalTypeArgs
   TResult when<TResult extends Object?>({
     required TResult Function(String login, String password) logIn,
+    required TResult Function(AddressModel addressModel) addAddress,
     required TResult Function(String login, String password, String email)
         regNew,
     required TResult Function(String name, String lname, String? patronymic,
@@ -536,6 +710,7 @@ class _$_$AutAddPersonalDataEvent implements _$AutAddPersonalDataEvent {
   @optionalTypeArgs
   TResult? whenOrNull<TResult extends Object?>({
     TResult? Function(String login, String password)? logIn,
+    TResult? Function(AddressModel addressModel)? addAddress,
     TResult? Function(String login, String password, String email)? regNew,
     TResult? Function(String name, String lname, String? patronymic,
             DateTime birthday, String mobileNumber)?
@@ -549,6 +724,7 @@ class _$_$AutAddPersonalDataEvent implements _$AutAddPersonalDataEvent {
   @optionalTypeArgs
   TResult maybeWhen<TResult extends Object?>({
     TResult Function(String login, String password)? logIn,
+    TResult Function(AddressModel addressModel)? addAddress,
     TResult Function(String login, String password, String email)? regNew,
     TResult Function(String name, String lname, String? patronymic,
             DateTime birthday, String mobileNumber)?
@@ -565,6 +741,7 @@ class _$_$AutAddPersonalDataEvent implements _$AutAddPersonalDataEvent {
   @optionalTypeArgs
   TResult map<TResult extends Object?>({
     required TResult Function(_$AuthLogInEvent value) logIn,
+    required TResult Function(_$AuthAddAddressEvent value) addAddress,
     required TResult Function(_$AuthRegNewEvent value) regNew,
     required TResult Function(_$AutAddPersonalDataEvent value) addPersonalData,
   }) {
@@ -575,6 +752,7 @@ class _$_$AutAddPersonalDataEvent implements _$AutAddPersonalDataEvent {
   @optionalTypeArgs
   TResult? mapOrNull<TResult extends Object?>({
     TResult? Function(_$AuthLogInEvent value)? logIn,
+    TResult? Function(_$AuthAddAddressEvent value)? addAddress,
     TResult? Function(_$AuthRegNewEvent value)? regNew,
     TResult? Function(_$AutAddPersonalDataEvent value)? addPersonalData,
   }) {
@@ -585,6 +763,7 @@ class _$_$AutAddPersonalDataEvent implements _$AutAddPersonalDataEvent {
   @optionalTypeArgs
   TResult maybeMap<TResult extends Object?>({
     TResult Function(_$AuthLogInEvent value)? logIn,
+    TResult Function(_$AuthAddAddressEvent value)? addAddress,
     TResult Function(_$AuthRegNewEvent value)? regNew,
     TResult Function(_$AutAddPersonalDataEvent value)? addPersonalData,
     required TResult orElse(),
@@ -626,6 +805,7 @@ mixin _$AuthState {
         logedIn,
     required TResult Function(String login, String password, String email)
         signedUp,
+    required TResult Function(AddressModel addressModel) addressAdded,
     required TResult Function() initial,
   }) =>
       throw _privateConstructorUsedError;
@@ -638,6 +818,7 @@ mixin _$AuthState {
             UserPersonalDataModel? data)?
         logedIn,
     TResult? Function(String login, String password, String email)? signedUp,
+    TResult? Function(AddressModel addressModel)? addressAdded,
     TResult? Function()? initial,
   }) =>
       throw _privateConstructorUsedError;
@@ -650,6 +831,7 @@ mixin _$AuthState {
             UserPersonalDataModel? data)?
         logedIn,
     TResult Function(String login, String password, String email)? signedUp,
+    TResult Function(AddressModel addressModel)? addressAdded,
     TResult Function()? initial,
     required TResult orElse(),
   }) =>
@@ -661,6 +843,7 @@ mixin _$AuthState {
     required TResult Function(_$AuthLoadingState value) loading,
     required TResult Function(_$AuthLogedInState value) logedIn,
     required TResult Function(_$AuthSignedUpState value) signedUp,
+    required TResult Function(_$AuthAddressAddedState value) addressAdded,
     required TResult Function(_$AuthInitialState value) initial,
   }) =>
       throw _privateConstructorUsedError;
@@ -671,6 +854,7 @@ mixin _$AuthState {
     TResult? Function(_$AuthLoadingState value)? loading,
     TResult? Function(_$AuthLogedInState value)? logedIn,
     TResult? Function(_$AuthSignedUpState value)? signedUp,
+    TResult? Function(_$AuthAddressAddedState value)? addressAdded,
     TResult? Function(_$AuthInitialState value)? initial,
   }) =>
       throw _privateConstructorUsedError;
@@ -681,6 +865,7 @@ mixin _$AuthState {
     TResult Function(_$AuthLoadingState value)? loading,
     TResult Function(_$AuthLogedInState value)? logedIn,
     TResult Function(_$AuthSignedUpState value)? signedUp,
+    TResult Function(_$AuthAddressAddedState value)? addressAdded,
     TResult Function(_$AuthInitialState value)? initial,
     required TResult orElse(),
   }) =>
@@ -750,6 +935,7 @@ class _$_$AuthLogedOutState implements _$AuthLogedOutState {
         logedIn,
     required TResult Function(String login, String password, String email)
         signedUp,
+    required TResult Function(AddressModel addressModel) addressAdded,
     required TResult Function() initial,
   }) {
     return logedOut();
@@ -765,6 +951,7 @@ class _$_$AuthLogedOutState implements _$AuthLogedOutState {
             UserPersonalDataModel? data)?
         logedIn,
     TResult? Function(String login, String password, String email)? signedUp,
+    TResult? Function(AddressModel addressModel)? addressAdded,
     TResult? Function()? initial,
   }) {
     return logedOut?.call();
@@ -780,6 +967,7 @@ class _$_$AuthLogedOutState implements _$AuthLogedOutState {
             UserPersonalDataModel? data)?
         logedIn,
     TResult Function(String login, String password, String email)? signedUp,
+    TResult Function(AddressModel addressModel)? addressAdded,
     TResult Function()? initial,
     required TResult orElse(),
   }) {
@@ -797,6 +985,7 @@ class _$_$AuthLogedOutState implements _$AuthLogedOutState {
     required TResult Function(_$AuthLoadingState value) loading,
     required TResult Function(_$AuthLogedInState value) logedIn,
     required TResult Function(_$AuthSignedUpState value) signedUp,
+    required TResult Function(_$AuthAddressAddedState value) addressAdded,
     required TResult Function(_$AuthInitialState value) initial,
   }) {
     return logedOut(this);
@@ -810,6 +999,7 @@ class _$_$AuthLogedOutState implements _$AuthLogedOutState {
     TResult? Function(_$AuthLoadingState value)? loading,
     TResult? Function(_$AuthLogedInState value)? logedIn,
     TResult? Function(_$AuthSignedUpState value)? signedUp,
+    TResult? Function(_$AuthAddressAddedState value)? addressAdded,
     TResult? Function(_$AuthInitialState value)? initial,
   }) {
     return logedOut?.call(this);
@@ -823,6 +1013,7 @@ class _$_$AuthLogedOutState implements _$AuthLogedOutState {
     TResult Function(_$AuthLoadingState value)? loading,
     TResult Function(_$AuthLogedInState value)? logedIn,
     TResult Function(_$AuthSignedUpState value)? signedUp,
+    TResult Function(_$AuthAddressAddedState value)? addressAdded,
     TResult Function(_$AuthInitialState value)? initial,
     required TResult orElse(),
   }) {
@@ -910,6 +1101,7 @@ class _$_$AuthErroredState implements _$AuthErroredState {
         logedIn,
     required TResult Function(String login, String password, String email)
         signedUp,
+    required TResult Function(AddressModel addressModel) addressAdded,
     required TResult Function() initial,
   }) {
     return errored(error);
@@ -925,6 +1117,7 @@ class _$_$AuthErroredState implements _$AuthErroredState {
             UserPersonalDataModel? data)?
         logedIn,
     TResult? Function(String login, String password, String email)? signedUp,
+    TResult? Function(AddressModel addressModel)? addressAdded,
     TResult? Function()? initial,
   }) {
     return errored?.call(error);
@@ -940,6 +1133,7 @@ class _$_$AuthErroredState implements _$AuthErroredState {
             UserPersonalDataModel? data)?
         logedIn,
     TResult Function(String login, String password, String email)? signedUp,
+    TResult Function(AddressModel addressModel)? addressAdded,
     TResult Function()? initial,
     required TResult orElse(),
   }) {
@@ -957,6 +1151,7 @@ class _$_$AuthErroredState implements _$AuthErroredState {
     required TResult Function(_$AuthLoadingState value) loading,
     required TResult Function(_$AuthLogedInState value) logedIn,
     required TResult Function(_$AuthSignedUpState value) signedUp,
+    required TResult Function(_$AuthAddressAddedState value) addressAdded,
     required TResult Function(_$AuthInitialState value) initial,
   }) {
     return errored(this);
@@ -970,6 +1165,7 @@ class _$_$AuthErroredState implements _$AuthErroredState {
     TResult? Function(_$AuthLoadingState value)? loading,
     TResult? Function(_$AuthLogedInState value)? logedIn,
     TResult? Function(_$AuthSignedUpState value)? signedUp,
+    TResult? Function(_$AuthAddressAddedState value)? addressAdded,
     TResult? Function(_$AuthInitialState value)? initial,
   }) {
     return errored?.call(this);
@@ -983,6 +1179,7 @@ class _$_$AuthErroredState implements _$AuthErroredState {
     TResult Function(_$AuthLoadingState value)? loading,
     TResult Function(_$AuthLogedInState value)? logedIn,
     TResult Function(_$AuthSignedUpState value)? signedUp,
+    TResult Function(_$AuthAddressAddedState value)? addressAdded,
     TResult Function(_$AuthInitialState value)? initial,
     required TResult orElse(),
   }) {
@@ -1048,6 +1245,7 @@ class _$_$AuthLoadingState implements _$AuthLoadingState {
         logedIn,
     required TResult Function(String login, String password, String email)
         signedUp,
+    required TResult Function(AddressModel addressModel) addressAdded,
     required TResult Function() initial,
   }) {
     return loading();
@@ -1063,6 +1261,7 @@ class _$_$AuthLoadingState implements _$AuthLoadingState {
             UserPersonalDataModel? data)?
         logedIn,
     TResult? Function(String login, String password, String email)? signedUp,
+    TResult? Function(AddressModel addressModel)? addressAdded,
     TResult? Function()? initial,
   }) {
     return loading?.call();
@@ -1078,6 +1277,7 @@ class _$_$AuthLoadingState implements _$AuthLoadingState {
             UserPersonalDataModel? data)?
         logedIn,
     TResult Function(String login, String password, String email)? signedUp,
+    TResult Function(AddressModel addressModel)? addressAdded,
     TResult Function()? initial,
     required TResult orElse(),
   }) {
@@ -1095,6 +1295,7 @@ class _$_$AuthLoadingState implements _$AuthLoadingState {
     required TResult Function(_$AuthLoadingState value) loading,
     required TResult Function(_$AuthLogedInState value) logedIn,
     required TResult Function(_$AuthSignedUpState value) signedUp,
+    required TResult Function(_$AuthAddressAddedState value) addressAdded,
     required TResult Function(_$AuthInitialState value) initial,
   }) {
     return loading(this);
@@ -1108,6 +1309,7 @@ class _$_$AuthLoadingState implements _$AuthLoadingState {
     TResult? Function(_$AuthLoadingState value)? loading,
     TResult? Function(_$AuthLogedInState value)? logedIn,
     TResult? Function(_$AuthSignedUpState value)? signedUp,
+    TResult? Function(_$AuthAddressAddedState value)? addressAdded,
     TResult? Function(_$AuthInitialState value)? initial,
   }) {
     return loading?.call(this);
@@ -1121,6 +1323,7 @@ class _$_$AuthLoadingState implements _$AuthLoadingState {
     TResult Function(_$AuthLoadingState value)? loading,
     TResult Function(_$AuthLogedInState value)? logedIn,
     TResult Function(_$AuthSignedUpState value)? signedUp,
+    TResult Function(_$AuthAddressAddedState value)? addressAdded,
     TResult Function(_$AuthInitialState value)? initial,
     required TResult orElse(),
   }) {
@@ -1237,6 +1440,7 @@ class _$_$AuthLogedInState implements _$AuthLogedInState {
         logedIn,
     required TResult Function(String login, String password, String email)
         signedUp,
+    required TResult Function(AddressModel addressModel) addressAdded,
     required TResult Function() initial,
   }) {
     return logedIn(login, password, email, data);
@@ -1252,6 +1456,7 @@ class _$_$AuthLogedInState implements _$AuthLogedInState {
             UserPersonalDataModel? data)?
         logedIn,
     TResult? Function(String login, String password, String email)? signedUp,
+    TResult? Function(AddressModel addressModel)? addressAdded,
     TResult? Function()? initial,
   }) {
     return logedIn?.call(login, password, email, data);
@@ -1267,6 +1472,7 @@ class _$_$AuthLogedInState implements _$AuthLogedInState {
             UserPersonalDataModel? data)?
         logedIn,
     TResult Function(String login, String password, String email)? signedUp,
+    TResult Function(AddressModel addressModel)? addressAdded,
     TResult Function()? initial,
     required TResult orElse(),
   }) {
@@ -1284,6 +1490,7 @@ class _$_$AuthLogedInState implements _$AuthLogedInState {
     required TResult Function(_$AuthLoadingState value) loading,
     required TResult Function(_$AuthLogedInState value) logedIn,
     required TResult Function(_$AuthSignedUpState value) signedUp,
+    required TResult Function(_$AuthAddressAddedState value) addressAdded,
     required TResult Function(_$AuthInitialState value) initial,
   }) {
     return logedIn(this);
@@ -1297,6 +1504,7 @@ class _$_$AuthLogedInState implements _$AuthLogedInState {
     TResult? Function(_$AuthLoadingState value)? loading,
     TResult? Function(_$AuthLogedInState value)? logedIn,
     TResult? Function(_$AuthSignedUpState value)? signedUp,
+    TResult? Function(_$AuthAddressAddedState value)? addressAdded,
     TResult? Function(_$AuthInitialState value)? initial,
   }) {
     return logedIn?.call(this);
@@ -1310,6 +1518,7 @@ class _$_$AuthLogedInState implements _$AuthLogedInState {
     TResult Function(_$AuthLoadingState value)? loading,
     TResult Function(_$AuthLogedInState value)? logedIn,
     TResult Function(_$AuthSignedUpState value)? signedUp,
+    TResult Function(_$AuthAddressAddedState value)? addressAdded,
     TResult Function(_$AuthInitialState value)? initial,
     required TResult orElse(),
   }) {
@@ -1426,6 +1635,7 @@ class _$_$AuthSignedUpState implements _$AuthSignedUpState {
         logedIn,
     required TResult Function(String login, String password, String email)
         signedUp,
+    required TResult Function(AddressModel addressModel) addressAdded,
     required TResult Function() initial,
   }) {
     return signedUp(login, password, email);
@@ -1441,6 +1651,7 @@ class _$_$AuthSignedUpState implements _$AuthSignedUpState {
             UserPersonalDataModel? data)?
         logedIn,
     TResult? Function(String login, String password, String email)? signedUp,
+    TResult? Function(AddressModel addressModel)? addressAdded,
     TResult? Function()? initial,
   }) {
     return signedUp?.call(login, password, email);
@@ -1456,6 +1667,7 @@ class _$_$AuthSignedUpState implements _$AuthSignedUpState {
             UserPersonalDataModel? data)?
         logedIn,
     TResult Function(String login, String password, String email)? signedUp,
+    TResult Function(AddressModel addressModel)? addressAdded,
     TResult Function()? initial,
     required TResult orElse(),
   }) {
@@ -1473,6 +1685,7 @@ class _$_$AuthSignedUpState implements _$AuthSignedUpState {
     required TResult Function(_$AuthLoadingState value) loading,
     required TResult Function(_$AuthLogedInState value) logedIn,
     required TResult Function(_$AuthSignedUpState value) signedUp,
+    required TResult Function(_$AuthAddressAddedState value) addressAdded,
     required TResult Function(_$AuthInitialState value) initial,
   }) {
     return signedUp(this);
@@ -1486,6 +1699,7 @@ class _$_$AuthSignedUpState implements _$AuthSignedUpState {
     TResult? Function(_$AuthLoadingState value)? loading,
     TResult? Function(_$AuthLogedInState value)? logedIn,
     TResult? Function(_$AuthSignedUpState value)? signedUp,
+    TResult? Function(_$AuthAddressAddedState value)? addressAdded,
     TResult? Function(_$AuthInitialState value)? initial,
   }) {
     return signedUp?.call(this);
@@ -1499,6 +1713,7 @@ class _$_$AuthSignedUpState implements _$AuthSignedUpState {
     TResult Function(_$AuthLoadingState value)? loading,
     TResult Function(_$AuthLogedInState value)? logedIn,
     TResult Function(_$AuthSignedUpState value)? signedUp,
+    TResult Function(_$AuthAddressAddedState value)? addressAdded,
     TResult Function(_$AuthInitialState value)? initial,
     required TResult orElse(),
   }) {
@@ -1519,6 +1734,179 @@ abstract class _$AuthSignedUpState implements AuthState {
   String get email;
   @JsonKey(ignore: true)
   _$$_$AuthSignedUpStateCopyWith<_$_$AuthSignedUpState> get copyWith =>
+      throw _privateConstructorUsedError;
+}
+
+/// @nodoc
+abstract class _$$_$AuthAddressAddedStateCopyWith<$Res> {
+  factory _$$_$AuthAddressAddedStateCopyWith(_$_$AuthAddressAddedState value,
+          $Res Function(_$_$AuthAddressAddedState) then) =
+      __$$_$AuthAddressAddedStateCopyWithImpl<$Res>;
+  @useResult
+  $Res call({AddressModel addressModel});
+}
+
+/// @nodoc
+class __$$_$AuthAddressAddedStateCopyWithImpl<$Res>
+    extends _$AuthStateCopyWithImpl<$Res, _$_$AuthAddressAddedState>
+    implements _$$_$AuthAddressAddedStateCopyWith<$Res> {
+  __$$_$AuthAddressAddedStateCopyWithImpl(_$_$AuthAddressAddedState _value,
+      $Res Function(_$_$AuthAddressAddedState) _then)
+      : super(_value, _then);
+
+  @pragma('vm:prefer-inline')
+  @override
+  $Res call({
+    Object? addressModel = null,
+  }) {
+    return _then(_$_$AuthAddressAddedState(
+      null == addressModel
+          ? _value.addressModel
+          : addressModel // ignore: cast_nullable_to_non_nullable
+              as AddressModel,
+    ));
+  }
+}
+
+/// @nodoc
+
+class _$_$AuthAddressAddedState implements _$AuthAddressAddedState {
+  const _$_$AuthAddressAddedState(this.addressModel);
+
+  @override
+  final AddressModel addressModel;
+
+  @override
+  String toString() {
+    return 'AuthState.addressAdded(addressModel: $addressModel)';
+  }
+
+  @override
+  bool operator ==(dynamic other) {
+    return identical(this, other) ||
+        (other.runtimeType == runtimeType &&
+            other is _$_$AuthAddressAddedState &&
+            (identical(other.addressModel, addressModel) ||
+                other.addressModel == addressModel));
+  }
+
+  @override
+  int get hashCode => Object.hash(runtimeType, addressModel);
+
+  @JsonKey(ignore: true)
+  @override
+  @pragma('vm:prefer-inline')
+  _$$_$AuthAddressAddedStateCopyWith<_$_$AuthAddressAddedState> get copyWith =>
+      __$$_$AuthAddressAddedStateCopyWithImpl<_$_$AuthAddressAddedState>(
+          this, _$identity);
+
+  @override
+  @optionalTypeArgs
+  TResult when<TResult extends Object?>({
+    required TResult Function() logedOut,
+    required TResult Function(String error) errored,
+    required TResult Function() loading,
+    required TResult Function(String login, String password, String email,
+            UserPersonalDataModel? data)
+        logedIn,
+    required TResult Function(String login, String password, String email)
+        signedUp,
+    required TResult Function(AddressModel addressModel) addressAdded,
+    required TResult Function() initial,
+  }) {
+    return addressAdded(addressModel);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult? whenOrNull<TResult extends Object?>({
+    TResult? Function()? logedOut,
+    TResult? Function(String error)? errored,
+    TResult? Function()? loading,
+    TResult? Function(String login, String password, String email,
+            UserPersonalDataModel? data)?
+        logedIn,
+    TResult? Function(String login, String password, String email)? signedUp,
+    TResult? Function(AddressModel addressModel)? addressAdded,
+    TResult? Function()? initial,
+  }) {
+    return addressAdded?.call(addressModel);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult maybeWhen<TResult extends Object?>({
+    TResult Function()? logedOut,
+    TResult Function(String error)? errored,
+    TResult Function()? loading,
+    TResult Function(String login, String password, String email,
+            UserPersonalDataModel? data)?
+        logedIn,
+    TResult Function(String login, String password, String email)? signedUp,
+    TResult Function(AddressModel addressModel)? addressAdded,
+    TResult Function()? initial,
+    required TResult orElse(),
+  }) {
+    if (addressAdded != null) {
+      return addressAdded(addressModel);
+    }
+    return orElse();
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult map<TResult extends Object?>({
+    required TResult Function(_$AuthLogedOutState value) logedOut,
+    required TResult Function(_$AuthErroredState value) errored,
+    required TResult Function(_$AuthLoadingState value) loading,
+    required TResult Function(_$AuthLogedInState value) logedIn,
+    required TResult Function(_$AuthSignedUpState value) signedUp,
+    required TResult Function(_$AuthAddressAddedState value) addressAdded,
+    required TResult Function(_$AuthInitialState value) initial,
+  }) {
+    return addressAdded(this);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult? mapOrNull<TResult extends Object?>({
+    TResult? Function(_$AuthLogedOutState value)? logedOut,
+    TResult? Function(_$AuthErroredState value)? errored,
+    TResult? Function(_$AuthLoadingState value)? loading,
+    TResult? Function(_$AuthLogedInState value)? logedIn,
+    TResult? Function(_$AuthSignedUpState value)? signedUp,
+    TResult? Function(_$AuthAddressAddedState value)? addressAdded,
+    TResult? Function(_$AuthInitialState value)? initial,
+  }) {
+    return addressAdded?.call(this);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult maybeMap<TResult extends Object?>({
+    TResult Function(_$AuthLogedOutState value)? logedOut,
+    TResult Function(_$AuthErroredState value)? errored,
+    TResult Function(_$AuthLoadingState value)? loading,
+    TResult Function(_$AuthLogedInState value)? logedIn,
+    TResult Function(_$AuthSignedUpState value)? signedUp,
+    TResult Function(_$AuthAddressAddedState value)? addressAdded,
+    TResult Function(_$AuthInitialState value)? initial,
+    required TResult orElse(),
+  }) {
+    if (addressAdded != null) {
+      return addressAdded(this);
+    }
+    return orElse();
+  }
+}
+
+abstract class _$AuthAddressAddedState implements AuthState {
+  const factory _$AuthAddressAddedState(final AddressModel addressModel) =
+      _$_$AuthAddressAddedState;
+
+  AddressModel get addressModel;
+  @JsonKey(ignore: true)
+  _$$_$AuthAddressAddedStateCopyWith<_$_$AuthAddressAddedState> get copyWith =>
       throw _privateConstructorUsedError;
 }
 
@@ -1568,6 +1956,7 @@ class _$_$AuthInitialState implements _$AuthInitialState {
         logedIn,
     required TResult Function(String login, String password, String email)
         signedUp,
+    required TResult Function(AddressModel addressModel) addressAdded,
     required TResult Function() initial,
   }) {
     return initial();
@@ -1583,6 +1972,7 @@ class _$_$AuthInitialState implements _$AuthInitialState {
             UserPersonalDataModel? data)?
         logedIn,
     TResult? Function(String login, String password, String email)? signedUp,
+    TResult? Function(AddressModel addressModel)? addressAdded,
     TResult? Function()? initial,
   }) {
     return initial?.call();
@@ -1598,6 +1988,7 @@ class _$_$AuthInitialState implements _$AuthInitialState {
             UserPersonalDataModel? data)?
         logedIn,
     TResult Function(String login, String password, String email)? signedUp,
+    TResult Function(AddressModel addressModel)? addressAdded,
     TResult Function()? initial,
     required TResult orElse(),
   }) {
@@ -1615,6 +2006,7 @@ class _$_$AuthInitialState implements _$AuthInitialState {
     required TResult Function(_$AuthLoadingState value) loading,
     required TResult Function(_$AuthLogedInState value) logedIn,
     required TResult Function(_$AuthSignedUpState value) signedUp,
+    required TResult Function(_$AuthAddressAddedState value) addressAdded,
     required TResult Function(_$AuthInitialState value) initial,
   }) {
     return initial(this);
@@ -1628,6 +2020,7 @@ class _$_$AuthInitialState implements _$AuthInitialState {
     TResult? Function(_$AuthLoadingState value)? loading,
     TResult? Function(_$AuthLogedInState value)? logedIn,
     TResult? Function(_$AuthSignedUpState value)? signedUp,
+    TResult? Function(_$AuthAddressAddedState value)? addressAdded,
     TResult? Function(_$AuthInitialState value)? initial,
   }) {
     return initial?.call(this);
@@ -1641,6 +2034,7 @@ class _$_$AuthInitialState implements _$AuthInitialState {
     TResult Function(_$AuthLoadingState value)? loading,
     TResult Function(_$AuthLogedInState value)? logedIn,
     TResult Function(_$AuthSignedUpState value)? signedUp,
+    TResult Function(_$AuthAddressAddedState value)? addressAdded,
     TResult Function(_$AuthInitialState value)? initial,
     required TResult orElse(),
   }) {

@@ -118,8 +118,7 @@ class UserPersonalDataModel {
       name: map['personalname'] ?? '',
       fname: map['personallname'] ?? '',
       patronymic: map['personalpatronymic'],
-      dateOfBirth:
-          DateTime.fromMillisecondsSinceEpoch(map['personaldateofbirth']),
+      dateOfBirth: DateTime.parse(map['personaldateofbirth']),
       mobileNumber: map['personalmobilenumber'] ?? '',
     );
   }

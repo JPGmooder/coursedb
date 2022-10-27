@@ -8,6 +8,7 @@ import 'package:kursach/domain/auth/bloc/auth_bloc.dart';
 import 'package:kursach/presentation/auth/auth_body.dart';
 import 'package:kursach/presentation/auth/auth_main.dart';
 import 'package:kursach/presentation/outstanding/gradientmask.dart';
+import 'package:rive/rive.dart';
 
 class AuthScreen extends StatelessWidget {
   const AuthScreen({Key? key}) : super(key: key);
@@ -15,9 +16,7 @@ class AuthScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return BlocProvider(
-      create: (ctx) => AuthBloc(),
-      child: Scaffold(
+    return  Scaffold(
         body: SingleChildScrollView(
           child: SizedBox(
             width: MediaQuery.of(context).size.width,
@@ -29,10 +28,7 @@ class AuthScreen extends StatelessWidget {
                     flex: 4,
                     child: Stack(
                       children: [
-                        Positioned.fill(
-                          child: Image.network(
-                              "https://media.giphy.com/media/YGIpIZjgxL68w/giphy.gif"),
-                        ),
+                      
                         Positioned.fill(
                           child: Column(
                             mainAxisAlignment: MainAxisAlignment.end,
@@ -68,7 +64,35 @@ class AuthScreen extends StatelessWidget {
             ),
           ),
         ),
-      ),
+      
+    );
+  }
+}
+
+class AnimatedBebra extends StatefulWidget {
+  AnimatedBebra({Key? key}) : super(key: key);
+
+  @override
+  State<AnimatedBebra> createState() => _AnimatedBebraState();
+}
+
+class _AnimatedBebraState extends State<AnimatedBebra> {
+  late RiveAnimationController animation;
+
+  @override
+  void initState() {
+    animation = SimpleAnimation("animation.riv");
+    super.initState();
+  }
+
+  @override
+  Widget build(BuildContext context) {
+    return RiveAnimation.asset(
+      "lib/assets/anim/animation.riv",
+      controllers: [animation],
+      onInit: (_) => setState(() {
+        animation.isActive = true;
+      }),
     );
   }
 }

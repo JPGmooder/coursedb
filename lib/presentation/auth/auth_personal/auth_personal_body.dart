@@ -3,8 +3,10 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_neumorphic/flutter_neumorphic.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
+import 'package:kursach/domain/auth/bloc/auth_bloc.dart';
 import 'package:kursach/presentation/outstanding/gradientmask.dart';
 import 'package:mask_text_input_formatter/mask_text_input_formatter.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 
 class PersonalInfoBody extends StatefulWidget {
   const PersonalInfoBody({Key? key}) : super(key: key);
@@ -19,6 +21,17 @@ class _PersonalInfoBodyState extends State<PersonalInfoBody> {
       patronymicController,
       phoneController;
   DateTime? pickedDate;
+
+  @override
+  void initState() {
+    nameController = TextEditingController();
+    lnameController = TextEditingController();
+    patronymicController = TextEditingController();
+    phoneController = TextEditingController();
+
+    super.initState();
+  }
+
   @override
   Widget build(BuildContext context) {
     return Column(children: [
@@ -50,24 +63,27 @@ class _PersonalInfoBodyState extends State<PersonalInfoBody> {
       ...List.generate(5, (index) {
         late String text;
         late IconData icon;
+        TextEditingController? _controller;
         switch (index) {
           case 0:
             text = "Имя";
             icon = Icons.person;
-
+            _controller = nameController;
             break;
           case 1:
             text = "Фамилия";
             icon = Icons.family_restroom;
-
+            _controller = lnameController;
             break;
           case 2:
             text = "Отчество";
             icon = Icons.male;
+            _controller = patronymicController;
             break;
           case 3:
             text = "Номер телефона";
             icon = FontAwesomeIcons.phone;
+            _controller = phoneController;
             break;
           case 4:
             text = "Дата рождения";
@@ -79,6 +95,7 @@ class _PersonalInfoBodyState extends State<PersonalInfoBody> {
         return Padding(
           padding: EdgeInsets.only(left: 5, right: 10),
           child: TextFormField(
+            controller: _controller,
             onTap: index != 4
                 ? null
                 : () => BottomPicker.date(
@@ -150,19 +167,14 @@ class _PersonalInfoBodyState extends State<PersonalInfoBody> {
                     color: Colors.white,
                     boxShape: NeumorphicBoxShape.roundRect(
                         BorderRadius.all(Radius.circular(10)))),
-                onPressed: () => null),
-          )
-          // widget.isLoginState
-          //     ? context.read<AuthBloc>().add(
-          //         AuthEvent.logIn(_loginController.text,
-          //             _passwordController.text))
-          //     : context.read<AuthBloc>().add(
-          //         AuthEvent.regNew(
-          //             _loginController.text,
-          //             _passwordController.text,
-          //             _emailController.text)
-          //             ),
-          )
+                onPressed: () => context.read<AuthBloc>().add(
+                    AuthEvent.addPersonalData(
+                        birthday: pickedDate!,
+                        lname: lnameController.text,
+                        name: nameController.text,
+                        mobileNumber: phoneController.text,
+                        patronymic: patronymicController.text))),
+          ))
     ]);
   }
 }
