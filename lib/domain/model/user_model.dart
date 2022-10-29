@@ -1,15 +1,19 @@
 import 'dart:convert';
 
+import 'package:kursach/domain/model/address_model.dart';
+
 class UserModel {
   static UserModel? _context;
   String login;
   String password;
   String email;
   UserPersonalDataModel? personalData;
+  List<AddressModel>? addresses = [];
   UserModel._({
     required this.login,
     required this.password,
     required this.email,
+    this.addresses,
     this.personalData,
   });
 
@@ -17,9 +21,16 @@ class UserModel {
           {String? login,
           String? password,
           String? email,
-          UserPersonalDataModel? pd}) =>
+          UserPersonalDataModel? pd,
+          List<AddressModel>? addresses}) =>
       _context ??= UserModel._(
-          email: email!, login: login!, password: password!, personalData: pd);
+          email: email!,
+          login: login!,
+          password: password!,
+          personalData: pd,
+          addresses: addresses);
+
+  static clearData() => _context = null;
 
   UserModel copyWith({
     String? login,

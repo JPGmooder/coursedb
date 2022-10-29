@@ -50,26 +50,39 @@ mutation addPD($p_personaldateofbirth : date, $p_personallname : String!, $p_per
       String? enterance,
       String? addressName,
       String? userID,
+      String? state,
+      String? county,
+      required double lat,
+      required double lon,
       required String buildingNum,
       required String city,
       required String addressStreetName}) {
     String document = r'''
-mutation MyMutation($p_addressstreetname: String!, $p_userlogin: String, $p_addressname: String!, $p_addressfloor: String, $p_addressentrance: String, $p_addresscity: String!, $p_addressbuildingnum: String = "-", $p_addressapartament: String) {
-  address_addnew(args: {p_addressapartament: $p_addressapartament, p_addressbuildingnum: $p_addressbuildingnum, p_addresscity: $p_addresscity, p_addressentrance: $p_addressentrance, p_addressfloor: $p_addressfloor, p_addressname: $p_addressname, p_addressstreetname: $p_addressstreetname, p_userlogin: $p_userlogin}) {
-    addressapartament,
-    addressbuildingnum,
-    addresscity,
-    addressentrance,
-    addressfloor,
-    addressname,
+mutation MyMutation($p_addressstreetname: String!, $p_userlogin: String, $p_addressname: String!, $p_addressfloor: String, $p_addressentrance: String, $p_addresscity: String!, $p_addressbuildingnum: String = "-", $p_addressapartament: String, $p_addresscounty: String = "", $p_addresslat: numeric, $p_addresslon: numeric, $p_addressstate: String) {
+  address_addnew(args: {p_addressapartament: $p_addressapartament, p_addressbuildingnum: $p_addressbuildingnum, p_addresscity: $p_addresscity, p_addressentrance: $p_addressentrance, p_addressfloor: $p_addressfloor, p_addressname: $p_addressname, p_addressstreetname: $p_addressstreetname, p_userlogin: $p_userlogin, p_addresscounty: $p_addresscounty, p_addresslat: $p_addresslat, p_addresslon: $p_addresslon, p_addressstate: $p_addressstate}) {
+    addressapartament
+    addressbuildingnum
+    addresslat
+    addresscity
+    addresscounty
+    addressentrance
+    addressfloor
+    addresslon
+    addressname
+    addressstate
     addressstreetname
     userlogin
   }
 }
+
 ''';
     return MutationOptions(document: gql(document), variables: {
       "p_addressapartament": apartament,
       "p_addresscity": city,
+      "p_addresscounty": county,
+      "p_addresslat": lat,
+      "p_addresslon": lon,
+      "p_addressstate": state,
       "p_addressbuildingnum": buildingNum,
       "p_addressentrance": enterance,
       "p_addressfloor": floor,
@@ -77,6 +90,31 @@ mutation MyMutation($p_addressstreetname: String!, $p_userlogin: String, $p_addr
       "p_addressstreetname": addressStreetName,
       "p_userlogin": userID
     });
+  }
+
+  static MutationOptions getAddressesByUserLogin({required String userLogin}) {
+    String document = r'''
+query FindAddressByLogin($_eq: String!) {
+  address(where: {userlogin: {_eq: $_eq}})
+  {
+    addressapartament
+    addressbuildingnum
+    addresslat
+    addresscity
+    addresscounty
+    addressentrance
+    addressfloor
+    addresslon
+    addressname
+    addressstate
+    addressstreetname
+    userlogin
+  }
+}
+
+''';
+    return MutationOptions(
+        document: gql(document), variables: {"_eq": userLogin});
   }
 
   static Future<QueryResult?> authUser(String login, String password) async {
@@ -130,12 +168,20 @@ mutation MyMutation($p_addressstreetname: String!, $p_userlogin: String, $p_addr
       String? apartament,
       String? enterance,
       String? addressName,
+        String? state,
+      String? county,
+      required double lon,
+      required double lat,
       required String buildingNum,
       required String city,
       required String addressStreetName,
       required String userID}) async {
     var response = await AppsGraphClient.client
         .mutate(getAddressAddMutationOptions(
+          lat: lat,
+          lon: lon,
+          county: county,
+          state: state,
             buildingNum: buildingNum,
             city: city,
             addressStreetName: addressStreetName,
@@ -144,6 +190,16 @@ mutation MyMutation($p_addressstreetname: String!, $p_userlogin: String, $p_addr
             enterance: enterance,
             apartament: apartament,
             userID: userID))
+        .timeout(Duration(seconds: 10),
+            onTimeout: () => throw Exception(
+                "Невозможно получить ответ от сервера, проверьте интернет-соединение и повторите попытку"));
+    return response;
+  }
+
+  static Future<QueryResult?> findAddressByLogin(
+      {required String userID}) async {
+    var response = await AppsGraphClient.client
+        .mutate(getAddressesByUserLogin(userLogin:  userID))
         .timeout(Duration(seconds: 10),
             onTimeout: () => throw Exception(
                 "Невозможно получить ответ от сервера, проверьте интернет-соединение и повторите попытку"));

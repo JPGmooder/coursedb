@@ -4,9 +4,23 @@ class PlaceSearcherRepository {
   static Future<List<AddressModel>> getPlaces(String querry) async {
     var rawRes = await PlaceSearcherProvider.findPlaceByName(querry);
     var listToReturn = <AddressModel>[];
-    var decodedBody = (jsonDecode(rawRes.body) as Map<String, dynamic>);
-    for (var address in (decodedBody['features']) as List<dynamic>) {
-      listToReturn.add(AddressModel.fromMap(address['properties']));
+    for (var element in rawRes.items!) {
+      var meta = element.toponymMetadata!.address.addressComponents;
+      var street = meta[SearchComponentKind.street];
+      var county = meta[SearchComponentKind.area];
+      var state = meta[SearchComponentKind.region];
+      var city = meta[SearchComponentKind.locality];
+      var housenumber = meta[SearchComponentKind.house];
+      var entrance = meta[SearchComponentKind.entrance];
+      listToReturn.add(AddressModel(
+          street: street ?? "",
+          housenumber: housenumber ?? "",
+          county: county ?? "",
+          state: state ?? "",
+          city: city ?? "",
+          enterance: entrance,
+          lat: element.toponymMetadata!.balloonPoint.latitude,
+          lon: element.toponymMetadata!.balloonPoint.longitude));
     }
     print(listToReturn);
     return listToReturn;
@@ -14,10 +28,25 @@ class PlaceSearcherRepository {
 
   static Future<AddressModel> getPlaceByCoord(double lat, double lon) async {
     var rawRes = await PlaceSearcherProvider.findPlaceCoordinates(lat, lon);
-    var listToReturn = <AddressModel>[];
-    var decodedBody = (jsonDecode(rawRes.body) as Map<String, dynamic>);
-   var addressToReturn =  AddressModel.fromMap(((decodedBody['results']) as List<dynamic>).first);
+    late AddressModel currentModel;
 
-    return addressToReturn;
+      var meta = rawRes.items!.first.toponymMetadata!.address.addressComponents;
+      var street = meta[SearchComponentKind.street];
+      var county = meta[SearchComponentKind.area];
+      var state = meta[SearchComponentKind.region];
+      var city = meta[SearchComponentKind.locality];
+      var housenumber = meta[SearchComponentKind.house];
+      var entrance = meta[SearchComponentKind.entrance];
+      currentModel = AddressModel(
+          street: street ?? "",
+          housenumber: housenumber ?? "",
+          county: county ?? "",
+          state: state ?? "",
+          city: city ?? "",
+          enterance: entrance,
+          lat: rawRes.items!.first.toponymMetadata!.balloonPoint.latitude,
+          lon: rawRes.items!.first.toponymMetadata!.balloonPoint.longitude);
+    
+    return currentModel;
   }
 }

@@ -63,14 +63,18 @@ class AddressModel {
 
   factory AddressModel.fromMap(Map<String, dynamic> map) {
     return AddressModel(
-      name: map['name'],
-      street: map['street'] ?? '',
-      housenumber: map['housenumber'] ?? '',
-      county: map['county'] ?? '',
-      state: map['state'] ?? '',
-      city: map['city'] ?? '',
-      lon: map['lon']?.toDouble(),
-      lat: map['lat']?.toDouble(),
+      name: map['addressname'],
+      street: map['addressstreetname'] ?? '',
+      housenumber: map['addressbuildingnum'] ?? '',
+      county: map['addresscounty'] ?? '',
+      state: map['addressstate'] ?? '',
+
+      city: map['addresscity'] ?? '',
+      lon: map['addresslon']?.toDouble(),
+      lat: map['addresslat']?.toDouble(),
+      apartament:  map['addressapartament'] ?? '' ,
+      enterance: map['addressentrance'] ?? '' ,
+      floor: map['addressfloor'] ?? '',
     );
   }
 

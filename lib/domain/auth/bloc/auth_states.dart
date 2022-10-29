@@ -11,5 +11,8 @@ abstract class AuthState with _$AuthState {
       String login, String password, String email) = _$AuthSignedUpState;
   const factory AuthState.addressAdded(AddressModel addressModel) =
       _$AuthAddressAddedState;
+  const factory AuthState.addressesFinded(List<AddressModel> addressModel) =
+      _$AuthAddressesFindedState;
+      
   const factory AuthState.initial() = _$AuthInitialState;
 }

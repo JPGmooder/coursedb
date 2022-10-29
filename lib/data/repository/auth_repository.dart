@@ -57,6 +57,10 @@ class AuthRepository {
   static Future<Map<String, dynamic>> addAddressData(
       {required AddressModel model, required String userID}) async {
     var rawData = await AuthProvider.addAddressInfo(
+        county: model.county,
+        state: model.state,
+        lat: model.lat!,
+        lon: model.lon!,
         addressStreetName: model.street,
         buildingNum: model.housenumber,
         city: model.city,
@@ -73,5 +77,21 @@ class AuthRepository {
         rawData.data!['address_addnew'],
       )
     };
+  }
+
+  static Future<List<AddressModel>> findAddressByUser(
+      {required String userID}) async {
+    var rawData = await AuthProvider.findAddressByLogin(userID: userID);
+    if (rawData!.data == null) {
+      throw Exception("Адреса не найдены, повторите попытку");
+    }
+
+    List<AddressModel> addressesToReturn = [];
+
+    for (var element in rawData.data!['address']) {
+      addressesToReturn.add(AddressModel.fromMap(element));
+    }
+
+    return [];
   }
 }

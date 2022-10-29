@@ -33,6 +33,15 @@ class AuthBloc extends Bloc<AuthEvent, AuthState> {
               emit(AuthState.errored(e.toString()));
             }
           },
+          findAddressUser: (login) async {
+            try {
+              var findedAddresses =
+                  await AuthRepository.findAddressByUser(userID: login);
+              emit(AuthState.addressesFinded(findedAddresses));
+            } catch (e) {
+              emit(AuthState.errored(e.toString()));
+            }
+          },
           logIn: (login, password) async {
             try {
               var userData = await AuthRepository.authUser(login, password);
@@ -43,8 +52,13 @@ class AuthBloc extends Bloc<AuthEvent, AuthState> {
             }
           },
           addAddress: (model) async {
-            var addedAddress = await AuthRepository.addAddressData(
-                model: model, userID: "JPGmooder");
+            try {
+              var addedAddress = await AuthRepository.addAddressData(
+                  model: model, userID: UserModel.get().login);
+              emit(AuthState.addressAdded(model));
+            } catch (e) {
+              emit(AuthState.errored(e.toString()));
+            }
           },
           regNew: (login, password, email) async {
             try {

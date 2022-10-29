@@ -3,6 +3,7 @@ import 'dart:async';
 import 'package:bottom_drawer/bottom_drawer.dart';
 import 'package:flutter/material.dart';
 import 'package:kursach/domain/auth/bloc/auth_bloc.dart';
+import 'package:kursach/domain/model/user_model.dart';
 import 'package:rxdart/rxdart.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:geolocator/geolocator.dart';
@@ -13,7 +14,7 @@ import 'package:yandex_mapkit/yandex_mapkit.dart';
 
 class SetLocationScreen extends StatefulWidget {
   const SetLocationScreen({Key? key}) : super(key: key);
-
+  static const String path = "auth/setlocationscreen";
   @override
   State<SetLocationScreen> createState() => _SetLocationScreenState();
 }
@@ -159,20 +160,30 @@ class _SetLocationScreenState extends State<SetLocationScreen> {
                     Positioned(
                         right: 5,
                         top: 5,
-                        child: GradientMask(
-                          size: 20,
-                          begin: Alignment.topLeft,
-                          end: Alignment.bottomRight,
-                          child: IconButton(
-                            iconSize: 30,
-                            onPressed: () {
-                              context
-                                  .read<AuthBloc>()
-                                  .add(AuthEvent.addAddress(pickedLocation!));
-                              print(pickedLocation);
-                            },
-                            color: Colors.white,
-                            icon: Icon(Icons.abc),
+                        child: BlocListener<AuthBloc, AuthState>(
+                          listener: (context, state) {
+                            state.maybeWhen(
+                                orElse: () => null,
+                                addressAdded: (address) {
+                                  UserModel.get().addresses = [address];
+                                  print("Добавил аддресс");
+                                });
+                          },
+                          child: GradientMask(
+                            size: 20,
+                            begin: Alignment.topLeft,
+                            end: Alignment.bottomRight,
+                            child: IconButton(
+                              iconSize: 30,
+                              onPressed: () {
+                                context
+                                    .read<AuthBloc>()
+                                    .add(AuthEvent.addAddress(pickedLocation!));
+                                print(pickedLocation);
+                              },
+                              color: Colors.white,
+                              icon: Icon(Icons.abc),
+                            ),
                           ),
                         ))
                   ],

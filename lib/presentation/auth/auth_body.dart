@@ -4,6 +4,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_neumorphic/flutter_neumorphic.dart';
 import 'package:kursach/domain/auth/bloc/auth_bloc.dart';
 import 'package:kursach/domain/model/user_model.dart';
+import 'package:kursach/presentation/additional/setlocation_screen.dart';
 import 'package:kursach/presentation/auth/auth_personal/auth_personal_screen.dart';
 import 'package:kursach/presentation/outstanding/gradientmask.dart';
 
@@ -48,11 +49,22 @@ class _AuthBodyState extends State<AuthBody> {
             UserModel.get(login: login, password: password, email: email);
             Navigator.of(context).pushNamed(PersonalInfoScreen.route);
           },
+          addressesFinded: (addressModel) {
+            if (addressModel.isEmpty) {
+              Navigator.of(context).pushNamed(SetLocationScreen.path);
+            } else {
+              UserModel.get().addresses = addressModel;
+              print("ВСЁ ЕСТЬ!");
+            }
+          },
           logedIn: (login, password, email, pd) {
             UserModel.get(
                 login: login, password: password, email: email, pd: pd);
             if (pd == null) {
               Navigator.of(context).pushNamed(PersonalInfoScreen.route);
+            } else if (UserModel.get().addresses == null ||
+                UserModel.get().addresses!.isEmpty) {
+              context.read<AuthBloc>().add(AuthEvent.findAddressUser(login));
             }
           },
           errored: (error) => showDialog(

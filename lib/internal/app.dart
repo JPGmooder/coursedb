@@ -5,7 +5,6 @@ import 'package:google_fonts/google_fonts.dart';
 import 'package:kursach/assets/colors.dart';
 import 'package:kursach/domain/auth/bloc/auth_bloc.dart';
 import 'package:kursach/domain/place_searcher/bloc/place_searcher_bloc.dart';
-import 'package:kursach/presentation/additional/location_screen.dart';
 import 'package:kursach/presentation/additional/setlocation_screen.dart';
 import 'package:kursach/presentation/auth/auth_personal/auth_personal_screen.dart';
 import 'package:kursach/presentation/auth/auth_screen.dart';
@@ -42,21 +41,30 @@ class MyApp extends StatelessWidget {
                   onBackground: AppsColors.primaryColor,
                   surface: Colors.white,
                   onSurface: AppsColors.accentColor)),
-          home: SetLocationScreen(), //AuthScreen(),
+          home: AuthScreen(),
           onGenerateRoute: (settings) {
-            if (settings.name == PersonalInfoScreen.route) {
-              return PageRouteBuilder(
-                  settings: settings,
-                  transitionsBuilder:
-                      (context, animation, secondaryAnimation, child) =>
-                          FadeTransition(
-                            opacity: animation,
-                            child: child,
-                          ),
-                  pageBuilder: (context, animation, secondaryAnimation) {
-                    return PersonalInfoScreen();
-                  });
-            }
+            return PageRouteBuilder(
+                settings: settings,
+                transitionsBuilder:
+                    (context, animation, secondaryAnimation, child) =>
+                        FadeTransition(
+                          opacity: animation,
+                          child: child,
+                        ),
+                pageBuilder: (context, animation, secondaryAnimation) {
+                  late Widget screen;
+                  switch (settings.name) {
+                    case PersonalInfoScreen.route:
+                      screen = const PersonalInfoScreen();
+                      break;
+                    case SetLocationScreen.path:
+                      screen = const SetLocationScreen();
+                      break;
+                    default:
+                  }
+
+                  return screen;
+                });
           }),
     );
   }

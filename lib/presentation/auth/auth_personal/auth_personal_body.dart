@@ -4,6 +4,8 @@ import 'package:flutter/services.dart';
 import 'package:flutter_neumorphic/flutter_neumorphic.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:kursach/domain/auth/bloc/auth_bloc.dart';
+import 'package:kursach/domain/model/user_model.dart';
+import 'package:kursach/presentation/additional/setlocation_screen.dart';
 import 'package:kursach/presentation/outstanding/gradientmask.dart';
 import 'package:mask_text_input_formatter/mask_text_input_formatter.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -141,40 +143,69 @@ class _PersonalInfoBodyState extends State<PersonalInfoBody> {
       Spacer(
         flex: 2,
       ),
-      GradientMask(
-          size: 170,
-          begin: Alignment.centerLeft,
-          end: Alignment.centerRight,
-          child: Padding(
-            padding: const EdgeInsets.only(left: 10.0, right: 10, bottom: 15),
-            child: NeumorphicButton(
-                child: Center(
-                  child: Text(
-                    "Далее",
-                    style: Theme.of(context)
-                        .textTheme
-                        .titleMedium!
-                        .copyWith(color: Colors.grey),
-                  ),
-                ),
-                style: NeumorphicStyle(
-                    shadowDarkColorEmboss:
-                        Theme.of(context).colorScheme.secondary,
-                    shadowLightColorEmboss:
-                        Theme.of(context).colorScheme.primary,
-                    shadowLightColor: Theme.of(context).colorScheme.primary,
-                    shadowDarkColor: Theme.of(context).colorScheme.secondary,
-                    color: Colors.white,
-                    boxShape: NeumorphicBoxShape.roundRect(
-                        BorderRadius.all(Radius.circular(10)))),
-                onPressed: () => context.read<AuthBloc>().add(
-                    AuthEvent.addPersonalData(
-                        birthday: pickedDate!,
-                        lname: lnameController.text,
-                        name: nameController.text,
-                        mobileNumber: phoneController.text,
-                        patronymic: patronymicController.text))),
-          ))
+      BlocBuilder<AuthBloc, AuthState>(
+        builder: (context, state) {
+          state.maybeWhen(
+            orElse: () => Container(),
+            loading: () => CircularProgressIndicator(),
+            addressesFinded: (addressModel) {
+              if (addressModel.isEmpty) {
+                Navigator.of(context).pushNamed(SetLocationScreen.path);
+              } else {
+                UserModel.get().addresses = addressModel;
+                print("ВСЁ ЕСТЬ!");
+              }
+            },
+            logedIn: (login, password, email, data) {
+              UserModel.clearData();
+              UserModel.get(
+                  login: login, password: password, email: email, pd: data);
+            },
+          );
+          return GradientMask(
+              size: 170,
+              begin: Alignment.centerLeft,
+              end: Alignment.centerRight,
+              child: Padding(
+                padding:
+                    const EdgeInsets.only(left: 10.0, right: 10, bottom: 15),
+                child: NeumorphicButton(
+                    child: Center(
+                      child: Text(
+                        "Далее",
+                        style: Theme.of(context)
+                            .textTheme
+                            .titleMedium!
+                            .copyWith(color: Colors.grey),
+                      ),
+                    ),
+                    style: NeumorphicStyle(
+                        shadowDarkColorEmboss:
+                            Theme.of(context).colorScheme.secondary,
+                        shadowLightColorEmboss:
+                            Theme.of(context).colorScheme.primary,
+                        shadowLightColor: Theme.of(context).colorScheme.primary,
+                        shadowDarkColor:
+                            Theme.of(context).colorScheme.secondary,
+                        color: Colors.white,
+                        boxShape: NeumorphicBoxShape.roundRect(
+                            BorderRadius.all(Radius.circular(10)))),
+                    onPressed: () {
+                      if (UserModel.get().personalData == null) {
+                        context.read<AuthBloc>().add(AuthEvent.addPersonalData(
+                            birthday: pickedDate!,
+                            lname: lnameController.text,
+                            name: nameController.text,
+                            mobileNumber: phoneController.text,
+                            patronymic: patronymicController.text));
+                      } else {
+                        context.read<AuthBloc>().add(
+                            AuthEvent.findAddressUser(UserModel.get().login));
+                      }
+                    }),
+              ));
+        },
+      )
     ]);
   }
 }
