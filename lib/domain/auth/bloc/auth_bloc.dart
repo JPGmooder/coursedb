@@ -27,8 +27,8 @@ class AuthBloc extends Bloc<AuthEvent, AuthState> {
                   name: name,
                   patronymic: patronymic,
                   mobileNumber: mobileNumber);
-              emit(AuthState.logedIn(userData['login']!, userData['password']!,
-                  userData['email']!, userData['pd']));
+              emit(AuthState.logedIn(UserModel.get().login,
+                  UserModel.get().password, UserModel.get().email, userData));
             } catch (e) {
               emit(AuthState.errored(e.toString()));
             }

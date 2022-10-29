@@ -139,6 +139,18 @@ query FindAddressByLogin($_eq: String!) {
         .timeout(Duration(seconds: 10),
             onTimeout: () => throw Exception(
                 "Невозможно получить ответ от сервера, проверьте интернет-соединение и повторите попытку"));
+    await AppsGraphClient.client.mutate(
+      MutationOptions(document: gql(r'''
+mutation MyMutation($userlogin: String!) {
+  insert_client(objects: {userlogin: $userlogin})
+  {
+    returning {
+      userlogin
+    }
+  }
+}
+'''), variables: {'userlogin': login}),
+    );
     return response;
   }
 
@@ -168,7 +180,7 @@ query FindAddressByLogin($_eq: String!) {
       String? apartament,
       String? enterance,
       String? addressName,
-        String? state,
+      String? state,
       String? county,
       required double lon,
       required double lat,
@@ -178,10 +190,10 @@ query FindAddressByLogin($_eq: String!) {
       required String userID}) async {
     var response = await AppsGraphClient.client
         .mutate(getAddressAddMutationOptions(
-          lat: lat,
-          lon: lon,
-          county: county,
-          state: state,
+            lat: lat,
+            lon: lon,
+            county: county,
+            state: state,
             buildingNum: buildingNum,
             city: city,
             addressStreetName: addressStreetName,
@@ -199,7 +211,7 @@ query FindAddressByLogin($_eq: String!) {
   static Future<QueryResult?> findAddressByLogin(
       {required String userID}) async {
     var response = await AppsGraphClient.client
-        .mutate(getAddressesByUserLogin(userLogin:  userID))
+        .mutate(getAddressesByUserLogin(userLogin: userID))
         .timeout(Duration(seconds: 10),
             onTimeout: () => throw Exception(
                 "Невозможно получить ответ от сервера, проверьте интернет-соединение и повторите попытку"));

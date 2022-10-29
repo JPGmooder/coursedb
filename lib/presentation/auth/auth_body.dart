@@ -67,11 +67,14 @@ class _AuthBodyState extends State<AuthBody> {
               context.read<AuthBloc>().add(AuthEvent.findAddressUser(login));
             }
           },
-          errored: (error) => showDialog(
-              context: context,
-              builder: (ctx) => AlertDialog(
-                    content: Text(error),
-                  )));
+          errored: (error) {
+            print(error.toString());
+            showDialog(
+                context: context,
+                builder: (ctx) => AlertDialog(
+                      content: Text(error),
+                    ));
+          });
     });
 
     super.initState();

@@ -1,14 +1,16 @@
 import 'package:bottom_picker/bottom_picker.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_neumorphic/flutter_neumorphic.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
+import 'package:intl/intl.dart';
+import 'package:mask_text_input_formatter/mask_text_input_formatter.dart';
+
 import 'package:kursach/domain/auth/bloc/auth_bloc.dart';
 import 'package:kursach/domain/model/user_model.dart';
 import 'package:kursach/presentation/additional/setlocation_screen.dart';
 import 'package:kursach/presentation/outstanding/gradientmask.dart';
-import 'package:mask_text_input_formatter/mask_text_input_formatter.dart';
-import 'package:flutter_bloc/flutter_bloc.dart';
 
 class PersonalInfoBody extends StatefulWidget {
   const PersonalInfoBody({Key? key}) : super(key: key);
@@ -36,6 +38,8 @@ class _PersonalInfoBodyState extends State<PersonalInfoBody> {
 
   @override
   Widget build(BuildContext context) {
+    print(pickedDate);
+
     return Column(children: [
       GradientMask(
         begin: Alignment.topLeft,
@@ -90,6 +94,9 @@ class _PersonalInfoBodyState extends State<PersonalInfoBody> {
           case 4:
             text = "Дата рождения";
             icon = FontAwesomeIcons.birthdayCake;
+            if (pickedDate != null)
+              _controller = TextEditingController(
+                  text: DateFormat(" d MMMM y", 'ru').format(pickedDate!));
             break;
           default:
         }
@@ -121,8 +128,6 @@ class _PersonalInfoBodyState extends State<PersonalInfoBody> {
                       }),
                     ).show(context),
             readOnly: index == 4,
-            initialValue:
-                index == 4 && pickedDate != null ? pickedDate.toString() : null,
             keyboardType: index == 3 ? TextInputType.phone : TextInputType.name,
             inputFormatters: index == 3
                 ? [

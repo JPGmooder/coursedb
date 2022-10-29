@@ -32,7 +32,7 @@ class AuthRepository {
     };
   }
 
-  static Future<Map<String, dynamic>> addPersonalData(
+  static Future<UserPersonalDataModel> addPersonalData(
       {required String name,
       required String lname,
       String? patronymic,
@@ -44,14 +44,13 @@ class AuthRepository {
         patronymic: patronymic,
         birthday: birthday,
         mobileNumber: mobileNumber);
-    if (rawData!.data == null) {
-      throw Exception("Пользователи не найдены, повторите попытку");
+    if (rawData!.exception != null) {
+      throw Exception(rawData.exception!.graphqlErrors.first
+          .extensions!['internal']['error']['message']);
     }
-    return {
-      'personalData': UserPersonalDataModel.fromMap(
-        rawData.data!['personaldata_add']['personaldatum'],
-      )
-    };
+    var currentPersonalData =
+        UserPersonalDataModel.fromMap(rawData.data!['personaldata_add']);
+    return currentPersonalData;
   }
 
   static Future<Map<String, dynamic>> addAddressData(
