@@ -8,6 +8,7 @@ import 'package:kursach/domain/place_searcher/bloc/place_searcher_bloc.dart';
 import 'package:kursach/presentation/additional/setlocation_screen.dart';
 import 'package:kursach/presentation/auth/auth_personal/auth_personal_screen.dart';
 import 'package:kursach/presentation/auth/auth_screen.dart';
+import 'package:kursach/presentation/home/navigator_screen.dart';
 
 class MyApp extends StatelessWidget {
   @override
@@ -41,7 +42,7 @@ class MyApp extends StatelessWidget {
                   onBackground: AppsColors.primaryColor,
                   surface: Colors.white,
                   onSurface: AppsColors.accentColor)),
-          home: AuthScreen(),
+          home: NavigatorScreen(), //AuthScreen(),
           onGenerateRoute: (settings) {
             return PageRouteBuilder(
                 settings: settings,
