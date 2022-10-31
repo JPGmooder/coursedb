@@ -68,12 +68,11 @@ class AddressModel {
       housenumber: map['addressbuildingnum'] ?? '',
       county: map['addresscounty'] ?? '',
       state: map['addressstate'] ?? '',
-
       city: map['addresscity'] ?? '',
       lon: map['addresslon']?.toDouble(),
       lat: map['addresslat']?.toDouble(),
-      apartament:  map['addressapartament'] ?? '' ,
-      enterance: map['addressentrance'] ?? '' ,
+      apartament: map['addressapartament'] ?? '',
+      enterance: map['addressentrance'] ?? '',
       floor: map['addressfloor'] ?? '',
     );
   }
@@ -85,7 +84,7 @@ class AddressModel {
 
   @override
   String toString() {
-    return '$county $city ул. $street $housenumber';
+    return '$street $housenumber';
   }
 
   @override

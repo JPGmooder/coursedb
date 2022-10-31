@@ -37,6 +37,15 @@ class _PersonalInfoBodyState extends State<PersonalInfoBody> {
   }
 
   @override
+  void dispose() {
+    nameController.dispose();
+    lnameController.dispose();
+    patronymicController.dispose();
+    phoneController.dispose();
+    super.dispose();
+  }
+
+  @override
   Widget build(BuildContext context) {
     print(pickedDate);
 

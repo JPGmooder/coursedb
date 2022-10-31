@@ -9,8 +9,10 @@ import 'package:kursach/presentation/additional/setlocation_screen.dart';
 import 'package:kursach/presentation/auth/auth_personal/auth_personal_screen.dart';
 import 'package:kursach/presentation/auth/auth_screen.dart';
 import 'package:kursach/presentation/home/navigator_screen.dart';
+import 'package:kursach/presentation/outstanding/loadin_screen.dart';
 
 class MyApp extends StatelessWidget {
+  const MyApp(String? uLogin, String? uPassword);
   @override
   Widget build(BuildContext context) {
     return MultiBlocProvider(
@@ -42,7 +44,7 @@ class MyApp extends StatelessWidget {
                   onBackground: AppsColors.primaryColor,
                   surface: Colors.white,
                   onSurface: AppsColors.accentColor)),
-          home: NavigatorScreen(), //AuthScreen(),
+          home: AppBody(),
           onGenerateRoute: (settings) {
             return PageRouteBuilder(
                 settings: settings,
@@ -61,6 +63,9 @@ class MyApp extends StatelessWidget {
                     case SetLocationScreen.path:
                       screen = const SetLocationScreen();
                       break;
+                    case NavigatorScreen.route:
+                      screen = NavigatorScreen();
+                      break;
                     default:
                   }
 
@@ -68,5 +73,16 @@ class MyApp extends StatelessWidget {
                 });
           }),
     );
+  }
+}
+
+class AppBody extends StatelessWidget {
+  const AppBody({Key? key, this.login, this.password}) : super(key: key);
+  final String? login;
+  final String? password;
+
+  @override
+  Widget build(BuildContext context) {
+    return login != null && password != null ? LoadinScreen(login: login!, password: password!,) : AuthScreen();
   }
 }

@@ -4,12 +4,14 @@ import 'package:bottom_drawer/bottom_drawer.dart';
 import 'package:flutter/material.dart';
 import 'package:kursach/domain/auth/bloc/auth_bloc.dart';
 import 'package:kursach/domain/model/user_model.dart';
+import 'package:kursach/presentation/home/navigator_screen.dart';
 import 'package:rxdart/rxdart.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:geolocator/geolocator.dart';
 import 'package:kursach/domain/model/address_model.dart';
 import 'package:kursach/domain/place_searcher/bloc/place_searcher_bloc.dart';
 import 'package:kursach/presentation/outstanding/gradientmask.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 import 'package:yandex_mapkit/yandex_mapkit.dart';
 
 class SetLocationScreen extends StatefulWidget {
@@ -166,7 +168,21 @@ class _SetLocationScreenState extends State<SetLocationScreen> {
                                 orElse: () => null,
                                 addressAdded: (address) {
                                   UserModel.get().addresses = [address];
-                                  print("Добавил аддресс");
+                                  SharedPreferences.getInstance().then((prefs) {
+                                    prefs.clear().then((value) {
+                                      prefs
+                                          .setString(
+                                              "login", UserModel.get().login)
+                                          .then((value) {
+                                        prefs
+                                            .setString("password",
+                                                UserModel.get().password)
+                                            .then((value) =>
+                                                Navigator.of(context).pushNamed(
+                                                    NavigatorScreen.route));
+                                      });
+                                    });
+                                  });
                                 });
                           },
                           child: GradientMask(
@@ -182,7 +198,7 @@ class _SetLocationScreenState extends State<SetLocationScreen> {
                                 print(pickedLocation);
                               },
                               color: Colors.white,
-                              icon: Icon(Icons.abc),
+                              icon: Icon(Icons.check),
                             ),
                           ),
                         ))

@@ -1,5 +1,9 @@
+import 'dart:async';
+
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:kursach/presentation/home/navigator_screen.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_neumorphic/flutter_neumorphic.dart';
 import 'package:kursach/domain/auth/bloc/auth_bloc.dart';
@@ -20,7 +24,7 @@ class _AuthBodyState extends State<AuthBody> {
   late TextEditingController _passwordController;
   final TextEditingController _emailController = TextEditingController();
   final TextEditingController _repeaterController = TextEditingController();
-
+  late StreamSubscription sub; //* Почему-то не видит шэредпрефс логин/пароль, думаю дело в том, что я не отписался от контроллеров
   double? currentGradientSize;
   bool isObscured = true;
   final GlobalKey<FormState> _formKey = GlobalKey<FormState>();
@@ -65,6 +69,16 @@ class _AuthBodyState extends State<AuthBody> {
             } else if (UserModel.get().addresses == null ||
                 UserModel.get().addresses!.isEmpty) {
               context.read<AuthBloc>().add(AuthEvent.findAddressUser(login));
+            } else {
+              SharedPreferences.getInstance().then((prefs) {
+                prefs.clear().then((value) {
+                  prefs.setString("login", UserModel.get().login).then((value) {
+                    prefs.setString("password", UserModel.get().password).then(
+                        (value) => Navigator.of(context)
+                            .pushReplacementNamed(NavigatorScreen.route));
+                  });
+                });
+              });
             }
           },
           errored: (error) {

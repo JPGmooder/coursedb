@@ -2,6 +2,7 @@ import 'dart:math';
 
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
+import 'package:kursach/domain/model/user_model.dart';
 import 'package:kursach/presentation/home/markets/market_widget.dart';
 import 'package:kursach/presentation/home/restaurant/pickers.dart';
 import 'package:kursach/presentation/outstanding/gradientmask.dart';
@@ -48,7 +49,7 @@ class _RestarauntListState extends State<RestarauntList> {
                       begin: Alignment.topLeft,
                       end: Alignment.bottomRight,
                       child: Text(
-                        "Чкалова 7",
+                        UserModel.get().addresses!.first.toString(),
                         style: Theme.of(context)
                             .textTheme
                             .titleMedium!

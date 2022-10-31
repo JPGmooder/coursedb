@@ -16,55 +16,62 @@ class AuthScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return  Scaffold(
-        body: SingleChildScrollView(
-          child: SizedBox(
-            width: MediaQuery.of(context).size.width,
-            height: MediaQuery.of(context).size.height,
-            child: Column(
-              crossAxisAlignment: CrossAxisAlignment.stretch,
-              children: [
-                Flexible(
-                    flex: 4,
-                    child: Stack(
-                      children: [
-                      
-                        Positioned.fill(
-                          child: Column(
-                            mainAxisAlignment: MainAxisAlignment.end,
-                            mainAxisSize: MainAxisSize.max,
-                            children: [
-                              GradientMask(
-                                  begin: Alignment.topLeft,
-                                  end: Alignment.bottomRight,
-                                  size: 45,
-                                  child: Icon(
-                                    DeliverIcon.product_management,
-                                    color: Colors.white,
-                                    size: 50,
-                                  )),
-                              Center(
-                                  child: Text(
-                                "DELIVER",
-                                style: Theme.of(context)
-                                    .textTheme
-                                    .titleMedium!
-                                    .copyWith(color: AppsColors.accentColor),
-                              ))
-                            ],
-                          ),
-                        )
-                      ],
-                    )),
-                Expanded(
-                  flex: 9,
-                  child: Hero(tag: "aboba", child: AuthMain()),
-                ),
-              ],
-            ),
+    return Scaffold(
+      body: SingleChildScrollView(
+        child: SizedBox(
+          width: MediaQuery.of(context).size.width,
+          height: MediaQuery.of(context).size.height,
+          child: Column(
+            crossAxisAlignment: CrossAxisAlignment.stretch,
+            children: [
+              Flexible(flex: 4, child: LogoWidget()),
+              Expanded(
+                flex: 9,
+                child: Hero(tag: "aboba", child: AuthMain()),
+              ),
+            ],
           ),
         ),
-      
+      ),
+    );
+  }
+}
+
+class LogoWidget extends StatelessWidget {
+  const LogoWidget({
+    Key? key,
+  }) : super(key: key);
+
+  @override
+  Widget build(BuildContext context) {
+    return Stack(
+      children: [
+        Positioned.fill(
+          child: Column(
+            mainAxisAlignment: MainAxisAlignment.end,
+            mainAxisSize: MainAxisSize.max,
+            children: [
+              GradientMask(
+                  begin: Alignment.topLeft,
+                  end: Alignment.bottomRight,
+                  size: 45,
+                  child: Icon(
+                    DeliverIcon.product_management,
+                    color: Colors.white,
+                    size: 50,
+                  )),
+              Center(
+                  child: Text(
+                "DELIVER",
+                style: Theme.of(context)
+                    .textTheme
+                    .titleMedium!
+                    .copyWith(color: AppsColors.accentColor),
+              ))
+            ],
+          ),
+        )
+      ],
     );
   }
 }

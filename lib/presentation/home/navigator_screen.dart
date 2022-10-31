@@ -12,7 +12,7 @@ import 'package:persistent_bottom_nav_bar/persistent_tab_view.dart';
 
 class NavigatorScreen extends StatefulWidget {
   NavigatorScreen({Key? key}) : super(key: key);
-
+  static const String route = "/home";
   @override
   State<NavigatorScreen> createState() => _NavigatorScreenState();
 }
@@ -22,7 +22,6 @@ class _NavigatorScreenState extends State<NavigatorScreen> {
   Widget build(BuildContext context) {
     return PersistentTabView(
       padding: NavBarPadding.all(0),
-  
       context,
       navBarStyle: NavBarStyle.style9,
       screens: [
