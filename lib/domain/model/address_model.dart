@@ -1,6 +1,7 @@
 import 'dart:convert';
 
 class AddressModel {
+  int id_address;
   String? name;
   String street;
   String housenumber;
@@ -17,6 +18,7 @@ class AddressModel {
     this.apartament,
     this.enterance,
     this.floor,
+    required this.id_address,
     required this.street,
     required this.housenumber,
     required this.county,
@@ -27,6 +29,7 @@ class AddressModel {
   });
 
   AddressModel copyWith({
+    int? id_address,
     String? name,
     String? street,
     String? housenumber,
@@ -37,6 +40,7 @@ class AddressModel {
     double? lat,
   }) {
     return AddressModel(
+      id_address: id_address ?? this.id_address,
       name: name ?? this.name,
       street: street ?? this.street,
       housenumber: housenumber ?? this.housenumber,
@@ -50,6 +54,7 @@ class AddressModel {
 
   Map<String, dynamic> toMap() {
     return {
+      'id_address' : id_address,
       'name': name,
       'street': street,
       'housenumber': housenumber,
@@ -63,6 +68,7 @@ class AddressModel {
 
   factory AddressModel.fromMap(Map<String, dynamic> map) {
     return AddressModel(
+      id_address: map['id_address'],
       name: map['addressname'],
       street: map['addressstreetname'] ?? '',
       housenumber: map['addressbuildingnum'] ?? '',

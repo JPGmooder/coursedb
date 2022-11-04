@@ -1,6 +1,7 @@
 import 'dart:convert';
 
 import 'package:kursach/domain/model/address_model.dart';
+import 'package:kursach/domain/model/organization_model.dart';
 
 class UserModel {
   static UserModel? _context;
@@ -8,11 +9,13 @@ class UserModel {
   String password;
   String email;
   UserPersonalDataModel? personalData;
+  OrganizationModel? organizationModel;
   List<AddressModel>? addresses = [];
   UserModel._({
     required this.login,
     required this.password,
     required this.email,
+    this.organizationModel,
     this.addresses,
     this.personalData,
   });

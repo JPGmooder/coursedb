@@ -170,10 +170,14 @@ class _PersonalInfoBodyState extends State<PersonalInfoBody> {
                 print("ВСЁ ЕСТЬ!");
               }
             },
-            logedIn: (login, password, email, data) {
+            logedIn: (login, password, email, data, addresses) {
               UserModel.clearData();
               UserModel.get(
-                  login: login, password: password, email: email, pd: data);
+                  login: login,
+                  password: password,
+                  email: email,
+                  pd: data,
+                  addresses: addresses);
             },
           );
           return GradientMask(

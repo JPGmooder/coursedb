@@ -5,6 +5,7 @@ import 'package:flutter/material.dart';
 import 'package:kursach/domain/auth/bloc/auth_bloc.dart';
 import 'package:kursach/domain/model/user_model.dart';
 import 'package:kursach/presentation/home/navigator_screen.dart';
+import 'package:kursach/presentation/home/profile/partnership/partnership_reg.dart';
 import 'package:rxdart/rxdart.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:geolocator/geolocator.dart';
@@ -14,9 +15,13 @@ import 'package:kursach/presentation/outstanding/gradientmask.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:yandex_mapkit/yandex_mapkit.dart';
 
+enum LocationPickerMode { userAddress, orgAddress, etc }
+
 class SetLocationScreen extends StatefulWidget {
-  const SetLocationScreen({Key? key}) : super(key: key);
+  const SetLocationScreen({Key? key, required this.currentMode})
+      : super(key: key);
   static const String path = "auth/setlocationscreen";
+  final LocationPickerMode currentMode;
   @override
   State<SetLocationScreen> createState() => _SetLocationScreenState();
 }
@@ -140,19 +145,23 @@ class _SetLocationScreenState extends State<SetLocationScreen> {
                 header: Stack(
                   children: [
                     Padding(
-                      padding: const EdgeInsets.only(left: 20.0, top: 10),
+                      padding:
+                          const EdgeInsets.only(left: 20.0, top: 10, right: 20),
                       child: InkWell(
                         onTap: () => _drawerController.open(),
                         child: Column(
                             crossAxisAlignment: CrossAxisAlignment.start,
                             children: [
                               Text(
-                                "Товары рядом с вами",
+                                widget.currentMode ==
+                                        LocationPickerMode.userAddress
+                                    ? "Товары рядом с вами"
+                                    : "Адрес вашего предприятия",
                                 style: Theme.of(context).textTheme.titleMedium,
-                                textScaleFactor: 1.2,
+                                textScaleFactor: 1.1,
                               ),
                               Text(
-                                "Мы подберём все доступные доставки по вашему адресу.",
+                                "Выберите адрес, откуда будут доставлять курьеры вашу продукцию.",
                                 style: Theme.of(context).textTheme.labelMedium,
                                 textScaleFactor: 1.2,
                               ),
@@ -168,21 +177,8 @@ class _SetLocationScreenState extends State<SetLocationScreen> {
                                 orElse: () => null,
                                 addressAdded: (address) {
                                   UserModel.get().addresses = [address];
-                                  SharedPreferences.getInstance().then((prefs) {
-                                    prefs.clear().then((value) {
-                                      prefs
-                                          .setString(
-                                              "login", UserModel.get().login)
-                                          .then((value) {
-                                        prefs
-                                            .setString("password",
-                                                UserModel.get().password)
-                                            .then((value) =>
-                                                Navigator.of(context).pushNamed(
-                                                    NavigatorScreen.route));
-                                      });
-                                    });
-                                  });
+                                  Navigator.of(context)
+                                      .pushNamed(NavigatorScreen.route);
                                 });
                           },
                           child: GradientMask(
@@ -191,12 +187,18 @@ class _SetLocationScreenState extends State<SetLocationScreen> {
                             end: Alignment.bottomRight,
                             child: IconButton(
                               iconSize: 30,
-                              onPressed: () {
-                                context
-                                    .read<AuthBloc>()
-                                    .add(AuthEvent.addAddress(pickedLocation!));
-                                print(pickedLocation);
-                              },
+                              onPressed: widget.currentMode ==
+                                      LocationPickerMode.userAddress
+                                  ? () {
+                                      context.read<AuthBloc>().add(
+                                          AuthEvent.addAddress(
+                                              pickedLocation!));
+                                      print(pickedLocation);
+                                    }
+                                  : () {
+                                      Navigator.of(context)
+                                          .pushReplacementNamed(PartnerShipReg.route, arguments: pickedLocation);
+                                    },
                               color: Colors.white,
                               icon: Icon(Icons.check),
                             ),

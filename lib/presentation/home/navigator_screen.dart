@@ -21,6 +21,8 @@ class _NavigatorScreenState extends State<NavigatorScreen> {
   @override
   Widget build(BuildContext context) {
     return PersistentTabView(
+      screenTransitionAnimation:
+          ScreenTransitionAnimation(animateTabTransition: true),
       padding: NavBarPadding.all(0),
       context,
       navBarStyle: NavBarStyle.style9,
@@ -29,7 +31,9 @@ class _NavigatorScreenState extends State<NavigatorScreen> {
         MarketScreen(),
         CartScreen(),
         CartScreen(),
-        ProfileScreen()
+        ProfileScreen(
+          parentContext: context,
+        )
       ],
       items: List.generate(5, (index) {
         late IconData icon;

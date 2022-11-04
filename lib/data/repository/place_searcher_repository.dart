@@ -20,6 +20,7 @@ class PlaceSearcherRepository {
           city: city ?? "",
           enterance: entrance,
           lat: element.toponymMetadata!.balloonPoint.latitude,
+          id_address: -1,
           lon: element.toponymMetadata!.balloonPoint.longitude));
     }
     print(listToReturn);
@@ -38,6 +39,7 @@ class PlaceSearcherRepository {
       var housenumber = meta[SearchComponentKind.house];
       var entrance = meta[SearchComponentKind.entrance];
       currentModel = AddressModel(
+        id_address: -1,
           street: street ?? "",
           housenumber: housenumber ?? "",
           county: county ?? "",

@@ -1,5 +1,7 @@
+import 'package:animated_text_kit/animated_text_kit.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import 'package:kursach/assets/colors.dart';
 import 'package:kursach/domain/auth/bloc/auth_bloc.dart';
 import 'package:kursach/domain/model/user_model.dart';
 import 'package:kursach/presentation/auth/auth_screen.dart';
@@ -26,6 +28,12 @@ class _LoadinScreenState extends State<LoadinScreen> {
   @override
   void initState() {
     super.initState();
+  }
+
+  @override
+  void dispose() {
+    _controller?.dispose();
+    super.dispose();
   }
 
   void _onRiveInit(
@@ -62,11 +70,15 @@ class _LoadinScreenState extends State<LoadinScreen> {
                 });
               });
             },
-            logedIn: (login, password, email, data) {
+            logedIn: (login, password, email, data, address) {
               _thirdPackage!.value = true;
               Future.delayed(Duration(seconds: 1)).then((value) {
                 UserModel.get(
-                    login: login, password: password, email: email, pd: data);
+                    login: login,
+                    password: password,
+                    email: email,
+                    pd: data,
+                    addresses: address);
                 Navigator.of(context)
                     .pushReplacementNamed(NavigatorScreen.route);
               });
@@ -74,14 +86,14 @@ class _LoadinScreenState extends State<LoadinScreen> {
       },
       child: Scaffold(
         body: ColoredBox(
-          color: Colors.blueGrey,
+          color: Colors.white,
           child: Stack(
             children: [
               Positioned(
                 left: MediaQuery.of(context).size.width * 0.35,
                 child: SizedBox(
                     width: MediaQuery.of(context).size.width * 0.3,
-                    height: MediaQuery.of(context).size.height * 0.3,
+                    height: MediaQuery.of(context).size.height * 0.25,
                     child: Transform.scale(scale: 1.5, child: LogoWidget())),
               ),
               Center(
@@ -97,11 +109,45 @@ class _LoadinScreenState extends State<LoadinScreen> {
                       ),
                     ),
                     Positioned(
-                        left: MediaQuery.of(context).size.width * 0.31,
+                        left: MediaQuery.of(context).size.width * 0.05,
                         bottom: 0,
-                        child: Text(
-                          "Загрузка",
-                          textAlign: TextAlign.center,
+                        child: SizedBox(
+                          height: 50,
+                          child: Row(
+                            children: [
+                              Text(
+                                "ДОСТАВИМ ",
+                                style: Theme.of(context).textTheme.titleMedium,
+                              ),
+                              AnimatedTextKit(
+                                isRepeatingAnimation: true,
+                                repeatForever: true,
+                                animatedTexts: [
+                                  RotateAnimatedText('ПРОДУКТЫ',
+                                      textStyle: Theme.of(context)
+                                          .textTheme
+                                          .titleMedium!
+                                          .copyWith(
+                                            color: AppsColors.accentColor,
+                                          )),
+                                  RotateAnimatedText('ЕДУ',
+                                      textStyle: Theme.of(context)
+                                          .textTheme
+                                          .titleMedium!
+                                          .copyWith(
+                                            color: AppsColors.primaryColor,
+                                          )),
+                                  RotateAnimatedText('БЫСТРО',
+                                      textStyle: Theme.of(context)
+                                          .textTheme
+                                          .titleMedium!
+                                          .copyWith(
+                                            color: AppsColors.accentColor,
+                                          )),
+                                ],
+                              ),
+                            ],
+                          ),
                         ))
                   ],
                 ),

@@ -4,21 +4,27 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:kursach/assets/colors.dart';
 import 'package:kursach/domain/auth/bloc/auth_bloc.dart';
+import 'package:kursach/domain/model/address_model.dart';
+import 'package:kursach/domain/organization/bloc/org_bloc.dart';
 import 'package:kursach/domain/place_searcher/bloc/place_searcher_bloc.dart';
 import 'package:kursach/presentation/additional/setlocation_screen.dart';
 import 'package:kursach/presentation/auth/auth_personal/auth_personal_screen.dart';
 import 'package:kursach/presentation/auth/auth_screen.dart';
 import 'package:kursach/presentation/home/navigator_screen.dart';
+import 'package:kursach/presentation/home/profile/partnership/partnership_reg.dart';
 import 'package:kursach/presentation/outstanding/loadin_screen.dart';
 
 class MyApp extends StatelessWidget {
-  const MyApp(String? uLogin, String? uPassword);
+  const MyApp(this.ulogin, this.uPassword);
+  final String? ulogin;
+  final String? uPassword;
   @override
   Widget build(BuildContext context) {
     return MultiBlocProvider(
       providers: [
         BlocProvider(create: (ctx) => AuthBloc()),
         BlocProvider(create: (ctx) => PlaceSearcherBloc()),
+        BlocProvider(create: (ctx) => OrganizationBloc())
       ],
       child: MaterialApp(
           title: 'Material App',
@@ -44,7 +50,7 @@ class MyApp extends StatelessWidget {
                   onBackground: AppsColors.primaryColor,
                   surface: Colors.white,
                   onSurface: AppsColors.accentColor)),
-          home: AppBody(),
+          home: AppBody(login: ulogin, password: uPassword),
           onGenerateRoute: (settings) {
             return PageRouteBuilder(
                 settings: settings,
@@ -57,14 +63,23 @@ class MyApp extends StatelessWidget {
                 pageBuilder: (context, animation, secondaryAnimation) {
                   late Widget screen;
                   switch (settings.name) {
+                    case AuthScreen.route:
+                      screen = const AuthScreen();
+                      break;
                     case PersonalInfoScreen.route:
                       screen = const PersonalInfoScreen();
                       break;
                     case SetLocationScreen.path:
-                      screen = const SetLocationScreen();
+                      screen = SetLocationScreen(
+                        currentMode: settings.arguments as LocationPickerMode,
+                      );
                       break;
+
                     case NavigatorScreen.route:
                       screen = NavigatorScreen();
+                      break;
+                    case PartnerShipReg.route:
+                      screen = PartnerShipReg(pickedAddress: settings.arguments as AddressModel,);
                       break;
                     default:
                   }
@@ -83,6 +98,11 @@ class AppBody extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return login != null && password != null ? LoadinScreen(login: login!, password: password!,) : AuthScreen();
+    return login != null && password != null
+        ? LoadinScreen(
+            login: login!,
+            password: password!,
+          )
+        : AuthScreen();
   }
 }

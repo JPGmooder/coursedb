@@ -6,7 +6,7 @@ abstract class AuthState with _$AuthState {
   const factory AuthState.errored(String error) = _$AuthErroredState;
   const factory AuthState.loading() = _$AuthLoadingState;
   const factory AuthState.logedIn(String login, String password, String email,
-      UserPersonalDataModel? data) = _$AuthLogedInState;
+      UserPersonalDataModel? data, List<AddressModel>? addresses) = _$AuthLogedInState;
   const factory AuthState.signedUp(
       String login, String password, String email) = _$AuthSignedUpState;
   const factory AuthState.addressAdded(AddressModel addressModel) =

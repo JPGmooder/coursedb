@@ -2,13 +2,18 @@ import 'package:flutter/material.dart';
 import 'package:flutter_neumorphic/flutter_neumorphic.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:kursach/domain/model/user_model.dart';
+import 'package:kursach/presentation/auth/auth_body.dart';
+import 'package:kursach/presentation/auth/auth_screen.dart';
+import 'package:kursach/presentation/outstanding/dialogs.dart';
 import 'package:kursach/presentation/outstanding/gradientmask.dart';
 import 'package:kursach/presentation/outstanding/techsupport_card_widget.dart';
 import 'package:rive/rive.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 
 class ProfileScreen extends StatefulWidget {
-  const ProfileScreen({Key? key}) : super(key: key);
-
+  const ProfileScreen({Key? key, required this.parentContext})
+      : super(key: key);
+  final BuildContext parentContext;
   @override
   State<ProfileScreen> createState() => _ProfileScreenState();
 }
@@ -114,6 +119,13 @@ class _ProfileScreenState extends State<ProfileScreen> {
                                 as SMITrigger;
                             _bump.fire();
                           }
+                          if (index == 5) {
+                            showGeneralDialog(
+                                context: context,
+                                pageBuilder: (ctx, _, __) {
+                                  return MainDialogWidget();
+                                });
+                          }
                         },
                         leading: index == 4
                             ? SizedBox(
@@ -145,7 +157,12 @@ class _ProfileScreenState extends State<ProfileScreen> {
                     padding: const EdgeInsets.symmetric(
                         horizontal: 8.0, vertical: 20),
                     child: NeumorphicButton(
-                        onPressed: () => null,
+                        onPressed: () {
+                          SharedPreferences.getInstance()
+                              .then((value) => value.clear());
+                          Navigator.pushReplacementNamed(
+                              widget.parentContext, AuthScreen.route);
+                        },
                         style: NeumorphicStyle(
                           depth: -5,
                         ),
@@ -181,3 +198,4 @@ class _ProfileScreenState extends State<ProfileScreen> {
     );
   }
 }
+

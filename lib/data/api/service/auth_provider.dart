@@ -7,6 +7,22 @@ mutation Authentificate($login: String!,  $password: String!) {
     userlogin,
     emailaddress,
     userpassword,
+    client{
+      addresses{
+        addressapartament,
+        addressbuildingnum,
+        addresscity,
+        addresscounty,
+        addressentrance,
+        addressfloor,
+        addresslat,
+        addresslon,
+        addressname,
+        addressstate,
+        addressstreetname,
+        id_address
+      }
+    }
      personaldatum{
       personalname
       personallname
@@ -70,7 +86,8 @@ mutation MyMutation($p_addressstreetname: String!, $p_userlogin: String, $p_addr
     addresslon
     addressname
     addressstate
-    addressstreetname
+    addressstreetname,
+    id_address
     userlogin
   }
 }
@@ -107,7 +124,8 @@ query FindAddressByLogin($_eq: String!) {
     addresslon
     addressname
     addressstate
-    addressstreetname
+    addressstreetname,
+    id_address
     userlogin
   }
 }
@@ -187,7 +205,7 @@ mutation MyMutation($userlogin: String!) {
       required String buildingNum,
       required String city,
       required String addressStreetName,
-      required String userID}) async {
+      required String? userID}) async {
     var response = await AppsGraphClient.client
         .mutate(getAddressAddMutationOptions(
             lat: lat,

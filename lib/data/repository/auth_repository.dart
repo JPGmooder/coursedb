@@ -11,6 +11,10 @@ class AuthRepository {
       'login': rawData.data!['users_login']['userlogin'],
       'password': rawData.data!['users_login']['userpassword'],
       'email': rawData.data!['users_login']['emailaddress'],
+      'addresses': (rawData.data!['users_login']['client']['addresses']
+              as List<Object?>?)
+          ?.map((e) => AddressModel.fromMap(e as Map<String, dynamic>))
+          .toList(),
       'pd': rawData.data!['users_login']['personaldatum'] == null
           ? null
           : UserPersonalDataModel.fromMap(
@@ -53,8 +57,8 @@ class AuthRepository {
     return currentPersonalData;
   }
 
-  static Future<Map<String, dynamic>> addAddressData(
-      {required AddressModel model, required String userID}) async {
+  static Future<AddressModel> addAddressData(
+      {required AddressModel model, required String? userID}) async {
     var rawData = await AuthProvider.addAddressInfo(
         county: model.county,
         state: model.state,
@@ -71,11 +75,7 @@ class AuthRepository {
     if (rawData!.data == null) {
       throw Exception("Пользователи не найдены, повторите попытку");
     }
-    return {
-      'personalData': AddressModel.fromMap(
-        rawData.data!['address_addnew'],
-      )
-    };
+    return AddressModel.fromMap(rawData.data!['address_addnew']);
   }
 
   static Future<List<AddressModel>> findAddressByUser(

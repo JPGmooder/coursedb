@@ -999,7 +999,7 @@ mixin _$AuthState {
     required TResult Function(String error) errored,
     required TResult Function() loading,
     required TResult Function(String login, String password, String email,
-            UserPersonalDataModel? data)
+            UserPersonalDataModel? data, List<AddressModel>? addresses)
         logedIn,
     required TResult Function(String login, String password, String email)
         signedUp,
@@ -1014,7 +1014,7 @@ mixin _$AuthState {
     TResult? Function(String error)? errored,
     TResult? Function()? loading,
     TResult? Function(String login, String password, String email,
-            UserPersonalDataModel? data)?
+            UserPersonalDataModel? data, List<AddressModel>? addresses)?
         logedIn,
     TResult? Function(String login, String password, String email)? signedUp,
     TResult? Function(AddressModel addressModel)? addressAdded,
@@ -1028,7 +1028,7 @@ mixin _$AuthState {
     TResult Function(String error)? errored,
     TResult Function()? loading,
     TResult Function(String login, String password, String email,
-            UserPersonalDataModel? data)?
+            UserPersonalDataModel? data, List<AddressModel>? addresses)?
         logedIn,
     TResult Function(String login, String password, String email)? signedUp,
     TResult Function(AddressModel addressModel)? addressAdded,
@@ -1135,7 +1135,7 @@ class _$_$AuthLogedOutState implements _$AuthLogedOutState {
     required TResult Function(String error) errored,
     required TResult Function() loading,
     required TResult Function(String login, String password, String email,
-            UserPersonalDataModel? data)
+            UserPersonalDataModel? data, List<AddressModel>? addresses)
         logedIn,
     required TResult Function(String login, String password, String email)
         signedUp,
@@ -1153,7 +1153,7 @@ class _$_$AuthLogedOutState implements _$AuthLogedOutState {
     TResult? Function(String error)? errored,
     TResult? Function()? loading,
     TResult? Function(String login, String password, String email,
-            UserPersonalDataModel? data)?
+            UserPersonalDataModel? data, List<AddressModel>? addresses)?
         logedIn,
     TResult? Function(String login, String password, String email)? signedUp,
     TResult? Function(AddressModel addressModel)? addressAdded,
@@ -1170,7 +1170,7 @@ class _$_$AuthLogedOutState implements _$AuthLogedOutState {
     TResult Function(String error)? errored,
     TResult Function()? loading,
     TResult Function(String login, String password, String email,
-            UserPersonalDataModel? data)?
+            UserPersonalDataModel? data, List<AddressModel>? addresses)?
         logedIn,
     TResult Function(String login, String password, String email)? signedUp,
     TResult Function(AddressModel addressModel)? addressAdded,
@@ -1307,7 +1307,7 @@ class _$_$AuthErroredState implements _$AuthErroredState {
     required TResult Function(String error) errored,
     required TResult Function() loading,
     required TResult Function(String login, String password, String email,
-            UserPersonalDataModel? data)
+            UserPersonalDataModel? data, List<AddressModel>? addresses)
         logedIn,
     required TResult Function(String login, String password, String email)
         signedUp,
@@ -1325,7 +1325,7 @@ class _$_$AuthErroredState implements _$AuthErroredState {
     TResult? Function(String error)? errored,
     TResult? Function()? loading,
     TResult? Function(String login, String password, String email,
-            UserPersonalDataModel? data)?
+            UserPersonalDataModel? data, List<AddressModel>? addresses)?
         logedIn,
     TResult? Function(String login, String password, String email)? signedUp,
     TResult? Function(AddressModel addressModel)? addressAdded,
@@ -1342,7 +1342,7 @@ class _$_$AuthErroredState implements _$AuthErroredState {
     TResult Function(String error)? errored,
     TResult Function()? loading,
     TResult Function(String login, String password, String email,
-            UserPersonalDataModel? data)?
+            UserPersonalDataModel? data, List<AddressModel>? addresses)?
         logedIn,
     TResult Function(String login, String password, String email)? signedUp,
     TResult Function(AddressModel addressModel)? addressAdded,
@@ -1457,7 +1457,7 @@ class _$_$AuthLoadingState implements _$AuthLoadingState {
     required TResult Function(String error) errored,
     required TResult Function() loading,
     required TResult Function(String login, String password, String email,
-            UserPersonalDataModel? data)
+            UserPersonalDataModel? data, List<AddressModel>? addresses)
         logedIn,
     required TResult Function(String login, String password, String email)
         signedUp,
@@ -1475,7 +1475,7 @@ class _$_$AuthLoadingState implements _$AuthLoadingState {
     TResult? Function(String error)? errored,
     TResult? Function()? loading,
     TResult? Function(String login, String password, String email,
-            UserPersonalDataModel? data)?
+            UserPersonalDataModel? data, List<AddressModel>? addresses)?
         logedIn,
     TResult? Function(String login, String password, String email)? signedUp,
     TResult? Function(AddressModel addressModel)? addressAdded,
@@ -1492,7 +1492,7 @@ class _$_$AuthLoadingState implements _$AuthLoadingState {
     TResult Function(String error)? errored,
     TResult Function()? loading,
     TResult Function(String login, String password, String email,
-            UserPersonalDataModel? data)?
+            UserPersonalDataModel? data, List<AddressModel>? addresses)?
         logedIn,
     TResult Function(String login, String password, String email)? signedUp,
     TResult Function(AddressModel addressModel)? addressAdded,
@@ -1570,7 +1570,8 @@ abstract class _$$_$AuthLogedInStateCopyWith<$Res> {
       {String login,
       String password,
       String email,
-      UserPersonalDataModel? data});
+      UserPersonalDataModel? data,
+      List<AddressModel>? addresses});
 }
 
 /// @nodoc
@@ -1588,6 +1589,7 @@ class __$$_$AuthLogedInStateCopyWithImpl<$Res>
     Object? password = null,
     Object? email = null,
     Object? data = freezed,
+    Object? addresses = freezed,
   }) {
     return _then(_$_$AuthLogedInState(
       null == login
@@ -1606,6 +1608,10 @@ class __$$_$AuthLogedInStateCopyWithImpl<$Res>
           ? _value.data
           : data // ignore: cast_nullable_to_non_nullable
               as UserPersonalDataModel?,
+      freezed == addresses
+          ? _value._addresses
+          : addresses // ignore: cast_nullable_to_non_nullable
+              as List<AddressModel>?,
     ));
   }
 }
@@ -1613,7 +1619,9 @@ class __$$_$AuthLogedInStateCopyWithImpl<$Res>
 /// @nodoc
 
 class _$_$AuthLogedInState implements _$AuthLogedInState {
-  const _$_$AuthLogedInState(this.login, this.password, this.email, this.data);
+  const _$_$AuthLogedInState(this.login, this.password, this.email, this.data,
+      final List<AddressModel>? addresses)
+      : _addresses = addresses;
 
   @override
   final String login;
@@ -1623,10 +1631,18 @@ class _$_$AuthLogedInState implements _$AuthLogedInState {
   final String email;
   @override
   final UserPersonalDataModel? data;
+  final List<AddressModel>? _addresses;
+  @override
+  List<AddressModel>? get addresses {
+    final value = _addresses;
+    if (value == null) return null;
+    // ignore: implicit_dynamic_type
+    return EqualUnmodifiableListView(value);
+  }
 
   @override
   String toString() {
-    return 'AuthState.logedIn(login: $login, password: $password, email: $email, data: $data)';
+    return 'AuthState.logedIn(login: $login, password: $password, email: $email, data: $data, addresses: $addresses)';
   }
 
   @override
@@ -1638,11 +1654,14 @@ class _$_$AuthLogedInState implements _$AuthLogedInState {
             (identical(other.password, password) ||
                 other.password == password) &&
             (identical(other.email, email) || other.email == email) &&
-            (identical(other.data, data) || other.data == data));
+            (identical(other.data, data) || other.data == data) &&
+            const DeepCollectionEquality()
+                .equals(other._addresses, _addresses));
   }
 
   @override
-  int get hashCode => Object.hash(runtimeType, login, password, email, data);
+  int get hashCode => Object.hash(runtimeType, login, password, email, data,
+      const DeepCollectionEquality().hash(_addresses));
 
   @JsonKey(ignore: true)
   @override
@@ -1658,7 +1677,7 @@ class _$_$AuthLogedInState implements _$AuthLogedInState {
     required TResult Function(String error) errored,
     required TResult Function() loading,
     required TResult Function(String login, String password, String email,
-            UserPersonalDataModel? data)
+            UserPersonalDataModel? data, List<AddressModel>? addresses)
         logedIn,
     required TResult Function(String login, String password, String email)
         signedUp,
@@ -1666,7 +1685,7 @@ class _$_$AuthLogedInState implements _$AuthLogedInState {
     required TResult Function(List<AddressModel> addressModel) addressesFinded,
     required TResult Function() initial,
   }) {
-    return logedIn(login, password, email, data);
+    return logedIn(login, password, email, data, addresses);
   }
 
   @override
@@ -1676,14 +1695,14 @@ class _$_$AuthLogedInState implements _$AuthLogedInState {
     TResult? Function(String error)? errored,
     TResult? Function()? loading,
     TResult? Function(String login, String password, String email,
-            UserPersonalDataModel? data)?
+            UserPersonalDataModel? data, List<AddressModel>? addresses)?
         logedIn,
     TResult? Function(String login, String password, String email)? signedUp,
     TResult? Function(AddressModel addressModel)? addressAdded,
     TResult? Function(List<AddressModel> addressModel)? addressesFinded,
     TResult? Function()? initial,
   }) {
-    return logedIn?.call(login, password, email, data);
+    return logedIn?.call(login, password, email, data, addresses);
   }
 
   @override
@@ -1693,7 +1712,7 @@ class _$_$AuthLogedInState implements _$AuthLogedInState {
     TResult Function(String error)? errored,
     TResult Function()? loading,
     TResult Function(String login, String password, String email,
-            UserPersonalDataModel? data)?
+            UserPersonalDataModel? data, List<AddressModel>? addresses)?
         logedIn,
     TResult Function(String login, String password, String email)? signedUp,
     TResult Function(AddressModel addressModel)? addressAdded,
@@ -1702,7 +1721,7 @@ class _$_$AuthLogedInState implements _$AuthLogedInState {
     required TResult orElse(),
   }) {
     if (logedIn != null) {
-      return logedIn(login, password, email, data);
+      return logedIn(login, password, email, data, addresses);
     }
     return orElse();
   }
@@ -1762,12 +1781,14 @@ abstract class _$AuthLogedInState implements AuthState {
       final String login,
       final String password,
       final String email,
-      final UserPersonalDataModel? data) = _$_$AuthLogedInState;
+      final UserPersonalDataModel? data,
+      final List<AddressModel>? addresses) = _$_$AuthLogedInState;
 
   String get login;
   String get password;
   String get email;
   UserPersonalDataModel? get data;
+  List<AddressModel>? get addresses;
   @JsonKey(ignore: true)
   _$$_$AuthLogedInStateCopyWith<_$_$AuthLogedInState> get copyWith =>
       throw _privateConstructorUsedError;
@@ -1859,7 +1880,7 @@ class _$_$AuthSignedUpState implements _$AuthSignedUpState {
     required TResult Function(String error) errored,
     required TResult Function() loading,
     required TResult Function(String login, String password, String email,
-            UserPersonalDataModel? data)
+            UserPersonalDataModel? data, List<AddressModel>? addresses)
         logedIn,
     required TResult Function(String login, String password, String email)
         signedUp,
@@ -1877,7 +1898,7 @@ class _$_$AuthSignedUpState implements _$AuthSignedUpState {
     TResult? Function(String error)? errored,
     TResult? Function()? loading,
     TResult? Function(String login, String password, String email,
-            UserPersonalDataModel? data)?
+            UserPersonalDataModel? data, List<AddressModel>? addresses)?
         logedIn,
     TResult? Function(String login, String password, String email)? signedUp,
     TResult? Function(AddressModel addressModel)? addressAdded,
@@ -1894,7 +1915,7 @@ class _$_$AuthSignedUpState implements _$AuthSignedUpState {
     TResult Function(String error)? errored,
     TResult Function()? loading,
     TResult Function(String login, String password, String email,
-            UserPersonalDataModel? data)?
+            UserPersonalDataModel? data, List<AddressModel>? addresses)?
         logedIn,
     TResult Function(String login, String password, String email)? signedUp,
     TResult Function(AddressModel addressModel)? addressAdded,
@@ -2041,7 +2062,7 @@ class _$_$AuthAddressAddedState implements _$AuthAddressAddedState {
     required TResult Function(String error) errored,
     required TResult Function() loading,
     required TResult Function(String login, String password, String email,
-            UserPersonalDataModel? data)
+            UserPersonalDataModel? data, List<AddressModel>? addresses)
         logedIn,
     required TResult Function(String login, String password, String email)
         signedUp,
@@ -2059,7 +2080,7 @@ class _$_$AuthAddressAddedState implements _$AuthAddressAddedState {
     TResult? Function(String error)? errored,
     TResult? Function()? loading,
     TResult? Function(String login, String password, String email,
-            UserPersonalDataModel? data)?
+            UserPersonalDataModel? data, List<AddressModel>? addresses)?
         logedIn,
     TResult? Function(String login, String password, String email)? signedUp,
     TResult? Function(AddressModel addressModel)? addressAdded,
@@ -2076,7 +2097,7 @@ class _$_$AuthAddressAddedState implements _$AuthAddressAddedState {
     TResult Function(String error)? errored,
     TResult Function()? loading,
     TResult Function(String login, String password, String email,
-            UserPersonalDataModel? data)?
+            UserPersonalDataModel? data, List<AddressModel>? addresses)?
         logedIn,
     TResult Function(String login, String password, String email)? signedUp,
     TResult Function(AddressModel addressModel)? addressAdded,
@@ -2228,7 +2249,7 @@ class _$_$AuthAddressesFindedState implements _$AuthAddressesFindedState {
     required TResult Function(String error) errored,
     required TResult Function() loading,
     required TResult Function(String login, String password, String email,
-            UserPersonalDataModel? data)
+            UserPersonalDataModel? data, List<AddressModel>? addresses)
         logedIn,
     required TResult Function(String login, String password, String email)
         signedUp,
@@ -2246,7 +2267,7 @@ class _$_$AuthAddressesFindedState implements _$AuthAddressesFindedState {
     TResult? Function(String error)? errored,
     TResult? Function()? loading,
     TResult? Function(String login, String password, String email,
-            UserPersonalDataModel? data)?
+            UserPersonalDataModel? data, List<AddressModel>? addresses)?
         logedIn,
     TResult? Function(String login, String password, String email)? signedUp,
     TResult? Function(AddressModel addressModel)? addressAdded,
@@ -2263,7 +2284,7 @@ class _$_$AuthAddressesFindedState implements _$AuthAddressesFindedState {
     TResult Function(String error)? errored,
     TResult Function()? loading,
     TResult Function(String login, String password, String email,
-            UserPersonalDataModel? data)?
+            UserPersonalDataModel? data, List<AddressModel>? addresses)?
         logedIn,
     TResult Function(String login, String password, String email)? signedUp,
     TResult Function(AddressModel addressModel)? addressAdded,
@@ -2379,7 +2400,7 @@ class _$_$AuthInitialState implements _$AuthInitialState {
     required TResult Function(String error) errored,
     required TResult Function() loading,
     required TResult Function(String login, String password, String email,
-            UserPersonalDataModel? data)
+            UserPersonalDataModel? data, List<AddressModel>? addresses)
         logedIn,
     required TResult Function(String login, String password, String email)
         signedUp,
@@ -2397,7 +2418,7 @@ class _$_$AuthInitialState implements _$AuthInitialState {
     TResult? Function(String error)? errored,
     TResult? Function()? loading,
     TResult? Function(String login, String password, String email,
-            UserPersonalDataModel? data)?
+            UserPersonalDataModel? data, List<AddressModel>? addresses)?
         logedIn,
     TResult? Function(String login, String password, String email)? signedUp,
     TResult? Function(AddressModel addressModel)? addressAdded,
@@ -2414,7 +2435,7 @@ class _$_$AuthInitialState implements _$AuthInitialState {
     TResult Function(String error)? errored,
     TResult Function()? loading,
     TResult Function(String login, String password, String email,
-            UserPersonalDataModel? data)?
+            UserPersonalDataModel? data, List<AddressModel>? addresses)?
         logedIn,
     TResult Function(String login, String password, String email)? signedUp,
     TResult Function(AddressModel addressModel)? addressAdded,

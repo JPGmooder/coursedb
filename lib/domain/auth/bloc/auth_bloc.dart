@@ -6,6 +6,7 @@ import 'package:graphql_flutter/graphql_flutter.dart';
 import 'package:kursach/data/api/model/graphclient.dart';
 import 'package:kursach/domain/model/address_model.dart';
 import 'package:kursach/domain/model/user_model.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 part 'auth_events.dart';
 part '../../../data/api/service/auth_provider.dart';
 part '../../../data/repository/auth_repository.dart';
@@ -27,8 +28,12 @@ class AuthBloc extends Bloc<AuthEvent, AuthState> {
                   name: name,
                   patronymic: patronymic,
                   mobileNumber: mobileNumber);
-              emit(AuthState.logedIn(UserModel.get().login,
-                  UserModel.get().password, UserModel.get().email, userData));
+              emit(AuthState.logedIn(
+                  UserModel.get().login,
+                  UserModel.get().password,
+                  UserModel.get().email,
+                  userData,
+                  UserModel.get().addresses));
             } catch (e) {
               emit(AuthState.errored(e.toString()));
             }
@@ -45,8 +50,15 @@ class AuthBloc extends Bloc<AuthEvent, AuthState> {
           logIn: (login, password) async {
             try {
               var userData = await AuthRepository.authUser(login, password);
+
               emit(AuthState.logedIn(userData['login']!, userData['password']!,
-                  userData['email']!, userData['pd']));
+                  userData['email']!, userData['pd'], userData['addresses']));
+              if (userData['pd'] != null && userData['addresses'] != null) {
+                var prefs = await SharedPreferences.getInstance();
+                await prefs.clear();
+                await prefs.setString("login", login);
+                await prefs.setString("password", password);
+              }
             } catch (e) {
               emit(AuthState.errored(e.toString()));
             }
@@ -55,7 +67,7 @@ class AuthBloc extends Bloc<AuthEvent, AuthState> {
             try {
               var addedAddress = await AuthRepository.addAddressData(
                   model: model, userID: UserModel.get().login);
-              emit(AuthState.addressAdded(model));
+              emit(AuthState.addressAdded(addedAddress));
             } catch (e) {
               emit(AuthState.errored(e.toString()));
             }

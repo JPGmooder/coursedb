@@ -24,7 +24,8 @@ class _AuthBodyState extends State<AuthBody> {
   late TextEditingController _passwordController;
   final TextEditingController _emailController = TextEditingController();
   final TextEditingController _repeaterController = TextEditingController();
-  late StreamSubscription sub; //* Почему-то не видит шэредпрефс логин/пароль, думаю дело в том, что я не отписался от контроллеров
+  late StreamSubscription
+      sub; //* Почему-то не видит шэредпрефс логин/пароль, думаю дело в том, что я не отписался от контроллеров
   double? currentGradientSize;
   bool isObscured = true;
   final GlobalKey<FormState> _formKey = GlobalKey<FormState>();
@@ -55,30 +56,26 @@ class _AuthBodyState extends State<AuthBody> {
           },
           addressesFinded: (addressModel) {
             if (addressModel.isEmpty) {
-              Navigator.of(context).pushNamed(SetLocationScreen.path);
+              Navigator.of(context).pushNamed(SetLocationScreen.path, arguments: LocationPickerMode.userAddress);
             } else {
               UserModel.get().addresses = addressModel;
               print("ВСЁ ЕСТЬ!");
             }
           },
-          logedIn: (login, password, email, pd) {
+          logedIn: (login, password, email, pd, address) {
             UserModel.get(
-                login: login, password: password, email: email, pd: pd);
+                login: login,
+                password: password,
+                email: email,
+                pd: pd,
+                addresses: address);
             if (pd == null) {
               Navigator.of(context).pushNamed(PersonalInfoScreen.route);
             } else if (UserModel.get().addresses == null ||
                 UserModel.get().addresses!.isEmpty) {
               context.read<AuthBloc>().add(AuthEvent.findAddressUser(login));
             } else {
-              SharedPreferences.getInstance().then((prefs) {
-                prefs.clear().then((value) {
-                  prefs.setString("login", UserModel.get().login).then((value) {
-                    prefs.setString("password", UserModel.get().password).then(
-                        (value) => Navigator.of(context)
-                            .pushReplacementNamed(NavigatorScreen.route));
-                  });
-                });
-              });
+              Navigator.of(context).pushNamed(NavigatorScreen.route);
             }
           },
           errored: (error) {
