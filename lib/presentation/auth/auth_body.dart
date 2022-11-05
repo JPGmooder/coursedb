@@ -62,13 +62,14 @@ class _AuthBodyState extends State<AuthBody> {
               print("ВСЁ ЕСТЬ!");
             }
           },
-          logedIn: (login, password, email, pd, address) {
+          logedIn: (login, password, email, pd, address, org) {
             UserModel.get(
                 login: login,
                 password: password,
                 email: email,
                 pd: pd,
-                addresses: address);
+                addresses: address,
+                orgmodel: org);
             if (pd == null) {
               Navigator.of(context).pushNamed(PersonalInfoScreen.route);
             } else if (UserModel.get().addresses == null ||

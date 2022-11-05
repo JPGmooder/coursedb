@@ -196,8 +196,13 @@ class _SetLocationScreenState extends State<SetLocationScreen> {
                                       print(pickedLocation);
                                     }
                                   : () {
-                                      Navigator.of(context)
-                                          .pushReplacementNamed(PartnerShipReg.route, arguments: pickedLocation);
+                                      WidgetsBinding.instance
+                                          .addPostFrameCallback((_) {
+                                        Navigator.of(context)
+                                            .pushReplacementNamed(
+                                                PartnerShipReg.route,
+                                                arguments: pickedLocation);
+                                      });
                                     },
                               color: Colors.white,
                               icon: Icon(Icons.check),

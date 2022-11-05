@@ -5,8 +5,15 @@ import 'package:kursach/domain/pickers/image_picker.dart';
 import 'package:kursach/presentation/outstanding/cropper.dart';
 
 class CardPicker extends StatefulWidget {
-  CardPicker({Key? key, required this.setCard, required this.setLogo})
+  CardPicker(
+      {Key? key,
+      required this.setCard,
+      required this.setLogo,
+      this.baseCard,
+      this.baseLogo})
       : super(key: key);
+  Uint8List? baseLogo;
+  Uint8List? baseCard;
   void Function(Uint8List) setLogo;
   void Function(Uint8List) setCard;
 
@@ -15,9 +22,6 @@ class CardPicker extends StatefulWidget {
 }
 
 class _CardPickerState extends State<CardPicker> {
-  Uint8List? logo;
-  Uint8List? cardImage;
-
   @override
   Widget build(BuildContext context) {
     return NeumorphicButton(
@@ -25,8 +29,8 @@ class _CardPickerState extends State<CardPicker> {
       onPressed: () {
         ImagePickers.pickImage().then((value) {
           setState(() {
-            cardImage = value;
-            widget.setCard(cardImage!);
+            widget.baseCard = value;
+            widget.setCard(widget.baseCard!);
           });
         });
       },
@@ -41,21 +45,24 @@ class _CardPickerState extends State<CardPicker> {
                   fit: StackFit.expand,
                   children: [
                     Column(
+                      crossAxisAlignment: CrossAxisAlignment.stretch,
                       mainAxisAlignment: MainAxisAlignment.center,
                       children: [
                         Icon(
                           Icons.add_a_photo,
                           color: Colors.grey,
                         ),
-                        Text(
-                          "Изображение карточки предприятия.",
-                          style: Theme.of(context).textTheme.labelMedium,
+                        Center(
+                          child: Text(
+                            "Изображение карточки предприятия.",
+                            style: Theme.of(context).textTheme.labelMedium,
+                          ),
                         )
                       ],
                     ),
-                    if (cardImage != null)
+                    if (widget.baseCard != null)
                       Image.memory(
-                        cardImage!,
+                        widget.baseCard!,
                         fit: BoxFit.fill,
                       ),
                   ],
@@ -76,8 +83,8 @@ class _CardPickerState extends State<CardPicker> {
                                   onCroppingComplete: (memoryImage) {
                                     setState(() {
                                       Navigator.pop(context);
-                                      logo = memoryImage.bytes;
-                                      widget.setLogo(logo!);
+                                      widget.baseLogo = memoryImage.bytes;
+                                      widget.setLogo(widget.baseLogo!);
                                     });
                                   },
                                 ));
@@ -85,13 +92,13 @@ class _CardPickerState extends State<CardPicker> {
                     });
                   },
                   padding: EdgeInsets.all(0),
-                  style: logo != null
+                  style: widget.baseLogo != null
                       ? NeumorphicStyle(boxShape: NeumorphicBoxShape.circle())
                       : null,
                   child: Padding(
                     padding: const EdgeInsets.all(8.0),
                     child: SizedBox.square(
-                      dimension: logo == null ? null : 50,
+                      dimension: widget.baseLogo == null ? null : 50,
                       child: Stack(
                         children: [
                           Column(
@@ -106,9 +113,9 @@ class _CardPickerState extends State<CardPicker> {
                               )
                             ],
                           ),
-                          if (logo != null)
+                          if (widget.baseLogo != null)
                             Image.memory(
-                              logo!,
+                              widget.baseLogo!,
                             ),
                         ],
                       ),

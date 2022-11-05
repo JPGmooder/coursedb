@@ -1,3 +1,5 @@
+import 'dart:developer';
+
 import 'package:bloc/bloc.dart';
 import 'package:flutter/foundation.dart';
 import 'package:freezed_annotation/freezed_annotation.dart';
@@ -6,6 +8,7 @@ import 'package:kursach/data/api/model/graphclient.dart';
 import 'package:kursach/domain/auth/bloc/auth_bloc.dart';
 import 'package:kursach/domain/model/address_model.dart';
 import 'package:kursach/domain/model/organization_model.dart';
+import 'package:kursach/domain/model/user_model.dart';
 import 'package:supabase_flutter/supabase_flutter.dart';
 import 'package:translit/translit.dart';
 
@@ -23,24 +26,26 @@ class OrganizationBloc extends Bloc<OrganizationEvent, OrganizationState> {
         orElse: () => null,
         createNew:
             (addressModel, name, deliveryPrice, logoImage, cardImage) async {
-          var isValidName = await OrganiztionRepository.checkOrganiztion(name);
-          if (!isValidName) {
-            emit(OrganizationState.errored('Ошибка',
-                'Данное название организации уже занято, повторите попытку'));
-          } else {
-           
-            var address = await AuthRepository.addAddressData(
-                model: addressModel, userID: null);
-            var loadedOrg = await OrganiztionRepository.addNewCompany(
-                companyName: name,
-                status: "",
-                type: "",
-                addressId: address.id_address,
-                deliveryPrice: deliveryPrice.toInt());
-             await OrganiztionRepository.loadCardsInfo(
-                cardImage, logoImage, loadedOrg.idCompany);
-            emit(OrganizationState.loaded(loadedOrg));
-          }
+          
+            var isValidName =
+                await OrganiztionRepository.checkOrganiztion(name);
+            if (!isValidName) {
+              emit(OrganizationState.errored('Ошибка',
+                  'Данное название организации уже занято, повторите попытку'));
+            } else {
+              var address = await AuthRepository.addAddressData(
+                  model: addressModel, userID: null);
+              var loadedOrg = await OrganiztionRepository.addNewCompany(
+                  companyName: name,
+                  status: "",
+                  type: "",
+                  addressId: address.id_address,
+                  deliveryPrice: deliveryPrice.toInt());
+              await OrganiztionRepository.loadCardsInfo(
+                  cardImage, logoImage, loadedOrg.idCompany);
+              emit(OrganizationState.loaded(loadedOrg));
+            }
+          
         },
       );
     });

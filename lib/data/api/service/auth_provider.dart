@@ -8,6 +8,7 @@ mutation Authentificate($login: String!,  $password: String!) {
     emailaddress,
     userpassword,
     client{
+      id_company
       addresses{
         addressapartament,
         addressbuildingnum,
@@ -59,6 +60,36 @@ mutation addPD($p_personaldateofbirth : date, $p_personallname : String!, $p_per
 
 
 ''';
+  static QueryOptions getCompanyByPkOptions({required int companyPk}) {
+    String document = r'''
+query SearchComapny($id_company: Int!) {
+  company_by_pk(id_company: $id_company)
+  {
+    companydeliveryprice,
+    companyname,
+    companystatusname,
+    companytypename,
+    id_company,
+    address{
+      id_address,
+      addressapartament,
+      addressbuildingnum,
+      addresscity,
+      addresscounty,
+      addressentrance,
+      addressfloor,
+      addresslat,
+      addresslon,
+      addressname,addressstate,addressstreetname,
+    }
+  }
+}
+
+
+''';
+    return QueryOptions(
+        document: gql(document), variables: {"id_company": companyPk});
+  }
 
   static MutationOptions getAddressAddMutationOptions(
       {String? floor,
@@ -230,6 +261,15 @@ mutation MyMutation($userlogin: String!) {
       {required String userID}) async {
     var response = await AppsGraphClient.client
         .mutate(getAddressesByUserLogin(userLogin: userID))
+        .timeout(Duration(seconds: 10),
+            onTimeout: () => throw Exception(
+                "Невозможно получить ответ от сервера, проверьте интернет-соединение и повторите попытку"));
+    return response;
+  }
+
+  static Future<QueryResult?> findCompanyById({required int companyId}) async {
+    var response = await AppsGraphClient.client
+        .query(getCompanyByPkOptions(companyPk: companyId))
         .timeout(Duration(seconds: 10),
             onTimeout: () => throw Exception(
                 "Невозможно получить ответ от сервера, проверьте интернет-соединение и повторите попытку"));

@@ -11,15 +11,12 @@ class OrganiztionRepository {
 
   static Future<Map<String, String>> loadCardsInfo(
       Uint8List cardImage, Uint8List logoImage, int orgId) async {
-    var client = SupabaseClient(supabaseUrl, supabaseKey, );
-    var cardString = await client.storage.from('kursach').uploadBinary(
-
-        'kursach/organiztion/$orgId/card.png',
-
-        cardImage);
-    var logoString = await client.storage.from('kursach').uploadBinary(
-        'kursach/organiztion/$orgId/logo.png',
-        logoImage);
+    var cardString = await SupaBaseClient.client.storage
+        .from('kursach')
+        .uploadBinary('organiztion/$orgId/card.png', cardImage);
+    var logoString = await SupaBaseClient.client.storage
+        .from('kursach')
+        .uploadBinary('organiztion/$orgId/logo.png', logoImage);
 
     return {'logo': logoString, 'card': cardString};
   }
@@ -38,6 +35,9 @@ class OrganiztionRepository {
         deliveryPrice: deliveryPrice);
     var modelToReturn =
         OrganizationModel.fromMap(response.data!['company_addnew']);
+     await OrganizationProvider.changeUsersCompany(
+        companyId: modelToReturn.idCompany, userLogin: UserModel.get().login);
+
     return modelToReturn;
   }
 }

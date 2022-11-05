@@ -4,7 +4,9 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_neumorphic/flutter_neumorphic.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:kursach/domain/model/address_model.dart';
+import 'package:kursach/domain/model/user_model.dart';
 import 'package:kursach/domain/organization/bloc/org_bloc.dart';
+import 'package:kursach/presentation/home/navigator_screen.dart';
 import 'package:kursach/presentation/outstanding/card_picker.dart';
 import 'package:kursach/presentation/outstanding/gradientmask.dart';
 
@@ -146,7 +148,39 @@ class _PartnerShipRegState extends State<PartnerShipReg> {
                     ),
                     Padding(
                       padding: const EdgeInsets.only(top: 25.0),
-                      child: BlocBuilder<OrganizationBloc, OrganizationState>(
+                      child: BlocConsumer<OrganizationBloc, OrganizationState>(
+                        listener: (context, state) => state.maybeWhen(
+                          orElse: () => null,
+                          loaded: (loadedOrg) {
+                            UserModel.get().organizationModel = loadedOrg;
+                            Navigator.of(context).popUntil((route) =>
+                                route.settings.name != NavigatorScreen.route);
+                          },
+                          errored: (errorTitle, errorSubtitle) => showDialog(
+                              context: context,
+                              builder: (ctx) => AlertDialog(
+                                    content: Column(
+                                      mainAxisSize: MainAxisSize.min,
+                                      children: [
+                                        Text(
+                                          errorTitle,
+                                          style: Theme.of(context)
+                                              .textTheme
+                                              .titleMedium,
+                                        ),
+                                        SizedBox(
+                                          height: 5,
+                                        ),
+                                        Text(
+                                          errorSubtitle,
+                                          style: Theme.of(context)
+                                              .textTheme
+                                              .labelMedium,
+                                        )
+                                      ],
+                                    ),
+                                  )),
+                        ),
                         builder: (context, state) {
                           return state.maybeWhen(
                               orElse: () => NeumorphicButton(

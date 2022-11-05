@@ -164,20 +164,23 @@ class _PersonalInfoBodyState extends State<PersonalInfoBody> {
             loading: () => CircularProgressIndicator(),
             addressesFinded: (addressModel) {
               if (addressModel.isEmpty) {
-                Navigator.of(context).pushNamed(SetLocationScreen.path);
+                Navigator.of(context).pushNamed(SetLocationScreen.path,
+                    arguments: LocationPickerMode.userAddress);
               } else {
                 UserModel.get().addresses = addressModel;
                 print("ВСЁ ЕСТЬ!");
               }
             },
-            logedIn: (login, password, email, data, addresses) {
+            logedIn: (login, password, email, data, addresses, company) {
               UserModel.clearData();
               UserModel.get(
                   login: login,
                   password: password,
                   email: email,
                   pd: data,
-                  addresses: addresses);
+                  addresses: addresses,
+                  orgmodel: company
+                  );
             },
           );
           return GradientMask(

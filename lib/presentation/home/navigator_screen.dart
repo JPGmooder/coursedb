@@ -26,6 +26,7 @@ class _NavigatorScreenState extends State<NavigatorScreen> {
       padding: NavBarPadding.all(0),
       context,
       navBarStyle: NavBarStyle.style9,
+      
       screens: [
         RestarauntList(),
         MarketScreen(),

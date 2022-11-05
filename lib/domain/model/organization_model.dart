@@ -52,7 +52,7 @@ class OrganizationModel {
 
   factory OrganizationModel.fromMap(Map<String, dynamic> map) {
     return OrganizationModel(
-      idCompany: map['idCompany']?.toInt() ?? 0,
+      idCompany: map['id_company']?.toInt() ?? 0,
       companyDeliveryPrice: map['companydeliveryprice']?.toInt() ?? 0,
       companyName: map['companyname'] ?? '',
       companyStatusName: map['companystatusname'] ?? '',

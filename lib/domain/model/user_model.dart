@@ -2,12 +2,14 @@ import 'dart:convert';
 
 import 'package:kursach/domain/model/address_model.dart';
 import 'package:kursach/domain/model/organization_model.dart';
+import 'package:supabase_flutter/supabase_flutter.dart';
 
 class UserModel {
   static UserModel? _context;
   String login;
   String password;
   String email;
+  User? supaUser;
   UserPersonalDataModel? personalData;
   OrganizationModel? organizationModel;
   List<AddressModel>? addresses = [];
@@ -25,13 +27,15 @@ class UserModel {
           String? password,
           String? email,
           UserPersonalDataModel? pd,
-          List<AddressModel>? addresses}) =>
+          List<AddressModel>? addresses,
+          OrganizationModel? orgmodel}) =>
       _context ??= UserModel._(
           email: email!,
           login: login!,
           password: password!,
           personalData: pd,
-          addresses: addresses);
+          addresses: addresses,
+          organizationModel: orgmodel);
 
   static clearData() => _context = null;
 

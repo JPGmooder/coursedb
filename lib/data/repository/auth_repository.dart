@@ -4,8 +4,22 @@ class AuthRepository {
   static Future<Map<String, dynamic>> authUser(
       String login, String password) async {
     var rawData = await AuthProvider.authUser(login, password);
+
     if (rawData!.data == null) {
       throw Exception("Пользователи не найдены, повторите попытку");
+    }
+
+    QueryResult<Object?>? companyRawData;
+    if (rawData.data!['users_login']['client']['id_company'] != null) {
+      companyRawData = await AuthProvider.findCompanyById(
+          companyId: rawData.data!['users_login']['client']['id_company']);
+    }
+    OrganizationModel? modelToReturn;
+    if (!(companyRawData == null ||
+        companyRawData.data == null ||
+        companyRawData.data!["company_by_pk"] == null)) {
+      modelToReturn =
+          OrganizationModel.fromMap(companyRawData.data!["company_by_pk"]);
     }
     return {
       'login': rawData.data!['users_login']['userlogin'],
@@ -15,6 +29,7 @@ class AuthRepository {
               as List<Object?>?)
           ?.map((e) => AddressModel.fromMap(e as Map<String, dynamic>))
           .toList(),
+      'company': modelToReturn,
       'pd': rawData.data!['users_login']['personaldatum'] == null
           ? null
           : UserPersonalDataModel.fromMap(

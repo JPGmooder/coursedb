@@ -4,6 +4,7 @@ import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:kursach/domain/model/user_model.dart';
 import 'package:kursach/presentation/auth/auth_body.dart';
 import 'package:kursach/presentation/auth/auth_screen.dart';
+import 'package:kursach/presentation/home/profile/organization/manage_organization.dart';
 import 'package:kursach/presentation/outstanding/dialogs.dart';
 import 'package:kursach/presentation/outstanding/gradientmask.dart';
 import 'package:kursach/presentation/outstanding/techsupport_card_widget.dart';
@@ -83,28 +84,54 @@ class _ProfileScreenState extends State<ProfileScreen> {
 
                     switch (index) {
                       case 0:
+                        onPressed = () => null;
+
                         icon = FontAwesomeIcons.bagShopping;
                         title = "Мои заказы";
                         break;
                       case 1:
+                        onPressed = () => null;
+
                         icon = FontAwesomeIcons.passport;
                         title = "Мои данные";
                         break;
                       case 2:
+                        onPressed = () => null;
+
                         icon = FontAwesomeIcons.addressCard;
                         title = "Мои адреса";
                         break;
                       case 3:
+                        onPressed = () => null;
                         icon = FontAwesomeIcons.addressCard;
                         title = "Мои карты";
                         break;
                       case 4:
+                        onPressed = () {
+                          if (index == 4 && _scontroller != null) {
+                            var _bump = _scontroller!.findInput<bool>('Package')
+                                as SMITrigger;
+                            _bump.fire();
+                          }
+                        };
                         icon = FontAwesomeIcons.magnet;
                         title = "Стать курьером!";
                         break;
                       case 5:
-                        icon = Icons.handshake;
-                        title = "Сотрудничество";
+                        icon = UserModel.get().organizationModel == null
+                            ? Icons.handshake
+                            : Icons.shopify_rounded;
+                        title = UserModel.get().organizationModel == null
+                            ? "Сотрудничество"
+                            : "Управление предприятием";
+                        onPressed = UserModel.get().organizationModel == null
+                            ? () => showGeneralDialog(
+                                context: context,
+                                pageBuilder: (ctx, _, __) {
+                                  return MainDialogWidget();
+                                })
+                            : () => Navigator.of(widget.parentContext)
+                                .pushNamed(ManageOrganization.route);
                         break;
                     }
 
@@ -113,20 +140,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
                         vertical: 15.0,
                       ),
                       child: ListTile(
-                        onTap: () {
-                          if (index == 4 && _scontroller != null) {
-                            var _bump = _scontroller!.findInput<bool>('Package')
-                                as SMITrigger;
-                            _bump.fire();
-                          }
-                          if (index == 5) {
-                            showGeneralDialog(
-                                context: context,
-                                pageBuilder: (ctx, _, __) {
-                                  return MainDialogWidget();
-                                });
-                          }
-                        },
+                        onTap: onPressed,
                         leading: index == 4
                             ? SizedBox(
                                 height: 40,
@@ -198,4 +212,3 @@ class _ProfileScreenState extends State<ProfileScreen> {
     );
   }
 }
-

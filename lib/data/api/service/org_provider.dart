@@ -4,7 +4,6 @@ class OrganizationProvider {
   static MutationOptions addNewCompanyMutation(
       {required int deliveryPrice,
       required int idAddress,
-
       required String companyname,
       required String companystatus,
       required String companytype}) {
@@ -36,12 +35,31 @@ mutation MyMutation($p_companydeliveryprice: numeric = "",  $p_companyname: Stri
 ''';
     return MutationOptions(document: gql(document), variables: {
       "p_companydeliveryprice": deliveryPrice,
-
       "p_companyname": companyname,
       "p_companystatusname": companystatus,
       "p_companytypename": companytype,
       "p_id_address": idAddress
     });
+  }
+
+  static MutationOptions changeUsersCompanyMutation({
+    required String userLogin,
+    required int idCompany,
+  }) {
+    String document = r'''
+mutation MyMutation($_similar: String = "", $id_company: Int = 10) {
+  update_client(where: {userlogin: {_similar: $_similar}}, _set: {id_company: $id_company}) {
+    returning {
+      userlogin
+      id_company
+    }
+  }
+}
+
+''';
+    return MutationOptions(
+        document: gql(document),
+        variables: {"_similar": userLogin, "id_company": idCompany});
   }
 
   static Future<QueryResult> checkCompanyName(String name) async {
@@ -68,11 +86,20 @@ mutation MyMutation($p_companydeliveryprice: numeric = "",  $p_companyname: Stri
       required int addressId,
       required int deliveryPrice}) async {
     var response = await AppsGraphClient.client.mutate(addNewCompanyMutation(
-        companyname: companyName,
-        companystatus: 'На рассмотрении',
-        companytype: 'Магазин продуктов',
-        deliveryPrice: deliveryPrice,
-        idAddress: addressId,));
+      companyname: companyName,
+      companystatus: 'На рассмотрении',
+      companytype: 'Магазин продуктов',
+      deliveryPrice: deliveryPrice,
+      idAddress: addressId,
+    ));
+
+    return response;
+  }
+
+  static Future<QueryResult> changeUsersCompany(
+      {required int companyId, required String userLogin}) async {
+    var response = await AppsGraphClient.client.mutate(
+        changeUsersCompanyMutation(idCompany: companyId, userLogin: userLogin));
     return response;
   }
 }

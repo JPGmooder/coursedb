@@ -1,12 +1,15 @@
 import 'dart:developer';
+import 'dart:ffi';
 
 import 'package:bloc/bloc.dart';
 import 'package:freezed_annotation/freezed_annotation.dart';
 import 'package:graphql_flutter/graphql_flutter.dart';
 import 'package:kursach/data/api/model/graphclient.dart';
 import 'package:kursach/domain/model/address_model.dart';
+import 'package:kursach/domain/model/organization_model.dart';
 import 'package:kursach/domain/model/user_model.dart';
 import 'package:shared_preferences/shared_preferences.dart';
+import 'package:supabase_flutter/supabase_flutter.dart';
 part 'auth_events.dart';
 part '../../../data/api/service/auth_provider.dart';
 part '../../../data/repository/auth_repository.dart';
@@ -28,12 +31,15 @@ class AuthBloc extends Bloc<AuthEvent, AuthState> {
                   name: name,
                   patronymic: patronymic,
                   mobileNumber: mobileNumber);
+
               emit(AuthState.logedIn(
-                  UserModel.get().login,
-                  UserModel.get().password,
-                  UserModel.get().email,
-                  userData,
-                  UserModel.get().addresses));
+                UserModel.get().login,
+                UserModel.get().password,
+                UserModel.get().email,
+                userData,
+                UserModel.get().addresses,
+                UserModel.get().organizationModel
+              ));
             } catch (e) {
               emit(AuthState.errored(e.toString()));
             }
@@ -51,9 +57,19 @@ class AuthBloc extends Bloc<AuthEvent, AuthState> {
             try {
               var userData = await AuthRepository.authUser(login, password);
 
-              emit(AuthState.logedIn(userData['login']!, userData['password']!,
-                  userData['email']!, userData['pd'], userData['addresses']));
-              if (userData['pd'] != null && userData['addresses'] != null) {
+              emit(AuthState.logedIn(
+                userData['login']!,
+                userData['password']!,
+                userData['email']!,
+                userData['pd'],
+                userData['addresses'],
+                userData['company']
+              ));
+              if (userData['pd'] != null &&
+                  (userData['addresses'] != null ||
+                      userData['addresses'].isNotEmpty)) {
+                // await SupaBaseClient.client.auth.signInWithPassword(
+                //     password: userData['password']!, email: userData['email']);
                 var prefs = await SharedPreferences.getInstance();
                 await prefs.clear();
                 await prefs.setString("login", login);
@@ -67,6 +83,9 @@ class AuthBloc extends Bloc<AuthEvent, AuthState> {
             try {
               var addedAddress = await AuthRepository.addAddressData(
                   model: model, userID: UserModel.get().login);
+              await SupaBaseClient.client.auth.signInWithPassword(
+                  password: UserModel.get().password,
+                  email: UserModel.get().email);
               emit(AuthState.addressAdded(addedAddress));
             } catch (e) {
               emit(AuthState.errored(e.toString()));
@@ -76,6 +95,7 @@ class AuthBloc extends Bloc<AuthEvent, AuthState> {
             try {
               var userData =
                   await AuthRepository.regUser(login, password, email);
+
               emit(AuthState.signedUp(userData['login']!, userData['password']!,
                   userData['email']!));
             } catch (e) {
