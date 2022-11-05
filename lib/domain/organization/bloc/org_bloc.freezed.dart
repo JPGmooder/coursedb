@@ -16,16 +16,14 @@ final _privateConstructorUsedError = UnsupportedError(
 
 /// @nodoc
 mixin _$OrganizationEvent {
-  AddressModel get addressModel => throw _privateConstructorUsedError;
-  String get name => throw _privateConstructorUsedError;
-  double get deliveryPrice => throw _privateConstructorUsedError;
-  Uint8List get logoImage => throw _privateConstructorUsedError;
-  Uint8List get cardImage => throw _privateConstructorUsedError;
   @optionalTypeArgs
   TResult when<TResult extends Object?>({
     required TResult Function(AddressModel addressModel, String name,
             double deliveryPrice, Uint8List logoImage, Uint8List cardImage)
         createNew,
+    required TResult Function(int organizationId, sortType sort,
+            String? category, String? brand, String? name)
+        loadStuff,
   }) =>
       throw _privateConstructorUsedError;
   @optionalTypeArgs
@@ -33,6 +31,9 @@ mixin _$OrganizationEvent {
     TResult? Function(AddressModel addressModel, String name,
             double deliveryPrice, Uint8List logoImage, Uint8List cardImage)?
         createNew,
+    TResult? Function(int organizationId, sortType sort, String? category,
+            String? brand, String? name)?
+        loadStuff,
   }) =>
       throw _privateConstructorUsedError;
   @optionalTypeArgs
@@ -40,28 +41,30 @@ mixin _$OrganizationEvent {
     TResult Function(AddressModel addressModel, String name,
             double deliveryPrice, Uint8List logoImage, Uint8List cardImage)?
         createNew,
+    TResult Function(int organizationId, sortType sort, String? category,
+            String? brand, String? name)?
+        loadStuff,
     required TResult orElse(),
   }) =>
       throw _privateConstructorUsedError;
   @optionalTypeArgs
   TResult map<TResult extends Object?>({
     required TResult Function(_$OrganizationCreateNewEvent value) createNew,
+    required TResult Function(_$OrganizationLoadStuffEvent value) loadStuff,
   }) =>
       throw _privateConstructorUsedError;
   @optionalTypeArgs
   TResult? mapOrNull<TResult extends Object?>({
     TResult? Function(_$OrganizationCreateNewEvent value)? createNew,
+    TResult? Function(_$OrganizationLoadStuffEvent value)? loadStuff,
   }) =>
       throw _privateConstructorUsedError;
   @optionalTypeArgs
   TResult maybeMap<TResult extends Object?>({
     TResult Function(_$OrganizationCreateNewEvent value)? createNew,
+    TResult Function(_$OrganizationLoadStuffEvent value)? loadStuff,
     required TResult orElse(),
   }) =>
-      throw _privateConstructorUsedError;
-
-  @JsonKey(ignore: true)
-  $OrganizationEventCopyWith<OrganizationEvent> get copyWith =>
       throw _privateConstructorUsedError;
 }
 
@@ -70,13 +73,6 @@ abstract class $OrganizationEventCopyWith<$Res> {
   factory $OrganizationEventCopyWith(
           OrganizationEvent value, $Res Function(OrganizationEvent) then) =
       _$OrganizationEventCopyWithImpl<$Res, OrganizationEvent>;
-  @useResult
-  $Res call(
-      {AddressModel addressModel,
-      String name,
-      double deliveryPrice,
-      Uint8List logoImage,
-      Uint8List cardImage});
 }
 
 /// @nodoc
@@ -88,49 +84,14 @@ class _$OrganizationEventCopyWithImpl<$Res, $Val extends OrganizationEvent>
   final $Val _value;
   // ignore: unused_field
   final $Res Function($Val) _then;
-
-  @pragma('vm:prefer-inline')
-  @override
-  $Res call({
-    Object? addressModel = null,
-    Object? name = null,
-    Object? deliveryPrice = null,
-    Object? logoImage = null,
-    Object? cardImage = null,
-  }) {
-    return _then(_value.copyWith(
-      addressModel: null == addressModel
-          ? _value.addressModel
-          : addressModel // ignore: cast_nullable_to_non_nullable
-              as AddressModel,
-      name: null == name
-          ? _value.name
-          : name // ignore: cast_nullable_to_non_nullable
-              as String,
-      deliveryPrice: null == deliveryPrice
-          ? _value.deliveryPrice
-          : deliveryPrice // ignore: cast_nullable_to_non_nullable
-              as double,
-      logoImage: null == logoImage
-          ? _value.logoImage
-          : logoImage // ignore: cast_nullable_to_non_nullable
-              as Uint8List,
-      cardImage: null == cardImage
-          ? _value.cardImage
-          : cardImage // ignore: cast_nullable_to_non_nullable
-              as Uint8List,
-    ) as $Val);
-  }
 }
 
 /// @nodoc
-abstract class _$$_$OrganizationCreateNewEventCopyWith<$Res>
-    implements $OrganizationEventCopyWith<$Res> {
+abstract class _$$_$OrganizationCreateNewEventCopyWith<$Res> {
   factory _$$_$OrganizationCreateNewEventCopyWith(
           _$_$OrganizationCreateNewEvent value,
           $Res Function(_$_$OrganizationCreateNewEvent) then) =
       __$$_$OrganizationCreateNewEventCopyWithImpl<$Res>;
-  @override
   @useResult
   $Res call(
       {AddressModel addressModel,
@@ -260,6 +221,9 @@ class _$_$OrganizationCreateNewEvent
     required TResult Function(AddressModel addressModel, String name,
             double deliveryPrice, Uint8List logoImage, Uint8List cardImage)
         createNew,
+    required TResult Function(int organizationId, sortType sort,
+            String? category, String? brand, String? name)
+        loadStuff,
   }) {
     return createNew(addressModel, name, deliveryPrice, logoImage, cardImage);
   }
@@ -270,6 +234,9 @@ class _$_$OrganizationCreateNewEvent
     TResult? Function(AddressModel addressModel, String name,
             double deliveryPrice, Uint8List logoImage, Uint8List cardImage)?
         createNew,
+    TResult? Function(int organizationId, sortType sort, String? category,
+            String? brand, String? name)?
+        loadStuff,
   }) {
     return createNew?.call(
         addressModel, name, deliveryPrice, logoImage, cardImage);
@@ -281,6 +248,9 @@ class _$_$OrganizationCreateNewEvent
     TResult Function(AddressModel addressModel, String name,
             double deliveryPrice, Uint8List logoImage, Uint8List cardImage)?
         createNew,
+    TResult Function(int organizationId, sortType sort, String? category,
+            String? brand, String? name)?
+        loadStuff,
     required TResult orElse(),
   }) {
     if (createNew != null) {
@@ -293,6 +263,7 @@ class _$_$OrganizationCreateNewEvent
   @optionalTypeArgs
   TResult map<TResult extends Object?>({
     required TResult Function(_$OrganizationCreateNewEvent value) createNew,
+    required TResult Function(_$OrganizationLoadStuffEvent value) loadStuff,
   }) {
     return createNew(this);
   }
@@ -301,6 +272,7 @@ class _$_$OrganizationCreateNewEvent
   @optionalTypeArgs
   TResult? mapOrNull<TResult extends Object?>({
     TResult? Function(_$OrganizationCreateNewEvent value)? createNew,
+    TResult? Function(_$OrganizationLoadStuffEvent value)? loadStuff,
   }) {
     return createNew?.call(this);
   }
@@ -309,6 +281,7 @@ class _$_$OrganizationCreateNewEvent
   @optionalTypeArgs
   TResult maybeMap<TResult extends Object?>({
     TResult Function(_$OrganizationCreateNewEvent value)? createNew,
+    TResult Function(_$OrganizationLoadStuffEvent value)? loadStuff,
     required TResult orElse(),
   }) {
     if (createNew != null) {
@@ -326,19 +299,230 @@ abstract class _$OrganizationCreateNewEvent implements OrganizationEvent {
       required final Uint8List logoImage,
       required final Uint8List cardImage}) = _$_$OrganizationCreateNewEvent;
 
-  @override
   AddressModel get addressModel;
-  @override
   String get name;
-  @override
   double get deliveryPrice;
-  @override
   Uint8List get logoImage;
-  @override
   Uint8List get cardImage;
-  @override
   @JsonKey(ignore: true)
   _$$_$OrganizationCreateNewEventCopyWith<_$_$OrganizationCreateNewEvent>
+      get copyWith => throw _privateConstructorUsedError;
+}
+
+/// @nodoc
+abstract class _$$_$OrganizationLoadStuffEventCopyWith<$Res> {
+  factory _$$_$OrganizationLoadStuffEventCopyWith(
+          _$_$OrganizationLoadStuffEvent value,
+          $Res Function(_$_$OrganizationLoadStuffEvent) then) =
+      __$$_$OrganizationLoadStuffEventCopyWithImpl<$Res>;
+  @useResult
+  $Res call(
+      {int organizationId,
+      sortType sort,
+      String? category,
+      String? brand,
+      String? name});
+}
+
+/// @nodoc
+class __$$_$OrganizationLoadStuffEventCopyWithImpl<$Res>
+    extends _$OrganizationEventCopyWithImpl<$Res,
+        _$_$OrganizationLoadStuffEvent>
+    implements _$$_$OrganizationLoadStuffEventCopyWith<$Res> {
+  __$$_$OrganizationLoadStuffEventCopyWithImpl(
+      _$_$OrganizationLoadStuffEvent _value,
+      $Res Function(_$_$OrganizationLoadStuffEvent) _then)
+      : super(_value, _then);
+
+  @pragma('vm:prefer-inline')
+  @override
+  $Res call({
+    Object? organizationId = null,
+    Object? sort = null,
+    Object? category = freezed,
+    Object? brand = freezed,
+    Object? name = freezed,
+  }) {
+    return _then(_$_$OrganizationLoadStuffEvent(
+      organizationId: null == organizationId
+          ? _value.organizationId
+          : organizationId // ignore: cast_nullable_to_non_nullable
+              as int,
+      sort: null == sort
+          ? _value.sort
+          : sort // ignore: cast_nullable_to_non_nullable
+              as sortType,
+      category: freezed == category
+          ? _value.category
+          : category // ignore: cast_nullable_to_non_nullable
+              as String?,
+      brand: freezed == brand
+          ? _value.brand
+          : brand // ignore: cast_nullable_to_non_nullable
+              as String?,
+      name: freezed == name
+          ? _value.name
+          : name // ignore: cast_nullable_to_non_nullable
+              as String?,
+    ));
+  }
+}
+
+/// @nodoc
+
+class _$_$OrganizationLoadStuffEvent
+    with DiagnosticableTreeMixin
+    implements _$OrganizationLoadStuffEvent {
+  const _$_$OrganizationLoadStuffEvent(
+      {required this.organizationId,
+      required this.sort,
+      this.category,
+      this.brand,
+      this.name});
+
+  @override
+  final int organizationId;
+  @override
+  final sortType sort;
+  @override
+  final String? category;
+  @override
+  final String? brand;
+  @override
+  final String? name;
+
+  @override
+  String toString({DiagnosticLevel minLevel = DiagnosticLevel.info}) {
+    return 'OrganizationEvent.loadStuff(organizationId: $organizationId, sort: $sort, category: $category, brand: $brand, name: $name)';
+  }
+
+  @override
+  void debugFillProperties(DiagnosticPropertiesBuilder properties) {
+    super.debugFillProperties(properties);
+    properties
+      ..add(DiagnosticsProperty('type', 'OrganizationEvent.loadStuff'))
+      ..add(DiagnosticsProperty('organizationId', organizationId))
+      ..add(DiagnosticsProperty('sort', sort))
+      ..add(DiagnosticsProperty('category', category))
+      ..add(DiagnosticsProperty('brand', brand))
+      ..add(DiagnosticsProperty('name', name));
+  }
+
+  @override
+  bool operator ==(dynamic other) {
+    return identical(this, other) ||
+        (other.runtimeType == runtimeType &&
+            other is _$_$OrganizationLoadStuffEvent &&
+            (identical(other.organizationId, organizationId) ||
+                other.organizationId == organizationId) &&
+            (identical(other.sort, sort) || other.sort == sort) &&
+            (identical(other.category, category) ||
+                other.category == category) &&
+            (identical(other.brand, brand) || other.brand == brand) &&
+            (identical(other.name, name) || other.name == name));
+  }
+
+  @override
+  int get hashCode =>
+      Object.hash(runtimeType, organizationId, sort, category, brand, name);
+
+  @JsonKey(ignore: true)
+  @override
+  @pragma('vm:prefer-inline')
+  _$$_$OrganizationLoadStuffEventCopyWith<_$_$OrganizationLoadStuffEvent>
+      get copyWith => __$$_$OrganizationLoadStuffEventCopyWithImpl<
+          _$_$OrganizationLoadStuffEvent>(this, _$identity);
+
+  @override
+  @optionalTypeArgs
+  TResult when<TResult extends Object?>({
+    required TResult Function(AddressModel addressModel, String name,
+            double deliveryPrice, Uint8List logoImage, Uint8List cardImage)
+        createNew,
+    required TResult Function(int organizationId, sortType sort,
+            String? category, String? brand, String? name)
+        loadStuff,
+  }) {
+    return loadStuff(organizationId, sort, category, brand, name);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult? whenOrNull<TResult extends Object?>({
+    TResult? Function(AddressModel addressModel, String name,
+            double deliveryPrice, Uint8List logoImage, Uint8List cardImage)?
+        createNew,
+    TResult? Function(int organizationId, sortType sort, String? category,
+            String? brand, String? name)?
+        loadStuff,
+  }) {
+    return loadStuff?.call(organizationId, sort, category, brand, name);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult maybeWhen<TResult extends Object?>({
+    TResult Function(AddressModel addressModel, String name,
+            double deliveryPrice, Uint8List logoImage, Uint8List cardImage)?
+        createNew,
+    TResult Function(int organizationId, sortType sort, String? category,
+            String? brand, String? name)?
+        loadStuff,
+    required TResult orElse(),
+  }) {
+    if (loadStuff != null) {
+      return loadStuff(organizationId, sort, category, brand, name);
+    }
+    return orElse();
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult map<TResult extends Object?>({
+    required TResult Function(_$OrganizationCreateNewEvent value) createNew,
+    required TResult Function(_$OrganizationLoadStuffEvent value) loadStuff,
+  }) {
+    return loadStuff(this);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult? mapOrNull<TResult extends Object?>({
+    TResult? Function(_$OrganizationCreateNewEvent value)? createNew,
+    TResult? Function(_$OrganizationLoadStuffEvent value)? loadStuff,
+  }) {
+    return loadStuff?.call(this);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult maybeMap<TResult extends Object?>({
+    TResult Function(_$OrganizationCreateNewEvent value)? createNew,
+    TResult Function(_$OrganizationLoadStuffEvent value)? loadStuff,
+    required TResult orElse(),
+  }) {
+    if (loadStuff != null) {
+      return loadStuff(this);
+    }
+    return orElse();
+  }
+}
+
+abstract class _$OrganizationLoadStuffEvent implements OrganizationEvent {
+  const factory _$OrganizationLoadStuffEvent(
+      {required final int organizationId,
+      required final sortType sort,
+      final String? category,
+      final String? brand,
+      final String? name}) = _$_$OrganizationLoadStuffEvent;
+
+  int get organizationId;
+  sortType get sort;
+  String? get category;
+  String? get brand;
+  String? get name;
+  @JsonKey(ignore: true)
+  _$$_$OrganizationLoadStuffEventCopyWith<_$_$OrganizationLoadStuffEvent>
       get copyWith => throw _privateConstructorUsedError;
 }
 
@@ -349,6 +533,7 @@ mixin _$OrganizationState {
     required TResult Function() loading,
     required TResult Function() initial,
     required TResult Function(OrganizationModel model) loaded,
+    required TResult Function(List<ProductModel> stuff) stuffLoaded,
     required TResult Function(String errorTitle, String errorSubtitle) errored,
   }) =>
       throw _privateConstructorUsedError;
@@ -357,6 +542,7 @@ mixin _$OrganizationState {
     TResult? Function()? loading,
     TResult? Function()? initial,
     TResult? Function(OrganizationModel model)? loaded,
+    TResult? Function(List<ProductModel> stuff)? stuffLoaded,
     TResult? Function(String errorTitle, String errorSubtitle)? errored,
   }) =>
       throw _privateConstructorUsedError;
@@ -365,6 +551,7 @@ mixin _$OrganizationState {
     TResult Function()? loading,
     TResult Function()? initial,
     TResult Function(OrganizationModel model)? loaded,
+    TResult Function(List<ProductModel> stuff)? stuffLoaded,
     TResult Function(String errorTitle, String errorSubtitle)? errored,
     required TResult orElse(),
   }) =>
@@ -374,6 +561,7 @@ mixin _$OrganizationState {
     required TResult Function(_$OrganizationLoadingState value) loading,
     required TResult Function(_$OrganizationInitialState value) initial,
     required TResult Function(_$OrganizationLoadedState value) loaded,
+    required TResult Function(_$OrganizationStuffLoadedState value) stuffLoaded,
     required TResult Function(_$OrganizationErroredState value) errored,
   }) =>
       throw _privateConstructorUsedError;
@@ -382,6 +570,7 @@ mixin _$OrganizationState {
     TResult? Function(_$OrganizationLoadingState value)? loading,
     TResult? Function(_$OrganizationInitialState value)? initial,
     TResult? Function(_$OrganizationLoadedState value)? loaded,
+    TResult? Function(_$OrganizationStuffLoadedState value)? stuffLoaded,
     TResult? Function(_$OrganizationErroredState value)? errored,
   }) =>
       throw _privateConstructorUsedError;
@@ -390,6 +579,7 @@ mixin _$OrganizationState {
     TResult Function(_$OrganizationLoadingState value)? loading,
     TResult Function(_$OrganizationInitialState value)? initial,
     TResult Function(_$OrganizationLoadedState value)? loaded,
+    TResult Function(_$OrganizationStuffLoadedState value)? stuffLoaded,
     TResult Function(_$OrganizationErroredState value)? errored,
     required TResult orElse(),
   }) =>
@@ -466,6 +656,7 @@ class _$_$OrganizationLoadingState
     required TResult Function() loading,
     required TResult Function() initial,
     required TResult Function(OrganizationModel model) loaded,
+    required TResult Function(List<ProductModel> stuff) stuffLoaded,
     required TResult Function(String errorTitle, String errorSubtitle) errored,
   }) {
     return loading();
@@ -477,6 +668,7 @@ class _$_$OrganizationLoadingState
     TResult? Function()? loading,
     TResult? Function()? initial,
     TResult? Function(OrganizationModel model)? loaded,
+    TResult? Function(List<ProductModel> stuff)? stuffLoaded,
     TResult? Function(String errorTitle, String errorSubtitle)? errored,
   }) {
     return loading?.call();
@@ -488,6 +680,7 @@ class _$_$OrganizationLoadingState
     TResult Function()? loading,
     TResult Function()? initial,
     TResult Function(OrganizationModel model)? loaded,
+    TResult Function(List<ProductModel> stuff)? stuffLoaded,
     TResult Function(String errorTitle, String errorSubtitle)? errored,
     required TResult orElse(),
   }) {
@@ -503,6 +696,7 @@ class _$_$OrganizationLoadingState
     required TResult Function(_$OrganizationLoadingState value) loading,
     required TResult Function(_$OrganizationInitialState value) initial,
     required TResult Function(_$OrganizationLoadedState value) loaded,
+    required TResult Function(_$OrganizationStuffLoadedState value) stuffLoaded,
     required TResult Function(_$OrganizationErroredState value) errored,
   }) {
     return loading(this);
@@ -514,6 +708,7 @@ class _$_$OrganizationLoadingState
     TResult? Function(_$OrganizationLoadingState value)? loading,
     TResult? Function(_$OrganizationInitialState value)? initial,
     TResult? Function(_$OrganizationLoadedState value)? loaded,
+    TResult? Function(_$OrganizationStuffLoadedState value)? stuffLoaded,
     TResult? Function(_$OrganizationErroredState value)? errored,
   }) {
     return loading?.call(this);
@@ -525,6 +720,7 @@ class _$_$OrganizationLoadingState
     TResult Function(_$OrganizationLoadingState value)? loading,
     TResult Function(_$OrganizationInitialState value)? initial,
     TResult Function(_$OrganizationLoadedState value)? loaded,
+    TResult Function(_$OrganizationStuffLoadedState value)? stuffLoaded,
     TResult Function(_$OrganizationErroredState value)? errored,
     required TResult orElse(),
   }) {
@@ -591,6 +787,7 @@ class _$_$OrganizationInitialState
     required TResult Function() loading,
     required TResult Function() initial,
     required TResult Function(OrganizationModel model) loaded,
+    required TResult Function(List<ProductModel> stuff) stuffLoaded,
     required TResult Function(String errorTitle, String errorSubtitle) errored,
   }) {
     return initial();
@@ -602,6 +799,7 @@ class _$_$OrganizationInitialState
     TResult? Function()? loading,
     TResult? Function()? initial,
     TResult? Function(OrganizationModel model)? loaded,
+    TResult? Function(List<ProductModel> stuff)? stuffLoaded,
     TResult? Function(String errorTitle, String errorSubtitle)? errored,
   }) {
     return initial?.call();
@@ -613,6 +811,7 @@ class _$_$OrganizationInitialState
     TResult Function()? loading,
     TResult Function()? initial,
     TResult Function(OrganizationModel model)? loaded,
+    TResult Function(List<ProductModel> stuff)? stuffLoaded,
     TResult Function(String errorTitle, String errorSubtitle)? errored,
     required TResult orElse(),
   }) {
@@ -628,6 +827,7 @@ class _$_$OrganizationInitialState
     required TResult Function(_$OrganizationLoadingState value) loading,
     required TResult Function(_$OrganizationInitialState value) initial,
     required TResult Function(_$OrganizationLoadedState value) loaded,
+    required TResult Function(_$OrganizationStuffLoadedState value) stuffLoaded,
     required TResult Function(_$OrganizationErroredState value) errored,
   }) {
     return initial(this);
@@ -639,6 +839,7 @@ class _$_$OrganizationInitialState
     TResult? Function(_$OrganizationLoadingState value)? loading,
     TResult? Function(_$OrganizationInitialState value)? initial,
     TResult? Function(_$OrganizationLoadedState value)? loaded,
+    TResult? Function(_$OrganizationStuffLoadedState value)? stuffLoaded,
     TResult? Function(_$OrganizationErroredState value)? errored,
   }) {
     return initial?.call(this);
@@ -650,6 +851,7 @@ class _$_$OrganizationInitialState
     TResult Function(_$OrganizationLoadingState value)? loading,
     TResult Function(_$OrganizationInitialState value)? initial,
     TResult Function(_$OrganizationLoadedState value)? loaded,
+    TResult Function(_$OrganizationStuffLoadedState value)? stuffLoaded,
     TResult Function(_$OrganizationErroredState value)? errored,
     required TResult orElse(),
   }) {
@@ -743,6 +945,7 @@ class _$_$OrganizationLoadedState
     required TResult Function() loading,
     required TResult Function() initial,
     required TResult Function(OrganizationModel model) loaded,
+    required TResult Function(List<ProductModel> stuff) stuffLoaded,
     required TResult Function(String errorTitle, String errorSubtitle) errored,
   }) {
     return loaded(model);
@@ -754,6 +957,7 @@ class _$_$OrganizationLoadedState
     TResult? Function()? loading,
     TResult? Function()? initial,
     TResult? Function(OrganizationModel model)? loaded,
+    TResult? Function(List<ProductModel> stuff)? stuffLoaded,
     TResult? Function(String errorTitle, String errorSubtitle)? errored,
   }) {
     return loaded?.call(model);
@@ -765,6 +969,7 @@ class _$_$OrganizationLoadedState
     TResult Function()? loading,
     TResult Function()? initial,
     TResult Function(OrganizationModel model)? loaded,
+    TResult Function(List<ProductModel> stuff)? stuffLoaded,
     TResult Function(String errorTitle, String errorSubtitle)? errored,
     required TResult orElse(),
   }) {
@@ -780,6 +985,7 @@ class _$_$OrganizationLoadedState
     required TResult Function(_$OrganizationLoadingState value) loading,
     required TResult Function(_$OrganizationInitialState value) initial,
     required TResult Function(_$OrganizationLoadedState value) loaded,
+    required TResult Function(_$OrganizationStuffLoadedState value) stuffLoaded,
     required TResult Function(_$OrganizationErroredState value) errored,
   }) {
     return loaded(this);
@@ -791,6 +997,7 @@ class _$_$OrganizationLoadedState
     TResult? Function(_$OrganizationLoadingState value)? loading,
     TResult? Function(_$OrganizationInitialState value)? initial,
     TResult? Function(_$OrganizationLoadedState value)? loaded,
+    TResult? Function(_$OrganizationStuffLoadedState value)? stuffLoaded,
     TResult? Function(_$OrganizationErroredState value)? errored,
   }) {
     return loaded?.call(this);
@@ -802,6 +1009,7 @@ class _$_$OrganizationLoadedState
     TResult Function(_$OrganizationLoadingState value)? loading,
     TResult Function(_$OrganizationInitialState value)? initial,
     TResult Function(_$OrganizationLoadedState value)? loaded,
+    TResult Function(_$OrganizationStuffLoadedState value)? stuffLoaded,
     TResult Function(_$OrganizationErroredState value)? errored,
     required TResult orElse(),
   }) {
@@ -819,6 +1027,178 @@ abstract class _$OrganizationLoadedState implements OrganizationState {
   OrganizationModel get model;
   @JsonKey(ignore: true)
   _$$_$OrganizationLoadedStateCopyWith<_$_$OrganizationLoadedState>
+      get copyWith => throw _privateConstructorUsedError;
+}
+
+/// @nodoc
+abstract class _$$_$OrganizationStuffLoadedStateCopyWith<$Res> {
+  factory _$$_$OrganizationStuffLoadedStateCopyWith(
+          _$_$OrganizationStuffLoadedState value,
+          $Res Function(_$_$OrganizationStuffLoadedState) then) =
+      __$$_$OrganizationStuffLoadedStateCopyWithImpl<$Res>;
+  @useResult
+  $Res call({List<ProductModel> stuff});
+}
+
+/// @nodoc
+class __$$_$OrganizationStuffLoadedStateCopyWithImpl<$Res>
+    extends _$OrganizationStateCopyWithImpl<$Res,
+        _$_$OrganizationStuffLoadedState>
+    implements _$$_$OrganizationStuffLoadedStateCopyWith<$Res> {
+  __$$_$OrganizationStuffLoadedStateCopyWithImpl(
+      _$_$OrganizationStuffLoadedState _value,
+      $Res Function(_$_$OrganizationStuffLoadedState) _then)
+      : super(_value, _then);
+
+  @pragma('vm:prefer-inline')
+  @override
+  $Res call({
+    Object? stuff = null,
+  }) {
+    return _then(_$_$OrganizationStuffLoadedState(
+      null == stuff
+          ? _value._stuff
+          : stuff // ignore: cast_nullable_to_non_nullable
+              as List<ProductModel>,
+    ));
+  }
+}
+
+/// @nodoc
+
+class _$_$OrganizationStuffLoadedState
+    with DiagnosticableTreeMixin
+    implements _$OrganizationStuffLoadedState {
+  const _$_$OrganizationStuffLoadedState(final List<ProductModel> stuff)
+      : _stuff = stuff;
+
+  final List<ProductModel> _stuff;
+  @override
+  List<ProductModel> get stuff {
+    // ignore: implicit_dynamic_type
+    return EqualUnmodifiableListView(_stuff);
+  }
+
+  @override
+  String toString({DiagnosticLevel minLevel = DiagnosticLevel.info}) {
+    return 'OrganizationState.stuffLoaded(stuff: $stuff)';
+  }
+
+  @override
+  void debugFillProperties(DiagnosticPropertiesBuilder properties) {
+    super.debugFillProperties(properties);
+    properties
+      ..add(DiagnosticsProperty('type', 'OrganizationState.stuffLoaded'))
+      ..add(DiagnosticsProperty('stuff', stuff));
+  }
+
+  @override
+  bool operator ==(dynamic other) {
+    return identical(this, other) ||
+        (other.runtimeType == runtimeType &&
+            other is _$_$OrganizationStuffLoadedState &&
+            const DeepCollectionEquality().equals(other._stuff, _stuff));
+  }
+
+  @override
+  int get hashCode =>
+      Object.hash(runtimeType, const DeepCollectionEquality().hash(_stuff));
+
+  @JsonKey(ignore: true)
+  @override
+  @pragma('vm:prefer-inline')
+  _$$_$OrganizationStuffLoadedStateCopyWith<_$_$OrganizationStuffLoadedState>
+      get copyWith => __$$_$OrganizationStuffLoadedStateCopyWithImpl<
+          _$_$OrganizationStuffLoadedState>(this, _$identity);
+
+  @override
+  @optionalTypeArgs
+  TResult when<TResult extends Object?>({
+    required TResult Function() loading,
+    required TResult Function() initial,
+    required TResult Function(OrganizationModel model) loaded,
+    required TResult Function(List<ProductModel> stuff) stuffLoaded,
+    required TResult Function(String errorTitle, String errorSubtitle) errored,
+  }) {
+    return stuffLoaded(stuff);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult? whenOrNull<TResult extends Object?>({
+    TResult? Function()? loading,
+    TResult? Function()? initial,
+    TResult? Function(OrganizationModel model)? loaded,
+    TResult? Function(List<ProductModel> stuff)? stuffLoaded,
+    TResult? Function(String errorTitle, String errorSubtitle)? errored,
+  }) {
+    return stuffLoaded?.call(stuff);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult maybeWhen<TResult extends Object?>({
+    TResult Function()? loading,
+    TResult Function()? initial,
+    TResult Function(OrganizationModel model)? loaded,
+    TResult Function(List<ProductModel> stuff)? stuffLoaded,
+    TResult Function(String errorTitle, String errorSubtitle)? errored,
+    required TResult orElse(),
+  }) {
+    if (stuffLoaded != null) {
+      return stuffLoaded(stuff);
+    }
+    return orElse();
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult map<TResult extends Object?>({
+    required TResult Function(_$OrganizationLoadingState value) loading,
+    required TResult Function(_$OrganizationInitialState value) initial,
+    required TResult Function(_$OrganizationLoadedState value) loaded,
+    required TResult Function(_$OrganizationStuffLoadedState value) stuffLoaded,
+    required TResult Function(_$OrganizationErroredState value) errored,
+  }) {
+    return stuffLoaded(this);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult? mapOrNull<TResult extends Object?>({
+    TResult? Function(_$OrganizationLoadingState value)? loading,
+    TResult? Function(_$OrganizationInitialState value)? initial,
+    TResult? Function(_$OrganizationLoadedState value)? loaded,
+    TResult? Function(_$OrganizationStuffLoadedState value)? stuffLoaded,
+    TResult? Function(_$OrganizationErroredState value)? errored,
+  }) {
+    return stuffLoaded?.call(this);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult maybeMap<TResult extends Object?>({
+    TResult Function(_$OrganizationLoadingState value)? loading,
+    TResult Function(_$OrganizationInitialState value)? initial,
+    TResult Function(_$OrganizationLoadedState value)? loaded,
+    TResult Function(_$OrganizationStuffLoadedState value)? stuffLoaded,
+    TResult Function(_$OrganizationErroredState value)? errored,
+    required TResult orElse(),
+  }) {
+    if (stuffLoaded != null) {
+      return stuffLoaded(this);
+    }
+    return orElse();
+  }
+}
+
+abstract class _$OrganizationStuffLoadedState implements OrganizationState {
+  const factory _$OrganizationStuffLoadedState(final List<ProductModel> stuff) =
+      _$_$OrganizationStuffLoadedState;
+
+  List<ProductModel> get stuff;
+  @JsonKey(ignore: true)
+  _$$_$OrganizationStuffLoadedStateCopyWith<_$_$OrganizationStuffLoadedState>
       get copyWith => throw _privateConstructorUsedError;
 }
 
@@ -913,6 +1293,7 @@ class _$_$OrganizationErroredState
     required TResult Function() loading,
     required TResult Function() initial,
     required TResult Function(OrganizationModel model) loaded,
+    required TResult Function(List<ProductModel> stuff) stuffLoaded,
     required TResult Function(String errorTitle, String errorSubtitle) errored,
   }) {
     return errored(errorTitle, errorSubtitle);
@@ -924,6 +1305,7 @@ class _$_$OrganizationErroredState
     TResult? Function()? loading,
     TResult? Function()? initial,
     TResult? Function(OrganizationModel model)? loaded,
+    TResult? Function(List<ProductModel> stuff)? stuffLoaded,
     TResult? Function(String errorTitle, String errorSubtitle)? errored,
   }) {
     return errored?.call(errorTitle, errorSubtitle);
@@ -935,6 +1317,7 @@ class _$_$OrganizationErroredState
     TResult Function()? loading,
     TResult Function()? initial,
     TResult Function(OrganizationModel model)? loaded,
+    TResult Function(List<ProductModel> stuff)? stuffLoaded,
     TResult Function(String errorTitle, String errorSubtitle)? errored,
     required TResult orElse(),
   }) {
@@ -950,6 +1333,7 @@ class _$_$OrganizationErroredState
     required TResult Function(_$OrganizationLoadingState value) loading,
     required TResult Function(_$OrganizationInitialState value) initial,
     required TResult Function(_$OrganizationLoadedState value) loaded,
+    required TResult Function(_$OrganizationStuffLoadedState value) stuffLoaded,
     required TResult Function(_$OrganizationErroredState value) errored,
   }) {
     return errored(this);
@@ -961,6 +1345,7 @@ class _$_$OrganizationErroredState
     TResult? Function(_$OrganizationLoadingState value)? loading,
     TResult? Function(_$OrganizationInitialState value)? initial,
     TResult? Function(_$OrganizationLoadedState value)? loaded,
+    TResult? Function(_$OrganizationStuffLoadedState value)? stuffLoaded,
     TResult? Function(_$OrganizationErroredState value)? errored,
   }) {
     return errored?.call(this);
@@ -972,6 +1357,7 @@ class _$_$OrganizationErroredState
     TResult Function(_$OrganizationLoadingState value)? loading,
     TResult Function(_$OrganizationInitialState value)? initial,
     TResult Function(_$OrganizationLoadedState value)? loaded,
+    TResult Function(_$OrganizationStuffLoadedState value)? stuffLoaded,
     TResult Function(_$OrganizationErroredState value)? errored,
     required TResult orElse(),
   }) {

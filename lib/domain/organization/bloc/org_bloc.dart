@@ -8,6 +8,7 @@ import 'package:kursach/data/api/model/graphclient.dart';
 import 'package:kursach/domain/auth/bloc/auth_bloc.dart';
 import 'package:kursach/domain/model/address_model.dart';
 import 'package:kursach/domain/model/organization_model.dart';
+import 'package:kursach/domain/model/product_model.dart';
 import 'package:kursach/domain/model/user_model.dart';
 import 'package:supabase_flutter/supabase_flutter.dart';
 import 'package:translit/translit.dart';

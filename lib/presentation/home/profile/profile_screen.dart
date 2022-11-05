@@ -5,6 +5,7 @@ import 'package:kursach/domain/model/user_model.dart';
 import 'package:kursach/presentation/auth/auth_body.dart';
 import 'package:kursach/presentation/auth/auth_screen.dart';
 import 'package:kursach/presentation/home/profile/organization/manage_organization.dart';
+import 'package:kursach/presentation/home/profile/organization/navigator_organization.dart';
 import 'package:kursach/presentation/outstanding/dialogs.dart';
 import 'package:kursach/presentation/outstanding/gradientmask.dart';
 import 'package:kursach/presentation/outstanding/techsupport_card_widget.dart';
@@ -131,7 +132,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
                                   return MainDialogWidget();
                                 })
                             : () => Navigator.of(widget.parentContext)
-                                .pushNamed(ManageOrganization.route);
+                                .pushNamed(NavigatorOrganizationScreen.route);
                         break;
                     }
 

@@ -5,13 +5,14 @@ import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_neumorphic/flutter_neumorphic.dart';
 import 'package:kursach/data/api/model/graphclient.dart';
+import 'package:kursach/domain/model/product_model.dart';
 import 'package:kursach/domain/model/user_model.dart';
 import 'package:kursach/presentation/outstanding/card_picker.dart';
 import 'package:kursach/presentation/outstanding/gradientmask.dart';
+import 'package:kursach/presentation/outstanding/product_card.dart';
 
 class ManageOrganization extends StatefulWidget {
   ManageOrganization({Key? key}) : super(key: key);
-  static const String route = "profile/manageorg";
   @override
   State<ManageOrganization> createState() => _ManageOrganizationState();
 }
@@ -84,14 +85,19 @@ class _ManageOrganizationState extends State<ManageOrganization> {
             flexibleSpace: FlexibleSpaceBar(
               title: Row(
                 children: [
-                  SizedBox.square(
-                    dimension: 30,
-                    child: ClipRRect(
-                      borderRadius: BorderRadius.all(
-                        Radius.circular(30),
-                      ),
-                      child: Image.memory(logoImage!),
-                    ),
+                  AnimatedSwitcher(
+                    duration: Duration(microseconds: 300),
+                    child: logoImage == null
+                        ? CircularProgressIndicator()
+                        : SizedBox.square(
+                            dimension: 30,
+                            child: ClipRRect(
+                              borderRadius: BorderRadius.all(
+                                Radius.circular(30),
+                              ),
+                              child: Image.memory(logoImage!),
+                            ),
+                          ),
                   ),
                   SizedBox(
                     width: 10,
@@ -114,13 +120,19 @@ class _ManageOrganizationState extends State<ManageOrganization> {
                 fit: BoxFit.fill,
                 child: Stack(
                   children: [
-                    ImageFiltered(
-                      imageFilter: ImageFilter.blur(sigmaX: 10, sigmaY: 10),
-                      child: Image.memory(
-                        cardImage!,
-                        colorBlendMode: BlendMode.clear,
-                        fit: BoxFit.fill,
-                      ),
+                    AnimatedSwitcher(
+                      duration: Duration(milliseconds: 300),
+                      child: cardImage == null
+                          ? CircularProgressIndicator()
+                          : ImageFiltered(
+                              imageFilter:
+                                  ImageFilter.blur(sigmaX: 10, sigmaY: 10),
+                              child: Image.memory(
+                                cardImage!,
+                                colorBlendMode: BlendMode.clear,
+                                fit: BoxFit.fill,
+                              ),
+                            ),
                     ),
                     Positioned.fill(child: ColoredBox(color: Colors.black26)),
 
@@ -139,55 +151,40 @@ class _ManageOrganizationState extends State<ManageOrganization> {
             ),
           ),
           SliverFillRemaining(
-            child: Column(children: [
-              Text("a"),
-              Text("a"),
-              Text("a"),
-              Text("a"),
-              Text("a"),
-              Text("a"),
-              Text("a"),
-              Text("a"),
-              Text("a"),
-              Text("a"),
-              Text("a"),
-              Text("a"),
-              Text("a"),
-              Text("a"),
-              Text("a"),
-              Text("a"),
-              Text("a"),
-              Text("a"),
-              Text("a"),
-              Text("a"),
-              Text("a"),
-              Text("a"),
-              Text("a"),
-              Text("a"),
-              Text("a"),
-              Text("a"),
-              Text("a"),
-              Text("a"),
-              Text("a"),
-              Text("a"),
-              Text("a"),
-              Text("a"),
-              Text("a"),
-              Text("a"),
-              Text("a"),
-              Text("a"),
-              Text("a"),
-              Text("a"),
-              Text("a"),
-              Text("a"),
-              Text("a"),
-              Text("a"),
-              Text("a"),
-              Text("a"),
-              Text("a"),
-              Text("a"),
-              Text("a"),
-            ]),
+            child: Padding(
+              padding: const EdgeInsets.all(8.0),
+              child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    Text(
+                      "Каталог товаров",
+                      textScaleFactor: 0.9,
+                      style: Theme.of(context).textTheme.titleLarge,
+                    ),
+                    Wrap(
+                      runSpacing: 10,
+                      spacing: 10,
+                      alignment: WrapAlignment.spaceEvenly,
+                      
+                      children: [
+                        ProductCard(
+                          productModel: ProductModel(
+                              productId: 0,
+                              description:
+                                  'История молочных продуктов для всей семьи Простоквашино начинается на молочных фермах. Это свежее молоко, прямо от коровы, поэтому срок годности у него такой короткий.',
+                              price: 69.99,
+                              name: "Молоко простоквашино",
+                              photoAlbum: [],
+                              productType: "",
+                              quantity: 12,
+                              brandName: "Простоквашино",
+                              brandLogoPath: ""),
+                        ),
+                        ProductCard(),
+                      ],
+                    )
+                  ]),
+            ),
           )
         ],
       ),

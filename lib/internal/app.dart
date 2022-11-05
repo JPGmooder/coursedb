@@ -12,6 +12,7 @@ import 'package:kursach/presentation/auth/auth_personal/auth_personal_screen.dar
 import 'package:kursach/presentation/auth/auth_screen.dart';
 import 'package:kursach/presentation/home/navigator_screen.dart';
 import 'package:kursach/presentation/home/profile/organization/manage_organization.dart';
+import 'package:kursach/presentation/home/profile/organization/navigator_organization.dart';
 import 'package:kursach/presentation/home/profile/partnership/partnership_reg.dart';
 import 'package:kursach/presentation/outstanding/loadin_screen.dart';
 
@@ -82,8 +83,8 @@ class MyApp extends StatelessWidget {
                     case PartnerShipReg.route:
                       screen = PartnerShipReg(pickedAddress: settings.arguments as AddressModel,);
                       break;
-                     case ManageOrganization.route:
-                      screen = ManageOrganization();
+                     case NavigatorOrganizationScreen.route:
+                      screen = NavigatorOrganizationScreen();
                       break;
                     default:
                   }
