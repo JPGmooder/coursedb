@@ -7,6 +7,7 @@ import 'package:kursach/domain/auth/bloc/auth_bloc.dart';
 import 'package:kursach/domain/model/address_model.dart';
 import 'package:kursach/domain/organization/bloc/org_bloc.dart';
 import 'package:kursach/domain/place_searcher/bloc/place_searcher_bloc.dart';
+import 'package:kursach/domain/product/bloc/product_bloc.dart';
 import 'package:kursach/presentation/additional/setlocation_screen.dart';
 import 'package:kursach/presentation/auth/auth_personal/auth_personal_screen.dart';
 import 'package:kursach/presentation/auth/auth_screen.dart';
@@ -26,7 +27,8 @@ class MyApp extends StatelessWidget {
       providers: [
         BlocProvider(create: (ctx) => AuthBloc()),
         BlocProvider(create: (ctx) => PlaceSearcherBloc()),
-        BlocProvider(create: (ctx) => OrganizationBloc())
+        BlocProvider(create: (ctx) => OrganizationBloc()),
+        BlocProvider(create: (ctx) => ProductBloc()),
       ],
       child: MaterialApp(
           title: 'Material App',
@@ -76,14 +78,15 @@ class MyApp extends StatelessWidget {
                         currentMode: settings.arguments as LocationPickerMode,
                       );
                       break;
-
                     case NavigatorScreen.route:
                       screen = NavigatorScreen();
                       break;
                     case PartnerShipReg.route:
-                      screen = PartnerShipReg(pickedAddress: settings.arguments as AddressModel,);
+                      screen = PartnerShipReg(
+                        pickedAddress: settings.arguments as AddressModel,
+                      );
                       break;
-                     case NavigatorOrganizationScreen.route:
+                    case NavigatorOrganizationScreen.route:
                       screen = NavigatorOrganizationScreen();
                       break;
                     default:

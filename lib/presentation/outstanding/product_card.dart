@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_neumorphic/flutter_neumorphic.dart';
 import 'package:kursach/domain/model/product_model.dart';
+import 'package:kursach/presentation/home/profile/organization/product_editor.dart';
 import 'package:kursach/presentation/outstanding/gradientmask.dart';
 
 class ProductCard extends StatefulWidget {
@@ -17,7 +18,12 @@ class _ProductCardState extends State<ProductCard> {
   @override
   Widget build(BuildContext context) {
     return InkWell(
-      onTap: () => print("aboba"),
+      onTap: () {
+        if (widget.productModel == null) {
+          Navigator.of(context)
+              .push(MaterialPageRoute(builder: (ctx) => ProductEditorScreen()));
+        }
+      },
       child: SizedBox(
         height: MediaQuery.of(context).size.height * 0.48,
         child: Neumorphic(
