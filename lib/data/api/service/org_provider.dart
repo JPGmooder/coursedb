@@ -96,6 +96,19 @@ mutation MyMutation($_similar: String = "", $id_company: Int = 10) {
     return response;
   }
 
+   static Future<Map<String, String>> loadCardsInfo(
+      Uint8List cardImage, Uint8List logoImage, int orgId) async {
+    var cardString = await SupaBaseClient.client.storage
+        .from('kursach')
+        .uploadBinary('organiztion/$orgId/card.png', cardImage);
+    var logoString = await SupaBaseClient.client.storage
+        .from('kursach')
+        .uploadBinary('organiztion/$orgId/logo.png', logoImage);
+
+    return {'logo': logoString, 'card': cardString};
+  }
+
+
   static Future<QueryResult> changeUsersCompany(
       {required int companyId, required String userLogin}) async {
     var response = await AppsGraphClient.client.mutate(

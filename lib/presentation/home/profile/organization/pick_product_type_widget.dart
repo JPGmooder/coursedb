@@ -22,6 +22,8 @@ class _PickProductTypeState extends State<PickProductType> {
   late TextEditingController _controller;
   late StreamController<String> _sender;
   List<ProductTypeModel> addedchips = [];
+  List<ProductTypeModel> findedchips = [];
+
   @override
   void initState() {
     _sender = StreamController<String>();
@@ -89,8 +91,9 @@ class _PickProductTypeState extends State<PickProductType> {
                           orElse: () => null,
                           categoriesLoaded: (categories) {
                             setState(() {
-                              addedchips.addAll(categories.where(
-                                  (element) => !addedchips.contains(element)));
+                              findedchips.addAll(categories.where((element) =>
+                                  !addedchips.contains(element) &&
+                                  !findedchips.contains(element)));
                             });
                           },
                         );
@@ -129,23 +132,32 @@ class _PickProductTypeState extends State<PickProductType> {
                             return CategoryChip(
                               color: e.color,
                               label: e.label,
-                              isSelected: addedchips
-                                  .where((element) => element.label == e.label)
-                                  .isNotEmpty,
+                              isSelected: true,
+                              onSelected: (value) {
+                                setState(() {
+                                  addedchips.remove(e);
+                                });
+                              },
+                            );
+                          }).toList(),
+                          ...findedchips.map((e) {
+                            return CategoryChip(
+                              color: e.color,
+                              label: e.label,
+                              isSelected: false,
                               onSelected: (value) {
                                 setState(() {
                                   if (value) {
                                     if (!addedchips.contains(e) &&
                                         addedchips.length < 3) {
                                       addedchips.add(e);
+                                      findedchips.remove(e);
                                     }
-                                  } else {
-                                    addedchips.remove(e);
                                   }
                                 });
                               },
                             );
-                          }).toList()
+                          }).toList(),
                         ],
                       ),
                     ),
@@ -164,9 +176,11 @@ class _PickProductTypeState extends State<PickProductType> {
           BlocBuilder<ProductBloc, ProductState>(
             builder: (context, state) {
               return state.maybeWhen(
-                  categoriesAddedEvent: (categories) {
-                    widget.setModels(addedchips);
+                  categoriesAdded: (categories) {
+                    context.read<ProductBloc>().emit(ProductState.initial());
                     Navigator.pop(context);
+                    Future.delayed(Duration.zero)
+                        .then((value) => widget.setModels(addedchips));
                     return Container();
                   },
                   loading: (_) {

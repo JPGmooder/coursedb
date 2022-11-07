@@ -2,6 +2,7 @@ import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_neumorphic/flutter_neumorphic.dart';
 import 'package:kursach/domain/model/product_type_model.dart';
+import 'package:kursach/presentation/home/profile/organization/pick_brand_widget.dart';
 import 'package:kursach/presentation/home/profile/organization/pick_product_type_widget.dart';
 import 'package:kursach/presentation/outstanding/category_chip.dart';
 import 'package:kursach/presentation/outstanding/product_image.dart';
@@ -18,10 +19,12 @@ class _ProductEditorScreenState extends State<ProductEditorScreen> {
       _priceController,
       _descController,
       _countyController;
-  List<ProductTypeModel> productTypes = [];
-  List<Uint8List?> _images = [];
+  late List<ProductTypeModel> productTypes;
+  late List<Uint8List?> _images;
   @override
   void initState() {
+    productTypes = [];
+    _images = [];
     _nameController = TextEditingController();
     _priceController = TextEditingController();
     _descController = TextEditingController();
@@ -51,154 +54,253 @@ class _ProductEditorScreenState extends State<ProductEditorScreen> {
         child: SingleChildScrollView(
           child: Padding(
             padding: const EdgeInsets.all(8.0),
-            child: Column(children: [
-              TextField(
-                controller: _nameController,
-                decoration: InputDecoration(
-                    labelText: "Наименование", alignLabelWithHint: true),
-              ),
-              Neumorphic(
-                style: NeumorphicStyle(depth: -5),
-                child: Column(
-                  crossAxisAlignment: CrossAxisAlignment.stretch,
-                  children: [
-                    Padding(
-                      padding: const EdgeInsets.only(left: 8.0, top: 8.0),
-                      child: Text(
-                        "Галлерея",
-                        style: Theme.of(context).textTheme.titleMedium,
+            child: Column(
+                crossAxisAlignment: CrossAxisAlignment.stretch,
+                children: [
+                  Padding(
+                    padding: const EdgeInsets.all(8.0),
+                    child: Text(
+                      "Добавление нового товара",
+                      textScaleFactor: 1.3,
+                      style: Theme.of(context).textTheme.titleMedium,
+                    ),
+                  ),
+                  Padding(
+                    padding: const EdgeInsets.all(8.0),
+                    child: Card(
+                      child: TextField(
+                        controller: _nameController,
+                        decoration: InputDecoration(
+                            labelText: "Наименование",
+                            alignLabelWithHint: true,
+                            border: OutlineInputBorder(
+                                borderRadius:
+                                    BorderRadius.all(Radius.circular(3)))),
                       ),
                     ),
-                    Padding(
-                      padding: const EdgeInsets.all(8.0),
-                      child: SizedBox(
-                        height: MediaQuery.of(context).size.height * 0.3,
-                        child: ListView.builder(
-                            scrollDirection: Axis.horizontal,
-                            itemBuilder: (ctx, index) {
-                              if (index == 0 &&
-                                  _images.length > 1 &&
-                                  _images.first == null) {
-                                return ProductImage(
-                                    isLeading: true,
-                                    setImage: (image) => setState(() {
-                                          _images.insert(0, image);
-                                        }));
-                              }
+                  ),
+                  Neumorphic(
+                    style: NeumorphicStyle(depth: -5),
+                    child: Column(
+                      crossAxisAlignment: CrossAxisAlignment.stretch,
+                      children: [
+                        Padding(
+                          padding: const EdgeInsets.only(left: 8.0, top: 8.0),
+                          child: Text(
+                            "Галлерея",
+                            style: Theme.of(context).textTheme.titleMedium,
+                          ),
+                        ),
+                        Padding(
+                          padding: const EdgeInsets.all(8.0),
+                          child: SizedBox(
+                            height: MediaQuery.of(context).size.height * 0.3,
+                            child: ListView.builder(
+                                scrollDirection: Axis.horizontal,
+                                itemBuilder: (ctx, index) {
+                                  if (index == 0 &&
+                                      _images.length > 1 &&
+                                      _images.first == null) {
+                                    return ProductImage(
+                                        isLeading: true,
+                                        setImage: (image) => setState(() {
+                                              _images.insert(0, image);
+                                            }));
+                                  }
 
-                              if (index == _images.length) {
-                                if (_images.isEmpty) {
-                                  return Row(
-                                    children: [
-                                      ProductImage(
-                                          isLeading: true,
-                                          setImage: (image) => setState(() {
-                                                _images.insert(0, image);
-                                              })),
-                                      SizedBox(
-                                        width: 15,
-                                      ),
-                                      ProductImage(
+                                  if (index == _images.length) {
+                                    if (_images.isEmpty) {
+                                      return Row(
+                                        children: [
+                                          ProductImage(
+                                              isLeading: true,
+                                              setImage: (image) => setState(() {
+                                                    _images.insert(0, image);
+                                                  })),
+                                          SizedBox(
+                                            width: 15,
+                                          ),
+                                          ProductImage(
+                                            setImage: (image) => setState(() {
+                                              _images.add(image);
+                                            }),
+                                          ),
+                                        ],
+                                      );
+                                    } else {
+                                      return ProductImage(
                                         setImage: (image) => setState(() {
                                           _images.add(image);
                                         }),
-                                      ),
-                                    ],
-                                  );
-                                } else {
-                                  return ProductImage(
-                                    setImage: (image) => setState(() {
-                                      _images.add(image);
-                                    }),
-                                  );
-                                }
-                              } else {
-                                return ProductImage(
-                                  imageData: _images[index],
-                                  onDelete: () => setState(() {
-                                    if (index == 0) {
-                                      _images[0] = null;
-                                    } else {
-                                      _images.removeAt(index);
+                                      );
                                     }
-                                  }),
-                                );
-                              }
-                            },
-                            itemCount: _images.length + 1),
+                                  } else {
+                                    return ProductImage(
+                                      imageData: _images[index],
+                                      onDelete: () => setState(() {
+                                        if (index == 0) {
+                                          _images[0] = null;
+                                        } else {
+                                          _images.removeAt(index);
+                                        }
+                                      }),
+                                    );
+                                  }
+                                },
+                                itemCount: _images.length + 1),
+                          ),
+                        ),
+                      ],
+                    ),
+                  ),
+                  Card(
+                    child: Padding(
+                      padding: const EdgeInsets.all(8.0),
+                      child: Column(
+                          crossAxisAlignment: CrossAxisAlignment.start,
+                          children: [
+                            Padding(
+                              padding:
+                                  const EdgeInsets.symmetric(vertical: 8.0),
+                              child: Text(
+                                "Бренд размещаемой продукции",
+                                style: Theme.of(context).textTheme.titleMedium,
+                              ),
+                            ),
+                            NeumorphicButton(
+                              onPressed: () => showDialog(
+                                  context: context,
+                                  builder: (ctx) => AlertDialog(
+                                        content: PickBrandWidget(),
+                                      )),
+                              child: Padding(
+                                padding:
+                                    const EdgeInsets.symmetric(vertical: 25.0),
+                                child: Column(children: [
+                                  Text(
+                                    "Добавить бренд",
+                                    style:
+                                        Theme.of(context).textTheme.labelMedium,
+                                  ),
+                                  Icon(Icons.add, color: Colors.grey),
+                                ]),
+                              ),
+                            )
+                          ]),
+                    ),
+                  ),
+                  Card(
+                    child: Padding(
+                      padding: const EdgeInsets.all(8.0),
+                      child: Column(
+                        crossAxisAlignment: CrossAxisAlignment.stretch,
+                        children: [
+                          Text(
+                            "Категории товара",
+                            style: Theme.of(context).textTheme.titleMedium,
+                          ),
+                          Padding(
+                            padding: const EdgeInsets.all(8.0),
+                            child: Wrap(
+                              spacing: 10,
+                              runSpacing: 10,
+                              children: [
+                                ...productTypes
+                                    .map((e) => CategoryChip(
+                                          label: e.label,
+                                          color: e.color,
+                                          isSelected: true,
+                                        ))
+                                    .toList(),
+                                RawChip(
+                                    labelPadding:
+                                        EdgeInsets.symmetric(horizontal: 3),
+                                    visualDensity: VisualDensity(
+                                        horizontal: 0.0, vertical: -4),
+                                    materialTapTargetSize:
+                                        MaterialTapTargetSize.shrinkWrap,
+                                    onPressed: () => showDialog(
+                                        context: context,
+                                        builder: (ctx) {
+                                          return AlertDialog(
+                                            contentPadding:
+                                                EdgeInsets.symmetric(
+                                                    vertical: 5, horizontal: 5),
+                                            content: PickProductType(
+                                              avoidList: productTypes,
+                                              setModels: (models) =>
+                                                  setState(() {
+                                                productTypes = models;
+                                              }),
+                                            ),
+                                          );
+                                        }),
+                                    label: Text(
+                                      "Добавить",
+                                      textScaleFactor: 0.6,
+                                      style: Theme.of(context)
+                                          .textTheme
+                                          .labelMedium,
+                                    ))
+                              ],
+                            ),
+                          ),
+                        ],
                       ),
                     ),
-                  ],
-                ),
-              ),
-              Card(
-                child: Padding(
-                  padding: const EdgeInsets.all(8.0),
-                  child: Column(
-                    crossAxisAlignment: CrossAxisAlignment.stretch,
-                    children: [
-                      Text(
-                        "Категории товара",
-                        style: Theme.of(context).textTheme.titleMedium,
+                  ),
+                  Row(
+                    children: List.generate(
+                      2,
+                      (index) => Expanded(
+                        child: Card(
+                            child: TextField(
+                          controller:
+                              index == 0 ? _countyController : _priceController,
+                          maxLines: 1,
+                          keyboardType: TextInputType.number,
+                          decoration: InputDecoration(
+                              labelText: index == 0
+                                  ? "Колличество товара"
+                                  : "Цена за 1 шт.",
+                              border: OutlineInputBorder(
+                                  borderRadius:
+                                      BorderRadius.all(Radius.circular(3)))),
+                        )),
                       ),
-                      Padding(
-                        padding: const EdgeInsets.all(8.0),
-                        child: Wrap(
-                          children: [
-                            ...productTypes
-                                .map((e) => CategoryChip(
-                                      label: e.label,
-                                      color: e.color,
-                                      isSelected: true,
-                                    ))
-                                .toList(),
-                            RawChip(
-                                labelPadding:
-                                    EdgeInsets.symmetric(horizontal: 3),
-                                visualDensity: VisualDensity(
-                                    horizontal: 0.0, vertical: -4),
-                                materialTapTargetSize:
-                                    MaterialTapTargetSize.shrinkWrap,
-                                onPressed: () => showDialog(
-                                    context: context,
-                                    builder: (ctx) {
-                                      return AlertDialog(
-                                        contentPadding: EdgeInsets.symmetric(
-                                            vertical: 5, horizontal: 5),
-                                        content: PickProductType(
-                                          avoidList: [],
-                                          setModels: (models) => setState(() {
-                                            this.productTypes = models;
-                                          }),
-                                        ),
-                                      );
-                                    }),
-                                label: Text(
-                                  "Добавить",
-                                  textScaleFactor: 0.6,
-                                  style:
-                                      Theme.of(context).textTheme.labelMedium,
-                                ))
-                          ],
+                    ),
+                  ),
+                  Card(
+                    child: TextField(
+                      controller: _descController,
+                      maxLines: 10,
+                      minLines: 1,
+                      keyboardType: TextInputType.multiline,
+                      decoration: InputDecoration(
+                          labelText: "Описание товара",
+                          border: OutlineInputBorder(
+                              borderRadius:
+                                  BorderRadius.all(Radius.circular(3)))),
+                    ),
+                  ),
+                  Padding(
+                    padding: const EdgeInsets.symmetric(
+                        vertical: 8.0, horizontal: 25),
+                    child: NeumorphicButton(
+                      style: NeumorphicStyle(depth: -5),
+                      onPressed: () => null,
+                      child: Padding(
+                        padding: const EdgeInsets.all(5.0),
+                        child: Center(
+                          child: Text(
+                            "Добавить",
+                            style: Theme.of(context).textTheme.labelMedium,
+                          ),
                         ),
                       ),
-                    ],
-                  ),
-                ),
-              ),
-              Card(
-                child: TextField(
-                  controller: _descController,
-                  maxLines: 10,
-                  minLines: 1,
-                  keyboardType: TextInputType.multiline,
-                  decoration: InputDecoration(
-                      labelText: "Описание товара",
-                      border: OutlineInputBorder(
-                          borderRadius: BorderRadius.all(Radius.circular(3)))),
-                ),
-              )
-            ]),
+                    ),
+                  )
+                ]),
           ),
         ),
       ),

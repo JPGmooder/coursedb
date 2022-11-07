@@ -9,18 +9,7 @@ class OrganiztionRepository {
     return response.data!['company']!.isEmpty;
   }
 
-  static Future<Map<String, String>> loadCardsInfo(
-      Uint8List cardImage, Uint8List logoImage, int orgId) async {
-    var cardString = await SupaBaseClient.client.storage
-        .from('kursach')
-        .uploadBinary('organiztion/$orgId/card.png', cardImage);
-    var logoString = await SupaBaseClient.client.storage
-        .from('kursach')
-        .uploadBinary('organiztion/$orgId/logo.png', logoImage);
-
-    return {'logo': logoString, 'card': cardString};
-  }
-
+ 
   static Future<OrganizationModel> addNewCompany(
       {required String companyName,
       required String status,

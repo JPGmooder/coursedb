@@ -29,6 +29,26 @@ class ProductProvider {
         variables: {"p_color": color, "p_producttypename": productName});
   }
 
+  static MutationOptions _addBrand(
+      String brandName, String brandDescription, String brandPathToImge) {
+    String query =
+        r'''mutation AddNewBrand($p_branddescription: String = "", $p_brandlogo: String = "", $p_brandname: String = "") {
+  brand_addnew(args: {p_branddescription: $p_branddescription, p_brandlogo: $p_brandlogo, p_brandname: $p_brandname}) {
+    branddescription
+    brandlogo
+    brandname
+  }
+}
+
+
+''';
+    return MutationOptions(document: gql(query), variables: {
+      "p_branddescription": brandDescription,
+      "p_brandlogo": brandPathToImge,
+      "p_brandname": brandName
+    });
+  }
+
   static Future<QueryResult> searchCategoryByText(
       {required String searchText}) async {
     var response =
@@ -41,5 +61,23 @@ class ProductProvider {
     var response = await AppsGraphClient.client
         .mutate(addProductType(color, productTypeName));
     return response;
+  }
+
+  static Future<QueryResult> addNewBrand(
+      {required String brandName,
+      required String brandDesc,
+      required String brandImagePath}) async {
+    var response = await AppsGraphClient.client
+        .mutate(_addBrand(brandName, brandDesc, brandImagePath));
+    return response;
+  }
+
+  static Future<String> loadBrandImage(
+      {required String brandName, required Uint8List imageData}) async {
+    var translitter = Translit().toTranslit(source: brandName);
+    var logoString = await SupaBaseClient.client.storage
+        .from('kursach')
+        .uploadBinary('brand/$translitter/logo.png', imageData);
+    return logoString;
   }
 }

@@ -22,7 +22,23 @@ class ProductRepository {
     if (response.hasException) {
       throw Exception(response.exception.toString());
     }
-    ProductTypeModel modelToReturn = ProductTypeModel.fromMap(response.data!);
+    ProductTypeModel modelToReturn =
+        ProductTypeModel.fromMap(response.data!['producttype_addnew']);
+    return modelToReturn;
+  }
+
+  static Future<BrandModel> addNewBrand(
+      String brandName, String brandDescription, Uint8List logo) async {
+    var loadedLogo = await ProductProvider.loadBrandImage(
+        brandName: brandName, imageData: logo);
+    var loadedBrand = await ProductProvider.addNewBrand(
+        brandName: brandName,
+        brandDesc: brandDescription,
+        brandImagePath: loadedLogo);
+    if (loadedBrand.hasException) {
+      throw Exception(loadedBrand.exception);
+    }
+    var modelToReturn = BrandModel.fromMap(loadedBrand.data!['brand_addnew']);
     return modelToReturn;
   }
 }

@@ -42,7 +42,7 @@ class OrganizationBloc extends Bloc<OrganizationEvent, OrganizationState> {
                   type: "",
                   addressId: address.id_address,
                   deliveryPrice: deliveryPrice.toInt());
-              await OrganiztionRepository.loadCardsInfo(
+              await OrganizationProvider.loadCardsInfo(
                   cardImage, logoImage, loadedOrg.idCompany);
               emit(OrganizationState.loaded(loadedOrg));
             }
