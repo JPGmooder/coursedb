@@ -165,20 +165,21 @@ class _ManageOrganizationState extends State<ManageOrganization> {
                       runSpacing: 10,
                       spacing: 10,
                       alignment: WrapAlignment.spaceEvenly,
-                      
                       children: [
                         ProductCard(
                           productModel: ProductModel(
-                              productId: 0,
-                              description:
-                                  'История молочных продуктов для всей семьи Простоквашино начинается на молочных фермах. Это свежее молоко, прямо от коровы, поэтому срок годности у него такой короткий.',
-                              price: 69.99,
-                              name: "Молоко простоквашино",
-                              photoAlbum: [],
-                              productType: "",
-                              quantity: 12,
-                              brandName: "Простоквашино",
-                              brandLogoPath: ""),
+                            productId: 0,
+                            description:
+                                'История молочных продуктов для всей семьи Простоквашино начинается на молочных фермах. Это свежее молоко, прямо от коровы, поэтому срок годности у него такой короткий.',
+                            price: 69.99,
+                            name: "Молоко простоквашино",
+                            photoAlbum: [],
+                            productType: "",
+                            quantity: 12,
+                            brandName: "Простоквашино",
+                            brandLogoPath: "",
+                            categoryName: "",
+                          ),
                         ),
                         ProductCard(),
                       ],

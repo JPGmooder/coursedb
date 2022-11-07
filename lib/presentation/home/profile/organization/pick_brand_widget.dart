@@ -1,24 +1,40 @@
+import 'dart:async';
+
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_neumorphic/flutter_neumorphic.dart';
+import 'package:kursach/domain/model/brand_model.dart';
 import 'package:kursach/domain/pickers/image_picker.dart';
 import 'package:kursach/domain/product/bloc/product_bloc.dart';
+import 'package:kursach/presentation/outstanding/brand_widget.dart';
 import 'package:kursach/presentation/outstanding/gradientmask.dart';
+import 'package:rxdart/rxdart.dart';
 
 class PickBrandWidget extends StatefulWidget {
-  PickBrandWidget({Key? key}) : super(key: key);
-
+  const PickBrandWidget({Key? key, required this.setBrand}) : super(key: key);
+  final void Function(BrandModel brand) setBrand;
   @override
   State<PickBrandWidget> createState() => _PickBrandWidgetState();
 }
 
 class _PickBrandWidgetState extends State<PickBrandWidget> {
   late TextEditingController _controller;
-
+  late StreamController<String> _sender;
+  List<BrandModel> findedBrands = [];
   @override
   void initState() {
     _controller = TextEditingController();
+    _sender = StreamController<String>();
+    _controller.addListener(() {
+      _sender.add(_controller.text);
+    });
+    _sender.stream
+        .distinct()
+        .debounceTime(Duration(milliseconds: 350))
+        .listen((event) {
+      context.read<ProductBloc>().add(ProductEvent.loadBrands(event));
+    });
     super.initState();
   }
 
@@ -47,11 +63,26 @@ class _PickBrandWidgetState extends State<PickBrandWidget> {
         Card(
           child: SizedBox(
             height: MediaQuery.of(context).size.height * 0.3,
-            child: ListView.builder(
-                itemCount: 2,
-                itemBuilder: (ctx, index) {
-                  return Container();
-                }),
+            child: BlocListener<ProductBloc, ProductState>(
+              listener: (context, state) {
+                state.maybeWhen(
+                    orElse: () => null,
+                    brandsLoaded: (brands) => setState(() {
+                          findedBrands = brands;
+                        }));
+              },
+              child: ListView.builder(
+                  itemCount: findedBrands.length,
+                  itemBuilder: (ctx, index) {
+                    return InkWell(
+                        onTap: () {
+                          Future.delayed(Duration.zero).then(
+                              (value) => widget.setBrand(findedBrands[index]));
+                          Navigator.pop(context);
+                        },
+                        child: BrandWidget(brand: findedBrands[index]));
+                  }),
+            ),
           ),
         ),
         Padding(
@@ -76,7 +107,8 @@ class _PickBrandWidgetState extends State<PickBrandWidget> {
                             builder: (ctx) => Dialog(
                                   insetPadding: EdgeInsets.symmetric(
                                       vertical: 40, horizontal: 5),
-                                  child: AddNewBrandWidget(),
+                                  child: AddNewBrandWidget(
+                                      setBrand: widget.setBrand),
                                 ));
                       },
                       child: Text(
@@ -97,9 +129,9 @@ class _PickBrandWidgetState extends State<PickBrandWidget> {
 }
 
 class AddNewBrandWidget extends StatefulWidget {
-  const AddNewBrandWidget({
-    Key? key,
-  }) : super(key: key);
+  const AddNewBrandWidget({Key? key, required this.setBrand}) : super(key: key);
+
+  final void Function(BrandModel brand) setBrand;
 
   @override
   State<AddNewBrandWidget> createState() => _AddNewBrandWidgetState();
@@ -249,11 +281,18 @@ class _AddNewBrandWidgetState extends State<AddNewBrandWidget> {
               BlocConsumer<ProductBloc, ProductState>(
                 listener: (context, state) => state.maybeWhen(
                     orElse: () => null,
+                    brandAdded: (addedBrand) {
+                      Future.delayed(Duration.zero).then((value) {
+                        widget.setBrand(addedBrand);
+                      });
+                      Navigator.pop(context);
+                    },
                     errored: (error) => showDialog(
                         context: context,
                         builder: (ctx) => AlertDialog(
                               content: Text(error),
-                              title: const Text("Ошибка в процессе добавления бренда"),
+                              title: const Text(
+                                  "Ошибка в процессе добавления бренда"),
                             ))),
                 builder: (context, state) {
                   return state.maybeWhen(

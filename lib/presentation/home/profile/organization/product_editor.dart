@@ -1,9 +1,13 @@
+import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_neumorphic/flutter_neumorphic.dart';
+
+import 'package:kursach/domain/model/brand_model.dart';
 import 'package:kursach/domain/model/product_type_model.dart';
 import 'package:kursach/presentation/home/profile/organization/pick_brand_widget.dart';
 import 'package:kursach/presentation/home/profile/organization/pick_product_type_widget.dart';
+import 'package:kursach/presentation/outstanding/brand_widget.dart';
 import 'package:kursach/presentation/outstanding/category_chip.dart';
 import 'package:kursach/presentation/outstanding/product_image.dart';
 
@@ -19,6 +23,7 @@ class _ProductEditorScreenState extends State<ProductEditorScreen> {
       _priceController,
       _descController,
       _countyController;
+  BrandModel? _currentBrand;
   late List<ProductTypeModel> productTypes;
   late List<Uint8List?> _images;
   @override
@@ -167,25 +172,50 @@ class _ProductEditorScreenState extends State<ProductEditorScreen> {
                                 style: Theme.of(context).textTheme.titleMedium,
                               ),
                             ),
-                            NeumorphicButton(
-                              onPressed: () => showDialog(
-                                  context: context,
-                                  builder: (ctx) => AlertDialog(
-                                        content: PickBrandWidget(),
-                                      )),
-                              child: Padding(
-                                padding:
-                                    const EdgeInsets.symmetric(vertical: 25.0),
-                                child: Column(children: [
-                                  Text(
-                                    "Добавить бренд",
-                                    style:
-                                        Theme.of(context).textTheme.labelMedium,
-                                  ),
-                                  Icon(Icons.add, color: Colors.grey),
-                                ]),
-                              ),
-                            )
+                            _currentBrand != null
+                                ? Stack(
+                                    children: [
+                                      BrandWidget(brand: _currentBrand!),
+                                      Positioned(
+                                        right: 0,
+                                        top: -15,
+                                        child: IconButton(
+                                          icon: Icon(
+                                            Icons.close,
+                                            color: Colors.red[300],
+                                          ),
+                                          onPressed: () => setState(() {
+                                            _currentBrand = null;
+                                          }),
+                                        ),
+                                      )
+                                    ],
+                                  )
+                                : NeumorphicButton(
+                                    onPressed: () => showDialog(
+                                        context: context,
+                                        builder: (ctx) => AlertDialog(
+                                              content: PickBrandWidget(
+                                                setBrand: (brand) =>
+                                                    setState(() {
+                                                  _currentBrand = brand;
+                                                }),
+                                              ),
+                                            )),
+                                    child: Padding(
+                                      padding: const EdgeInsets.symmetric(
+                                          vertical: 25.0),
+                                      child: Column(children: [
+                                        Text(
+                                          "Добавить бренд",
+                                          style: Theme.of(context)
+                                              .textTheme
+                                              .labelMedium,
+                                        ),
+                                        Icon(Icons.add, color: Colors.grey),
+                                      ]),
+                                    ),
+                                  )
                           ]),
                     ),
                   ),

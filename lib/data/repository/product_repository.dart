@@ -27,6 +27,18 @@ class ProductRepository {
     return modelToReturn;
   }
 
+  static Future<List<BrandModel>> searchBrandByName(String searchText) async {
+    var response =
+        await ProductProvider.searchBrandByText(brandName: searchText);
+    if (response.hasException) {
+      throw Exception(response.exception.toString());
+    }
+    var decodedBrands = (response.data!['brand'] as List<Object?>).map((e) {
+      return BrandModel.fromMap(e as Map<String, dynamic>);
+    }).toList();
+    return decodedBrands;
+  }
+
   static Future<BrandModel> addNewBrand(
       String brandName, String brandDescription, Uint8List logo) async {
     var loadedLogo = await ProductProvider.loadBrandImage(
@@ -39,6 +51,38 @@ class ProductRepository {
       throw Exception(loadedBrand.exception);
     }
     var modelToReturn = BrandModel.fromMap(loadedBrand.data!['brand_addnew']);
+    return modelToReturn;
+  }
+
+  static Future<ProductModel> addNewProduct(
+      {required String brandName,
+      required List<Uint8List> album,
+      required String productDesc,
+      required String productName,
+      required double productPrice,
+      required int quantity,
+      required String productCategory,
+      String? productCategoryS,
+      String? productCategoryT}) async {
+    var loadedAlbum = await ProductProvider.loadProductImages(
+        images: album,
+        orgId: UserModel.get().organizationModel!.idCompany,
+        productName: productName);
+    var loadedProduct = await ProductProvider.addNewProduct(
+        album: loadedAlbum,
+        brandName: brandName,
+        idCompany: UserModel.get().organizationModel!.idCompany,
+        productCategory: productCategory,
+        productDesc: productDesc,
+        productName: productName,
+        quantity: quantity,
+        productPrice: productPrice,
+        productCategoryS: productCategoryS,
+        productCategoryT: productCategoryT);
+    if (loadedProduct.hasException) {
+      throw Exception(loadedProduct.exception);
+    }
+    var modelToReturn = ProductModel.fromMap(loadedProduct.data!['product_addnew']);
     return modelToReturn;
   }
 }

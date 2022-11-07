@@ -164,7 +164,7 @@ class MainDialogWidget extends StatelessWidget {
                         padding: const EdgeInsets.symmetric(
                             vertical: 10.0, horizontal: 8),
                         child: NeumorphicButton(
-                          onPressed: () => Navigator.of(context).pushNamed(
+                          onPressed: () async => Navigator.of(context).pushNamed(
                               SetLocationScreen.path,
                               arguments: LocationPickerMode.orgAddress),
                           style: const NeumorphicStyle(depth: -5),

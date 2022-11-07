@@ -1,6 +1,7 @@
 import 'dart:convert';
 
 import 'package:collection/collection.dart';
+import 'package:flutter/foundation.dart';
 
 class ProductModel {
   int productId;
@@ -12,6 +13,9 @@ class ProductModel {
   int quantity;
   String brandName;
   String brandLogoPath;
+  String categoryName;
+  String? categoryNameS;
+  String? categoryNameT;
   ProductModel({
     required this.productId,
     required this.description,
@@ -22,6 +26,9 @@ class ProductModel {
     required this.quantity,
     required this.brandName,
     required this.brandLogoPath,
+    required this.categoryName,
+    this.categoryNameS,
+    this.categoryNameT,
   });
 
   ProductModel copyWith({
@@ -34,6 +41,9 @@ class ProductModel {
     int? quantity,
     String? brandName,
     String? brandLogoPath,
+    String? categoryName,
+    String? categoryNameS,
+    String? categoryNameT,
   }) {
     return ProductModel(
       productId: productId ?? this.productId,
@@ -45,6 +55,9 @@ class ProductModel {
       quantity: quantity ?? this.quantity,
       brandName: brandName ?? this.brandName,
       brandLogoPath: brandLogoPath ?? this.brandLogoPath,
+      categoryName: categoryName ?? this.categoryName,
+      categoryNameS: categoryNameS ?? this.categoryNameS,
+      categoryNameT: categoryNameT ?? this.categoryNameT,
     );
   }
 
@@ -59,6 +72,9 @@ class ProductModel {
       'quantity': quantity,
       'brandName': brandName,
       'brandLogoPath': brandLogoPath,
+      'categoryName': categoryName,
+      'categoryNameS': categoryNameS,
+      'categoryNameT': categoryNameT,
     };
   }
 
@@ -73,6 +89,9 @@ class ProductModel {
       quantity: map['quantity']?.toInt() ?? 0,
       brandName: map['brandName'] ?? '',
       brandLogoPath: map['brandLogoPath'] ?? '',
+      categoryName: map['categoryName'] ?? '',
+      categoryNameS: map['categoryNameS'],
+      categoryNameT: map['categoryNameT'],
     );
   }
 
@@ -82,13 +101,12 @@ class ProductModel {
 
   @override
   String toString() {
-    return 'ProductModel(productId: $productId, description: $description, price: $price, name: $name, photoAlbum: $photoAlbum, productType: $productType, quantity: $quantity, brandName: $brandName, brandLogoPath: $brandLogoPath)';
+    return 'ProductModel(productId: $productId, description: $description, price: $price, name: $name, photoAlbum: $photoAlbum, productType: $productType, quantity: $quantity, brandName: $brandName, brandLogoPath: $brandLogoPath, categoryName: $categoryName, categoryNameS: $categoryNameS, categoryNameT: $categoryNameT)';
   }
 
   @override
   bool operator ==(Object other) {
     if (identical(this, other)) return true;
-    final listEquals = const DeepCollectionEquality().equals;
   
     return other is ProductModel &&
       other.productId == productId &&
@@ -99,7 +117,10 @@ class ProductModel {
       other.productType == productType &&
       other.quantity == quantity &&
       other.brandName == brandName &&
-      other.brandLogoPath == brandLogoPath;
+      other.brandLogoPath == brandLogoPath &&
+      other.categoryName == categoryName &&
+      other.categoryNameS == categoryNameS &&
+      other.categoryNameT == categoryNameT;
   }
 
   @override
@@ -112,6 +133,9 @@ class ProductModel {
       productType.hashCode ^
       quantity.hashCode ^
       brandName.hashCode ^
-      brandLogoPath.hashCode;
+      brandLogoPath.hashCode ^
+      categoryName.hashCode ^
+      categoryNameS.hashCode ^
+      categoryNameT.hashCode;
   }
 }

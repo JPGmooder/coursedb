@@ -1,3 +1,4 @@
+import 'dart:async';
 import 'dart:ffi';
 import 'dart:convert';
 import 'package:bloc/bloc.dart';
@@ -7,8 +8,11 @@ import 'package:freezed_annotation/freezed_annotation.dart';
 import 'package:graphql_flutter/graphql_flutter.dart';
 import 'package:kursach/data/api/model/graphclient.dart';
 import 'package:kursach/domain/model/brand_model.dart';
+import 'package:kursach/domain/model/product_model.dart';
 import 'package:kursach/domain/model/product_type_model.dart';
+import 'package:kursach/domain/model/user_model.dart';
 import 'package:translit/translit.dart';
+import 'package:crypto/crypto.dart';
 part 'product_events.dart';
 part 'product_states.dart';
 part '../../../data/repository/product_repository.dart';
@@ -29,6 +33,11 @@ class ProductBloc extends Bloc<ProductEvent, ProductState> {
             } catch (e) {
               emit(ProductState.errored(e.toString()));
             }
+          },
+          loadBrands: (searchText) async {
+            var loadedBrands =
+                await ProductRepository.searchBrandByName(searchText);
+            emit(ProductState.brandsLoaded(loadedBrands));
           },
           addNewCategories: (category) async {
             emit(ProductState.loading(true));

@@ -32,6 +32,8 @@ dependencies:
   bottom_drawer: ^0.0.5
   bottom_picker: ^2.0.0
   build_runner: ^2.3.0
+  cached_network_image: ^3.2.2
+  crypto: ^3.0.2
   cupertino_icons: ^1.0.2
   custom_image_crop: ^0.0.4
   email_auth: ^1.0.0
