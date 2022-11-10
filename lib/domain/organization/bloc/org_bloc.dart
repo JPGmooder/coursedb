@@ -25,28 +25,32 @@ class OrganizationBloc extends Bloc<OrganizationEvent, OrganizationState> {
       emit(const OrganizationState.loading());
       await event.maybeWhen(
         orElse: () => null,
+        loadOrganizations: (sort, address, category, brand, name) async {
+          emit(OrganizationState.loading());
+          var loadedOrganizations =
+              await OrganiztionRepository.loadUsersCompanies(
+                  addressId: address.id_address, maxDistance: 1500000);
+          emit(OrganizationState.usersOrganizationsLoaded(loadedOrganizations));
+        },
         createNew:
             (addressModel, name, deliveryPrice, logoImage, cardImage) async {
-          
-            var isValidName =
-                await OrganiztionRepository.checkOrganiztion(name);
-            if (!isValidName) {
-              emit(OrganizationState.errored('Ошибка',
-                  'Данное название организации уже занято, повторите попытку'));
-            } else {
-              var address = await AuthRepository.addAddressData(
-                  model: addressModel, userID: null);
-              var loadedOrg = await OrganiztionRepository.addNewCompany(
-                  companyName: name,
-                  status: "",
-                  type: "",
-                  addressId: address.id_address,
-                  deliveryPrice: deliveryPrice.toInt());
-              await OrganizationProvider.loadCardsInfo(
-                  cardImage, logoImage, loadedOrg.idCompany);
-              emit(OrganizationState.loaded(loadedOrg));
-            }
-          
+          var isValidName = await OrganiztionRepository.checkOrganiztion(name);
+          if (!isValidName) {
+            emit(OrganizationState.errored('Ошибка',
+                'Данное название организации уже занято, повторите попытку'));
+          } else {
+            var address = await AuthRepository.addAddressData(
+                model: addressModel, userID: null);
+            var loadedOrg = await OrganiztionRepository.addNewCompany(
+                companyName: name,
+                status: "",
+                type: "",
+                addressId: address.id_address,
+                deliveryPrice: deliveryPrice.toInt());
+            await OrganizationProvider.loadCardsInfo(
+                cardImage, logoImage, loadedOrg.idCompany);
+            emit(OrganizationState.loaded(loadedOrg));
+          }
         },
       );
     });

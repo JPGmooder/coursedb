@@ -1,0 +1,2626 @@
+@startuml
+set namespaceSeparator ::
+
+class "kursach::assets::colors.dart::AppsColors" {
+  {static} +Color accentColor
+  {static} +Color primaryColor
+  {static} +Color backgrounLight
+}
+
+"kursach::assets::colors.dart::AppsColors" o-- "dart::ui::Color"
+
+class "kursach::assets::Icons.dart::DeliverIcon" {
+  {static} -String _kFontFam
+  {static} -String? _kFontPkg
+  {static} +IconData product_management
+}
+
+"kursach::assets::Icons.dart::DeliverIcon" o-- "flutter::src::widgets::icon_data.dart::IconData"
+
+class "kursach::data::api::model::graphclient.dart::AppsGraphClient" {
+  {static} +GraphQLClient client
+}
+
+"kursach::data::api::model::graphclient.dart::AppsGraphClient" o-- "graphql::src::graphql_client.dart::GraphQLClient"
+
+class "kursach::data::api::model::graphclient.dart::SupaBaseClient" {
+  {static} +String supabaseUrl
+  {static} +String supabaseKey
+  {static} +SupabaseClient client
+}
+
+"kursach::data::api::model::graphclient.dart::SupaBaseClient" o-- "supabase::src::supabase_client.dart::SupabaseClient"
+
+class "kursach::data::api::service::email_provider.dart::EmailProvider" {
+  {static} +EmailAuth eauth
+  +Future<bool> sendOtp()
+}
+
+"kursach::data::api::service::email_provider.dart::EmailProvider" o-- "email_auth::email_auth.dart::EmailAuth"
+
+class "kursach::domain::auth::bloc::auth_bloc.dart::AuthBloc" {
+}
+
+"bloc::src::bloc.dart::Bloc" <|-- "kursach::domain::auth::bloc::auth_bloc.dart::AuthBloc"
+
+abstract class "kursach::domain::auth::bloc::auth_bloc.dart::AuthEvent" {
+}
+
+"kursach::domain::auth::bloc::auth_bloc.dart::_$AuthEvent" <|-- "kursach::domain::auth::bloc::auth_bloc.dart::AuthEvent"
+
+class "kursach::domain::auth::bloc::auth_bloc.dart::AuthProvider" {
+  {static} +String authMut
+  {static} +String regMut
+  {static} +String addPD
+  {static} +QueryOptions<Object?> getCompanyByPkOptions()
+  {static} +MutationOptions<Object?> getAddressAddMutationOptions()
+  {static} +MutationOptions<Object?> getAddressesByUserLogin()
+  {static} +Future<QueryResult<Object?>?> authUser()
+  {static} +Future<QueryResult<Object?>?> regUser()
+  {static} +Future<QueryResult<Object?>?> addPersonalInfo()
+  {static} +Future<QueryResult<Object?>?> addAddressInfo()
+  {static} +Future<QueryResult<Object?>?> findAddressByLogin()
+  {static} +Future<QueryResult<Object?>?> findCompanyById()
+}
+
+class "kursach::domain::auth::bloc::auth_bloc.dart::AuthRepository" {
+  {static} +Future<Map<String, dynamic>> authUser()
+  {static} +Future<Map<String, dynamic>> regUser()
+  {static} +Future<UserPersonalDataModel> addPersonalData()
+  {static} +Future<AddressModel> addAddressData()
+  {static} +Future<List<AddressModel>> findAddressByUser()
+}
+
+abstract class "kursach::domain::auth::bloc::auth_bloc.dart::AuthState" {
+}
+
+"kursach::domain::auth::bloc::auth_bloc.dart::_$AuthState" <|-- "kursach::domain::auth::bloc::auth_bloc.dart::AuthState"
+
+abstract class "kursach::domain::auth::bloc::auth_bloc.dart::$AuthEventCopyWith" {
+}
+
+class "kursach::domain::auth::bloc::auth_bloc.dart::_$AuthEventCopyWithImpl" {
+  -$Val _value
+  -$Res Function($Val) _then
+}
+
+"kursach::domain::auth::bloc::auth_bloc.dart::_$AuthEventCopyWithImpl" o-- "null::$Res Function($Val)"
+"kursach::domain::auth::bloc::auth_bloc.dart::$AuthEventCopyWith" <|-- "kursach::domain::auth::bloc::auth_bloc.dart::_$AuthEventCopyWithImpl"
+
+abstract class "kursach::domain::auth::bloc::auth_bloc.dart::_$$_$AuthLogInEventCopyWith" {
+  +$Res call()
+}
+
+class "kursach::domain::auth::bloc::auth_bloc.dart::__$$_$AuthLogInEventCopyWithImpl" {
+  +$Res call()
+}
+
+"kursach::domain::auth::bloc::auth_bloc.dart::_$AuthEventCopyWithImpl" <|-- "kursach::domain::auth::bloc::auth_bloc.dart::__$$_$AuthLogInEventCopyWithImpl"
+"kursach::domain::auth::bloc::auth_bloc.dart::_$$_$AuthLogInEventCopyWith" <|-- "kursach::domain::auth::bloc::auth_bloc.dart::__$$_$AuthLogInEventCopyWithImpl"
+
+class "kursach::domain::auth::bloc::auth_bloc.dart::_$_$AuthLogInEvent" {
+  +String login
+  +String password
+  +int hashCode
+  +_$$_$AuthLogInEventCopyWith<_$_$AuthLogInEvent> copyWith
+  +String toString()
+  +bool ==()
+  +TResult when()
+  +TResult? whenOrNull()
+  +TResult maybeWhen()
+  +TResult map()
+  +TResult? mapOrNull()
+  +TResult maybeMap()
+}
+
+"kursach::domain::auth::bloc::auth_bloc.dart::_$_$AuthLogInEvent" o-- "kursach::domain::auth::bloc::auth_bloc.dart::_$$_$AuthLogInEventCopyWith<_$_$AuthLogInEvent>"
+"kursach::domain::auth::bloc::auth_bloc.dart::_$AuthLogInEvent" <|-- "kursach::domain::auth::bloc::auth_bloc.dart::_$_$AuthLogInEvent"
+
+abstract class "kursach::domain::auth::bloc::auth_bloc.dart::_$AuthLogInEvent" {
+  +String login
+  +String password
+  +_$$_$AuthLogInEventCopyWith<_$_$AuthLogInEvent> copyWith
+}
+
+"kursach::domain::auth::bloc::auth_bloc.dart::_$AuthLogInEvent" o-- "kursach::domain::auth::bloc::auth_bloc.dart::_$$_$AuthLogInEventCopyWith<_$_$AuthLogInEvent>"
+"kursach::domain::auth::bloc::auth_bloc.dart::AuthEvent" <|-- "kursach::domain::auth::bloc::auth_bloc.dart::_$AuthLogInEvent"
+
+abstract class "kursach::domain::auth::bloc::auth_bloc.dart::_$$_$AuthFindAddressByUserEventCopyWith" {
+  +$Res call()
+}
+
+class "kursach::domain::auth::bloc::auth_bloc.dart::__$$_$AuthFindAddressByUserEventCopyWithImpl" {
+  +$Res call()
+}
+
+"kursach::domain::auth::bloc::auth_bloc.dart::_$AuthEventCopyWithImpl" <|-- "kursach::domain::auth::bloc::auth_bloc.dart::__$$_$AuthFindAddressByUserEventCopyWithImpl"
+"kursach::domain::auth::bloc::auth_bloc.dart::_$$_$AuthFindAddressByUserEventCopyWith" <|-- "kursach::domain::auth::bloc::auth_bloc.dart::__$$_$AuthFindAddressByUserEventCopyWithImpl"
+
+class "kursach::domain::auth::bloc::auth_bloc.dart::_$_$AuthFindAddressByUserEvent" {
+  +String login
+  +int hashCode
+  +_$$_$AuthFindAddressByUserEventCopyWith<_$_$AuthFindAddressByUserEvent> copyWith
+  +String toString()
+  +bool ==()
+  +TResult when()
+  +TResult? whenOrNull()
+  +TResult maybeWhen()
+  +TResult map()
+  +TResult? mapOrNull()
+  +TResult maybeMap()
+}
+
+"kursach::domain::auth::bloc::auth_bloc.dart::_$_$AuthFindAddressByUserEvent" o-- "kursach::domain::auth::bloc::auth_bloc.dart::_$$_$AuthFindAddressByUserEventCopyWith<_$_$AuthFindAddressByUserEvent>"
+"kursach::domain::auth::bloc::auth_bloc.dart::_$AuthFindAddressByUserEvent" <|-- "kursach::domain::auth::bloc::auth_bloc.dart::_$_$AuthFindAddressByUserEvent"
+
+abstract class "kursach::domain::auth::bloc::auth_bloc.dart::_$AuthFindAddressByUserEvent" {
+  +String login
+  +_$$_$AuthFindAddressByUserEventCopyWith<_$_$AuthFindAddressByUserEvent> copyWith
+}
+
+"kursach::domain::auth::bloc::auth_bloc.dart::_$AuthFindAddressByUserEvent" o-- "kursach::domain::auth::bloc::auth_bloc.dart::_$$_$AuthFindAddressByUserEventCopyWith<_$_$AuthFindAddressByUserEvent>"
+"kursach::domain::auth::bloc::auth_bloc.dart::AuthEvent" <|-- "kursach::domain::auth::bloc::auth_bloc.dart::_$AuthFindAddressByUserEvent"
+
+abstract class "kursach::domain::auth::bloc::auth_bloc.dart::_$$_$AuthAddAddressEventCopyWith" {
+  +$Res call()
+}
+
+class "kursach::domain::auth::bloc::auth_bloc.dart::__$$_$AuthAddAddressEventCopyWithImpl" {
+  +$Res call()
+}
+
+"kursach::domain::auth::bloc::auth_bloc.dart::_$AuthEventCopyWithImpl" <|-- "kursach::domain::auth::bloc::auth_bloc.dart::__$$_$AuthAddAddressEventCopyWithImpl"
+"kursach::domain::auth::bloc::auth_bloc.dart::_$$_$AuthAddAddressEventCopyWith" <|-- "kursach::domain::auth::bloc::auth_bloc.dart::__$$_$AuthAddAddressEventCopyWithImpl"
+
+class "kursach::domain::auth::bloc::auth_bloc.dart::_$_$AuthAddAddressEvent" {
+  +AddressModel addressModel
+  +int hashCode
+  +_$$_$AuthAddAddressEventCopyWith<_$_$AuthAddAddressEvent> copyWith
+  +String toString()
+  +bool ==()
+  +TResult when()
+  +TResult? whenOrNull()
+  +TResult maybeWhen()
+  +TResult map()
+  +TResult? mapOrNull()
+  +TResult maybeMap()
+}
+
+"kursach::domain::auth::bloc::auth_bloc.dart::_$_$AuthAddAddressEvent" o-- "kursach::domain::model::address_model.dart::AddressModel"
+"kursach::domain::auth::bloc::auth_bloc.dart::_$_$AuthAddAddressEvent" o-- "kursach::domain::auth::bloc::auth_bloc.dart::_$$_$AuthAddAddressEventCopyWith<_$_$AuthAddAddressEvent>"
+"kursach::domain::auth::bloc::auth_bloc.dart::_$AuthAddAddressEvent" <|-- "kursach::domain::auth::bloc::auth_bloc.dart::_$_$AuthAddAddressEvent"
+
+abstract class "kursach::domain::auth::bloc::auth_bloc.dart::_$AuthAddAddressEvent" {
+  +AddressModel addressModel
+  +_$$_$AuthAddAddressEventCopyWith<_$_$AuthAddAddressEvent> copyWith
+}
+
+"kursach::domain::auth::bloc::auth_bloc.dart::_$AuthAddAddressEvent" o-- "kursach::domain::model::address_model.dart::AddressModel"
+"kursach::domain::auth::bloc::auth_bloc.dart::_$AuthAddAddressEvent" o-- "kursach::domain::auth::bloc::auth_bloc.dart::_$$_$AuthAddAddressEventCopyWith<_$_$AuthAddAddressEvent>"
+"kursach::domain::auth::bloc::auth_bloc.dart::AuthEvent" <|-- "kursach::domain::auth::bloc::auth_bloc.dart::_$AuthAddAddressEvent"
+
+abstract class "kursach::domain::auth::bloc::auth_bloc.dart::_$$_$AuthRegNewEventCopyWith" {
+  +$Res call()
+}
+
+class "kursach::domain::auth::bloc::auth_bloc.dart::__$$_$AuthRegNewEventCopyWithImpl" {
+  +$Res call()
+}
+
+"kursach::domain::auth::bloc::auth_bloc.dart::_$AuthEventCopyWithImpl" <|-- "kursach::domain::auth::bloc::auth_bloc.dart::__$$_$AuthRegNewEventCopyWithImpl"
+"kursach::domain::auth::bloc::auth_bloc.dart::_$$_$AuthRegNewEventCopyWith" <|-- "kursach::domain::auth::bloc::auth_bloc.dart::__$$_$AuthRegNewEventCopyWithImpl"
+
+class "kursach::domain::auth::bloc::auth_bloc.dart::_$_$AuthRegNewEvent" {
+  +String login
+  +String password
+  +String email
+  +int hashCode
+  +_$$_$AuthRegNewEventCopyWith<_$_$AuthRegNewEvent> copyWith
+  +String toString()
+  +bool ==()
+  +TResult when()
+  +TResult? whenOrNull()
+  +TResult maybeWhen()
+  +TResult map()
+  +TResult? mapOrNull()
+  +TResult maybeMap()
+}
+
+"kursach::domain::auth::bloc::auth_bloc.dart::_$_$AuthRegNewEvent" o-- "kursach::domain::auth::bloc::auth_bloc.dart::_$$_$AuthRegNewEventCopyWith<_$_$AuthRegNewEvent>"
+"kursach::domain::auth::bloc::auth_bloc.dart::_$AuthRegNewEvent" <|-- "kursach::domain::auth::bloc::auth_bloc.dart::_$_$AuthRegNewEvent"
+
+abstract class "kursach::domain::auth::bloc::auth_bloc.dart::_$AuthRegNewEvent" {
+  +String login
+  +String password
+  +String email
+  +_$$_$AuthRegNewEventCopyWith<_$_$AuthRegNewEvent> copyWith
+}
+
+"kursach::domain::auth::bloc::auth_bloc.dart::_$AuthRegNewEvent" o-- "kursach::domain::auth::bloc::auth_bloc.dart::_$$_$AuthRegNewEventCopyWith<_$_$AuthRegNewEvent>"
+"kursach::domain::auth::bloc::auth_bloc.dart::AuthEvent" <|-- "kursach::domain::auth::bloc::auth_bloc.dart::_$AuthRegNewEvent"
+
+abstract class "kursach::domain::auth::bloc::auth_bloc.dart::_$$_$AutAddPersonalDataEventCopyWith" {
+  +$Res call()
+}
+
+class "kursach::domain::auth::bloc::auth_bloc.dart::__$$_$AutAddPersonalDataEventCopyWithImpl" {
+  +$Res call()
+}
+
+"kursach::domain::auth::bloc::auth_bloc.dart::_$AuthEventCopyWithImpl" <|-- "kursach::domain::auth::bloc::auth_bloc.dart::__$$_$AutAddPersonalDataEventCopyWithImpl"
+"kursach::domain::auth::bloc::auth_bloc.dart::_$$_$AutAddPersonalDataEventCopyWith" <|-- "kursach::domain::auth::bloc::auth_bloc.dart::__$$_$AutAddPersonalDataEventCopyWithImpl"
+
+class "kursach::domain::auth::bloc::auth_bloc.dart::_$_$AutAddPersonalDataEvent" {
+  +String name
+  +String lname
+  +String? patronymic
+  +DateTime birthday
+  +String mobileNumber
+  +int hashCode
+  +_$$_$AutAddPersonalDataEventCopyWith<_$_$AutAddPersonalDataEvent> copyWith
+  +String toString()
+  +bool ==()
+  +TResult when()
+  +TResult? whenOrNull()
+  +TResult maybeWhen()
+  +TResult map()
+  +TResult? mapOrNull()
+  +TResult maybeMap()
+}
+
+"kursach::domain::auth::bloc::auth_bloc.dart::_$_$AutAddPersonalDataEvent" o-- "kursach::domain::auth::bloc::auth_bloc.dart::_$$_$AutAddPersonalDataEventCopyWith<_$_$AutAddPersonalDataEvent>"
+"kursach::domain::auth::bloc::auth_bloc.dart::_$AutAddPersonalDataEvent" <|-- "kursach::domain::auth::bloc::auth_bloc.dart::_$_$AutAddPersonalDataEvent"
+
+abstract class "kursach::domain::auth::bloc::auth_bloc.dart::_$AutAddPersonalDataEvent" {
+  +String name
+  +String lname
+  +String? patronymic
+  +DateTime birthday
+  +String mobileNumber
+  +_$$_$AutAddPersonalDataEventCopyWith<_$_$AutAddPersonalDataEvent> copyWith
+}
+
+"kursach::domain::auth::bloc::auth_bloc.dart::_$AutAddPersonalDataEvent" o-- "kursach::domain::auth::bloc::auth_bloc.dart::_$$_$AutAddPersonalDataEventCopyWith<_$_$AutAddPersonalDataEvent>"
+"kursach::domain::auth::bloc::auth_bloc.dart::AuthEvent" <|-- "kursach::domain::auth::bloc::auth_bloc.dart::_$AutAddPersonalDataEvent"
+
+abstract class "kursach::domain::auth::bloc::auth_bloc.dart::$AuthStateCopyWith" {
+}
+
+class "kursach::domain::auth::bloc::auth_bloc.dart::_$AuthStateCopyWithImpl" {
+  -$Val _value
+  -$Res Function($Val) _then
+}
+
+"kursach::domain::auth::bloc::auth_bloc.dart::_$AuthStateCopyWithImpl" o-- "null::$Res Function($Val)"
+"kursach::domain::auth::bloc::auth_bloc.dart::$AuthStateCopyWith" <|-- "kursach::domain::auth::bloc::auth_bloc.dart::_$AuthStateCopyWithImpl"
+
+abstract class "kursach::domain::auth::bloc::auth_bloc.dart::_$$_$AuthLogedOutStateCopyWith" {
+}
+
+class "kursach::domain::auth::bloc::auth_bloc.dart::__$$_$AuthLogedOutStateCopyWithImpl" {
+}
+
+"kursach::domain::auth::bloc::auth_bloc.dart::_$AuthStateCopyWithImpl" <|-- "kursach::domain::auth::bloc::auth_bloc.dart::__$$_$AuthLogedOutStateCopyWithImpl"
+"kursach::domain::auth::bloc::auth_bloc.dart::_$$_$AuthLogedOutStateCopyWith" <|-- "kursach::domain::auth::bloc::auth_bloc.dart::__$$_$AuthLogedOutStateCopyWithImpl"
+
+class "kursach::domain::auth::bloc::auth_bloc.dart::_$_$AuthLogedOutState" {
+  +int hashCode
+  +String toString()
+  +bool ==()
+  +TResult when()
+  +TResult? whenOrNull()
+  +TResult maybeWhen()
+  +TResult map()
+  +TResult? mapOrNull()
+  +TResult maybeMap()
+}
+
+"kursach::domain::auth::bloc::auth_bloc.dart::_$AuthLogedOutState" <|-- "kursach::domain::auth::bloc::auth_bloc.dart::_$_$AuthLogedOutState"
+
+abstract class "kursach::domain::auth::bloc::auth_bloc.dart::_$AuthLogedOutState" {
+}
+
+"kursach::domain::auth::bloc::auth_bloc.dart::AuthState" <|-- "kursach::domain::auth::bloc::auth_bloc.dart::_$AuthLogedOutState"
+
+abstract class "kursach::domain::auth::bloc::auth_bloc.dart::_$$_$AuthErroredStateCopyWith" {
+  +$Res call()
+}
+
+class "kursach::domain::auth::bloc::auth_bloc.dart::__$$_$AuthErroredStateCopyWithImpl" {
+  +$Res call()
+}
+
+"kursach::domain::auth::bloc::auth_bloc.dart::_$AuthStateCopyWithImpl" <|-- "kursach::domain::auth::bloc::auth_bloc.dart::__$$_$AuthErroredStateCopyWithImpl"
+"kursach::domain::auth::bloc::auth_bloc.dart::_$$_$AuthErroredStateCopyWith" <|-- "kursach::domain::auth::bloc::auth_bloc.dart::__$$_$AuthErroredStateCopyWithImpl"
+
+class "kursach::domain::auth::bloc::auth_bloc.dart::_$_$AuthErroredState" {
+  +String error
+  +int hashCode
+  +_$$_$AuthErroredStateCopyWith<_$_$AuthErroredState> copyWith
+  +String toString()
+  +bool ==()
+  +TResult when()
+  +TResult? whenOrNull()
+  +TResult maybeWhen()
+  +TResult map()
+  +TResult? mapOrNull()
+  +TResult maybeMap()
+}
+
+"kursach::domain::auth::bloc::auth_bloc.dart::_$_$AuthErroredState" o-- "kursach::domain::auth::bloc::auth_bloc.dart::_$$_$AuthErroredStateCopyWith<_$_$AuthErroredState>"
+"kursach::domain::auth::bloc::auth_bloc.dart::_$AuthErroredState" <|-- "kursach::domain::auth::bloc::auth_bloc.dart::_$_$AuthErroredState"
+
+abstract class "kursach::domain::auth::bloc::auth_bloc.dart::_$AuthErroredState" {
+  +String error
+  +_$$_$AuthErroredStateCopyWith<_$_$AuthErroredState> copyWith
+}
+
+"kursach::domain::auth::bloc::auth_bloc.dart::_$AuthErroredState" o-- "kursach::domain::auth::bloc::auth_bloc.dart::_$$_$AuthErroredStateCopyWith<_$_$AuthErroredState>"
+"kursach::domain::auth::bloc::auth_bloc.dart::AuthState" <|-- "kursach::domain::auth::bloc::auth_bloc.dart::_$AuthErroredState"
+
+abstract class "kursach::domain::auth::bloc::auth_bloc.dart::_$$_$AuthLoadingStateCopyWith" {
+}
+
+class "kursach::domain::auth::bloc::auth_bloc.dart::__$$_$AuthLoadingStateCopyWithImpl" {
+}
+
+"kursach::domain::auth::bloc::auth_bloc.dart::_$AuthStateCopyWithImpl" <|-- "kursach::domain::auth::bloc::auth_bloc.dart::__$$_$AuthLoadingStateCopyWithImpl"
+"kursach::domain::auth::bloc::auth_bloc.dart::_$$_$AuthLoadingStateCopyWith" <|-- "kursach::domain::auth::bloc::auth_bloc.dart::__$$_$AuthLoadingStateCopyWithImpl"
+
+class "kursach::domain::auth::bloc::auth_bloc.dart::_$_$AuthLoadingState" {
+  +int hashCode
+  +String toString()
+  +bool ==()
+  +TResult when()
+  +TResult? whenOrNull()
+  +TResult maybeWhen()
+  +TResult map()
+  +TResult? mapOrNull()
+  +TResult maybeMap()
+}
+
+"kursach::domain::auth::bloc::auth_bloc.dart::_$AuthLoadingState" <|-- "kursach::domain::auth::bloc::auth_bloc.dart::_$_$AuthLoadingState"
+
+abstract class "kursach::domain::auth::bloc::auth_bloc.dart::_$AuthLoadingState" {
+}
+
+"kursach::domain::auth::bloc::auth_bloc.dart::AuthState" <|-- "kursach::domain::auth::bloc::auth_bloc.dart::_$AuthLoadingState"
+
+abstract class "kursach::domain::auth::bloc::auth_bloc.dart::_$$_$AuthLogedInStateCopyWith" {
+  +$Res call()
+}
+
+class "kursach::domain::auth::bloc::auth_bloc.dart::__$$_$AuthLogedInStateCopyWithImpl" {
+  +$Res call()
+}
+
+"kursach::domain::auth::bloc::auth_bloc.dart::_$AuthStateCopyWithImpl" <|-- "kursach::domain::auth::bloc::auth_bloc.dart::__$$_$AuthLogedInStateCopyWithImpl"
+"kursach::domain::auth::bloc::auth_bloc.dart::_$$_$AuthLogedInStateCopyWith" <|-- "kursach::domain::auth::bloc::auth_bloc.dart::__$$_$AuthLogedInStateCopyWithImpl"
+
+class "kursach::domain::auth::bloc::auth_bloc.dart::_$_$AuthLogedInState" {
+  +String login
+  +String password
+  +String email
+  +UserPersonalDataModel? data
+  -List<AddressModel>? _addresses
+  +OrganizationModel? company
+  +List<AddressModel>? addresses
+  +int hashCode
+  +_$$_$AuthLogedInStateCopyWith<_$_$AuthLogedInState> copyWith
+  +String toString()
+  +bool ==()
+  +TResult when()
+  +TResult? whenOrNull()
+  +TResult maybeWhen()
+  +TResult map()
+  +TResult? mapOrNull()
+  +TResult maybeMap()
+}
+
+"kursach::domain::auth::bloc::auth_bloc.dart::_$_$AuthLogedInState" o-- "kursach::domain::model::user_model.dart::UserPersonalDataModel"
+"kursach::domain::auth::bloc::auth_bloc.dart::_$_$AuthLogedInState" o-- "kursach::domain::model::organization_model.dart::OrganizationModel"
+"kursach::domain::auth::bloc::auth_bloc.dart::_$_$AuthLogedInState" o-- "kursach::domain::auth::bloc::auth_bloc.dart::_$$_$AuthLogedInStateCopyWith<_$_$AuthLogedInState>"
+"kursach::domain::auth::bloc::auth_bloc.dart::_$AuthLogedInState" <|-- "kursach::domain::auth::bloc::auth_bloc.dart::_$_$AuthLogedInState"
+
+abstract class "kursach::domain::auth::bloc::auth_bloc.dart::_$AuthLogedInState" {
+  +String login
+  +String password
+  +String email
+  +UserPersonalDataModel? data
+  +List<AddressModel>? addresses
+  +OrganizationModel? company
+  +_$$_$AuthLogedInStateCopyWith<_$_$AuthLogedInState> copyWith
+}
+
+"kursach::domain::auth::bloc::auth_bloc.dart::_$AuthLogedInState" o-- "kursach::domain::model::user_model.dart::UserPersonalDataModel"
+"kursach::domain::auth::bloc::auth_bloc.dart::_$AuthLogedInState" o-- "kursach::domain::model::organization_model.dart::OrganizationModel"
+"kursach::domain::auth::bloc::auth_bloc.dart::_$AuthLogedInState" o-- "kursach::domain::auth::bloc::auth_bloc.dart::_$$_$AuthLogedInStateCopyWith<_$_$AuthLogedInState>"
+"kursach::domain::auth::bloc::auth_bloc.dart::AuthState" <|-- "kursach::domain::auth::bloc::auth_bloc.dart::_$AuthLogedInState"
+
+abstract class "kursach::domain::auth::bloc::auth_bloc.dart::_$$_$AuthSignedUpStateCopyWith" {
+  +$Res call()
+}
+
+class "kursach::domain::auth::bloc::auth_bloc.dart::__$$_$AuthSignedUpStateCopyWithImpl" {
+  +$Res call()
+}
+
+"kursach::domain::auth::bloc::auth_bloc.dart::_$AuthStateCopyWithImpl" <|-- "kursach::domain::auth::bloc::auth_bloc.dart::__$$_$AuthSignedUpStateCopyWithImpl"
+"kursach::domain::auth::bloc::auth_bloc.dart::_$$_$AuthSignedUpStateCopyWith" <|-- "kursach::domain::auth::bloc::auth_bloc.dart::__$$_$AuthSignedUpStateCopyWithImpl"
+
+class "kursach::domain::auth::bloc::auth_bloc.dart::_$_$AuthSignedUpState" {
+  +String login
+  +String password
+  +String email
+  +int hashCode
+  +_$$_$AuthSignedUpStateCopyWith<_$_$AuthSignedUpState> copyWith
+  +String toString()
+  +bool ==()
+  +TResult when()
+  +TResult? whenOrNull()
+  +TResult maybeWhen()
+  +TResult map()
+  +TResult? mapOrNull()
+  +TResult maybeMap()
+}
+
+"kursach::domain::auth::bloc::auth_bloc.dart::_$_$AuthSignedUpState" o-- "kursach::domain::auth::bloc::auth_bloc.dart::_$$_$AuthSignedUpStateCopyWith<_$_$AuthSignedUpState>"
+"kursach::domain::auth::bloc::auth_bloc.dart::_$AuthSignedUpState" <|-- "kursach::domain::auth::bloc::auth_bloc.dart::_$_$AuthSignedUpState"
+
+abstract class "kursach::domain::auth::bloc::auth_bloc.dart::_$AuthSignedUpState" {
+  +String login
+  +String password
+  +String email
+  +_$$_$AuthSignedUpStateCopyWith<_$_$AuthSignedUpState> copyWith
+}
+
+"kursach::domain::auth::bloc::auth_bloc.dart::_$AuthSignedUpState" o-- "kursach::domain::auth::bloc::auth_bloc.dart::_$$_$AuthSignedUpStateCopyWith<_$_$AuthSignedUpState>"
+"kursach::domain::auth::bloc::auth_bloc.dart::AuthState" <|-- "kursach::domain::auth::bloc::auth_bloc.dart::_$AuthSignedUpState"
+
+abstract class "kursach::domain::auth::bloc::auth_bloc.dart::_$$_$AuthAddressAddedStateCopyWith" {
+  +$Res call()
+}
+
+class "kursach::domain::auth::bloc::auth_bloc.dart::__$$_$AuthAddressAddedStateCopyWithImpl" {
+  +$Res call()
+}
+
+"kursach::domain::auth::bloc::auth_bloc.dart::_$AuthStateCopyWithImpl" <|-- "kursach::domain::auth::bloc::auth_bloc.dart::__$$_$AuthAddressAddedStateCopyWithImpl"
+"kursach::domain::auth::bloc::auth_bloc.dart::_$$_$AuthAddressAddedStateCopyWith" <|-- "kursach::domain::auth::bloc::auth_bloc.dart::__$$_$AuthAddressAddedStateCopyWithImpl"
+
+class "kursach::domain::auth::bloc::auth_bloc.dart::_$_$AuthAddressAddedState" {
+  +AddressModel addressModel
+  +int hashCode
+  +_$$_$AuthAddressAddedStateCopyWith<_$_$AuthAddressAddedState> copyWith
+  +String toString()
+  +bool ==()
+  +TResult when()
+  +TResult? whenOrNull()
+  +TResult maybeWhen()
+  +TResult map()
+  +TResult? mapOrNull()
+  +TResult maybeMap()
+}
+
+"kursach::domain::auth::bloc::auth_bloc.dart::_$_$AuthAddressAddedState" o-- "kursach::domain::model::address_model.dart::AddressModel"
+"kursach::domain::auth::bloc::auth_bloc.dart::_$_$AuthAddressAddedState" o-- "kursach::domain::auth::bloc::auth_bloc.dart::_$$_$AuthAddressAddedStateCopyWith<_$_$AuthAddressAddedState>"
+"kursach::domain::auth::bloc::auth_bloc.dart::_$AuthAddressAddedState" <|-- "kursach::domain::auth::bloc::auth_bloc.dart::_$_$AuthAddressAddedState"
+
+abstract class "kursach::domain::auth::bloc::auth_bloc.dart::_$AuthAddressAddedState" {
+  +AddressModel addressModel
+  +_$$_$AuthAddressAddedStateCopyWith<_$_$AuthAddressAddedState> copyWith
+}
+
+"kursach::domain::auth::bloc::auth_bloc.dart::_$AuthAddressAddedState" o-- "kursach::domain::model::address_model.dart::AddressModel"
+"kursach::domain::auth::bloc::auth_bloc.dart::_$AuthAddressAddedState" o-- "kursach::domain::auth::bloc::auth_bloc.dart::_$$_$AuthAddressAddedStateCopyWith<_$_$AuthAddressAddedState>"
+"kursach::domain::auth::bloc::auth_bloc.dart::AuthState" <|-- "kursach::domain::auth::bloc::auth_bloc.dart::_$AuthAddressAddedState"
+
+abstract class "kursach::domain::auth::bloc::auth_bloc.dart::_$$_$AuthAddressesFindedStateCopyWith" {
+  +$Res call()
+}
+
+class "kursach::domain::auth::bloc::auth_bloc.dart::__$$_$AuthAddressesFindedStateCopyWithImpl" {
+  +$Res call()
+}
+
+"kursach::domain::auth::bloc::auth_bloc.dart::_$AuthStateCopyWithImpl" <|-- "kursach::domain::auth::bloc::auth_bloc.dart::__$$_$AuthAddressesFindedStateCopyWithImpl"
+"kursach::domain::auth::bloc::auth_bloc.dart::_$$_$AuthAddressesFindedStateCopyWith" <|-- "kursach::domain::auth::bloc::auth_bloc.dart::__$$_$AuthAddressesFindedStateCopyWithImpl"
+
+class "kursach::domain::auth::bloc::auth_bloc.dart::_$_$AuthAddressesFindedState" {
+  -List<AddressModel> _addressModel
+  +List<AddressModel> addressModel
+  +int hashCode
+  +_$$_$AuthAddressesFindedStateCopyWith<_$_$AuthAddressesFindedState> copyWith
+  +String toString()
+  +bool ==()
+  +TResult when()
+  +TResult? whenOrNull()
+  +TResult maybeWhen()
+  +TResult map()
+  +TResult? mapOrNull()
+  +TResult maybeMap()
+}
+
+"kursach::domain::auth::bloc::auth_bloc.dart::_$_$AuthAddressesFindedState" o-- "kursach::domain::auth::bloc::auth_bloc.dart::_$$_$AuthAddressesFindedStateCopyWith<_$_$AuthAddressesFindedState>"
+"kursach::domain::auth::bloc::auth_bloc.dart::_$AuthAddressesFindedState" <|-- "kursach::domain::auth::bloc::auth_bloc.dart::_$_$AuthAddressesFindedState"
+
+abstract class "kursach::domain::auth::bloc::auth_bloc.dart::_$AuthAddressesFindedState" {
+  +List<AddressModel> addressModel
+  +_$$_$AuthAddressesFindedStateCopyWith<_$_$AuthAddressesFindedState> copyWith
+}
+
+"kursach::domain::auth::bloc::auth_bloc.dart::_$AuthAddressesFindedState" o-- "kursach::domain::auth::bloc::auth_bloc.dart::_$$_$AuthAddressesFindedStateCopyWith<_$_$AuthAddressesFindedState>"
+"kursach::domain::auth::bloc::auth_bloc.dart::AuthState" <|-- "kursach::domain::auth::bloc::auth_bloc.dart::_$AuthAddressesFindedState"
+
+abstract class "kursach::domain::auth::bloc::auth_bloc.dart::_$$_$AuthInitialStateCopyWith" {
+}
+
+class "kursach::domain::auth::bloc::auth_bloc.dart::__$$_$AuthInitialStateCopyWithImpl" {
+}
+
+"kursach::domain::auth::bloc::auth_bloc.dart::_$AuthStateCopyWithImpl" <|-- "kursach::domain::auth::bloc::auth_bloc.dart::__$$_$AuthInitialStateCopyWithImpl"
+"kursach::domain::auth::bloc::auth_bloc.dart::_$$_$AuthInitialStateCopyWith" <|-- "kursach::domain::auth::bloc::auth_bloc.dart::__$$_$AuthInitialStateCopyWithImpl"
+
+class "kursach::domain::auth::bloc::auth_bloc.dart::_$_$AuthInitialState" {
+  +int hashCode
+  +String toString()
+  +bool ==()
+  +TResult when()
+  +TResult? whenOrNull()
+  +TResult maybeWhen()
+  +TResult map()
+  +TResult? mapOrNull()
+  +TResult maybeMap()
+}
+
+"kursach::domain::auth::bloc::auth_bloc.dart::_$AuthInitialState" <|-- "kursach::domain::auth::bloc::auth_bloc.dart::_$_$AuthInitialState"
+
+abstract class "kursach::domain::auth::bloc::auth_bloc.dart::_$AuthInitialState" {
+}
+
+"kursach::domain::auth::bloc::auth_bloc.dart::AuthState" <|-- "kursach::domain::auth::bloc::auth_bloc.dart::_$AuthInitialState"
+
+abstract class "kursach::domain::auth::bloc::auth_bloc.dart::_$AuthEvent" {
+  +TResult when()
+  +TResult? whenOrNull()
+  +TResult maybeWhen()
+  +TResult map()
+  +TResult? mapOrNull()
+  +TResult maybeMap()
+}
+
+abstract class "kursach::domain::auth::bloc::auth_bloc.dart::_$AuthState" {
+  +TResult when()
+  +TResult? whenOrNull()
+  +TResult maybeWhen()
+  +TResult map()
+  +TResult? mapOrNull()
+  +TResult maybeMap()
+}
+
+class "kursach::domain::model::address_model.dart::AddressModel" {
+  +int id_address
+  +String? name
+  +String street
+  +String housenumber
+  +String county
+  +String state
+  +String city
+  +String? enterance
+  +String? apartament
+  +String? floor
+  +double? lon
+  +double? lat
+  +int hashCode
+  +AddressModel copyWith()
+  +Map<String, dynamic> toMap()
+  +String toJson()
+  +String toString()
+  +bool ==()
+}
+
+class "kursach::domain::model::brand_model.dart::BrandModel" {
+  +String name
+  +String description
+  +String imagePath
+  +int hashCode
+  +BrandModel copyWith()
+  +Map<String, dynamic> toMap()
+  +String toJson()
+  +String toString()
+  +bool ==()
+}
+
+class "kursach::domain::model::organization_model.dart::OrganizationModel" {
+  +int idCompany
+  +int companyDeliveryPrice
+  +String companyName
+  +String companyStatusName
+  +String companyTypeName
+  +AddressModel addressModel
+  +List<ProductModel> loadedProduct
+  +OrganizationModel copyWith()
+  +Map<String, dynamic> toMap()
+}
+
+"kursach::domain::model::organization_model.dart::OrganizationModel" o-- "kursach::domain::model::address_model.dart::AddressModel"
+
+class "kursach::domain::model::product_model.dart::ProductModel" {
+  +int productId
+  +String description
+  +double price
+  +String name
+  +List<String> photoAlbum
+  +String productType
+  +int quantity
+  +BrandModel brand
+  +ProductTypeModel category
+  +ProductTypeModel? categoryS
+  +ProductTypeModel? categoryT
+  +int hashCode
+  +ProductModel copyWith()
+  +Map<String, dynamic> toMap()
+  +String toJson()
+  +bool ==()
+}
+
+"kursach::domain::model::product_model.dart::ProductModel" o-- "kursach::domain::model::brand_model.dart::BrandModel"
+"kursach::domain::model::product_model.dart::ProductModel" o-- "kursach::domain::model::product_type_model.dart::ProductTypeModel"
+
+class "kursach::domain::model::product_type_model.dart::ProductTypeModel" {
+  +String label
+  +Color color
+  +bool isSelected
+  +bool isNew
+  +int hashCode
+  +ProductTypeModel copyWith()
+  +Map<String, dynamic> toMap()
+  +String toJson()
+  +String toString()
+  +bool ==()
+}
+
+"kursach::domain::model::product_type_model.dart::ProductTypeModel" o-- "dart::ui::Color"
+
+class "kursach::domain::model::user_model.dart::UserModel" {
+  {static} -UserModel? _context
+  +String login
+  +String password
+  +String email
+  +User? supaUser
+  +UserPersonalDataModel? personalData
+  +OrganizationModel? organizationModel
+  +List<AddressModel>? addresses
+  +int hashCode
+  {static} +dynamic clearData()
+  +UserModel copyWith()
+  +Map<String, dynamic> toMap()
+  +bool ==()
+}
+
+"kursach::domain::model::user_model.dart::UserModel" o-- "kursach::domain::model::user_model.dart::UserModel"
+"kursach::domain::model::user_model.dart::UserModel" o-- "gotrue::src::types::user.dart::User"
+"kursach::domain::model::user_model.dart::UserModel" o-- "kursach::domain::model::user_model.dart::UserPersonalDataModel"
+"kursach::domain::model::user_model.dart::UserModel" o-- "kursach::domain::model::organization_model.dart::OrganizationModel"
+
+class "kursach::domain::model::user_model.dart::UserPersonalDataModel" {
+  +String name
+  +String fname
+  +String? patronymic
+  +DateTime dateOfBirth
+  +String mobileNumber
+  +int hashCode
+  +UserPersonalDataModel copyWith()
+  +Map<String, dynamic> toMap()
+  +String toString()
+  +bool ==()
+}
+
+class "kursach::domain::organization::bloc::org_bloc.dart::OrganizationBloc" {
+}
+
+"bloc::src::bloc.dart::Bloc" <|-- "kursach::domain::organization::bloc::org_bloc.dart::OrganizationBloc"
+
+abstract class "kursach::domain::organization::bloc::org_bloc.dart::OrganizationEvent" {
+}
+
+"kursach::domain::organization::bloc::org_bloc.dart::_$OrganizationEvent" <|-- "kursach::domain::organization::bloc::org_bloc.dart::OrganizationEvent"
+
+class "kursach::domain::organization::bloc::org_bloc.dart::sortType" {
+  +int index
+  {static} +List<sortType> values
+  {static} +sortType descending
+  {static} +sortType ascending
+  {static} +sortType none
+}
+
+"kursach::domain::organization::bloc::org_bloc.dart::sortType" o-- "kursach::domain::organization::bloc::org_bloc.dart::sortType"
+"dart::core::Enum" <|-- "kursach::domain::organization::bloc::org_bloc.dart::sortType"
+
+abstract class "kursach::domain::organization::bloc::org_bloc.dart::OrganizationState" {
+}
+
+"kursach::domain::organization::bloc::org_bloc.dart::_$OrganizationState" <|-- "kursach::domain::organization::bloc::org_bloc.dart::OrganizationState"
+
+class "kursach::domain::organization::bloc::org_bloc.dart::OrganizationProvider" {
+  {static} +MutationOptions<Object?> addNewCompanyMutation()
+  {static} +MutationOptions<Object?> changeUsersCompanyMutation()
+  {static} +Future<QueryResult<Object?>> checkCompanyName()
+  {static} +Future<QueryResult<Object?>> addNewCompany()
+  {static} +Future<Map<String, String>> loadCardsInfo()
+  {static} +Future<QueryResult<Object?>> changeUsersCompany()
+}
+
+class "kursach::domain::organization::bloc::org_bloc.dart::OrganiztionRepository" {
+  {static} +String supabaseUrl
+  {static} +String supabaseKey
+  {static} +Future<bool> checkOrganiztion()
+  {static} +Future<OrganizationModel> addNewCompany()
+}
+
+abstract class "kursach::domain::organization::bloc::org_bloc.dart::$OrganizationEventCopyWith" {
+}
+
+class "kursach::domain::organization::bloc::org_bloc.dart::_$OrganizationEventCopyWithImpl" {
+  -$Val _value
+  -$Res Function($Val) _then
+}
+
+"kursach::domain::organization::bloc::org_bloc.dart::_$OrganizationEventCopyWithImpl" o-- "null::$Res Function($Val)"
+"kursach::domain::organization::bloc::org_bloc.dart::$OrganizationEventCopyWith" <|-- "kursach::domain::organization::bloc::org_bloc.dart::_$OrganizationEventCopyWithImpl"
+
+abstract class "kursach::domain::organization::bloc::org_bloc.dart::_$$_$OrganizationCreateNewEventCopyWith" {
+  +$Res call()
+}
+
+class "kursach::domain::organization::bloc::org_bloc.dart::__$$_$OrganizationCreateNewEventCopyWithImpl" {
+  +$Res call()
+}
+
+"kursach::domain::organization::bloc::org_bloc.dart::_$OrganizationEventCopyWithImpl" <|-- "kursach::domain::organization::bloc::org_bloc.dart::__$$_$OrganizationCreateNewEventCopyWithImpl"
+"kursach::domain::organization::bloc::org_bloc.dart::_$$_$OrganizationCreateNewEventCopyWith" <|-- "kursach::domain::organization::bloc::org_bloc.dart::__$$_$OrganizationCreateNewEventCopyWithImpl"
+
+class "kursach::domain::organization::bloc::org_bloc.dart::_$_$OrganizationCreateNewEvent" {
+  +AddressModel addressModel
+  +String name
+  +double deliveryPrice
+  +Uint8List logoImage
+  +Uint8List cardImage
+  +int hashCode
+  +_$$_$OrganizationCreateNewEventCopyWith<_$_$OrganizationCreateNewEvent> copyWith
+  +String toString()
+  +void debugFillProperties()
+  +bool ==()
+  +TResult when()
+  +TResult? whenOrNull()
+  +TResult maybeWhen()
+  +TResult map()
+  +TResult? mapOrNull()
+  +TResult maybeMap()
+}
+
+"kursach::domain::organization::bloc::org_bloc.dart::_$_$OrganizationCreateNewEvent" o-- "kursach::domain::model::address_model.dart::AddressModel"
+"kursach::domain::organization::bloc::org_bloc.dart::_$_$OrganizationCreateNewEvent" o-- "dart::typed_data::Uint8List"
+"kursach::domain::organization::bloc::org_bloc.dart::_$_$OrganizationCreateNewEvent" o-- "kursach::domain::organization::bloc::org_bloc.dart::_$$_$OrganizationCreateNewEventCopyWith<_$_$OrganizationCreateNewEvent>"
+"flutter::src::foundation::diagnostics.dart::DiagnosticableTreeMixin" <|-- "kursach::domain::organization::bloc::org_bloc.dart::_$_$OrganizationCreateNewEvent"
+"kursach::domain::organization::bloc::org_bloc.dart::_$OrganizationCreateNewEvent" <|-- "kursach::domain::organization::bloc::org_bloc.dart::_$_$OrganizationCreateNewEvent"
+
+abstract class "kursach::domain::organization::bloc::org_bloc.dart::_$OrganizationCreateNewEvent" {
+  +AddressModel addressModel
+  +String name
+  +double deliveryPrice
+  +Uint8List logoImage
+  +Uint8List cardImage
+  +_$$_$OrganizationCreateNewEventCopyWith<_$_$OrganizationCreateNewEvent> copyWith
+}
+
+"kursach::domain::organization::bloc::org_bloc.dart::_$OrganizationCreateNewEvent" o-- "kursach::domain::model::address_model.dart::AddressModel"
+"kursach::domain::organization::bloc::org_bloc.dart::_$OrganizationCreateNewEvent" o-- "dart::typed_data::Uint8List"
+"kursach::domain::organization::bloc::org_bloc.dart::_$OrganizationCreateNewEvent" o-- "kursach::domain::organization::bloc::org_bloc.dart::_$$_$OrganizationCreateNewEventCopyWith<_$_$OrganizationCreateNewEvent>"
+"kursach::domain::organization::bloc::org_bloc.dart::OrganizationEvent" <|-- "kursach::domain::organization::bloc::org_bloc.dart::_$OrganizationCreateNewEvent"
+
+abstract class "kursach::domain::organization::bloc::org_bloc.dart::_$$_$OrganizationLoadStuffEventCopyWith" {
+  +$Res call()
+}
+
+class "kursach::domain::organization::bloc::org_bloc.dart::__$$_$OrganizationLoadStuffEventCopyWithImpl" {
+  +$Res call()
+}
+
+"kursach::domain::organization::bloc::org_bloc.dart::_$OrganizationEventCopyWithImpl" <|-- "kursach::domain::organization::bloc::org_bloc.dart::__$$_$OrganizationLoadStuffEventCopyWithImpl"
+"kursach::domain::organization::bloc::org_bloc.dart::_$$_$OrganizationLoadStuffEventCopyWith" <|-- "kursach::domain::organization::bloc::org_bloc.dart::__$$_$OrganizationLoadStuffEventCopyWithImpl"
+
+class "kursach::domain::organization::bloc::org_bloc.dart::_$_$OrganizationLoadStuffEvent" {
+  +int organizationId
+  +sortType sort
+  +String? category
+  +String? brand
+  +String? name
+  +int hashCode
+  +_$$_$OrganizationLoadStuffEventCopyWith<_$_$OrganizationLoadStuffEvent> copyWith
+  +String toString()
+  +void debugFillProperties()
+  +bool ==()
+  +TResult when()
+  +TResult? whenOrNull()
+  +TResult maybeWhen()
+  +TResult map()
+  +TResult? mapOrNull()
+  +TResult maybeMap()
+}
+
+"kursach::domain::organization::bloc::org_bloc.dart::_$_$OrganizationLoadStuffEvent" o-- "kursach::domain::organization::bloc::org_bloc.dart::sortType"
+"kursach::domain::organization::bloc::org_bloc.dart::_$_$OrganizationLoadStuffEvent" o-- "kursach::domain::organization::bloc::org_bloc.dart::_$$_$OrganizationLoadStuffEventCopyWith<_$_$OrganizationLoadStuffEvent>"
+"flutter::src::foundation::diagnostics.dart::DiagnosticableTreeMixin" <|-- "kursach::domain::organization::bloc::org_bloc.dart::_$_$OrganizationLoadStuffEvent"
+"kursach::domain::organization::bloc::org_bloc.dart::_$OrganizationLoadStuffEvent" <|-- "kursach::domain::organization::bloc::org_bloc.dart::_$_$OrganizationLoadStuffEvent"
+
+abstract class "kursach::domain::organization::bloc::org_bloc.dart::_$OrganizationLoadStuffEvent" {
+  +int organizationId
+  +sortType sort
+  +String? category
+  +String? brand
+  +String? name
+  +_$$_$OrganizationLoadStuffEventCopyWith<_$_$OrganizationLoadStuffEvent> copyWith
+}
+
+"kursach::domain::organization::bloc::org_bloc.dart::_$OrganizationLoadStuffEvent" o-- "kursach::domain::organization::bloc::org_bloc.dart::sortType"
+"kursach::domain::organization::bloc::org_bloc.dart::_$OrganizationLoadStuffEvent" o-- "kursach::domain::organization::bloc::org_bloc.dart::_$$_$OrganizationLoadStuffEventCopyWith<_$_$OrganizationLoadStuffEvent>"
+"kursach::domain::organization::bloc::org_bloc.dart::OrganizationEvent" <|-- "kursach::domain::organization::bloc::org_bloc.dart::_$OrganizationLoadStuffEvent"
+
+abstract class "kursach::domain::organization::bloc::org_bloc.dart::$OrganizationStateCopyWith" {
+}
+
+class "kursach::domain::organization::bloc::org_bloc.dart::_$OrganizationStateCopyWithImpl" {
+  -$Val _value
+  -$Res Function($Val) _then
+}
+
+"kursach::domain::organization::bloc::org_bloc.dart::_$OrganizationStateCopyWithImpl" o-- "null::$Res Function($Val)"
+"kursach::domain::organization::bloc::org_bloc.dart::$OrganizationStateCopyWith" <|-- "kursach::domain::organization::bloc::org_bloc.dart::_$OrganizationStateCopyWithImpl"
+
+abstract class "kursach::domain::organization::bloc::org_bloc.dart::_$$_$OrganizationLoadingStateCopyWith" {
+}
+
+class "kursach::domain::organization::bloc::org_bloc.dart::__$$_$OrganizationLoadingStateCopyWithImpl" {
+}
+
+"kursach::domain::organization::bloc::org_bloc.dart::_$OrganizationStateCopyWithImpl" <|-- "kursach::domain::organization::bloc::org_bloc.dart::__$$_$OrganizationLoadingStateCopyWithImpl"
+"kursach::domain::organization::bloc::org_bloc.dart::_$$_$OrganizationLoadingStateCopyWith" <|-- "kursach::domain::organization::bloc::org_bloc.dart::__$$_$OrganizationLoadingStateCopyWithImpl"
+
+class "kursach::domain::organization::bloc::org_bloc.dart::_$_$OrganizationLoadingState" {
+  +int hashCode
+  +String toString()
+  +void debugFillProperties()
+  +bool ==()
+  +TResult when()
+  +TResult? whenOrNull()
+  +TResult maybeWhen()
+  +TResult map()
+  +TResult? mapOrNull()
+  +TResult maybeMap()
+}
+
+"flutter::src::foundation::diagnostics.dart::DiagnosticableTreeMixin" <|-- "kursach::domain::organization::bloc::org_bloc.dart::_$_$OrganizationLoadingState"
+"kursach::domain::organization::bloc::org_bloc.dart::_$OrganizationLoadingState" <|-- "kursach::domain::organization::bloc::org_bloc.dart::_$_$OrganizationLoadingState"
+
+abstract class "kursach::domain::organization::bloc::org_bloc.dart::_$OrganizationLoadingState" {
+}
+
+"kursach::domain::organization::bloc::org_bloc.dart::OrganizationState" <|-- "kursach::domain::organization::bloc::org_bloc.dart::_$OrganizationLoadingState"
+
+abstract class "kursach::domain::organization::bloc::org_bloc.dart::_$$_$OrganizationInitialStateCopyWith" {
+}
+
+class "kursach::domain::organization::bloc::org_bloc.dart::__$$_$OrganizationInitialStateCopyWithImpl" {
+}
+
+"kursach::domain::organization::bloc::org_bloc.dart::_$OrganizationStateCopyWithImpl" <|-- "kursach::domain::organization::bloc::org_bloc.dart::__$$_$OrganizationInitialStateCopyWithImpl"
+"kursach::domain::organization::bloc::org_bloc.dart::_$$_$OrganizationInitialStateCopyWith" <|-- "kursach::domain::organization::bloc::org_bloc.dart::__$$_$OrganizationInitialStateCopyWithImpl"
+
+class "kursach::domain::organization::bloc::org_bloc.dart::_$_$OrganizationInitialState" {
+  +int hashCode
+  +String toString()
+  +void debugFillProperties()
+  +bool ==()
+  +TResult when()
+  +TResult? whenOrNull()
+  +TResult maybeWhen()
+  +TResult map()
+  +TResult? mapOrNull()
+  +TResult maybeMap()
+}
+
+"flutter::src::foundation::diagnostics.dart::DiagnosticableTreeMixin" <|-- "kursach::domain::organization::bloc::org_bloc.dart::_$_$OrganizationInitialState"
+"kursach::domain::organization::bloc::org_bloc.dart::_$OrganizationInitialState" <|-- "kursach::domain::organization::bloc::org_bloc.dart::_$_$OrganizationInitialState"
+
+abstract class "kursach::domain::organization::bloc::org_bloc.dart::_$OrganizationInitialState" {
+}
+
+"kursach::domain::organization::bloc::org_bloc.dart::OrganizationState" <|-- "kursach::domain::organization::bloc::org_bloc.dart::_$OrganizationInitialState"
+
+abstract class "kursach::domain::organization::bloc::org_bloc.dart::_$$_$OrganizationLoadedStateCopyWith" {
+  +$Res call()
+}
+
+class "kursach::domain::organization::bloc::org_bloc.dart::__$$_$OrganizationLoadedStateCopyWithImpl" {
+  +$Res call()
+}
+
+"kursach::domain::organization::bloc::org_bloc.dart::_$OrganizationStateCopyWithImpl" <|-- "kursach::domain::organization::bloc::org_bloc.dart::__$$_$OrganizationLoadedStateCopyWithImpl"
+"kursach::domain::organization::bloc::org_bloc.dart::_$$_$OrganizationLoadedStateCopyWith" <|-- "kursach::domain::organization::bloc::org_bloc.dart::__$$_$OrganizationLoadedStateCopyWithImpl"
+
+class "kursach::domain::organization::bloc::org_bloc.dart::_$_$OrganizationLoadedState" {
+  +OrganizationModel model
+  +int hashCode
+  +_$$_$OrganizationLoadedStateCopyWith<_$_$OrganizationLoadedState> copyWith
+  +String toString()
+  +void debugFillProperties()
+  +bool ==()
+  +TResult when()
+  +TResult? whenOrNull()
+  +TResult maybeWhen()
+  +TResult map()
+  +TResult? mapOrNull()
+  +TResult maybeMap()
+}
+
+"kursach::domain::organization::bloc::org_bloc.dart::_$_$OrganizationLoadedState" o-- "kursach::domain::model::organization_model.dart::OrganizationModel"
+"kursach::domain::organization::bloc::org_bloc.dart::_$_$OrganizationLoadedState" o-- "kursach::domain::organization::bloc::org_bloc.dart::_$$_$OrganizationLoadedStateCopyWith<_$_$OrganizationLoadedState>"
+"flutter::src::foundation::diagnostics.dart::DiagnosticableTreeMixin" <|-- "kursach::domain::organization::bloc::org_bloc.dart::_$_$OrganizationLoadedState"
+"kursach::domain::organization::bloc::org_bloc.dart::_$OrganizationLoadedState" <|-- "kursach::domain::organization::bloc::org_bloc.dart::_$_$OrganizationLoadedState"
+
+abstract class "kursach::domain::organization::bloc::org_bloc.dart::_$OrganizationLoadedState" {
+  +OrganizationModel model
+  +_$$_$OrganizationLoadedStateCopyWith<_$_$OrganizationLoadedState> copyWith
+}
+
+"kursach::domain::organization::bloc::org_bloc.dart::_$OrganizationLoadedState" o-- "kursach::domain::model::organization_model.dart::OrganizationModel"
+"kursach::domain::organization::bloc::org_bloc.dart::_$OrganizationLoadedState" o-- "kursach::domain::organization::bloc::org_bloc.dart::_$$_$OrganizationLoadedStateCopyWith<_$_$OrganizationLoadedState>"
+"kursach::domain::organization::bloc::org_bloc.dart::OrganizationState" <|-- "kursach::domain::organization::bloc::org_bloc.dart::_$OrganizationLoadedState"
+
+abstract class "kursach::domain::organization::bloc::org_bloc.dart::_$$_$OrganizationStuffLoadedStateCopyWith" {
+  +$Res call()
+}
+
+class "kursach::domain::organization::bloc::org_bloc.dart::__$$_$OrganizationStuffLoadedStateCopyWithImpl" {
+  +$Res call()
+}
+
+"kursach::domain::organization::bloc::org_bloc.dart::_$OrganizationStateCopyWithImpl" <|-- "kursach::domain::organization::bloc::org_bloc.dart::__$$_$OrganizationStuffLoadedStateCopyWithImpl"
+"kursach::domain::organization::bloc::org_bloc.dart::_$$_$OrganizationStuffLoadedStateCopyWith" <|-- "kursach::domain::organization::bloc::org_bloc.dart::__$$_$OrganizationStuffLoadedStateCopyWithImpl"
+
+class "kursach::domain::organization::bloc::org_bloc.dart::_$_$OrganizationStuffLoadedState" {
+  -List<ProductModel> _stuff
+  +List<ProductModel> stuff
+  +int hashCode
+  +_$$_$OrganizationStuffLoadedStateCopyWith<_$_$OrganizationStuffLoadedState> copyWith
+  +String toString()
+  +void debugFillProperties()
+  +bool ==()
+  +TResult when()
+  +TResult? whenOrNull()
+  +TResult maybeWhen()
+  +TResult map()
+  +TResult? mapOrNull()
+  +TResult maybeMap()
+}
+
+"kursach::domain::organization::bloc::org_bloc.dart::_$_$OrganizationStuffLoadedState" o-- "kursach::domain::organization::bloc::org_bloc.dart::_$$_$OrganizationStuffLoadedStateCopyWith<_$_$OrganizationStuffLoadedState>"
+"flutter::src::foundation::diagnostics.dart::DiagnosticableTreeMixin" <|-- "kursach::domain::organization::bloc::org_bloc.dart::_$_$OrganizationStuffLoadedState"
+"kursach::domain::organization::bloc::org_bloc.dart::_$OrganizationStuffLoadedState" <|-- "kursach::domain::organization::bloc::org_bloc.dart::_$_$OrganizationStuffLoadedState"
+
+abstract class "kursach::domain::organization::bloc::org_bloc.dart::_$OrganizationStuffLoadedState" {
+  +List<ProductModel> stuff
+  +_$$_$OrganizationStuffLoadedStateCopyWith<_$_$OrganizationStuffLoadedState> copyWith
+}
+
+"kursach::domain::organization::bloc::org_bloc.dart::_$OrganizationStuffLoadedState" o-- "kursach::domain::organization::bloc::org_bloc.dart::_$$_$OrganizationStuffLoadedStateCopyWith<_$_$OrganizationStuffLoadedState>"
+"kursach::domain::organization::bloc::org_bloc.dart::OrganizationState" <|-- "kursach::domain::organization::bloc::org_bloc.dart::_$OrganizationStuffLoadedState"
+
+abstract class "kursach::domain::organization::bloc::org_bloc.dart::_$$_$OrganizationErroredStateCopyWith" {
+  +$Res call()
+}
+
+class "kursach::domain::organization::bloc::org_bloc.dart::__$$_$OrganizationErroredStateCopyWithImpl" {
+  +$Res call()
+}
+
+"kursach::domain::organization::bloc::org_bloc.dart::_$OrganizationStateCopyWithImpl" <|-- "kursach::domain::organization::bloc::org_bloc.dart::__$$_$OrganizationErroredStateCopyWithImpl"
+"kursach::domain::organization::bloc::org_bloc.dart::_$$_$OrganizationErroredStateCopyWith" <|-- "kursach::domain::organization::bloc::org_bloc.dart::__$$_$OrganizationErroredStateCopyWithImpl"
+
+class "kursach::domain::organization::bloc::org_bloc.dart::_$_$OrganizationErroredState" {
+  +String errorTitle
+  +String errorSubtitle
+  +int hashCode
+  +_$$_$OrganizationErroredStateCopyWith<_$_$OrganizationErroredState> copyWith
+  +String toString()
+  +void debugFillProperties()
+  +bool ==()
+  +TResult when()
+  +TResult? whenOrNull()
+  +TResult maybeWhen()
+  +TResult map()
+  +TResult? mapOrNull()
+  +TResult maybeMap()
+}
+
+"kursach::domain::organization::bloc::org_bloc.dart::_$_$OrganizationErroredState" o-- "kursach::domain::organization::bloc::org_bloc.dart::_$$_$OrganizationErroredStateCopyWith<_$_$OrganizationErroredState>"
+"flutter::src::foundation::diagnostics.dart::DiagnosticableTreeMixin" <|-- "kursach::domain::organization::bloc::org_bloc.dart::_$_$OrganizationErroredState"
+"kursach::domain::organization::bloc::org_bloc.dart::_$OrganizationErroredState" <|-- "kursach::domain::organization::bloc::org_bloc.dart::_$_$OrganizationErroredState"
+
+abstract class "kursach::domain::organization::bloc::org_bloc.dart::_$OrganizationErroredState" {
+  +String errorTitle
+  +String errorSubtitle
+  +_$$_$OrganizationErroredStateCopyWith<_$_$OrganizationErroredState> copyWith
+}
+
+"kursach::domain::organization::bloc::org_bloc.dart::_$OrganizationErroredState" o-- "kursach::domain::organization::bloc::org_bloc.dart::_$$_$OrganizationErroredStateCopyWith<_$_$OrganizationErroredState>"
+"kursach::domain::organization::bloc::org_bloc.dart::OrganizationState" <|-- "kursach::domain::organization::bloc::org_bloc.dart::_$OrganizationErroredState"
+
+abstract class "kursach::domain::organization::bloc::org_bloc.dart::_$OrganizationEvent" {
+  +TResult when()
+  +TResult? whenOrNull()
+  +TResult maybeWhen()
+  +TResult map()
+  +TResult? mapOrNull()
+  +TResult maybeMap()
+}
+
+abstract class "kursach::domain::organization::bloc::org_bloc.dart::_$OrganizationState" {
+  +TResult when()
+  +TResult? whenOrNull()
+  +TResult maybeWhen()
+  +TResult map()
+  +TResult? mapOrNull()
+  +TResult maybeMap()
+}
+
+class "kursach::domain::pickers::image_picker.dart::ImagePickers" {
+  {static} +Future<Uint8List?> pickImage()
+}
+
+class "kursach::domain::place_searcher::bloc::place_searcher_bloc.dart::PlaceSearcherBloc" {
+}
+
+"bloc::src::bloc.dart::Bloc" <|-- "kursach::domain::place_searcher::bloc::place_searcher_bloc.dart::PlaceSearcherBloc"
+
+class "kursach::domain::place_searcher::bloc::place_searcher_bloc.dart::PlaceSearcherEvents" {
+}
+
+"kursach::domain::place_searcher::bloc::place_searcher_bloc.dart::_$PlaceSearcherEvents" <|-- "kursach::domain::place_searcher::bloc::place_searcher_bloc.dart::PlaceSearcherEvents"
+
+class "kursach::domain::place_searcher::bloc::place_searcher_bloc.dart::PlaceSearcherStates" {
+}
+
+"kursach::domain::place_searcher::bloc::place_searcher_bloc.dart::_$PlaceSearcherStates" <|-- "kursach::domain::place_searcher::bloc::place_searcher_bloc.dart::PlaceSearcherStates"
+
+class "kursach::domain::place_searcher::bloc::place_searcher_bloc.dart::PlaceSearcherProvider" {
+  {static} +Future<SearchSessionResult> findPlaceByName()
+  {static} +Future<SearchSessionResult> findPlaceCoordinates()
+}
+
+class "kursach::domain::place_searcher::bloc::place_searcher_bloc.dart::PlaceSearcherRepository" {
+  {static} +Future<List<AddressModel>> getPlaces()
+  {static} +Future<AddressModel> getPlaceByCoord()
+}
+
+abstract class "kursach::domain::place_searcher::bloc::place_searcher_bloc.dart::$PlaceSearcherEventsCopyWith" {
+}
+
+class "kursach::domain::place_searcher::bloc::place_searcher_bloc.dart::_$PlaceSearcherEventsCopyWithImpl" {
+  -$Val _value
+  -$Res Function($Val) _then
+}
+
+"kursach::domain::place_searcher::bloc::place_searcher_bloc.dart::_$PlaceSearcherEventsCopyWithImpl" o-- "null::$Res Function($Val)"
+"kursach::domain::place_searcher::bloc::place_searcher_bloc.dart::$PlaceSearcherEventsCopyWith" <|-- "kursach::domain::place_searcher::bloc::place_searcher_bloc.dart::_$PlaceSearcherEventsCopyWithImpl"
+
+abstract class "kursach::domain::place_searcher::bloc::place_searcher_bloc.dart::_$$_$PlaceSearcherSearchEventCopyWith" {
+  +$Res call()
+}
+
+class "kursach::domain::place_searcher::bloc::place_searcher_bloc.dart::__$$_$PlaceSearcherSearchEventCopyWithImpl" {
+  +$Res call()
+}
+
+"kursach::domain::place_searcher::bloc::place_searcher_bloc.dart::_$PlaceSearcherEventsCopyWithImpl" <|-- "kursach::domain::place_searcher::bloc::place_searcher_bloc.dart::__$$_$PlaceSearcherSearchEventCopyWithImpl"
+"kursach::domain::place_searcher::bloc::place_searcher_bloc.dart::_$$_$PlaceSearcherSearchEventCopyWith" <|-- "kursach::domain::place_searcher::bloc::place_searcher_bloc.dart::__$$_$PlaceSearcherSearchEventCopyWithImpl"
+
+class "kursach::domain::place_searcher::bloc::place_searcher_bloc.dart::_$_$PlaceSearcherSearchEvent" {
+  +String searchString
+  +int hashCode
+  +_$$_$PlaceSearcherSearchEventCopyWith<_$_$PlaceSearcherSearchEvent> copyWith
+  +String toString()
+  +bool ==()
+  +TResult when()
+  +TResult? whenOrNull()
+  +TResult maybeWhen()
+  +TResult map()
+  +TResult? mapOrNull()
+  +TResult maybeMap()
+}
+
+"kursach::domain::place_searcher::bloc::place_searcher_bloc.dart::_$_$PlaceSearcherSearchEvent" o-- "kursach::domain::place_searcher::bloc::place_searcher_bloc.dart::_$$_$PlaceSearcherSearchEventCopyWith<_$_$PlaceSearcherSearchEvent>"
+"kursach::domain::place_searcher::bloc::place_searcher_bloc.dart::_$PlaceSearcherSearchEvent" <|-- "kursach::domain::place_searcher::bloc::place_searcher_bloc.dart::_$_$PlaceSearcherSearchEvent"
+
+abstract class "kursach::domain::place_searcher::bloc::place_searcher_bloc.dart::_$PlaceSearcherSearchEvent" {
+  +String searchString
+  +_$$_$PlaceSearcherSearchEventCopyWith<_$_$PlaceSearcherSearchEvent> copyWith
+}
+
+"kursach::domain::place_searcher::bloc::place_searcher_bloc.dart::_$PlaceSearcherSearchEvent" o-- "kursach::domain::place_searcher::bloc::place_searcher_bloc.dart::_$$_$PlaceSearcherSearchEventCopyWith<_$_$PlaceSearcherSearchEvent>"
+"kursach::domain::place_searcher::bloc::place_searcher_bloc.dart::PlaceSearcherEvents" <|-- "kursach::domain::place_searcher::bloc::place_searcher_bloc.dart::_$PlaceSearcherSearchEvent"
+
+abstract class "kursach::domain::place_searcher::bloc::place_searcher_bloc.dart::_$$_$PlaceSearcherSearchByCoordEventCopyWith" {
+  +$Res call()
+}
+
+class "kursach::domain::place_searcher::bloc::place_searcher_bloc.dart::__$$_$PlaceSearcherSearchByCoordEventCopyWithImpl" {
+  +$Res call()
+}
+
+"kursach::domain::place_searcher::bloc::place_searcher_bloc.dart::_$PlaceSearcherEventsCopyWithImpl" <|-- "kursach::domain::place_searcher::bloc::place_searcher_bloc.dart::__$$_$PlaceSearcherSearchByCoordEventCopyWithImpl"
+"kursach::domain::place_searcher::bloc::place_searcher_bloc.dart::_$$_$PlaceSearcherSearchByCoordEventCopyWith" <|-- "kursach::domain::place_searcher::bloc::place_searcher_bloc.dart::__$$_$PlaceSearcherSearchByCoordEventCopyWithImpl"
+
+class "kursach::domain::place_searcher::bloc::place_searcher_bloc.dart::_$_$PlaceSearcherSearchByCoordEvent" {
+  +double lon
+  +double lat
+  +bool isInitial
+  +int hashCode
+  +_$$_$PlaceSearcherSearchByCoordEventCopyWith<_$_$PlaceSearcherSearchByCoordEvent> copyWith
+  +String toString()
+  +bool ==()
+  +TResult when()
+  +TResult? whenOrNull()
+  +TResult maybeWhen()
+  +TResult map()
+  +TResult? mapOrNull()
+  +TResult maybeMap()
+}
+
+"kursach::domain::place_searcher::bloc::place_searcher_bloc.dart::_$_$PlaceSearcherSearchByCoordEvent" o-- "kursach::domain::place_searcher::bloc::place_searcher_bloc.dart::_$$_$PlaceSearcherSearchByCoordEventCopyWith<_$_$PlaceSearcherSearchByCoordEvent>"
+"kursach::domain::place_searcher::bloc::place_searcher_bloc.dart::_$PlaceSearcherSearchByCoordEvent" <|-- "kursach::domain::place_searcher::bloc::place_searcher_bloc.dart::_$_$PlaceSearcherSearchByCoordEvent"
+
+abstract class "kursach::domain::place_searcher::bloc::place_searcher_bloc.dart::_$PlaceSearcherSearchByCoordEvent" {
+  +double lon
+  +double lat
+  +bool isInitial
+  +_$$_$PlaceSearcherSearchByCoordEventCopyWith<_$_$PlaceSearcherSearchByCoordEvent> copyWith
+}
+
+"kursach::domain::place_searcher::bloc::place_searcher_bloc.dart::_$PlaceSearcherSearchByCoordEvent" o-- "kursach::domain::place_searcher::bloc::place_searcher_bloc.dart::_$$_$PlaceSearcherSearchByCoordEventCopyWith<_$_$PlaceSearcherSearchByCoordEvent>"
+"kursach::domain::place_searcher::bloc::place_searcher_bloc.dart::PlaceSearcherEvents" <|-- "kursach::domain::place_searcher::bloc::place_searcher_bloc.dart::_$PlaceSearcherSearchByCoordEvent"
+
+abstract class "kursach::domain::place_searcher::bloc::place_searcher_bloc.dart::$PlaceSearcherStatesCopyWith" {
+}
+
+class "kursach::domain::place_searcher::bloc::place_searcher_bloc.dart::_$PlaceSearcherStatesCopyWithImpl" {
+  -$Val _value
+  -$Res Function($Val) _then
+}
+
+"kursach::domain::place_searcher::bloc::place_searcher_bloc.dart::_$PlaceSearcherStatesCopyWithImpl" o-- "null::$Res Function($Val)"
+"kursach::domain::place_searcher::bloc::place_searcher_bloc.dart::$PlaceSearcherStatesCopyWith" <|-- "kursach::domain::place_searcher::bloc::place_searcher_bloc.dart::_$PlaceSearcherStatesCopyWithImpl"
+
+abstract class "kursach::domain::place_searcher::bloc::place_searcher_bloc.dart::_$$_$PlaceSearcherInitialStateCopyWith" {
+}
+
+class "kursach::domain::place_searcher::bloc::place_searcher_bloc.dart::__$$_$PlaceSearcherInitialStateCopyWithImpl" {
+}
+
+"kursach::domain::place_searcher::bloc::place_searcher_bloc.dart::_$PlaceSearcherStatesCopyWithImpl" <|-- "kursach::domain::place_searcher::bloc::place_searcher_bloc.dart::__$$_$PlaceSearcherInitialStateCopyWithImpl"
+"kursach::domain::place_searcher::bloc::place_searcher_bloc.dart::_$$_$PlaceSearcherInitialStateCopyWith" <|-- "kursach::domain::place_searcher::bloc::place_searcher_bloc.dart::__$$_$PlaceSearcherInitialStateCopyWithImpl"
+
+class "kursach::domain::place_searcher::bloc::place_searcher_bloc.dart::_$_$PlaceSearcherInitialState" {
+  +int hashCode
+  +String toString()
+  +bool ==()
+  +TResult when()
+  +TResult? whenOrNull()
+  +TResult maybeWhen()
+  +TResult map()
+  +TResult? mapOrNull()
+  +TResult maybeMap()
+}
+
+"kursach::domain::place_searcher::bloc::place_searcher_bloc.dart::_$PlaceSearcherInitialState" <|-- "kursach::domain::place_searcher::bloc::place_searcher_bloc.dart::_$_$PlaceSearcherInitialState"
+
+abstract class "kursach::domain::place_searcher::bloc::place_searcher_bloc.dart::_$PlaceSearcherInitialState" {
+}
+
+"kursach::domain::place_searcher::bloc::place_searcher_bloc.dart::PlaceSearcherStates" <|-- "kursach::domain::place_searcher::bloc::place_searcher_bloc.dart::_$PlaceSearcherInitialState"
+
+abstract class "kursach::domain::place_searcher::bloc::place_searcher_bloc.dart::_$$_$PlaceSearcherLoadingStateCopyWith" {
+}
+
+class "kursach::domain::place_searcher::bloc::place_searcher_bloc.dart::__$$_$PlaceSearcherLoadingStateCopyWithImpl" {
+}
+
+"kursach::domain::place_searcher::bloc::place_searcher_bloc.dart::_$PlaceSearcherStatesCopyWithImpl" <|-- "kursach::domain::place_searcher::bloc::place_searcher_bloc.dart::__$$_$PlaceSearcherLoadingStateCopyWithImpl"
+"kursach::domain::place_searcher::bloc::place_searcher_bloc.dart::_$$_$PlaceSearcherLoadingStateCopyWith" <|-- "kursach::domain::place_searcher::bloc::place_searcher_bloc.dart::__$$_$PlaceSearcherLoadingStateCopyWithImpl"
+
+class "kursach::domain::place_searcher::bloc::place_searcher_bloc.dart::_$_$PlaceSearcherLoadingState" {
+  +int hashCode
+  +String toString()
+  +bool ==()
+  +TResult when()
+  +TResult? whenOrNull()
+  +TResult maybeWhen()
+  +TResult map()
+  +TResult? mapOrNull()
+  +TResult maybeMap()
+}
+
+"kursach::domain::place_searcher::bloc::place_searcher_bloc.dart::_$PlaceSearcherLoadingState" <|-- "kursach::domain::place_searcher::bloc::place_searcher_bloc.dart::_$_$PlaceSearcherLoadingState"
+
+abstract class "kursach::domain::place_searcher::bloc::place_searcher_bloc.dart::_$PlaceSearcherLoadingState" {
+}
+
+"kursach::domain::place_searcher::bloc::place_searcher_bloc.dart::PlaceSearcherStates" <|-- "kursach::domain::place_searcher::bloc::place_searcher_bloc.dart::_$PlaceSearcherLoadingState"
+
+abstract class "kursach::domain::place_searcher::bloc::place_searcher_bloc.dart::_$$_$PlaceSearcherErroredStateCopyWith" {
+}
+
+class "kursach::domain::place_searcher::bloc::place_searcher_bloc.dart::__$$_$PlaceSearcherErroredStateCopyWithImpl" {
+}
+
+"kursach::domain::place_searcher::bloc::place_searcher_bloc.dart::_$PlaceSearcherStatesCopyWithImpl" <|-- "kursach::domain::place_searcher::bloc::place_searcher_bloc.dart::__$$_$PlaceSearcherErroredStateCopyWithImpl"
+"kursach::domain::place_searcher::bloc::place_searcher_bloc.dart::_$$_$PlaceSearcherErroredStateCopyWith" <|-- "kursach::domain::place_searcher::bloc::place_searcher_bloc.dart::__$$_$PlaceSearcherErroredStateCopyWithImpl"
+
+class "kursach::domain::place_searcher::bloc::place_searcher_bloc.dart::_$_$PlaceSearcherErroredState" {
+  +int hashCode
+  +String toString()
+  +bool ==()
+  +TResult when()
+  +TResult? whenOrNull()
+  +TResult maybeWhen()
+  +TResult map()
+  +TResult? mapOrNull()
+  +TResult maybeMap()
+}
+
+"kursach::domain::place_searcher::bloc::place_searcher_bloc.dart::_$PlaceSearcherErroredState" <|-- "kursach::domain::place_searcher::bloc::place_searcher_bloc.dart::_$_$PlaceSearcherErroredState"
+
+abstract class "kursach::domain::place_searcher::bloc::place_searcher_bloc.dart::_$PlaceSearcherErroredState" {
+}
+
+"kursach::domain::place_searcher::bloc::place_searcher_bloc.dart::PlaceSearcherStates" <|-- "kursach::domain::place_searcher::bloc::place_searcher_bloc.dart::_$PlaceSearcherErroredState"
+
+abstract class "kursach::domain::place_searcher::bloc::place_searcher_bloc.dart::_$$_$PlaceSearcherSearchedCoordslStateCopyWith" {
+  +$Res call()
+}
+
+class "kursach::domain::place_searcher::bloc::place_searcher_bloc.dart::__$$_$PlaceSearcherSearchedCoordslStateCopyWithImpl" {
+  +$Res call()
+}
+
+"kursach::domain::place_searcher::bloc::place_searcher_bloc.dart::_$PlaceSearcherStatesCopyWithImpl" <|-- "kursach::domain::place_searcher::bloc::place_searcher_bloc.dart::__$$_$PlaceSearcherSearchedCoordslStateCopyWithImpl"
+"kursach::domain::place_searcher::bloc::place_searcher_bloc.dart::_$$_$PlaceSearcherSearchedCoordslStateCopyWith" <|-- "kursach::domain::place_searcher::bloc::place_searcher_bloc.dart::__$$_$PlaceSearcherSearchedCoordslStateCopyWithImpl"
+
+class "kursach::domain::place_searcher::bloc::place_searcher_bloc.dart::_$_$PlaceSearcherSearchedCoordslState" {
+  +AddressModel place
+  +bool isInitial
+  +int hashCode
+  +_$$_$PlaceSearcherSearchedCoordslStateCopyWith<_$_$PlaceSearcherSearchedCoordslState> copyWith
+  +String toString()
+  +bool ==()
+  +TResult when()
+  +TResult? whenOrNull()
+  +TResult maybeWhen()
+  +TResult map()
+  +TResult? mapOrNull()
+  +TResult maybeMap()
+}
+
+"kursach::domain::place_searcher::bloc::place_searcher_bloc.dart::_$_$PlaceSearcherSearchedCoordslState" o-- "kursach::domain::model::address_model.dart::AddressModel"
+"kursach::domain::place_searcher::bloc::place_searcher_bloc.dart::_$_$PlaceSearcherSearchedCoordslState" o-- "kursach::domain::place_searcher::bloc::place_searcher_bloc.dart::_$$_$PlaceSearcherSearchedCoordslStateCopyWith<_$_$PlaceSearcherSearchedCoordslState>"
+"kursach::domain::place_searcher::bloc::place_searcher_bloc.dart::_$PlaceSearcherSearchedCoordslState" <|-- "kursach::domain::place_searcher::bloc::place_searcher_bloc.dart::_$_$PlaceSearcherSearchedCoordslState"
+
+abstract class "kursach::domain::place_searcher::bloc::place_searcher_bloc.dart::_$PlaceSearcherSearchedCoordslState" {
+  +AddressModel place
+  +bool isInitial
+  +_$$_$PlaceSearcherSearchedCoordslStateCopyWith<_$_$PlaceSearcherSearchedCoordslState> copyWith
+}
+
+"kursach::domain::place_searcher::bloc::place_searcher_bloc.dart::_$PlaceSearcherSearchedCoordslState" o-- "kursach::domain::model::address_model.dart::AddressModel"
+"kursach::domain::place_searcher::bloc::place_searcher_bloc.dart::_$PlaceSearcherSearchedCoordslState" o-- "kursach::domain::place_searcher::bloc::place_searcher_bloc.dart::_$$_$PlaceSearcherSearchedCoordslStateCopyWith<_$_$PlaceSearcherSearchedCoordslState>"
+"kursach::domain::place_searcher::bloc::place_searcher_bloc.dart::PlaceSearcherStates" <|-- "kursach::domain::place_searcher::bloc::place_searcher_bloc.dart::_$PlaceSearcherSearchedCoordslState"
+
+abstract class "kursach::domain::place_searcher::bloc::place_searcher_bloc.dart::_$$_$PlaceSearcherSearchedStateCopyWith" {
+  +$Res call()
+}
+
+class "kursach::domain::place_searcher::bloc::place_searcher_bloc.dart::__$$_$PlaceSearcherSearchedStateCopyWithImpl" {
+  +$Res call()
+}
+
+"kursach::domain::place_searcher::bloc::place_searcher_bloc.dart::_$PlaceSearcherStatesCopyWithImpl" <|-- "kursach::domain::place_searcher::bloc::place_searcher_bloc.dart::__$$_$PlaceSearcherSearchedStateCopyWithImpl"
+"kursach::domain::place_searcher::bloc::place_searcher_bloc.dart::_$$_$PlaceSearcherSearchedStateCopyWith" <|-- "kursach::domain::place_searcher::bloc::place_searcher_bloc.dart::__$$_$PlaceSearcherSearchedStateCopyWithImpl"
+
+class "kursach::domain::place_searcher::bloc::place_searcher_bloc.dart::_$_$PlaceSearcherSearchedState" {
+  -List<AddressModel> _places
+  +List<AddressModel> places
+  +int hashCode
+  +_$$_$PlaceSearcherSearchedStateCopyWith<_$_$PlaceSearcherSearchedState> copyWith
+  +String toString()
+  +bool ==()
+  +TResult when()
+  +TResult? whenOrNull()
+  +TResult maybeWhen()
+  +TResult map()
+  +TResult? mapOrNull()
+  +TResult maybeMap()
+}
+
+"kursach::domain::place_searcher::bloc::place_searcher_bloc.dart::_$_$PlaceSearcherSearchedState" o-- "kursach::domain::place_searcher::bloc::place_searcher_bloc.dart::_$$_$PlaceSearcherSearchedStateCopyWith<_$_$PlaceSearcherSearchedState>"
+"kursach::domain::place_searcher::bloc::place_searcher_bloc.dart::_$PlaceSearcherSearchedState" <|-- "kursach::domain::place_searcher::bloc::place_searcher_bloc.dart::_$_$PlaceSearcherSearchedState"
+
+abstract class "kursach::domain::place_searcher::bloc::place_searcher_bloc.dart::_$PlaceSearcherSearchedState" {
+  +List<AddressModel> places
+  +_$$_$PlaceSearcherSearchedStateCopyWith<_$_$PlaceSearcherSearchedState> copyWith
+}
+
+"kursach::domain::place_searcher::bloc::place_searcher_bloc.dart::_$PlaceSearcherSearchedState" o-- "kursach::domain::place_searcher::bloc::place_searcher_bloc.dart::_$$_$PlaceSearcherSearchedStateCopyWith<_$_$PlaceSearcherSearchedState>"
+"kursach::domain::place_searcher::bloc::place_searcher_bloc.dart::PlaceSearcherStates" <|-- "kursach::domain::place_searcher::bloc::place_searcher_bloc.dart::_$PlaceSearcherSearchedState"
+
+abstract class "kursach::domain::place_searcher::bloc::place_searcher_bloc.dart::_$PlaceSearcherEvents" {
+  +TResult when()
+  +TResult? whenOrNull()
+  +TResult maybeWhen()
+  +TResult map()
+  +TResult? mapOrNull()
+  +TResult maybeMap()
+}
+
+abstract class "kursach::domain::place_searcher::bloc::place_searcher_bloc.dart::_$PlaceSearcherStates" {
+  +TResult when()
+  +TResult? whenOrNull()
+  +TResult maybeWhen()
+  +TResult map()
+  +TResult? mapOrNull()
+  +TResult maybeMap()
+}
+
+class "kursach::domain::product::bloc::product_bloc.dart::ProductBloc" {
+}
+
+"bloc::src::bloc.dart::Bloc" <|-- "kursach::domain::product::bloc::product_bloc.dart::ProductBloc"
+
+abstract class "kursach::domain::product::bloc::product_bloc.dart::ProductEvent" {
+}
+
+"kursach::domain::product::bloc::product_bloc.dart::_$ProductEvent" <|-- "kursach::domain::product::bloc::product_bloc.dart::ProductEvent"
+
+abstract class "kursach::domain::product::bloc::product_bloc.dart::ProductState" {
+}
+
+"kursach::domain::product::bloc::product_bloc.dart::_$ProductState" <|-- "kursach::domain::product::bloc::product_bloc.dart::ProductState"
+
+class "kursach::domain::product::bloc::product_bloc.dart::ProductRepository" {
+  {static} +Future<List<ProductTypeModel>> searchCategoryByText()
+  {static} +Future<ProductTypeModel> addNewProductCategory()
+  {static} +Future<List<BrandModel>> searchBrandByName()
+  {static} +Future<BrandModel> addNewBrand()
+  {static} +Future<ProductModel> addNewProduct()
+  {static} +Future<List<ProductModel>> loadProductModels()
+}
+
+class "kursach::domain::product::bloc::product_bloc.dart::ProductProvider" {
+  {static} +QueryOptions<Object?> searchCategoryByName()
+  {static} -QueryOptions<Object?> _searchBrandByName()
+  {static} +MutationOptions<Object?> addProductType()
+  {static} -MutationOptions<Object?> _addNewProduct()
+  {static} -QueryOptions<Object?> _loadProducts()
+  {static} -MutationOptions<Object?> _addBrand()
+  {static} +Future<QueryResult<Object?>> searchCategoryByText()
+  {static} +Future<QueryResult<Object?>> addNewCategory()
+  {static} +Future<QueryResult<Object?>> addNewBrand()
+  {static} +Future<QueryResult<Object?>> searchBrandByText()
+  {static} +Future<String> loadBrandImage()
+  {static} +Future<List<String>> loadProductImages()
+  {static} +Future<QueryResult<Object?>> addNewProduct()
+  {static} +Future<QueryResult<Object?>> loadProducts()
+}
+
+abstract class "kursach::domain::product::bloc::product_bloc.dart::$ProductEventCopyWith" {
+}
+
+class "kursach::domain::product::bloc::product_bloc.dart::_$ProductEventCopyWithImpl" {
+  -$Val _value
+  -$Res Function($Val) _then
+}
+
+"kursach::domain::product::bloc::product_bloc.dart::_$ProductEventCopyWithImpl" o-- "null::$Res Function($Val)"
+"kursach::domain::product::bloc::product_bloc.dart::$ProductEventCopyWith" <|-- "kursach::domain::product::bloc::product_bloc.dart::_$ProductEventCopyWithImpl"
+
+abstract class "kursach::domain::product::bloc::product_bloc.dart::_$$_$ProductLoadCategoriesEventCopyWith" {
+  +$Res call()
+}
+
+class "kursach::domain::product::bloc::product_bloc.dart::__$$_$ProductLoadCategoriesEventCopyWithImpl" {
+  +$Res call()
+}
+
+"kursach::domain::product::bloc::product_bloc.dart::_$ProductEventCopyWithImpl" <|-- "kursach::domain::product::bloc::product_bloc.dart::__$$_$ProductLoadCategoriesEventCopyWithImpl"
+"kursach::domain::product::bloc::product_bloc.dart::_$$_$ProductLoadCategoriesEventCopyWith" <|-- "kursach::domain::product::bloc::product_bloc.dart::__$$_$ProductLoadCategoriesEventCopyWithImpl"
+
+class "kursach::domain::product::bloc::product_bloc.dart::_$_$ProductLoadCategoriesEvent" {
+  +String searchText
+  +int hashCode
+  +_$$_$ProductLoadCategoriesEventCopyWith<_$_$ProductLoadCategoriesEvent> copyWith
+  +String toString()
+  +void debugFillProperties()
+  +bool ==()
+  +TResult when()
+  +TResult? whenOrNull()
+  +TResult maybeWhen()
+  +TResult map()
+  +TResult? mapOrNull()
+  +TResult maybeMap()
+}
+
+"kursach::domain::product::bloc::product_bloc.dart::_$_$ProductLoadCategoriesEvent" o-- "kursach::domain::product::bloc::product_bloc.dart::_$$_$ProductLoadCategoriesEventCopyWith<_$_$ProductLoadCategoriesEvent>"
+"flutter::src::foundation::diagnostics.dart::DiagnosticableTreeMixin" <|-- "kursach::domain::product::bloc::product_bloc.dart::_$_$ProductLoadCategoriesEvent"
+"kursach::domain::product::bloc::product_bloc.dart::_$ProductLoadCategoriesEvent" <|-- "kursach::domain::product::bloc::product_bloc.dart::_$_$ProductLoadCategoriesEvent"
+
+abstract class "kursach::domain::product::bloc::product_bloc.dart::_$ProductLoadCategoriesEvent" {
+  +String searchText
+  +_$$_$ProductLoadCategoriesEventCopyWith<_$_$ProductLoadCategoriesEvent> copyWith
+}
+
+"kursach::domain::product::bloc::product_bloc.dart::_$ProductLoadCategoriesEvent" o-- "kursach::domain::product::bloc::product_bloc.dart::_$$_$ProductLoadCategoriesEventCopyWith<_$_$ProductLoadCategoriesEvent>"
+"kursach::domain::product::bloc::product_bloc.dart::ProductEvent" <|-- "kursach::domain::product::bloc::product_bloc.dart::_$ProductLoadCategoriesEvent"
+
+abstract class "kursach::domain::product::bloc::product_bloc.dart::_$$_$ProductAddNewCategoriesEventCopyWith" {
+  +$Res call()
+}
+
+class "kursach::domain::product::bloc::product_bloc.dart::__$$_$ProductAddNewCategoriesEventCopyWithImpl" {
+  +$Res call()
+}
+
+"kursach::domain::product::bloc::product_bloc.dart::_$ProductEventCopyWithImpl" <|-- "kursach::domain::product::bloc::product_bloc.dart::__$$_$ProductAddNewCategoriesEventCopyWithImpl"
+"kursach::domain::product::bloc::product_bloc.dart::_$$_$ProductAddNewCategoriesEventCopyWith" <|-- "kursach::domain::product::bloc::product_bloc.dart::__$$_$ProductAddNewCategoriesEventCopyWithImpl"
+
+class "kursach::domain::product::bloc::product_bloc.dart::_$_$ProductAddNewCategoriesEvent" {
+  -List<ProductTypeModel> _categories
+  +List<ProductTypeModel> categories
+  +int hashCode
+  +_$$_$ProductAddNewCategoriesEventCopyWith<_$_$ProductAddNewCategoriesEvent> copyWith
+  +String toString()
+  +void debugFillProperties()
+  +bool ==()
+  +TResult when()
+  +TResult? whenOrNull()
+  +TResult maybeWhen()
+  +TResult map()
+  +TResult? mapOrNull()
+  +TResult maybeMap()
+}
+
+"kursach::domain::product::bloc::product_bloc.dart::_$_$ProductAddNewCategoriesEvent" o-- "kursach::domain::product::bloc::product_bloc.dart::_$$_$ProductAddNewCategoriesEventCopyWith<_$_$ProductAddNewCategoriesEvent>"
+"flutter::src::foundation::diagnostics.dart::DiagnosticableTreeMixin" <|-- "kursach::domain::product::bloc::product_bloc.dart::_$_$ProductAddNewCategoriesEvent"
+"kursach::domain::product::bloc::product_bloc.dart::_$ProductAddNewCategoriesEvent" <|-- "kursach::domain::product::bloc::product_bloc.dart::_$_$ProductAddNewCategoriesEvent"
+
+abstract class "kursach::domain::product::bloc::product_bloc.dart::_$ProductAddNewCategoriesEvent" {
+  +List<ProductTypeModel> categories
+  +_$$_$ProductAddNewCategoriesEventCopyWith<_$_$ProductAddNewCategoriesEvent> copyWith
+}
+
+"kursach::domain::product::bloc::product_bloc.dart::_$ProductAddNewCategoriesEvent" o-- "kursach::domain::product::bloc::product_bloc.dart::_$$_$ProductAddNewCategoriesEventCopyWith<_$_$ProductAddNewCategoriesEvent>"
+"kursach::domain::product::bloc::product_bloc.dart::ProductEvent" <|-- "kursach::domain::product::bloc::product_bloc.dart::_$ProductAddNewCategoriesEvent"
+
+abstract class "kursach::domain::product::bloc::product_bloc.dart::_$$_$ProductAddNewProductEventCopyWith" {
+  +$Res call()
+}
+
+class "kursach::domain::product::bloc::product_bloc.dart::__$$_$ProductAddNewProductEventCopyWithImpl" {
+  +$Res call()
+}
+
+"kursach::domain::product::bloc::product_bloc.dart::_$ProductEventCopyWithImpl" <|-- "kursach::domain::product::bloc::product_bloc.dart::__$$_$ProductAddNewProductEventCopyWithImpl"
+"kursach::domain::product::bloc::product_bloc.dart::_$$_$ProductAddNewProductEventCopyWith" <|-- "kursach::domain::product::bloc::product_bloc.dart::__$$_$ProductAddNewProductEventCopyWithImpl"
+
+class "kursach::domain::product::bloc::product_bloc.dart::_$_$ProductAddNewProductEvent" {
+  +String brandName
+  -List<Uint8List> _album
+  +String productDesc
+  +String productName
+  +double productPrice
+  +int quantity
+  +String productCategory
+  +String? productCategoryS
+  +String? productCategoryT
+  +List<Uint8List> album
+  +int hashCode
+  +_$$_$ProductAddNewProductEventCopyWith<_$_$ProductAddNewProductEvent> copyWith
+  +String toString()
+  +void debugFillProperties()
+  +bool ==()
+  +TResult when()
+  +TResult? whenOrNull()
+  +TResult maybeWhen()
+  +TResult map()
+  +TResult? mapOrNull()
+  +TResult maybeMap()
+}
+
+"kursach::domain::product::bloc::product_bloc.dart::_$_$ProductAddNewProductEvent" o-- "kursach::domain::product::bloc::product_bloc.dart::_$$_$ProductAddNewProductEventCopyWith<_$_$ProductAddNewProductEvent>"
+"flutter::src::foundation::diagnostics.dart::DiagnosticableTreeMixin" <|-- "kursach::domain::product::bloc::product_bloc.dart::_$_$ProductAddNewProductEvent"
+"kursach::domain::product::bloc::product_bloc.dart::_$ProductAddNewProductEvent" <|-- "kursach::domain::product::bloc::product_bloc.dart::_$_$ProductAddNewProductEvent"
+
+abstract class "kursach::domain::product::bloc::product_bloc.dart::_$ProductAddNewProductEvent" {
+  +String brandName
+  +List<Uint8List> album
+  +String productDesc
+  +String productName
+  +double productPrice
+  +int quantity
+  +String productCategory
+  +String? productCategoryS
+  +String? productCategoryT
+  +_$$_$ProductAddNewProductEventCopyWith<_$_$ProductAddNewProductEvent> copyWith
+}
+
+"kursach::domain::product::bloc::product_bloc.dart::_$ProductAddNewProductEvent" o-- "kursach::domain::product::bloc::product_bloc.dart::_$$_$ProductAddNewProductEventCopyWith<_$_$ProductAddNewProductEvent>"
+"kursach::domain::product::bloc::product_bloc.dart::ProductEvent" <|-- "kursach::domain::product::bloc::product_bloc.dart::_$ProductAddNewProductEvent"
+
+abstract class "kursach::domain::product::bloc::product_bloc.dart::_$$_$ProductAddNewBrandEventCopyWith" {
+  +$Res call()
+}
+
+class "kursach::domain::product::bloc::product_bloc.dart::__$$_$ProductAddNewBrandEventCopyWithImpl" {
+  +$Res call()
+}
+
+"kursach::domain::product::bloc::product_bloc.dart::_$ProductEventCopyWithImpl" <|-- "kursach::domain::product::bloc::product_bloc.dart::__$$_$ProductAddNewBrandEventCopyWithImpl"
+"kursach::domain::product::bloc::product_bloc.dart::_$$_$ProductAddNewBrandEventCopyWith" <|-- "kursach::domain::product::bloc::product_bloc.dart::__$$_$ProductAddNewBrandEventCopyWithImpl"
+
+class "kursach::domain::product::bloc::product_bloc.dart::_$_$ProductAddNewBrandEvent" {
+  +String title
+  +String description
+  +Uint8List image
+  +int hashCode
+  +_$$_$ProductAddNewBrandEventCopyWith<_$_$ProductAddNewBrandEvent> copyWith
+  +String toString()
+  +void debugFillProperties()
+  +bool ==()
+  +TResult when()
+  +TResult? whenOrNull()
+  +TResult maybeWhen()
+  +TResult map()
+  +TResult? mapOrNull()
+  +TResult maybeMap()
+}
+
+"kursach::domain::product::bloc::product_bloc.dart::_$_$ProductAddNewBrandEvent" o-- "dart::typed_data::Uint8List"
+"kursach::domain::product::bloc::product_bloc.dart::_$_$ProductAddNewBrandEvent" o-- "kursach::domain::product::bloc::product_bloc.dart::_$$_$ProductAddNewBrandEventCopyWith<_$_$ProductAddNewBrandEvent>"
+"flutter::src::foundation::diagnostics.dart::DiagnosticableTreeMixin" <|-- "kursach::domain::product::bloc::product_bloc.dart::_$_$ProductAddNewBrandEvent"
+"kursach::domain::product::bloc::product_bloc.dart::_$ProductAddNewBrandEvent" <|-- "kursach::domain::product::bloc::product_bloc.dart::_$_$ProductAddNewBrandEvent"
+
+abstract class "kursach::domain::product::bloc::product_bloc.dart::_$ProductAddNewBrandEvent" {
+  +String title
+  +String description
+  +Uint8List image
+  +_$$_$ProductAddNewBrandEventCopyWith<_$_$ProductAddNewBrandEvent> copyWith
+}
+
+"kursach::domain::product::bloc::product_bloc.dart::_$ProductAddNewBrandEvent" o-- "dart::typed_data::Uint8List"
+"kursach::domain::product::bloc::product_bloc.dart::_$ProductAddNewBrandEvent" o-- "kursach::domain::product::bloc::product_bloc.dart::_$$_$ProductAddNewBrandEventCopyWith<_$_$ProductAddNewBrandEvent>"
+"kursach::domain::product::bloc::product_bloc.dart::ProductEvent" <|-- "kursach::domain::product::bloc::product_bloc.dart::_$ProductAddNewBrandEvent"
+
+abstract class "kursach::domain::product::bloc::product_bloc.dart::_$$_$ProductLoadBrandsEventCopyWith" {
+  +$Res call()
+}
+
+class "kursach::domain::product::bloc::product_bloc.dart::__$$_$ProductLoadBrandsEventCopyWithImpl" {
+  +$Res call()
+}
+
+"kursach::domain::product::bloc::product_bloc.dart::_$ProductEventCopyWithImpl" <|-- "kursach::domain::product::bloc::product_bloc.dart::__$$_$ProductLoadBrandsEventCopyWithImpl"
+"kursach::domain::product::bloc::product_bloc.dart::_$$_$ProductLoadBrandsEventCopyWith" <|-- "kursach::domain::product::bloc::product_bloc.dart::__$$_$ProductLoadBrandsEventCopyWithImpl"
+
+class "kursach::domain::product::bloc::product_bloc.dart::_$_$ProductLoadBrandsEvent" {
+  +String searchText
+  +int hashCode
+  +_$$_$ProductLoadBrandsEventCopyWith<_$_$ProductLoadBrandsEvent> copyWith
+  +String toString()
+  +void debugFillProperties()
+  +bool ==()
+  +TResult when()
+  +TResult? whenOrNull()
+  +TResult maybeWhen()
+  +TResult map()
+  +TResult? mapOrNull()
+  +TResult maybeMap()
+}
+
+"kursach::domain::product::bloc::product_bloc.dart::_$_$ProductLoadBrandsEvent" o-- "kursach::domain::product::bloc::product_bloc.dart::_$$_$ProductLoadBrandsEventCopyWith<_$_$ProductLoadBrandsEvent>"
+"flutter::src::foundation::diagnostics.dart::DiagnosticableTreeMixin" <|-- "kursach::domain::product::bloc::product_bloc.dart::_$_$ProductLoadBrandsEvent"
+"kursach::domain::product::bloc::product_bloc.dart::_$ProductLoadBrandsEvent" <|-- "kursach::domain::product::bloc::product_bloc.dart::_$_$ProductLoadBrandsEvent"
+
+abstract class "kursach::domain::product::bloc::product_bloc.dart::_$ProductLoadBrandsEvent" {
+  +String searchText
+  +_$$_$ProductLoadBrandsEventCopyWith<_$_$ProductLoadBrandsEvent> copyWith
+}
+
+"kursach::domain::product::bloc::product_bloc.dart::_$ProductLoadBrandsEvent" o-- "kursach::domain::product::bloc::product_bloc.dart::_$$_$ProductLoadBrandsEventCopyWith<_$_$ProductLoadBrandsEvent>"
+"kursach::domain::product::bloc::product_bloc.dart::ProductEvent" <|-- "kursach::domain::product::bloc::product_bloc.dart::_$ProductLoadBrandsEvent"
+
+abstract class "kursach::domain::product::bloc::product_bloc.dart::_$$_$ProductsLoadEventCopyWith" {
+  +$Res call()
+}
+
+class "kursach::domain::product::bloc::product_bloc.dart::__$$_$ProductsLoadEventCopyWithImpl" {
+  +$Res call()
+}
+
+"kursach::domain::product::bloc::product_bloc.dart::_$ProductEventCopyWithImpl" <|-- "kursach::domain::product::bloc::product_bloc.dart::__$$_$ProductsLoadEventCopyWithImpl"
+"kursach::domain::product::bloc::product_bloc.dart::_$$_$ProductsLoadEventCopyWith" <|-- "kursach::domain::product::bloc::product_bloc.dart::__$$_$ProductsLoadEventCopyWithImpl"
+
+class "kursach::domain::product::bloc::product_bloc.dart::_$_$ProductsLoadEvent" {
+  +int idOrganization
+  -List<ProductTypeModel>? _productTypes
+  +String? searchPath
+  +BrandModel? searchBrand
+  +List<ProductTypeModel>? productTypes
+  +int hashCode
+  +_$$_$ProductsLoadEventCopyWith<_$_$ProductsLoadEvent> copyWith
+  +String toString()
+  +void debugFillProperties()
+  +bool ==()
+  +TResult when()
+  +TResult? whenOrNull()
+  +TResult maybeWhen()
+  +TResult map()
+  +TResult? mapOrNull()
+  +TResult maybeMap()
+}
+
+"kursach::domain::product::bloc::product_bloc.dart::_$_$ProductsLoadEvent" o-- "kursach::domain::model::brand_model.dart::BrandModel"
+"kursach::domain::product::bloc::product_bloc.dart::_$_$ProductsLoadEvent" o-- "kursach::domain::product::bloc::product_bloc.dart::_$$_$ProductsLoadEventCopyWith<_$_$ProductsLoadEvent>"
+"flutter::src::foundation::diagnostics.dart::DiagnosticableTreeMixin" <|-- "kursach::domain::product::bloc::product_bloc.dart::_$_$ProductsLoadEvent"
+"kursach::domain::product::bloc::product_bloc.dart::_$ProductsLoadEvent" <|-- "kursach::domain::product::bloc::product_bloc.dart::_$_$ProductsLoadEvent"
+
+abstract class "kursach::domain::product::bloc::product_bloc.dart::_$ProductsLoadEvent" {
+  +int idOrganization
+  +List<ProductTypeModel>? productTypes
+  +String? searchPath
+  +BrandModel? searchBrand
+  +_$$_$ProductsLoadEventCopyWith<_$_$ProductsLoadEvent> copyWith
+}
+
+"kursach::domain::product::bloc::product_bloc.dart::_$ProductsLoadEvent" o-- "kursach::domain::model::brand_model.dart::BrandModel"
+"kursach::domain::product::bloc::product_bloc.dart::_$ProductsLoadEvent" o-- "kursach::domain::product::bloc::product_bloc.dart::_$$_$ProductsLoadEventCopyWith<_$_$ProductsLoadEvent>"
+"kursach::domain::product::bloc::product_bloc.dart::ProductEvent" <|-- "kursach::domain::product::bloc::product_bloc.dart::_$ProductsLoadEvent"
+
+abstract class "kursach::domain::product::bloc::product_bloc.dart::$ProductStateCopyWith" {
+}
+
+class "kursach::domain::product::bloc::product_bloc.dart::_$ProductStateCopyWithImpl" {
+  -$Val _value
+  -$Res Function($Val) _then
+}
+
+"kursach::domain::product::bloc::product_bloc.dart::_$ProductStateCopyWithImpl" o-- "null::$Res Function($Val)"
+"kursach::domain::product::bloc::product_bloc.dart::$ProductStateCopyWith" <|-- "kursach::domain::product::bloc::product_bloc.dart::_$ProductStateCopyWithImpl"
+
+abstract class "kursach::domain::product::bloc::product_bloc.dart::_$$_$ProductInitialStateCopyWith" {
+}
+
+class "kursach::domain::product::bloc::product_bloc.dart::__$$_$ProductInitialStateCopyWithImpl" {
+}
+
+"kursach::domain::product::bloc::product_bloc.dart::_$ProductStateCopyWithImpl" <|-- "kursach::domain::product::bloc::product_bloc.dart::__$$_$ProductInitialStateCopyWithImpl"
+"kursach::domain::product::bloc::product_bloc.dart::_$$_$ProductInitialStateCopyWith" <|-- "kursach::domain::product::bloc::product_bloc.dart::__$$_$ProductInitialStateCopyWithImpl"
+
+class "kursach::domain::product::bloc::product_bloc.dart::_$_$ProductInitialState" {
+  +int hashCode
+  +String toString()
+  +void debugFillProperties()
+  +bool ==()
+  +TResult when()
+  +TResult? whenOrNull()
+  +TResult maybeWhen()
+  +TResult map()
+  +TResult? mapOrNull()
+  +TResult maybeMap()
+}
+
+"flutter::src::foundation::diagnostics.dart::DiagnosticableTreeMixin" <|-- "kursach::domain::product::bloc::product_bloc.dart::_$_$ProductInitialState"
+"kursach::domain::product::bloc::product_bloc.dart::_$ProductInitialState" <|-- "kursach::domain::product::bloc::product_bloc.dart::_$_$ProductInitialState"
+
+abstract class "kursach::domain::product::bloc::product_bloc.dart::_$ProductInitialState" {
+}
+
+"kursach::domain::product::bloc::product_bloc.dart::ProductState" <|-- "kursach::domain::product::bloc::product_bloc.dart::_$ProductInitialState"
+
+abstract class "kursach::domain::product::bloc::product_bloc.dart::_$$_$ProductErroredStateCopyWith" {
+  +$Res call()
+}
+
+class "kursach::domain::product::bloc::product_bloc.dart::__$$_$ProductErroredStateCopyWithImpl" {
+  +$Res call()
+}
+
+"kursach::domain::product::bloc::product_bloc.dart::_$ProductStateCopyWithImpl" <|-- "kursach::domain::product::bloc::product_bloc.dart::__$$_$ProductErroredStateCopyWithImpl"
+"kursach::domain::product::bloc::product_bloc.dart::_$$_$ProductErroredStateCopyWith" <|-- "kursach::domain::product::bloc::product_bloc.dart::__$$_$ProductErroredStateCopyWithImpl"
+
+class "kursach::domain::product::bloc::product_bloc.dart::_$_$ProductErroredState" {
+  +String error
+  +int hashCode
+  +_$$_$ProductErroredStateCopyWith<_$_$ProductErroredState> copyWith
+  +String toString()
+  +void debugFillProperties()
+  +bool ==()
+  +TResult when()
+  +TResult? whenOrNull()
+  +TResult maybeWhen()
+  +TResult map()
+  +TResult? mapOrNull()
+  +TResult maybeMap()
+}
+
+"kursach::domain::product::bloc::product_bloc.dart::_$_$ProductErroredState" o-- "kursach::domain::product::bloc::product_bloc.dart::_$$_$ProductErroredStateCopyWith<_$_$ProductErroredState>"
+"flutter::src::foundation::diagnostics.dart::DiagnosticableTreeMixin" <|-- "kursach::domain::product::bloc::product_bloc.dart::_$_$ProductErroredState"
+"kursach::domain::product::bloc::product_bloc.dart::_$ProductErroredState" <|-- "kursach::domain::product::bloc::product_bloc.dart::_$_$ProductErroredState"
+
+abstract class "kursach::domain::product::bloc::product_bloc.dart::_$ProductErroredState" {
+  +String error
+  +_$$_$ProductErroredStateCopyWith<_$_$ProductErroredState> copyWith
+}
+
+"kursach::domain::product::bloc::product_bloc.dart::_$ProductErroredState" o-- "kursach::domain::product::bloc::product_bloc.dart::_$$_$ProductErroredStateCopyWith<_$_$ProductErroredState>"
+"kursach::domain::product::bloc::product_bloc.dart::ProductState" <|-- "kursach::domain::product::bloc::product_bloc.dart::_$ProductErroredState"
+
+abstract class "kursach::domain::product::bloc::product_bloc.dart::_$$_$ProductLoadingStateCopyWith" {
+  +$Res call()
+}
+
+class "kursach::domain::product::bloc::product_bloc.dart::__$$_$ProductLoadingStateCopyWithImpl" {
+  +$Res call()
+}
+
+"kursach::domain::product::bloc::product_bloc.dart::_$ProductStateCopyWithImpl" <|-- "kursach::domain::product::bloc::product_bloc.dart::__$$_$ProductLoadingStateCopyWithImpl"
+"kursach::domain::product::bloc::product_bloc.dart::_$$_$ProductLoadingStateCopyWith" <|-- "kursach::domain::product::bloc::product_bloc.dart::__$$_$ProductLoadingStateCopyWithImpl"
+
+class "kursach::domain::product::bloc::product_bloc.dart::_$_$ProductLoadingState" {
+  +bool isMass
+  +int hashCode
+  +_$$_$ProductLoadingStateCopyWith<_$_$ProductLoadingState> copyWith
+  +String toString()
+  +void debugFillProperties()
+  +bool ==()
+  +TResult when()
+  +TResult? whenOrNull()
+  +TResult maybeWhen()
+  +TResult map()
+  +TResult? mapOrNull()
+  +TResult maybeMap()
+}
+
+"kursach::domain::product::bloc::product_bloc.dart::_$_$ProductLoadingState" o-- "kursach::domain::product::bloc::product_bloc.dart::_$$_$ProductLoadingStateCopyWith<_$_$ProductLoadingState>"
+"flutter::src::foundation::diagnostics.dart::DiagnosticableTreeMixin" <|-- "kursach::domain::product::bloc::product_bloc.dart::_$_$ProductLoadingState"
+"kursach::domain::product::bloc::product_bloc.dart::_$ProductLoadingState" <|-- "kursach::domain::product::bloc::product_bloc.dart::_$_$ProductLoadingState"
+
+abstract class "kursach::domain::product::bloc::product_bloc.dart::_$ProductLoadingState" {
+  +bool isMass
+  +_$$_$ProductLoadingStateCopyWith<_$_$ProductLoadingState> copyWith
+}
+
+"kursach::domain::product::bloc::product_bloc.dart::_$ProductLoadingState" o-- "kursach::domain::product::bloc::product_bloc.dart::_$$_$ProductLoadingStateCopyWith<_$_$ProductLoadingState>"
+"kursach::domain::product::bloc::product_bloc.dart::ProductState" <|-- "kursach::domain::product::bloc::product_bloc.dart::_$ProductLoadingState"
+
+abstract class "kursach::domain::product::bloc::product_bloc.dart::_$$_$ProductAddedStateCopyWith" {
+  +$Res call()
+}
+
+class "kursach::domain::product::bloc::product_bloc.dart::__$$_$ProductAddedStateCopyWithImpl" {
+  +$Res call()
+}
+
+"kursach::domain::product::bloc::product_bloc.dart::_$ProductStateCopyWithImpl" <|-- "kursach::domain::product::bloc::product_bloc.dart::__$$_$ProductAddedStateCopyWithImpl"
+"kursach::domain::product::bloc::product_bloc.dart::_$$_$ProductAddedStateCopyWith" <|-- "kursach::domain::product::bloc::product_bloc.dart::__$$_$ProductAddedStateCopyWithImpl"
+
+class "kursach::domain::product::bloc::product_bloc.dart::_$_$ProductAddedState" {
+  +ProductModel product
+  +int hashCode
+  +_$$_$ProductAddedStateCopyWith<_$_$ProductAddedState> copyWith
+  +String toString()
+  +void debugFillProperties()
+  +bool ==()
+  +TResult when()
+  +TResult? whenOrNull()
+  +TResult maybeWhen()
+  +TResult map()
+  +TResult? mapOrNull()
+  +TResult maybeMap()
+}
+
+"kursach::domain::product::bloc::product_bloc.dart::_$_$ProductAddedState" o-- "kursach::domain::model::product_model.dart::ProductModel"
+"kursach::domain::product::bloc::product_bloc.dart::_$_$ProductAddedState" o-- "kursach::domain::product::bloc::product_bloc.dart::_$$_$ProductAddedStateCopyWith<_$_$ProductAddedState>"
+"flutter::src::foundation::diagnostics.dart::DiagnosticableTreeMixin" <|-- "kursach::domain::product::bloc::product_bloc.dart::_$_$ProductAddedState"
+"kursach::domain::product::bloc::product_bloc.dart::_$ProductAddedState" <|-- "kursach::domain::product::bloc::product_bloc.dart::_$_$ProductAddedState"
+
+abstract class "kursach::domain::product::bloc::product_bloc.dart::_$ProductAddedState" {
+  +ProductModel product
+  +_$$_$ProductAddedStateCopyWith<_$_$ProductAddedState> copyWith
+}
+
+"kursach::domain::product::bloc::product_bloc.dart::_$ProductAddedState" o-- "kursach::domain::model::product_model.dart::ProductModel"
+"kursach::domain::product::bloc::product_bloc.dart::_$ProductAddedState" o-- "kursach::domain::product::bloc::product_bloc.dart::_$$_$ProductAddedStateCopyWith<_$_$ProductAddedState>"
+"kursach::domain::product::bloc::product_bloc.dart::ProductState" <|-- "kursach::domain::product::bloc::product_bloc.dart::_$ProductAddedState"
+
+abstract class "kursach::domain::product::bloc::product_bloc.dart::_$$_$ProductsLoadedStateCopyWith" {
+  +$Res call()
+}
+
+class "kursach::domain::product::bloc::product_bloc.dart::__$$_$ProductsLoadedStateCopyWithImpl" {
+  +$Res call()
+}
+
+"kursach::domain::product::bloc::product_bloc.dart::_$ProductStateCopyWithImpl" <|-- "kursach::domain::product::bloc::product_bloc.dart::__$$_$ProductsLoadedStateCopyWithImpl"
+"kursach::domain::product::bloc::product_bloc.dart::_$$_$ProductsLoadedStateCopyWith" <|-- "kursach::domain::product::bloc::product_bloc.dart::__$$_$ProductsLoadedStateCopyWithImpl"
+
+class "kursach::domain::product::bloc::product_bloc.dart::_$_$ProductsLoadedState" {
+  -List<ProductModel> _productModel
+  +List<ProductModel> productModel
+  +int hashCode
+  +_$$_$ProductsLoadedStateCopyWith<_$_$ProductsLoadedState> copyWith
+  +String toString()
+  +void debugFillProperties()
+  +bool ==()
+  +TResult when()
+  +TResult? whenOrNull()
+  +TResult maybeWhen()
+  +TResult map()
+  +TResult? mapOrNull()
+  +TResult maybeMap()
+}
+
+"kursach::domain::product::bloc::product_bloc.dart::_$_$ProductsLoadedState" o-- "kursach::domain::product::bloc::product_bloc.dart::_$$_$ProductsLoadedStateCopyWith<_$_$ProductsLoadedState>"
+"flutter::src::foundation::diagnostics.dart::DiagnosticableTreeMixin" <|-- "kursach::domain::product::bloc::product_bloc.dart::_$_$ProductsLoadedState"
+"kursach::domain::product::bloc::product_bloc.dart::_$ProductsLoadedState" <|-- "kursach::domain::product::bloc::product_bloc.dart::_$_$ProductsLoadedState"
+
+abstract class "kursach::domain::product::bloc::product_bloc.dart::_$ProductsLoadedState" {
+  +List<ProductModel> productModel
+  +_$$_$ProductsLoadedStateCopyWith<_$_$ProductsLoadedState> copyWith
+}
+
+"kursach::domain::product::bloc::product_bloc.dart::_$ProductsLoadedState" o-- "kursach::domain::product::bloc::product_bloc.dart::_$$_$ProductsLoadedStateCopyWith<_$_$ProductsLoadedState>"
+"kursach::domain::product::bloc::product_bloc.dart::ProductState" <|-- "kursach::domain::product::bloc::product_bloc.dart::_$ProductsLoadedState"
+
+abstract class "kursach::domain::product::bloc::product_bloc.dart::_$$_$ProductCategoriesLoadedStateCopyWith" {
+  +$Res call()
+}
+
+class "kursach::domain::product::bloc::product_bloc.dart::__$$_$ProductCategoriesLoadedStateCopyWithImpl" {
+  +$Res call()
+}
+
+"kursach::domain::product::bloc::product_bloc.dart::_$ProductStateCopyWithImpl" <|-- "kursach::domain::product::bloc::product_bloc.dart::__$$_$ProductCategoriesLoadedStateCopyWithImpl"
+"kursach::domain::product::bloc::product_bloc.dart::_$$_$ProductCategoriesLoadedStateCopyWith" <|-- "kursach::domain::product::bloc::product_bloc.dart::__$$_$ProductCategoriesLoadedStateCopyWithImpl"
+
+class "kursach::domain::product::bloc::product_bloc.dart::_$_$ProductCategoriesLoadedState" {
+  -List<ProductTypeModel> _categories
+  +List<ProductTypeModel> categories
+  +int hashCode
+  +_$$_$ProductCategoriesLoadedStateCopyWith<_$_$ProductCategoriesLoadedState> copyWith
+  +String toString()
+  +void debugFillProperties()
+  +bool ==()
+  +TResult when()
+  +TResult? whenOrNull()
+  +TResult maybeWhen()
+  +TResult map()
+  +TResult? mapOrNull()
+  +TResult maybeMap()
+}
+
+"kursach::domain::product::bloc::product_bloc.dart::_$_$ProductCategoriesLoadedState" o-- "kursach::domain::product::bloc::product_bloc.dart::_$$_$ProductCategoriesLoadedStateCopyWith<_$_$ProductCategoriesLoadedState>"
+"flutter::src::foundation::diagnostics.dart::DiagnosticableTreeMixin" <|-- "kursach::domain::product::bloc::product_bloc.dart::_$_$ProductCategoriesLoadedState"
+"kursach::domain::product::bloc::product_bloc.dart::_$ProductCategoriesLoadedState" <|-- "kursach::domain::product::bloc::product_bloc.dart::_$_$ProductCategoriesLoadedState"
+
+abstract class "kursach::domain::product::bloc::product_bloc.dart::_$ProductCategoriesLoadedState" {
+  +List<ProductTypeModel> categories
+  +_$$_$ProductCategoriesLoadedStateCopyWith<_$_$ProductCategoriesLoadedState> copyWith
+}
+
+"kursach::domain::product::bloc::product_bloc.dart::_$ProductCategoriesLoadedState" o-- "kursach::domain::product::bloc::product_bloc.dart::_$$_$ProductCategoriesLoadedStateCopyWith<_$_$ProductCategoriesLoadedState>"
+"kursach::domain::product::bloc::product_bloc.dart::ProductState" <|-- "kursach::domain::product::bloc::product_bloc.dart::_$ProductCategoriesLoadedState"
+
+abstract class "kursach::domain::product::bloc::product_bloc.dart::_$$_$ProductBrandsLoadedStateCopyWith" {
+  +$Res call()
+}
+
+class "kursach::domain::product::bloc::product_bloc.dart::__$$_$ProductBrandsLoadedStateCopyWithImpl" {
+  +$Res call()
+}
+
+"kursach::domain::product::bloc::product_bloc.dart::_$ProductStateCopyWithImpl" <|-- "kursach::domain::product::bloc::product_bloc.dart::__$$_$ProductBrandsLoadedStateCopyWithImpl"
+"kursach::domain::product::bloc::product_bloc.dart::_$$_$ProductBrandsLoadedStateCopyWith" <|-- "kursach::domain::product::bloc::product_bloc.dart::__$$_$ProductBrandsLoadedStateCopyWithImpl"
+
+class "kursach::domain::product::bloc::product_bloc.dart::_$_$ProductBrandsLoadedState" {
+  -List<BrandModel> _brands
+  +List<BrandModel> brands
+  +int hashCode
+  +_$$_$ProductBrandsLoadedStateCopyWith<_$_$ProductBrandsLoadedState> copyWith
+  +String toString()
+  +void debugFillProperties()
+  +bool ==()
+  +TResult when()
+  +TResult? whenOrNull()
+  +TResult maybeWhen()
+  +TResult map()
+  +TResult? mapOrNull()
+  +TResult maybeMap()
+}
+
+"kursach::domain::product::bloc::product_bloc.dart::_$_$ProductBrandsLoadedState" o-- "kursach::domain::product::bloc::product_bloc.dart::_$$_$ProductBrandsLoadedStateCopyWith<_$_$ProductBrandsLoadedState>"
+"flutter::src::foundation::diagnostics.dart::DiagnosticableTreeMixin" <|-- "kursach::domain::product::bloc::product_bloc.dart::_$_$ProductBrandsLoadedState"
+"kursach::domain::product::bloc::product_bloc.dart::_$ProductBrandsLoadedState" <|-- "kursach::domain::product::bloc::product_bloc.dart::_$_$ProductBrandsLoadedState"
+
+abstract class "kursach::domain::product::bloc::product_bloc.dart::_$ProductBrandsLoadedState" {
+  +List<BrandModel> brands
+  +_$$_$ProductBrandsLoadedStateCopyWith<_$_$ProductBrandsLoadedState> copyWith
+}
+
+"kursach::domain::product::bloc::product_bloc.dart::_$ProductBrandsLoadedState" o-- "kursach::domain::product::bloc::product_bloc.dart::_$$_$ProductBrandsLoadedStateCopyWith<_$_$ProductBrandsLoadedState>"
+"kursach::domain::product::bloc::product_bloc.dart::ProductState" <|-- "kursach::domain::product::bloc::product_bloc.dart::_$ProductBrandsLoadedState"
+
+abstract class "kursach::domain::product::bloc::product_bloc.dart::_$$_$ProductBrandAddedStateCopyWith" {
+  +$Res call()
+}
+
+class "kursach::domain::product::bloc::product_bloc.dart::__$$_$ProductBrandAddedStateCopyWithImpl" {
+  +$Res call()
+}
+
+"kursach::domain::product::bloc::product_bloc.dart::_$ProductStateCopyWithImpl" <|-- "kursach::domain::product::bloc::product_bloc.dart::__$$_$ProductBrandAddedStateCopyWithImpl"
+"kursach::domain::product::bloc::product_bloc.dart::_$$_$ProductBrandAddedStateCopyWith" <|-- "kursach::domain::product::bloc::product_bloc.dart::__$$_$ProductBrandAddedStateCopyWithImpl"
+
+class "kursach::domain::product::bloc::product_bloc.dart::_$_$ProductBrandAddedState" {
+  +BrandModel addedBrand
+  +int hashCode
+  +_$$_$ProductBrandAddedStateCopyWith<_$_$ProductBrandAddedState> copyWith
+  +String toString()
+  +void debugFillProperties()
+  +bool ==()
+  +TResult when()
+  +TResult? whenOrNull()
+  +TResult maybeWhen()
+  +TResult map()
+  +TResult? mapOrNull()
+  +TResult maybeMap()
+}
+
+"kursach::domain::product::bloc::product_bloc.dart::_$_$ProductBrandAddedState" o-- "kursach::domain::model::brand_model.dart::BrandModel"
+"kursach::domain::product::bloc::product_bloc.dart::_$_$ProductBrandAddedState" o-- "kursach::domain::product::bloc::product_bloc.dart::_$$_$ProductBrandAddedStateCopyWith<_$_$ProductBrandAddedState>"
+"flutter::src::foundation::diagnostics.dart::DiagnosticableTreeMixin" <|-- "kursach::domain::product::bloc::product_bloc.dart::_$_$ProductBrandAddedState"
+"kursach::domain::product::bloc::product_bloc.dart::_$ProductBrandAddedState" <|-- "kursach::domain::product::bloc::product_bloc.dart::_$_$ProductBrandAddedState"
+
+abstract class "kursach::domain::product::bloc::product_bloc.dart::_$ProductBrandAddedState" {
+  +BrandModel addedBrand
+  +_$$_$ProductBrandAddedStateCopyWith<_$_$ProductBrandAddedState> copyWith
+}
+
+"kursach::domain::product::bloc::product_bloc.dart::_$ProductBrandAddedState" o-- "kursach::domain::model::brand_model.dart::BrandModel"
+"kursach::domain::product::bloc::product_bloc.dart::_$ProductBrandAddedState" o-- "kursach::domain::product::bloc::product_bloc.dart::_$$_$ProductBrandAddedStateCopyWith<_$_$ProductBrandAddedState>"
+"kursach::domain::product::bloc::product_bloc.dart::ProductState" <|-- "kursach::domain::product::bloc::product_bloc.dart::_$ProductBrandAddedState"
+
+abstract class "kursach::domain::product::bloc::product_bloc.dart::_$$_$ProductCategoriesAddedStateCopyWith" {
+  +$Res call()
+}
+
+class "kursach::domain::product::bloc::product_bloc.dart::__$$_$ProductCategoriesAddedStateCopyWithImpl" {
+  +$Res call()
+}
+
+"kursach::domain::product::bloc::product_bloc.dart::_$ProductStateCopyWithImpl" <|-- "kursach::domain::product::bloc::product_bloc.dart::__$$_$ProductCategoriesAddedStateCopyWithImpl"
+"kursach::domain::product::bloc::product_bloc.dart::_$$_$ProductCategoriesAddedStateCopyWith" <|-- "kursach::domain::product::bloc::product_bloc.dart::__$$_$ProductCategoriesAddedStateCopyWithImpl"
+
+class "kursach::domain::product::bloc::product_bloc.dart::_$_$ProductCategoriesAddedState" {
+  -List<ProductTypeModel> _categories
+  +List<ProductTypeModel> categories
+  +int hashCode
+  +_$$_$ProductCategoriesAddedStateCopyWith<_$_$ProductCategoriesAddedState> copyWith
+  +String toString()
+  +void debugFillProperties()
+  +bool ==()
+  +TResult when()
+  +TResult? whenOrNull()
+  +TResult maybeWhen()
+  +TResult map()
+  +TResult? mapOrNull()
+  +TResult maybeMap()
+}
+
+"kursach::domain::product::bloc::product_bloc.dart::_$_$ProductCategoriesAddedState" o-- "kursach::domain::product::bloc::product_bloc.dart::_$$_$ProductCategoriesAddedStateCopyWith<_$_$ProductCategoriesAddedState>"
+"flutter::src::foundation::diagnostics.dart::DiagnosticableTreeMixin" <|-- "kursach::domain::product::bloc::product_bloc.dart::_$_$ProductCategoriesAddedState"
+"kursach::domain::product::bloc::product_bloc.dart::_$ProductCategoriesAddedState" <|-- "kursach::domain::product::bloc::product_bloc.dart::_$_$ProductCategoriesAddedState"
+
+abstract class "kursach::domain::product::bloc::product_bloc.dart::_$ProductCategoriesAddedState" {
+  +List<ProductTypeModel> categories
+  +_$$_$ProductCategoriesAddedStateCopyWith<_$_$ProductCategoriesAddedState> copyWith
+}
+
+"kursach::domain::product::bloc::product_bloc.dart::_$ProductCategoriesAddedState" o-- "kursach::domain::product::bloc::product_bloc.dart::_$$_$ProductCategoriesAddedStateCopyWith<_$_$ProductCategoriesAddedState>"
+"kursach::domain::product::bloc::product_bloc.dart::ProductState" <|-- "kursach::domain::product::bloc::product_bloc.dart::_$ProductCategoriesAddedState"
+
+abstract class "kursach::domain::product::bloc::product_bloc.dart::_$ProductEvent" {
+  +TResult when()
+  +TResult? whenOrNull()
+  +TResult maybeWhen()
+  +TResult map()
+  +TResult? mapOrNull()
+  +TResult maybeMap()
+}
+
+abstract class "kursach::domain::product::bloc::product_bloc.dart::_$ProductState" {
+  +TResult when()
+  +TResult? whenOrNull()
+  +TResult maybeWhen()
+  +TResult map()
+  +TResult? mapOrNull()
+  +TResult maybeMap()
+}
+
+class "kursach::internal::app.dart::MyApp" {
+  +String? ulogin
+  +String? uPassword
+  +Widget build()
+}
+
+"flutter::src::widgets::framework.dart::StatelessWidget" <|-- "kursach::internal::app.dart::MyApp"
+
+class "kursach::internal::app.dart::AppBody" {
+  +String? login
+  +String? password
+  +Widget build()
+}
+
+"flutter::src::widgets::framework.dart::StatelessWidget" <|-- "kursach::internal::app.dart::AppBody"
+
+class "kursach::presentation::additional::setlocation_screen.dart::SetLocationScreen" {
+  {static} +String path
+  +LocationPickerMode currentMode
+  +State<SetLocationScreen> createState()
+}
+
+"kursach::presentation::additional::setlocation_screen.dart::SetLocationScreen" o-- "kursach::presentation::additional::setlocation_screen.dart::LocationPickerMode"
+"flutter::src::widgets::framework.dart::StatefulWidget" <|-- "kursach::presentation::additional::setlocation_screen.dart::SetLocationScreen"
+
+class "kursach::presentation::additional::setlocation_screen.dart::_SetLocationScreenState" {
+  -TextEditingController _locationController
+  -StreamController<String> _textStreamController
+  -StreamSubscription<dynamic> _textStreamSub
+  -StreamController<Point> _pointController
+  -StreamSubscription<dynamic> _pointSub
+  +List<AddressModel> currentAddresses
+  -BottomDrawerController _drawerController
+  -YandexMapController? _mapController
+  +AddressModel? pickedLocation
+  -GlobalKey<AnimatedListState> _myListKey
+  +void initState()
+  +void dispose()
+  +Widget build()
+}
+
+"kursach::presentation::additional::setlocation_screen.dart::_SetLocationScreenState" o-- "flutter::src::widgets::editable_text.dart::TextEditingController"
+"kursach::presentation::additional::setlocation_screen.dart::_SetLocationScreenState" o-- "dart::async::StreamController<String>"
+"kursach::presentation::additional::setlocation_screen.dart::_SetLocationScreenState" o-- "dart::async::StreamSubscription<dynamic>"
+"kursach::presentation::additional::setlocation_screen.dart::_SetLocationScreenState" o-- "dart::async::StreamController<Point>"
+"kursach::presentation::additional::setlocation_screen.dart::_SetLocationScreenState" o-- "bottom_drawer::bottom_drawer.dart::BottomDrawerController"
+"kursach::presentation::additional::setlocation_screen.dart::_SetLocationScreenState" o-- "yandex_mapkit::yandex_mapkit.dart::YandexMapController"
+"kursach::presentation::additional::setlocation_screen.dart::_SetLocationScreenState" o-- "kursach::domain::model::address_model.dart::AddressModel"
+"kursach::presentation::additional::setlocation_screen.dart::_SetLocationScreenState" o-- "flutter::src::widgets::framework.dart::GlobalKey<AnimatedListState>"
+"flutter::src::widgets::framework.dart::State" <|-- "kursach::presentation::additional::setlocation_screen.dart::_SetLocationScreenState"
+
+class "kursach::presentation::additional::setlocation_screen.dart::BottomBody" {
+  -TextEditingController _locationController
+  +List<AddressModel> currentAddresses
+  -GlobalKey<AnimatedListState> _myListKey
+  +void Function(AddressModel, bool) setLocationOnMap
+  +AddressModel? pickedLocation
+  +Widget build()
+}
+
+"kursach::presentation::additional::setlocation_screen.dart::BottomBody" o-- "flutter::src::widgets::editable_text.dart::TextEditingController"
+"kursach::presentation::additional::setlocation_screen.dart::BottomBody" o-- "flutter::src::widgets::framework.dart::GlobalKey<AnimatedListState>"
+"kursach::presentation::additional::setlocation_screen.dart::BottomBody" o-- "null::void Function(AddressModel, bool)"
+"kursach::presentation::additional::setlocation_screen.dart::BottomBody" o-- "kursach::domain::model::address_model.dart::AddressModel"
+"flutter::src::widgets::framework.dart::StatelessWidget" <|-- "kursach::presentation::additional::setlocation_screen.dart::BottomBody"
+
+class "kursach::presentation::additional::setlocation_screen.dart::LocationWidget" {
+  +AddressModel addressModel
+  +bool isCurrent
+  +void Function() onTap
+  +Widget build()
+}
+
+"kursach::presentation::additional::setlocation_screen.dart::LocationWidget" o-- "kursach::domain::model::address_model.dart::AddressModel"
+"kursach::presentation::additional::setlocation_screen.dart::LocationWidget" o-- "null::void Function()"
+"flutter::src::widgets::framework.dart::StatelessWidget" <|-- "kursach::presentation::additional::setlocation_screen.dart::LocationWidget"
+
+class "kursach::presentation::additional::setlocation_screen.dart::LocationPickerMode" {
+  +int index
+  {static} +List<LocationPickerMode> values
+  {static} +LocationPickerMode userAddress
+  {static} +LocationPickerMode orgAddress
+  {static} +LocationPickerMode etc
+}
+
+"kursach::presentation::additional::setlocation_screen.dart::LocationPickerMode" o-- "kursach::presentation::additional::setlocation_screen.dart::LocationPickerMode"
+"dart::core::Enum" <|-- "kursach::presentation::additional::setlocation_screen.dart::LocationPickerMode"
+
+class "kursach::presentation::auth::auth_body.dart::AuthBody" {
+  +bool isLoginState
+  +State<AuthBody> createState()
+}
+
+"flutter::src::widgets::framework.dart::StatefulWidget" <|-- "kursach::presentation::auth::auth_body.dart::AuthBody"
+
+class "kursach::presentation::auth::auth_body.dart::_AuthBodyState" {
+  -TextEditingController _loginController
+  -TextEditingController _passwordController
+  -TextEditingController _emailController
+  -TextEditingController _repeaterController
+  +StreamSubscription<dynamic> sub
+  +double? currentGradientSize
+  +bool isObscured
+  -GlobalKey<FormState> _formKey
+  +void initState()
+  +Widget build()
+}
+
+"kursach::presentation::auth::auth_body.dart::_AuthBodyState" o-- "flutter::src::widgets::editable_text.dart::TextEditingController"
+"kursach::presentation::auth::auth_body.dart::_AuthBodyState" o-- "dart::async::StreamSubscription<dynamic>"
+"kursach::presentation::auth::auth_body.dart::_AuthBodyState" o-- "flutter::src::widgets::framework.dart::GlobalKey<FormState>"
+"flutter::src::widgets::framework.dart::State" <|-- "kursach::presentation::auth::auth_body.dart::_AuthBodyState"
+
+class "kursach::presentation::auth::auth_main.dart::AuthMain" {
+  +State<AuthMain> createState()
+}
+
+"flutter::src::widgets::framework.dart::StatefulWidget" <|-- "kursach::presentation::auth::auth_main.dart::AuthMain"
+
+class "kursach::presentation::auth::auth_main.dart::_AuthMainState" {
+  +bool isLogin
+  +Widget build()
+}
+
+"flutter::src::widgets::framework.dart::State" <|-- "kursach::presentation::auth::auth_main.dart::_AuthMainState"
+
+class "kursach::presentation::auth::auth_personal::auth_personal_body.dart::PersonalInfoBody" {
+  +State<PersonalInfoBody> createState()
+}
+
+"flutter::src::widgets::framework.dart::StatefulWidget" <|-- "kursach::presentation::auth::auth_personal::auth_personal_body.dart::PersonalInfoBody"
+
+class "kursach::presentation::auth::auth_personal::auth_personal_body.dart::_PersonalInfoBodyState" {
+  +TextEditingController nameController
+  +TextEditingController lnameController
+  +TextEditingController patronymicController
+  +TextEditingController phoneController
+  +DateTime? pickedDate
+  +void initState()
+  +void dispose()
+  +Widget build()
+}
+
+"kursach::presentation::auth::auth_personal::auth_personal_body.dart::_PersonalInfoBodyState" o-- "flutter::src::widgets::editable_text.dart::TextEditingController"
+"flutter::src::widgets::framework.dart::State" <|-- "kursach::presentation::auth::auth_personal::auth_personal_body.dart::_PersonalInfoBodyState"
+
+class "kursach::presentation::auth::auth_personal::auth_personal_screen.dart::PersonalInfoScreen" {
+  {static} +String route
+  +Widget build()
+}
+
+"flutter::src::widgets::framework.dart::StatelessWidget" <|-- "kursach::presentation::auth::auth_personal::auth_personal_screen.dart::PersonalInfoScreen"
+
+class "kursach::presentation::auth::auth_screen.dart::AuthScreen" {
+  {static} +String route
+  +Widget build()
+}
+
+"flutter::src::widgets::framework.dart::StatelessWidget" <|-- "kursach::presentation::auth::auth_screen.dart::AuthScreen"
+
+class "kursach::presentation::auth::auth_screen.dart::LogoWidget" {
+  +Widget build()
+}
+
+"flutter::src::widgets::framework.dart::StatelessWidget" <|-- "kursach::presentation::auth::auth_screen.dart::LogoWidget"
+
+class "kursach::presentation::auth::auth_screen.dart::AnimatedBebra" {
+  +State<AnimatedBebra> createState()
+}
+
+"flutter::src::widgets::framework.dart::StatefulWidget" <|-- "kursach::presentation::auth::auth_screen.dart::AnimatedBebra"
+
+class "kursach::presentation::auth::auth_screen.dart::_AnimatedBebraState" {
+  +RiveAnimationController<dynamic> animation
+  +void initState()
+  +Widget build()
+}
+
+"kursach::presentation::auth::auth_screen.dart::_AnimatedBebraState" o-- "rive::src::rive_core::rive_animation_controller.dart::RiveAnimationController<dynamic>"
+"flutter::src::widgets::framework.dart::State" <|-- "kursach::presentation::auth::auth_screen.dart::_AnimatedBebraState"
+
+class "kursach::presentation::home::cart::cart.dart::CartScreen" {
+  +Widget build()
+}
+
+"flutter::src::widgets::framework.dart::StatelessWidget" <|-- "kursach::presentation::home::cart::cart.dart::CartScreen"
+
+class "kursach::presentation::home::markets::markets_list.dart::MarketScreen" {
+  +Widget build()
+}
+
+"flutter::src::widgets::framework.dart::StatelessWidget" <|-- "kursach::presentation::home::markets::markets_list.dart::MarketScreen"
+
+class "kursach::presentation::home::markets::market_widget.dart::MarketWidget" {
+  +bool isDostavka
+  +Widget build()
+}
+
+"flutter::src::widgets::framework.dart::StatelessWidget" <|-- "kursach::presentation::home::markets::market_widget.dart::MarketWidget"
+
+class "kursach::presentation::home::navigator_screen.dart::NavigatorScreen" {
+  {static} +String route
+  +State<NavigatorScreen> createState()
+}
+
+"flutter::src::widgets::framework.dart::StatefulWidget" <|-- "kursach::presentation::home::navigator_screen.dart::NavigatorScreen"
+
+class "kursach::presentation::home::navigator_screen.dart::_NavigatorScreenState" {
+  +Widget build()
+}
+
+"flutter::src::widgets::framework.dart::State" <|-- "kursach::presentation::home::navigator_screen.dart::_NavigatorScreenState"
+
+class "kursach::presentation::home::profile::organization::manage_organization.dart::ManageOrganization" {
+  +State<ManageOrganization> createState()
+}
+
+"flutter::src::widgets::framework.dart::StatefulWidget" <|-- "kursach::presentation::home::profile::organization::manage_organization.dart::ManageOrganization"
+
+class "kursach::presentation::home::profile::organization::manage_organization.dart::_ManageOrganizationState" {
+  +Uint8List? cardImage
+  +Uint8List? logoImage
+  +List<ProductModel> loadedProducts
+  +void initState()
+  +Widget build()
+}
+
+"kursach::presentation::home::profile::organization::manage_organization.dart::_ManageOrganizationState" o-- "dart::typed_data::Uint8List"
+"flutter::src::widgets::framework.dart::State" <|-- "kursach::presentation::home::profile::organization::manage_organization.dart::_ManageOrganizationState"
+
+class "kursach::presentation::home::profile::organization::navigator_organization.dart::NavigatorOrganizationScreen" {
+  {static} +String route
+  +State<NavigatorOrganizationScreen> createState()
+}
+
+"flutter::src::widgets::framework.dart::StatefulWidget" <|-- "kursach::presentation::home::profile::organization::navigator_organization.dart::NavigatorOrganizationScreen"
+
+class "kursach::presentation::home::profile::organization::navigator_organization.dart::_NavigatorScreenState" {
+  +Widget build()
+}
+
+"flutter::src::widgets::framework.dart::State" <|-- "kursach::presentation::home::profile::organization::navigator_organization.dart::_NavigatorScreenState"
+
+class "kursach::presentation::home::profile::organization::pick_brand_widget.dart::PickBrandWidget" {
+  +void Function(BrandModel) setBrand
+  +State<PickBrandWidget> createState()
+}
+
+"kursach::presentation::home::profile::organization::pick_brand_widget.dart::PickBrandWidget" o-- "null::void Function(BrandModel)"
+"flutter::src::widgets::framework.dart::StatefulWidget" <|-- "kursach::presentation::home::profile::organization::pick_brand_widget.dart::PickBrandWidget"
+
+class "kursach::presentation::home::profile::organization::pick_brand_widget.dart::_PickBrandWidgetState" {
+  -TextEditingController _controller
+  -StreamController<String> _sender
+  +List<BrandModel> findedBrands
+  +void initState()
+  +Widget build()
+}
+
+"kursach::presentation::home::profile::organization::pick_brand_widget.dart::_PickBrandWidgetState" o-- "flutter::src::widgets::editable_text.dart::TextEditingController"
+"kursach::presentation::home::profile::organization::pick_brand_widget.dart::_PickBrandWidgetState" o-- "dart::async::StreamController<String>"
+"flutter::src::widgets::framework.dart::State" <|-- "kursach::presentation::home::profile::organization::pick_brand_widget.dart::_PickBrandWidgetState"
+
+class "kursach::presentation::home::profile::organization::pick_brand_widget.dart::AddNewBrandWidget" {
+  +void Function(BrandModel) setBrand
+  +State<AddNewBrandWidget> createState()
+}
+
+"kursach::presentation::home::profile::organization::pick_brand_widget.dart::AddNewBrandWidget" o-- "null::void Function(BrandModel)"
+"flutter::src::widgets::framework.dart::StatefulWidget" <|-- "kursach::presentation::home::profile::organization::pick_brand_widget.dart::AddNewBrandWidget"
+
+class "kursach::presentation::home::profile::organization::pick_brand_widget.dart::_AddNewBrandWidgetState" {
+  -TextEditingController _titleController
+  -TextEditingController _descController
+  +Uint8List? image
+  +void initState()
+  +Widget build()
+}
+
+"kursach::presentation::home::profile::organization::pick_brand_widget.dart::_AddNewBrandWidgetState" o-- "flutter::src::widgets::editable_text.dart::TextEditingController"
+"kursach::presentation::home::profile::organization::pick_brand_widget.dart::_AddNewBrandWidgetState" o-- "dart::typed_data::Uint8List"
+"flutter::src::widgets::framework.dart::State" <|-- "kursach::presentation::home::profile::organization::pick_brand_widget.dart::_AddNewBrandWidgetState"
+
+class "kursach::presentation::home::profile::organization::pick_product_type_widget.dart::PickProductType" {
+  +List<ProductTypeModel> avoidList
+  +void Function(List<ProductTypeModel>) setModels
+  +State<PickProductType> createState()
+}
+
+"kursach::presentation::home::profile::organization::pick_product_type_widget.dart::PickProductType" o-- "null::void Function(List<ProductTypeModel>)"
+"flutter::src::widgets::framework.dart::StatefulWidget" <|-- "kursach::presentation::home::profile::organization::pick_product_type_widget.dart::PickProductType"
+
+class "kursach::presentation::home::profile::organization::pick_product_type_widget.dart::_PickProductTypeState" {
+  -TextEditingController _controller
+  -StreamController<String> _sender
+  +List<ProductTypeModel> addedchips
+  +List<ProductTypeModel> findedchips
+  +void initState()
+  +void dispose()
+  +Widget build()
+}
+
+"kursach::presentation::home::profile::organization::pick_product_type_widget.dart::_PickProductTypeState" o-- "flutter::src::widgets::editable_text.dart::TextEditingController"
+"kursach::presentation::home::profile::organization::pick_product_type_widget.dart::_PickProductTypeState" o-- "dart::async::StreamController<String>"
+"flutter::src::widgets::framework.dart::State" <|-- "kursach::presentation::home::profile::organization::pick_product_type_widget.dart::_PickProductTypeState"
+
+class "kursach::presentation::home::profile::organization::product_editor.dart::ProductEditorScreen" {
+  +ProductModel? model
+  +State<ProductEditorScreen> createState()
+}
+
+"kursach::presentation::home::profile::organization::product_editor.dart::ProductEditorScreen" o-- "kursach::domain::model::product_model.dart::ProductModel"
+"flutter::src::widgets::framework.dart::StatefulWidget" <|-- "kursach::presentation::home::profile::organization::product_editor.dart::ProductEditorScreen"
+
+class "kursach::presentation::home::profile::organization::product_editor.dart::_ProductEditorScreenState" {
+  -TextEditingController _nameController
+  -TextEditingController _priceController
+  -TextEditingController _descController
+  -TextEditingController _countyController
+  -BrandModel? _currentBrand
+  +List<ProductTypeModel> productTypes
+  -List<Uint8List?> _images
+  +void initState()
+  +void dispose()
+  +Widget build()
+}
+
+"kursach::presentation::home::profile::organization::product_editor.dart::_ProductEditorScreenState" o-- "flutter::src::widgets::editable_text.dart::TextEditingController"
+"kursach::presentation::home::profile::organization::product_editor.dart::_ProductEditorScreenState" o-- "kursach::domain::model::brand_model.dart::BrandModel"
+"flutter::src::widgets::framework.dart::State" <|-- "kursach::presentation::home::profile::organization::product_editor.dart::_ProductEditorScreenState"
+
+class "kursach::presentation::home::profile::organization::statistic_organization.dart::StatisticOrganizationScreen" {
+  +State<StatisticOrganizationScreen> createState()
+}
+
+"flutter::src::widgets::framework.dart::StatefulWidget" <|-- "kursach::presentation::home::profile::organization::statistic_organization.dart::StatisticOrganizationScreen"
+
+class "kursach::presentation::home::profile::organization::statistic_organization.dart::_StatisticOrganizationScreenState" {
+  +Widget build()
+}
+
+"flutter::src::widgets::framework.dart::State" <|-- "kursach::presentation::home::profile::organization::statistic_organization.dart::_StatisticOrganizationScreenState"
+
+class "kursach::presentation::home::profile::partnership::partnership_reg.dart::PartnerShipReg" {
+  {static} +String route
+  +AddressModel? pickedAddress
+  +State<PartnerShipReg> createState()
+}
+
+"kursach::presentation::home::profile::partnership::partnership_reg.dart::PartnerShipReg" o-- "kursach::domain::model::address_model.dart::AddressModel"
+"flutter::src::widgets::framework.dart::StatefulWidget" <|-- "kursach::presentation::home::profile::partnership::partnership_reg.dart::PartnerShipReg"
+
+class "kursach::presentation::home::profile::partnership::partnership_reg.dart::_PartnerShipRegState" {
+  -TextEditingController _cityController
+  -TextEditingController _streetController
+  -TextEditingController _buildingController
+  -TextEditingController _nameController
+  -TextEditingController _priceController
+  +Uint8List? cardImage
+  +Uint8List? logoImage
+  +void initState()
+  +Widget build()
+}
+
+"kursach::presentation::home::profile::partnership::partnership_reg.dart::_PartnerShipRegState" o-- "flutter::src::widgets::editable_text.dart::TextEditingController"
+"kursach::presentation::home::profile::partnership::partnership_reg.dart::_PartnerShipRegState" o-- "dart::typed_data::Uint8List"
+"flutter::src::widgets::framework.dart::State" <|-- "kursach::presentation::home::profile::partnership::partnership_reg.dart::_PartnerShipRegState"
+
+class "kursach::presentation::home::profile::profile_screen.dart::ProfileScreen" {
+  +BuildContext parentContext
+  +State<ProfileScreen> createState()
+}
+
+"kursach::presentation::home::profile::profile_screen.dart::ProfileScreen" o-- "flutter::src::widgets::framework.dart::BuildContext"
+"flutter::src::widgets::framework.dart::StatefulWidget" <|-- "kursach::presentation::home::profile::profile_screen.dart::ProfileScreen"
+
+class "kursach::presentation::home::profile::profile_screen.dart::_ProfileScreenState" {
+  -ScrollController _controller
+  -StateMachineController? _scontroller
+  +void initState()
+  -void _onInit()
+  +Widget build()
+}
+
+"kursach::presentation::home::profile::profile_screen.dart::_ProfileScreenState" o-- "flutter::src::widgets::scroll_controller.dart::ScrollController"
+"kursach::presentation::home::profile::profile_screen.dart::_ProfileScreenState" o-- "rive::src::controllers::state_machine_controller.dart::StateMachineController"
+"flutter::src::widgets::framework.dart::State" <|-- "kursach::presentation::home::profile::profile_screen.dart::_ProfileScreenState"
+
+class "kursach::presentation::home::restaurant::pickers.dart::FoodPicker" {
+  +bool isPressed
+  +IconData icon
+  +String text
+  +void Function(bool) onChanged
+  +Widget build()
+}
+
+"kursach::presentation::home::restaurant::pickers.dart::FoodPicker" o-- "flutter::src::widgets::icon_data.dart::IconData"
+"kursach::presentation::home::restaurant::pickers.dart::FoodPicker" o-- "null::void Function(bool)"
+"flutter::src::widgets::framework.dart::StatelessWidget" <|-- "kursach::presentation::home::restaurant::pickers.dart::FoodPicker"
+
+class "kursach::presentation::home::restaurant::restaraunt_screen.dart::RestarauntList" {
+  +State<RestarauntList> createState()
+}
+
+"flutter::src::widgets::framework.dart::StatefulWidget" <|-- "kursach::presentation::home::restaurant::restaraunt_screen.dart::RestarauntList"
+
+class "kursach::presentation::home::restaurant::restaraunt_screen.dart::_RestarauntListState" {
+  +bool isPressed
+  +Map<String, dynamic> categories
+  +Widget build()
+}
+
+"flutter::src::widgets::framework.dart::State" <|-- "kursach::presentation::home::restaurant::restaraunt_screen.dart::_RestarauntListState"
+
+class "kursach::presentation::home::search::search_screen.dart::SearchScreen" {
+  +Widget build()
+}
+
+"flutter::src::widgets::framework.dart::StatelessWidget" <|-- "kursach::presentation::home::search::search_screen.dart::SearchScreen"
+
+class "kursach::presentation::outstanding::brand_widget.dart::BrandWidget" {
+  +BrandModel brand
+  +Widget build()
+}
+
+"kursach::presentation::outstanding::brand_widget.dart::BrandWidget" o-- "kursach::domain::model::brand_model.dart::BrandModel"
+"flutter::src::widgets::framework.dart::StatelessWidget" <|-- "kursach::presentation::outstanding::brand_widget.dart::BrandWidget"
+
+class "kursach::presentation::outstanding::card_picker.dart::CardPicker" {
+  +Uint8List? baseLogo
+  +Uint8List? baseCard
+  +void Function(Uint8List) setLogo
+  +void Function(Uint8List) setCard
+  +State<CardPicker> createState()
+}
+
+"kursach::presentation::outstanding::card_picker.dart::CardPicker" o-- "dart::typed_data::Uint8List"
+"kursach::presentation::outstanding::card_picker.dart::CardPicker" o-- "null::void Function(Uint8List)"
+"flutter::src::widgets::framework.dart::StatefulWidget" <|-- "kursach::presentation::outstanding::card_picker.dart::CardPicker"
+
+class "kursach::presentation::outstanding::card_picker.dart::_CardPickerState" {
+  +Widget build()
+}
+
+"flutter::src::widgets::framework.dart::State" <|-- "kursach::presentation::outstanding::card_picker.dart::_CardPickerState"
+
+class "kursach::presentation::outstanding::category_chip.dart::CategoryChip" {
+  +String label
+  +Color color
+  +bool isSelected
+  +void Function(bool)? onSelected
+  +Widget build()
+}
+
+"kursach::presentation::outstanding::category_chip.dart::CategoryChip" o-- "dart::ui::Color"
+"kursach::presentation::outstanding::category_chip.dart::CategoryChip" o-- "null::void Function(bool)"
+"flutter::src::widgets::framework.dart::StatelessWidget" <|-- "kursach::presentation::outstanding::category_chip.dart::CategoryChip"
+
+class "kursach::presentation::outstanding::cropper.dart::CropperWidget" {
+  +BoxConstraints constraints
+  +void Function(MemoryImage) onCroppingComplete
+  +Uint8List defaultImage
+  +State<CropperWidget> createState()
+}
+
+"kursach::presentation::outstanding::cropper.dart::CropperWidget" o-- "flutter::src::rendering::box.dart::BoxConstraints"
+"kursach::presentation::outstanding::cropper.dart::CropperWidget" o-- "null::void Function(MemoryImage)"
+"kursach::presentation::outstanding::cropper.dart::CropperWidget" o-- "dart::typed_data::Uint8List"
+"flutter::src::widgets::framework.dart::StatefulWidget" <|-- "kursach::presentation::outstanding::cropper.dart::CropperWidget"
+
+class "kursach::presentation::outstanding::cropper.dart::_CropperWidgetState" {
+  +CustomImageCropController cropController
+  +double sliderValue
+  +bool isCropping
+  +void initState()
+  +Widget build()
+}
+
+"kursach::presentation::outstanding::cropper.dart::_CropperWidgetState" o-- "custom_image_crop::src::controllers::controller.dart::CustomImageCropController"
+"flutter::src::widgets::framework.dart::State" <|-- "kursach::presentation::outstanding::cropper.dart::_CropperWidgetState"
+
+class "kursach::presentation::outstanding::dialogs.dart::MainDialogWidget" {
+  +Widget build()
+}
+
+"flutter::src::widgets::framework.dart::StatelessWidget" <|-- "kursach::presentation::outstanding::dialogs.dart::MainDialogWidget"
+
+class "kursach::presentation::outstanding::gradientmask.dart::GradientMask" {
+  +Widget child
+  +double size
+  +AlignmentGeometry begin
+  +AlignmentGeometry end
+  +Widget build()
+}
+
+"kursach::presentation::outstanding::gradientmask.dart::GradientMask" o-- "flutter::src::widgets::framework.dart::Widget"
+"kursach::presentation::outstanding::gradientmask.dart::GradientMask" o-- "flutter::src::painting::alignment.dart::AlignmentGeometry"
+"flutter::src::widgets::framework.dart::StatelessWidget" <|-- "kursach::presentation::outstanding::gradientmask.dart::GradientMask"
+
+class "kursach::presentation::outstanding::loadin_screen.dart::LoadinScreen" {
+  +String login
+  +String password
+  +State<LoadinScreen> createState()
+}
+
+"flutter::src::widgets::framework.dart::StatefulWidget" <|-- "kursach::presentation::outstanding::loadin_screen.dart::LoadinScreen"
+
+class "kursach::presentation::outstanding::loadin_screen.dart::_LoadinScreenState" {
+  -RiveAnimationController<dynamic>? _controller
+  -SMIBool? _firstPackage
+  -SMIBool? _secondPackage
+  -SMIBool? _thirdPackage
+  +void initState()
+  +void dispose()
+  -void _onRiveInit()
+  +Widget build()
+}
+
+"kursach::presentation::outstanding::loadin_screen.dart::_LoadinScreenState" o-- "rive::src::rive_core::rive_animation_controller.dart::RiveAnimationController<dynamic>"
+"kursach::presentation::outstanding::loadin_screen.dart::_LoadinScreenState" o-- "rive::src::controllers::state_machine_controller.dart::SMIBool"
+"flutter::src::widgets::framework.dart::State" <|-- "kursach::presentation::outstanding::loadin_screen.dart::_LoadinScreenState"
+
+class "kursach::presentation::outstanding::product_card.dart::ProductCard" {
+  +ProductModel? productModel
+  +bool isReadctorMode
+  +State<ProductCard> createState()
+}
+
+"kursach::presentation::outstanding::product_card.dart::ProductCard" o-- "kursach::domain::model::product_model.dart::ProductModel"
+"flutter::src::widgets::framework.dart::StatefulWidget" <|-- "kursach::presentation::outstanding::product_card.dart::ProductCard"
+
+class "kursach::presentation::outstanding::product_card.dart::_ProductCardState" {
+  +int count
+  +Widget build()
+}
+
+"flutter::src::widgets::framework.dart::State" <|-- "kursach::presentation::outstanding::product_card.dart::_ProductCardState"
+
+class "kursach::presentation::outstanding::product_image.dart::ProductImage" {
+  +Uint8List? imageData
+  +bool isLeading
+  +void Function(Uint8List)? setImage
+  +void Function()? onDelete
+  +Widget build()
+}
+
+"kursach::presentation::outstanding::product_image.dart::ProductImage" o-- "dart::typed_data::Uint8List"
+"kursach::presentation::outstanding::product_image.dart::ProductImage" o-- "null::void Function(Uint8List)"
+"kursach::presentation::outstanding::product_image.dart::ProductImage" o-- "null::void Function()"
+"flutter::src::widgets::framework.dart::StatelessWidget" <|-- "kursach::presentation::outstanding::product_image.dart::ProductImage"
+
+class "kursach::presentation::outstanding::techsupport_card_widget.dart::TechSupportCard" {
+  +Widget build()
+}
+
+"flutter::src::widgets::framework.dart::StatelessWidget" <|-- "kursach::presentation::outstanding::techsupport_card_widget.dart::TechSupportCard"
+
+
+@enduml

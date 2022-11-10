@@ -11,6 +11,7 @@ import 'package:kursach/domain/model/brand_model.dart';
 import 'package:kursach/domain/model/product_model.dart';
 import 'package:kursach/domain/model/product_type_model.dart';
 import 'package:kursach/domain/model/user_model.dart';
+import 'package:supabase_flutter/supabase_flutter.dart';
 import 'package:translit/translit.dart';
 import 'package:crypto/crypto.dart';
 part 'product_events.dart';
@@ -24,6 +25,55 @@ class ProductBloc extends Bloc<ProductEvent, ProductState> {
     on<ProductEvent>((event, emit) async {
       await event.maybeWhen(
           orElse: () => null,
+          loadProducts:
+              ((idOrganization, productTypes, searchPath, searchBrand) async {
+            emit(const ProductState.loading(false));
+            var loadedProducts = await ProductRepository.loadProductModels(
+              idCompany: idOrganization,
+              brandName: searchBrand?.name,
+              searchString: searchPath,
+              productType:
+                  productTypes != null ? productTypes.first.label : null,
+              productTypes: productTypes != null && productTypes.length > 1
+                  ? productTypes[1].label
+                  : null,
+              productTypet: productTypes != null && productTypes.length > 2
+                  ? productTypes[2].label
+                  : null,
+            );
+            emit(ProductState.loaded(loadedProducts));
+          }),
+          addNewProduct: (brandName,
+              album,
+              productDesc,
+              productName,
+              productPrice,
+              quantity,
+              productCategory,
+              productCategoryS,
+              productCategoryT,
+              oldProductName,
+              idProduct) async {
+            try {
+              emit(const ProductState.loading(false));
+
+              var loadedProduct = await ProductRepository.addNewProduct(
+                oldProductName: oldProductName,
+                  idProduct: idProduct,
+                  album: album,
+                  brandName: brandName,
+                  productCategory: productCategory,
+                  productDesc: productDesc,
+                  productName: productName,
+                  productPrice: productPrice,
+                  quantity: quantity,
+                  productCategoryS: productCategoryS,
+                  productCategoryT: productCategoryT);
+              emit(ProductState.productAdded(loadedProduct));
+            } catch (e) {
+              emit(ProductState.errored(e.toString()));
+            }
+          },
           addNewBrand: (title, description, image) async {
             try {
               emit(const ProductState.loading(false));

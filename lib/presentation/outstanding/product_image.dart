@@ -1,3 +1,4 @@
+import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_neumorphic/flutter_neumorphic.dart';
@@ -9,19 +10,21 @@ class ProductImage extends StatelessWidget {
       this.isLeading = false,
       this.imageData,
       this.setImage,
+      this.url,
       this.onDelete})
       : super(key: key);
+  final String? url;
   final Uint8List? imageData;
   final bool isLeading;
   final void Function(
-    Uint8List image,
+    Uint8List? image,
   )? setImage;
   final void Function()? onDelete;
   @override
   Widget build(BuildContext context) {
     return NeumorphicButton(
       padding: const EdgeInsets.symmetric(horizontal: 10),
-      onPressed: imageData != null
+      onPressed: imageData != null || url != null
           ? null
           : () {
               ImagePickers.pickImage().then((value) {
@@ -30,7 +33,7 @@ class ProductImage extends StatelessWidget {
                 }
               });
             },
-      child: imageData == null
+      child: imageData == null && url == null
           ? Column(
               mainAxisAlignment: MainAxisAlignment.center,
               crossAxisAlignment: CrossAxisAlignment.center,
@@ -61,7 +64,9 @@ class ProductImage extends StatelessWidget {
                     child: ConstrainedBox(
                         constraints:
                             BoxConstraints(maxWidth: 800, maxHeight: 600),
-                        child: Image.memory(imageData!)),
+                        child: url != null
+                            ? CachedNetworkImage(imageUrl: url!)
+                            : Image.memory(imageData!)),
                     borderRadius: BorderRadius.all(Radius.circular(30))),
                 Positioned(
                   right: 0,

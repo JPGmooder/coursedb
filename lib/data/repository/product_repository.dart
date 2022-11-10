@@ -62,13 +62,17 @@ class ProductRepository {
       required double productPrice,
       required int quantity,
       required String productCategory,
+      String? oldProductName,
+      int? idProduct,
       String? productCategoryS,
       String? productCategoryT}) async {
     var loadedAlbum = await ProductProvider.loadProductImages(
+        isNew: idProduct != null,
         images: album,
         orgId: UserModel.get().organizationModel!.idCompany,
         productName: productName);
     var loadedProduct = await ProductProvider.addNewProduct(
+        idProduct: idProduct,
         album: loadedAlbum,
         brandName: brandName,
         idCompany: UserModel.get().organizationModel!.idCompany,
@@ -82,7 +86,31 @@ class ProductRepository {
     if (loadedProduct.hasException) {
       throw Exception(loadedProduct.exception);
     }
-    var modelToReturn = ProductModel.fromMap(loadedProduct.data!['product_addnew']);
+    var modelToReturn =
+        ProductModel.fromMap(loadedProduct.data!['product_addnew']);
     return modelToReturn;
+  }
+
+  static Future<List<ProductModel>> loadProductModels(
+      {required int idCompany,
+      String? searchString,
+      String? brandName,
+      String? productType,
+      String? productTypes,
+      String? productTypet}) async {
+    var response = await ProductProvider.loadProducts(
+        idCompany: idCompany,
+        brandName: brandName,
+        productType: productType,
+        productTypes: productTypes,
+        productTypet: productTypet,
+        searchString: searchString);
+    if (response.hasException) {
+      throw Exception(response.exception);
+    }
+    var decodedProducts = (response.data!["product"] as List<dynamic>).map((e) {
+      return ProductModel.fromMap(e);
+    }).toList();
+    return decodedProducts;
   }
 }

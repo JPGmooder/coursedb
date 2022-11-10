@@ -1,7 +1,10 @@
+import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/scheduler.dart';
 import 'package:flutter_neumorphic/flutter_neumorphic.dart';
 import 'package:kursach/domain/model/product_model.dart';
 import 'package:kursach/presentation/home/profile/organization/product_editor.dart';
+import 'package:kursach/presentation/outstanding/category_chip.dart';
 import 'package:kursach/presentation/outstanding/gradientmask.dart';
 
 class ProductCard extends StatefulWidget {
@@ -25,7 +28,7 @@ class _ProductCardState extends State<ProductCard> {
         }
       },
       child: SizedBox(
-        height: MediaQuery.of(context).size.height * 0.48,
+        height: MediaQuery.of(context).size.height * 0.4,
         child: Neumorphic(
           style: NeumorphicStyle(
               color: widget.productModel == null
@@ -51,7 +54,15 @@ class _ProductCardState extends State<ProductCard> {
                               color: Colors.grey,
                               size: 40,
                             )
-                          : Image.asset('lib/assets/prost.jpeg'),
+                          : CachedNetworkImage(
+                              imageUrl: widget.productModel!.photoAlbum.first,
+                              progressIndicatorBuilder:
+                                  (context, url, downloadProgress) =>
+                                      CircularProgressIndicator(
+                                          value: downloadProgress.progress),
+                              errorWidget: (context, url, error) =>
+                                  Icon(Icons.error),
+                            ),
                     ),
                   ),
                 ),
@@ -80,19 +91,16 @@ class _ProductCardState extends State<ProductCard> {
                   height: 150,
                 ),
               if (widget.productModel != null)
-                Transform.scale(
-                  scale: 0.7,
-                  alignment: Alignment.center,
-                  child: Chip(
-                      padding: EdgeInsets.zero,
-                      label: Text(
-                        "Молоко",
-                        textAlign: TextAlign.center,
-                        style: Theme.of(context)
-                            .textTheme
-                            .labelMedium!
-                            .copyWith(fontWeight: FontWeight.bold),
-                      )),
+                Wrap(
+                  children: [
+                    Transform.scale(
+                      scale: 0.7,
+                      child: CategoryChip(
+                          color: widget.productModel!.category.color,
+                          label: widget.productModel!.category.label,
+                          isSelected: true),
+                    )
+                  ],
                 ),
               if (widget.productModel == null)
                 SizedBox(
@@ -136,6 +144,27 @@ class _ProductCardState extends State<ProductCard> {
                           ],
                         ),
                       ),
+                      if (widget.isReadctorMode)
+                        Padding(
+                          padding: const EdgeInsets.symmetric(
+                              vertical: 3.0, horizontal: 10),
+                          child: NeumorphicButton(
+                            onPressed: () =>
+                                Navigator.of(context).push(MaterialPageRoute(
+                                    builder: (ctx) => ProductEditorScreen(
+                                          model: widget.productModel,
+                                        ))),
+                            child: GradientMask(
+                              size: 25,
+                              begin: Alignment.topLeft,
+                              end: Alignment.bottomRight,
+                              child: Icon(
+                                Icons.edit,
+                                color: Colors.white54,
+                              ),
+                            ),
+                          ),
+                        ),
                       if (!widget.isReadctorMode)
                         AnimatedSwitcher(
                           duration: Duration(milliseconds: 300),

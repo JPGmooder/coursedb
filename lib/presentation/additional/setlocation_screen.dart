@@ -190,9 +190,12 @@ class _SetLocationScreenState extends State<SetLocationScreen> {
                               onPressed: widget.currentMode ==
                                       LocationPickerMode.userAddress
                                   ? () {
-                                      context.read<AuthBloc>().add(
-                                          AuthEvent.addAddress(
-                                              pickedLocation!));
+                                      WidgetsBinding.instance
+                                          .addPostFrameCallback((_) {
+                                        context.read<AuthBloc>().add(
+                                            AuthEvent.addAddress(
+                                                pickedLocation!));
+                                      });
                                       print(pickedLocation);
                                     }
                                   : () {

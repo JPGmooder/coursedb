@@ -1,6 +1,7 @@
 import 'dart:convert';
 
 import 'package:kursach/domain/model/address_model.dart';
+import 'package:kursach/domain/model/product_model.dart';
 
 class OrganizationModel {
   int idCompany;
@@ -9,6 +10,7 @@ class OrganizationModel {
   String companyStatusName;
   String companyTypeName;
   AddressModel addressModel;
+  List<ProductModel> loadedProduct;
   OrganizationModel({
     required this.idCompany,
     required this.companyDeliveryPrice,
@@ -16,6 +18,7 @@ class OrganizationModel {
     required this.companyStatusName,
     required this.companyTypeName,
     required this.addressModel,
+    this.loadedProduct = const []
   });
 
   OrganizationModel copyWith({
@@ -39,7 +42,6 @@ class OrganizationModel {
   }
 
   Map<String, dynamic> toMap() {
-  
     return {
       'idCompany': idCompany,
       'companydeliveryprice': companyDeliveryPrice,
@@ -60,5 +62,4 @@ class OrganizationModel {
       addressModel: AddressModel.fromMap(map['address']),
     );
   }
-
 }

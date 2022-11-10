@@ -17,4 +17,11 @@ abstract class OrganizationEvent with _$OrganizationEvent {
     String? brand,
     String? name,
   }) = _$OrganizationLoadStuffEvent;
+  const factory OrganizationEvent.loadOrganizations({
+    required sortType sort,
+    required AddressModel address,
+    String? category,
+    String? brand,
+    String? name,
+  }) = _$OrganizationLoadOrganizationsEvent;
 }

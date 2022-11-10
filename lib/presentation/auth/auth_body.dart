@@ -24,8 +24,7 @@ class _AuthBodyState extends State<AuthBody> {
   late TextEditingController _passwordController;
   final TextEditingController _emailController = TextEditingController();
   final TextEditingController _repeaterController = TextEditingController();
-  late StreamSubscription
-      sub; //* Почему-то не видит шэредпрефс логин/пароль, думаю дело в том, что я не отписался от контроллеров
+  late StreamSubscription<AuthState> bsub;
   double? currentGradientSize;
   bool isObscured = true;
   final GlobalKey<FormState> _formKey = GlobalKey<FormState>();
@@ -47,16 +46,21 @@ class _AuthBodyState extends State<AuthBody> {
       }
     });
 
-    BlocProvider.of<AuthBloc>(context).stream.listen((event) {
+    bsub = BlocProvider.of<AuthBloc>(context).stream.listen((event) {
       event.maybeWhen(
           orElse: () => null,
           signedUp: (login, password, email) {
             UserModel.get(login: login, password: password, email: email);
-            Navigator.of(context).pushNamed(PersonalInfoScreen.route);
+            WidgetsBinding.instance.addPostFrameCallback((_) {
+              Navigator.of(context).pushNamed(PersonalInfoScreen.route);
+            });
           },
           addressesFinded: (addressModel) {
             if (addressModel.isEmpty) {
-              Navigator.of(context).pushNamed(SetLocationScreen.path, arguments: LocationPickerMode.userAddress);
+              WidgetsBinding.instance.addPostFrameCallback((_) {
+                Navigator.of(context).pushNamed(SetLocationScreen.path,
+                    arguments: LocationPickerMode.userAddress);
+              });
             } else {
               UserModel.get().addresses = addressModel;
               print("ВСЁ ЕСТЬ!");
@@ -90,6 +94,16 @@ class _AuthBodyState extends State<AuthBody> {
     });
 
     super.initState();
+  }
+
+  @override
+  void dispose() {
+    bsub.cancel();
+    _loginController.dispose();
+    _passwordController.dispose();
+    _emailController.dispose();
+    _repeaterController.dispose();
+    super.dispose();
   }
 
   @override

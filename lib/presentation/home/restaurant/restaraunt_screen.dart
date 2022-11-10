@@ -2,10 +2,13 @@ import 'dart:math';
 
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
+import 'package:kursach/domain/model/organization_model.dart';
 import 'package:kursach/domain/model/user_model.dart';
+import 'package:kursach/domain/organization/bloc/org_bloc.dart';
 import 'package:kursach/presentation/home/markets/market_widget.dart';
 import 'package:kursach/presentation/home/restaurant/pickers.dart';
 import 'package:kursach/presentation/outstanding/gradientmask.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 
 class RestarauntList extends StatefulWidget {
   const RestarauntList({Key? key}) : super(key: key);
@@ -15,7 +18,6 @@ class RestarauntList extends StatefulWidget {
 }
 
 class _RestarauntListState extends State<RestarauntList> {
-  bool isPressed = false;
   Map<String, dynamic> categories = {
     'Бургеры': {'status': false, 'icon': FontAwesomeIcons.burger},
     'Пицца': {'status': false, 'icon': FontAwesomeIcons.pizzaSlice},
@@ -24,6 +26,16 @@ class _RestarauntListState extends State<RestarauntList> {
     'Азиатское': {'status': false, 'icon': FontAwesomeIcons.wolfPackBattalion},
     'Русское': {'status': false, 'icon': FontAwesomeIcons.martiniGlassEmpty}
   };
+  late List<OrganizationModel> currentOrgs;
+
+  @override
+  void initState() {
+    currentOrgs = [];
+    context.read<OrganizationBloc>().add(OrganizationEvent.loadOrganizations(
+        sort: sortType.ascending, address: UserModel.get().addresses!.first));
+    super.initState();
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -115,20 +127,20 @@ class _RestarauntListState extends State<RestarauntList> {
                           .copyWith(color: Colors.grey[600]),
                       textScaleFactor: 0.8,
                     ),
-                    SizedBox(
-                      height: 150,
-                      child: ListView.separated(
-                          shrinkWrap: true,
-                          scrollDirection: Axis.horizontal,
-                          itemBuilder: (ctx, index) {
-                            return MarketWidget(
-                              isDostavka: true,
-                            );
-                          },
-                          separatorBuilder: (ctx, index) {
-                            return Container();
-                          },
-                          itemCount: 3),
+                    BlocBuilder<OrganizationBloc, OrganizationState>(
+                      builder: (context, state) {
+                        return state.maybeWhen(
+                            orElse: () => Container(),
+                            usersOrganizationsLoaded: (models) =>
+                                ListView.builder(
+                                    shrinkWrap: true,
+                                    itemBuilder: (ctx, index) {
+                                      return MarketWidget(
+                                        model: models[index],
+                                      );
+                                    },
+                                    itemCount: models.length));
+                      },
                     )
                   ],
                 )

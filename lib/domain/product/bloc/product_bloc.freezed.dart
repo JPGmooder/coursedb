@@ -21,27 +21,78 @@ mixin _$ProductEvent {
     required TResult Function(String searchText) loadCategories,
     required TResult Function(List<ProductTypeModel> categories)
         addNewCategories,
+    required TResult Function(
+            String brandName,
+            List<Uint8List> album,
+            String productDesc,
+            String productName,
+            double productPrice,
+            int quantity,
+            String productCategory,
+            String? productCategoryS,
+            String? productCategoryT,
+            String? oldProductName,
+            int? idProduct)
+        addNewProduct,
     required TResult Function(String title, String description, Uint8List image)
         addNewBrand,
     required TResult Function(String searchText) loadBrands,
+    required TResult Function(
+            int idOrganization,
+            List<ProductTypeModel>? productTypes,
+            String? searchPath,
+            BrandModel? searchBrand)
+        loadProducts,
   }) =>
       throw _privateConstructorUsedError;
   @optionalTypeArgs
   TResult? whenOrNull<TResult extends Object?>({
     TResult? Function(String searchText)? loadCategories,
     TResult? Function(List<ProductTypeModel> categories)? addNewCategories,
+    TResult? Function(
+            String brandName,
+            List<Uint8List> album,
+            String productDesc,
+            String productName,
+            double productPrice,
+            int quantity,
+            String productCategory,
+            String? productCategoryS,
+            String? productCategoryT,
+            String? oldProductName,
+            int? idProduct)?
+        addNewProduct,
     TResult? Function(String title, String description, Uint8List image)?
         addNewBrand,
     TResult? Function(String searchText)? loadBrands,
+    TResult? Function(int idOrganization, List<ProductTypeModel>? productTypes,
+            String? searchPath, BrandModel? searchBrand)?
+        loadProducts,
   }) =>
       throw _privateConstructorUsedError;
   @optionalTypeArgs
   TResult maybeWhen<TResult extends Object?>({
     TResult Function(String searchText)? loadCategories,
     TResult Function(List<ProductTypeModel> categories)? addNewCategories,
+    TResult Function(
+            String brandName,
+            List<Uint8List> album,
+            String productDesc,
+            String productName,
+            double productPrice,
+            int quantity,
+            String productCategory,
+            String? productCategoryS,
+            String? productCategoryT,
+            String? oldProductName,
+            int? idProduct)?
+        addNewProduct,
     TResult Function(String title, String description, Uint8List image)?
         addNewBrand,
     TResult Function(String searchText)? loadBrands,
+    TResult Function(int idOrganization, List<ProductTypeModel>? productTypes,
+            String? searchPath, BrandModel? searchBrand)?
+        loadProducts,
     required TResult orElse(),
   }) =>
       throw _privateConstructorUsedError;
@@ -51,24 +102,30 @@ mixin _$ProductEvent {
         loadCategories,
     required TResult Function(_$ProductAddNewCategoriesEvent value)
         addNewCategories,
+    required TResult Function(_$ProductAddNewProductEvent value) addNewProduct,
     required TResult Function(_$ProductAddNewBrandEvent value) addNewBrand,
     required TResult Function(_$ProductLoadBrandsEvent value) loadBrands,
+    required TResult Function(_$ProductsLoadEvent value) loadProducts,
   }) =>
       throw _privateConstructorUsedError;
   @optionalTypeArgs
   TResult? mapOrNull<TResult extends Object?>({
     TResult? Function(_$ProductLoadCategoriesEvent value)? loadCategories,
     TResult? Function(_$ProductAddNewCategoriesEvent value)? addNewCategories,
+    TResult? Function(_$ProductAddNewProductEvent value)? addNewProduct,
     TResult? Function(_$ProductAddNewBrandEvent value)? addNewBrand,
     TResult? Function(_$ProductLoadBrandsEvent value)? loadBrands,
+    TResult? Function(_$ProductsLoadEvent value)? loadProducts,
   }) =>
       throw _privateConstructorUsedError;
   @optionalTypeArgs
   TResult maybeMap<TResult extends Object?>({
     TResult Function(_$ProductLoadCategoriesEvent value)? loadCategories,
     TResult Function(_$ProductAddNewCategoriesEvent value)? addNewCategories,
+    TResult Function(_$ProductAddNewProductEvent value)? addNewProduct,
     TResult Function(_$ProductAddNewBrandEvent value)? addNewBrand,
     TResult Function(_$ProductLoadBrandsEvent value)? loadBrands,
+    TResult Function(_$ProductsLoadEvent value)? loadProducts,
     required TResult orElse(),
   }) =>
       throw _privateConstructorUsedError;
@@ -173,9 +230,28 @@ class _$_$ProductLoadCategoriesEvent
     required TResult Function(String searchText) loadCategories,
     required TResult Function(List<ProductTypeModel> categories)
         addNewCategories,
+    required TResult Function(
+            String brandName,
+            List<Uint8List> album,
+            String productDesc,
+            String productName,
+            double productPrice,
+            int quantity,
+            String productCategory,
+            String? productCategoryS,
+            String? productCategoryT,
+            String? oldProductName,
+            int? idProduct)
+        addNewProduct,
     required TResult Function(String title, String description, Uint8List image)
         addNewBrand,
     required TResult Function(String searchText) loadBrands,
+    required TResult Function(
+            int idOrganization,
+            List<ProductTypeModel>? productTypes,
+            String? searchPath,
+            BrandModel? searchBrand)
+        loadProducts,
   }) {
     return loadCategories(searchText);
   }
@@ -185,9 +261,25 @@ class _$_$ProductLoadCategoriesEvent
   TResult? whenOrNull<TResult extends Object?>({
     TResult? Function(String searchText)? loadCategories,
     TResult? Function(List<ProductTypeModel> categories)? addNewCategories,
+    TResult? Function(
+            String brandName,
+            List<Uint8List> album,
+            String productDesc,
+            String productName,
+            double productPrice,
+            int quantity,
+            String productCategory,
+            String? productCategoryS,
+            String? productCategoryT,
+            String? oldProductName,
+            int? idProduct)?
+        addNewProduct,
     TResult? Function(String title, String description, Uint8List image)?
         addNewBrand,
     TResult? Function(String searchText)? loadBrands,
+    TResult? Function(int idOrganization, List<ProductTypeModel>? productTypes,
+            String? searchPath, BrandModel? searchBrand)?
+        loadProducts,
   }) {
     return loadCategories?.call(searchText);
   }
@@ -197,9 +289,25 @@ class _$_$ProductLoadCategoriesEvent
   TResult maybeWhen<TResult extends Object?>({
     TResult Function(String searchText)? loadCategories,
     TResult Function(List<ProductTypeModel> categories)? addNewCategories,
+    TResult Function(
+            String brandName,
+            List<Uint8List> album,
+            String productDesc,
+            String productName,
+            double productPrice,
+            int quantity,
+            String productCategory,
+            String? productCategoryS,
+            String? productCategoryT,
+            String? oldProductName,
+            int? idProduct)?
+        addNewProduct,
     TResult Function(String title, String description, Uint8List image)?
         addNewBrand,
     TResult Function(String searchText)? loadBrands,
+    TResult Function(int idOrganization, List<ProductTypeModel>? productTypes,
+            String? searchPath, BrandModel? searchBrand)?
+        loadProducts,
     required TResult orElse(),
   }) {
     if (loadCategories != null) {
@@ -215,8 +323,10 @@ class _$_$ProductLoadCategoriesEvent
         loadCategories,
     required TResult Function(_$ProductAddNewCategoriesEvent value)
         addNewCategories,
+    required TResult Function(_$ProductAddNewProductEvent value) addNewProduct,
     required TResult Function(_$ProductAddNewBrandEvent value) addNewBrand,
     required TResult Function(_$ProductLoadBrandsEvent value) loadBrands,
+    required TResult Function(_$ProductsLoadEvent value) loadProducts,
   }) {
     return loadCategories(this);
   }
@@ -226,8 +336,10 @@ class _$_$ProductLoadCategoriesEvent
   TResult? mapOrNull<TResult extends Object?>({
     TResult? Function(_$ProductLoadCategoriesEvent value)? loadCategories,
     TResult? Function(_$ProductAddNewCategoriesEvent value)? addNewCategories,
+    TResult? Function(_$ProductAddNewProductEvent value)? addNewProduct,
     TResult? Function(_$ProductAddNewBrandEvent value)? addNewBrand,
     TResult? Function(_$ProductLoadBrandsEvent value)? loadBrands,
+    TResult? Function(_$ProductsLoadEvent value)? loadProducts,
   }) {
     return loadCategories?.call(this);
   }
@@ -237,8 +349,10 @@ class _$_$ProductLoadCategoriesEvent
   TResult maybeMap<TResult extends Object?>({
     TResult Function(_$ProductLoadCategoriesEvent value)? loadCategories,
     TResult Function(_$ProductAddNewCategoriesEvent value)? addNewCategories,
+    TResult Function(_$ProductAddNewProductEvent value)? addNewProduct,
     TResult Function(_$ProductAddNewBrandEvent value)? addNewBrand,
     TResult Function(_$ProductLoadBrandsEvent value)? loadBrands,
+    TResult Function(_$ProductsLoadEvent value)? loadProducts,
     required TResult orElse(),
   }) {
     if (loadCategories != null) {
@@ -346,9 +460,28 @@ class _$_$ProductAddNewCategoriesEvent
     required TResult Function(String searchText) loadCategories,
     required TResult Function(List<ProductTypeModel> categories)
         addNewCategories,
+    required TResult Function(
+            String brandName,
+            List<Uint8List> album,
+            String productDesc,
+            String productName,
+            double productPrice,
+            int quantity,
+            String productCategory,
+            String? productCategoryS,
+            String? productCategoryT,
+            String? oldProductName,
+            int? idProduct)
+        addNewProduct,
     required TResult Function(String title, String description, Uint8List image)
         addNewBrand,
     required TResult Function(String searchText) loadBrands,
+    required TResult Function(
+            int idOrganization,
+            List<ProductTypeModel>? productTypes,
+            String? searchPath,
+            BrandModel? searchBrand)
+        loadProducts,
   }) {
     return addNewCategories(categories);
   }
@@ -358,9 +491,25 @@ class _$_$ProductAddNewCategoriesEvent
   TResult? whenOrNull<TResult extends Object?>({
     TResult? Function(String searchText)? loadCategories,
     TResult? Function(List<ProductTypeModel> categories)? addNewCategories,
+    TResult? Function(
+            String brandName,
+            List<Uint8List> album,
+            String productDesc,
+            String productName,
+            double productPrice,
+            int quantity,
+            String productCategory,
+            String? productCategoryS,
+            String? productCategoryT,
+            String? oldProductName,
+            int? idProduct)?
+        addNewProduct,
     TResult? Function(String title, String description, Uint8List image)?
         addNewBrand,
     TResult? Function(String searchText)? loadBrands,
+    TResult? Function(int idOrganization, List<ProductTypeModel>? productTypes,
+            String? searchPath, BrandModel? searchBrand)?
+        loadProducts,
   }) {
     return addNewCategories?.call(categories);
   }
@@ -370,9 +519,25 @@ class _$_$ProductAddNewCategoriesEvent
   TResult maybeWhen<TResult extends Object?>({
     TResult Function(String searchText)? loadCategories,
     TResult Function(List<ProductTypeModel> categories)? addNewCategories,
+    TResult Function(
+            String brandName,
+            List<Uint8List> album,
+            String productDesc,
+            String productName,
+            double productPrice,
+            int quantity,
+            String productCategory,
+            String? productCategoryS,
+            String? productCategoryT,
+            String? oldProductName,
+            int? idProduct)?
+        addNewProduct,
     TResult Function(String title, String description, Uint8List image)?
         addNewBrand,
     TResult Function(String searchText)? loadBrands,
+    TResult Function(int idOrganization, List<ProductTypeModel>? productTypes,
+            String? searchPath, BrandModel? searchBrand)?
+        loadProducts,
     required TResult orElse(),
   }) {
     if (addNewCategories != null) {
@@ -388,8 +553,10 @@ class _$_$ProductAddNewCategoriesEvent
         loadCategories,
     required TResult Function(_$ProductAddNewCategoriesEvent value)
         addNewCategories,
+    required TResult Function(_$ProductAddNewProductEvent value) addNewProduct,
     required TResult Function(_$ProductAddNewBrandEvent value) addNewBrand,
     required TResult Function(_$ProductLoadBrandsEvent value) loadBrands,
+    required TResult Function(_$ProductsLoadEvent value) loadProducts,
   }) {
     return addNewCategories(this);
   }
@@ -399,8 +566,10 @@ class _$_$ProductAddNewCategoriesEvent
   TResult? mapOrNull<TResult extends Object?>({
     TResult? Function(_$ProductLoadCategoriesEvent value)? loadCategories,
     TResult? Function(_$ProductAddNewCategoriesEvent value)? addNewCategories,
+    TResult? Function(_$ProductAddNewProductEvent value)? addNewProduct,
     TResult? Function(_$ProductAddNewBrandEvent value)? addNewBrand,
     TResult? Function(_$ProductLoadBrandsEvent value)? loadBrands,
+    TResult? Function(_$ProductsLoadEvent value)? loadProducts,
   }) {
     return addNewCategories?.call(this);
   }
@@ -410,8 +579,10 @@ class _$_$ProductAddNewCategoriesEvent
   TResult maybeMap<TResult extends Object?>({
     TResult Function(_$ProductLoadCategoriesEvent value)? loadCategories,
     TResult Function(_$ProductAddNewCategoriesEvent value)? addNewCategories,
+    TResult Function(_$ProductAddNewProductEvent value)? addNewProduct,
     TResult Function(_$ProductAddNewBrandEvent value)? addNewBrand,
     TResult Function(_$ProductLoadBrandsEvent value)? loadBrands,
+    TResult Function(_$ProductsLoadEvent value)? loadProducts,
     required TResult orElse(),
   }) {
     if (addNewCategories != null) {
@@ -429,6 +600,421 @@ abstract class _$ProductAddNewCategoriesEvent implements ProductEvent {
   List<ProductTypeModel> get categories;
   @JsonKey(ignore: true)
   _$$_$ProductAddNewCategoriesEventCopyWith<_$_$ProductAddNewCategoriesEvent>
+      get copyWith => throw _privateConstructorUsedError;
+}
+
+/// @nodoc
+abstract class _$$_$ProductAddNewProductEventCopyWith<$Res> {
+  factory _$$_$ProductAddNewProductEventCopyWith(
+          _$_$ProductAddNewProductEvent value,
+          $Res Function(_$_$ProductAddNewProductEvent) then) =
+      __$$_$ProductAddNewProductEventCopyWithImpl<$Res>;
+  @useResult
+  $Res call(
+      {String brandName,
+      List<Uint8List> album,
+      String productDesc,
+      String productName,
+      double productPrice,
+      int quantity,
+      String productCategory,
+      String? productCategoryS,
+      String? productCategoryT,
+      String? oldProductName,
+      int? idProduct});
+}
+
+/// @nodoc
+class __$$_$ProductAddNewProductEventCopyWithImpl<$Res>
+    extends _$ProductEventCopyWithImpl<$Res, _$_$ProductAddNewProductEvent>
+    implements _$$_$ProductAddNewProductEventCopyWith<$Res> {
+  __$$_$ProductAddNewProductEventCopyWithImpl(
+      _$_$ProductAddNewProductEvent _value,
+      $Res Function(_$_$ProductAddNewProductEvent) _then)
+      : super(_value, _then);
+
+  @pragma('vm:prefer-inline')
+  @override
+  $Res call({
+    Object? brandName = null,
+    Object? album = null,
+    Object? productDesc = null,
+    Object? productName = null,
+    Object? productPrice = null,
+    Object? quantity = null,
+    Object? productCategory = null,
+    Object? productCategoryS = freezed,
+    Object? productCategoryT = freezed,
+    Object? oldProductName = freezed,
+    Object? idProduct = freezed,
+  }) {
+    return _then(_$_$ProductAddNewProductEvent(
+      brandName: null == brandName
+          ? _value.brandName
+          : brandName // ignore: cast_nullable_to_non_nullable
+              as String,
+      album: null == album
+          ? _value._album
+          : album // ignore: cast_nullable_to_non_nullable
+              as List<Uint8List>,
+      productDesc: null == productDesc
+          ? _value.productDesc
+          : productDesc // ignore: cast_nullable_to_non_nullable
+              as String,
+      productName: null == productName
+          ? _value.productName
+          : productName // ignore: cast_nullable_to_non_nullable
+              as String,
+      productPrice: null == productPrice
+          ? _value.productPrice
+          : productPrice // ignore: cast_nullable_to_non_nullable
+              as double,
+      quantity: null == quantity
+          ? _value.quantity
+          : quantity // ignore: cast_nullable_to_non_nullable
+              as int,
+      productCategory: null == productCategory
+          ? _value.productCategory
+          : productCategory // ignore: cast_nullable_to_non_nullable
+              as String,
+      productCategoryS: freezed == productCategoryS
+          ? _value.productCategoryS
+          : productCategoryS // ignore: cast_nullable_to_non_nullable
+              as String?,
+      productCategoryT: freezed == productCategoryT
+          ? _value.productCategoryT
+          : productCategoryT // ignore: cast_nullable_to_non_nullable
+              as String?,
+      oldProductName: freezed == oldProductName
+          ? _value.oldProductName
+          : oldProductName // ignore: cast_nullable_to_non_nullable
+              as String?,
+      idProduct: freezed == idProduct
+          ? _value.idProduct
+          : idProduct // ignore: cast_nullable_to_non_nullable
+              as int?,
+    ));
+  }
+}
+
+/// @nodoc
+
+class _$_$ProductAddNewProductEvent
+    with DiagnosticableTreeMixin
+    implements _$ProductAddNewProductEvent {
+  const _$_$ProductAddNewProductEvent(
+      {required this.brandName,
+      required final List<Uint8List> album,
+      required this.productDesc,
+      required this.productName,
+      required this.productPrice,
+      required this.quantity,
+      required this.productCategory,
+      this.productCategoryS,
+      this.productCategoryT,
+      this.oldProductName,
+      this.idProduct})
+      : _album = album;
+
+  @override
+  final String brandName;
+  final List<Uint8List> _album;
+  @override
+  List<Uint8List> get album {
+    // ignore: implicit_dynamic_type
+    return EqualUnmodifiableListView(_album);
+  }
+
+  @override
+  final String productDesc;
+  @override
+  final String productName;
+  @override
+  final double productPrice;
+  @override
+  final int quantity;
+  @override
+  final String productCategory;
+  @override
+  final String? productCategoryS;
+  @override
+  final String? productCategoryT;
+  @override
+  final String? oldProductName;
+  @override
+  final int? idProduct;
+
+  @override
+  String toString({DiagnosticLevel minLevel = DiagnosticLevel.info}) {
+    return 'ProductEvent.addNewProduct(brandName: $brandName, album: $album, productDesc: $productDesc, productName: $productName, productPrice: $productPrice, quantity: $quantity, productCategory: $productCategory, productCategoryS: $productCategoryS, productCategoryT: $productCategoryT, oldProductName: $oldProductName, idProduct: $idProduct)';
+  }
+
+  @override
+  void debugFillProperties(DiagnosticPropertiesBuilder properties) {
+    super.debugFillProperties(properties);
+    properties
+      ..add(DiagnosticsProperty('type', 'ProductEvent.addNewProduct'))
+      ..add(DiagnosticsProperty('brandName', brandName))
+      ..add(DiagnosticsProperty('album', album))
+      ..add(DiagnosticsProperty('productDesc', productDesc))
+      ..add(DiagnosticsProperty('productName', productName))
+      ..add(DiagnosticsProperty('productPrice', productPrice))
+      ..add(DiagnosticsProperty('quantity', quantity))
+      ..add(DiagnosticsProperty('productCategory', productCategory))
+      ..add(DiagnosticsProperty('productCategoryS', productCategoryS))
+      ..add(DiagnosticsProperty('productCategoryT', productCategoryT))
+      ..add(DiagnosticsProperty('oldProductName', oldProductName))
+      ..add(DiagnosticsProperty('idProduct', idProduct));
+  }
+
+  @override
+  bool operator ==(dynamic other) {
+    return identical(this, other) ||
+        (other.runtimeType == runtimeType &&
+            other is _$_$ProductAddNewProductEvent &&
+            (identical(other.brandName, brandName) ||
+                other.brandName == brandName) &&
+            const DeepCollectionEquality().equals(other._album, _album) &&
+            (identical(other.productDesc, productDesc) ||
+                other.productDesc == productDesc) &&
+            (identical(other.productName, productName) ||
+                other.productName == productName) &&
+            (identical(other.productPrice, productPrice) ||
+                other.productPrice == productPrice) &&
+            (identical(other.quantity, quantity) ||
+                other.quantity == quantity) &&
+            (identical(other.productCategory, productCategory) ||
+                other.productCategory == productCategory) &&
+            (identical(other.productCategoryS, productCategoryS) ||
+                other.productCategoryS == productCategoryS) &&
+            (identical(other.productCategoryT, productCategoryT) ||
+                other.productCategoryT == productCategoryT) &&
+            (identical(other.oldProductName, oldProductName) ||
+                other.oldProductName == oldProductName) &&
+            (identical(other.idProduct, idProduct) ||
+                other.idProduct == idProduct));
+  }
+
+  @override
+  int get hashCode => Object.hash(
+      runtimeType,
+      brandName,
+      const DeepCollectionEquality().hash(_album),
+      productDesc,
+      productName,
+      productPrice,
+      quantity,
+      productCategory,
+      productCategoryS,
+      productCategoryT,
+      oldProductName,
+      idProduct);
+
+  @JsonKey(ignore: true)
+  @override
+  @pragma('vm:prefer-inline')
+  _$$_$ProductAddNewProductEventCopyWith<_$_$ProductAddNewProductEvent>
+      get copyWith => __$$_$ProductAddNewProductEventCopyWithImpl<
+          _$_$ProductAddNewProductEvent>(this, _$identity);
+
+  @override
+  @optionalTypeArgs
+  TResult when<TResult extends Object?>({
+    required TResult Function(String searchText) loadCategories,
+    required TResult Function(List<ProductTypeModel> categories)
+        addNewCategories,
+    required TResult Function(
+            String brandName,
+            List<Uint8List> album,
+            String productDesc,
+            String productName,
+            double productPrice,
+            int quantity,
+            String productCategory,
+            String? productCategoryS,
+            String? productCategoryT,
+            String? oldProductName,
+            int? idProduct)
+        addNewProduct,
+    required TResult Function(String title, String description, Uint8List image)
+        addNewBrand,
+    required TResult Function(String searchText) loadBrands,
+    required TResult Function(
+            int idOrganization,
+            List<ProductTypeModel>? productTypes,
+            String? searchPath,
+            BrandModel? searchBrand)
+        loadProducts,
+  }) {
+    return addNewProduct(
+        brandName,
+        album,
+        productDesc,
+        productName,
+        productPrice,
+        quantity,
+        productCategory,
+        productCategoryS,
+        productCategoryT,
+        oldProductName,
+        idProduct);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult? whenOrNull<TResult extends Object?>({
+    TResult? Function(String searchText)? loadCategories,
+    TResult? Function(List<ProductTypeModel> categories)? addNewCategories,
+    TResult? Function(
+            String brandName,
+            List<Uint8List> album,
+            String productDesc,
+            String productName,
+            double productPrice,
+            int quantity,
+            String productCategory,
+            String? productCategoryS,
+            String? productCategoryT,
+            String? oldProductName,
+            int? idProduct)?
+        addNewProduct,
+    TResult? Function(String title, String description, Uint8List image)?
+        addNewBrand,
+    TResult? Function(String searchText)? loadBrands,
+    TResult? Function(int idOrganization, List<ProductTypeModel>? productTypes,
+            String? searchPath, BrandModel? searchBrand)?
+        loadProducts,
+  }) {
+    return addNewProduct?.call(
+        brandName,
+        album,
+        productDesc,
+        productName,
+        productPrice,
+        quantity,
+        productCategory,
+        productCategoryS,
+        productCategoryT,
+        oldProductName,
+        idProduct);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult maybeWhen<TResult extends Object?>({
+    TResult Function(String searchText)? loadCategories,
+    TResult Function(List<ProductTypeModel> categories)? addNewCategories,
+    TResult Function(
+            String brandName,
+            List<Uint8List> album,
+            String productDesc,
+            String productName,
+            double productPrice,
+            int quantity,
+            String productCategory,
+            String? productCategoryS,
+            String? productCategoryT,
+            String? oldProductName,
+            int? idProduct)?
+        addNewProduct,
+    TResult Function(String title, String description, Uint8List image)?
+        addNewBrand,
+    TResult Function(String searchText)? loadBrands,
+    TResult Function(int idOrganization, List<ProductTypeModel>? productTypes,
+            String? searchPath, BrandModel? searchBrand)?
+        loadProducts,
+    required TResult orElse(),
+  }) {
+    if (addNewProduct != null) {
+      return addNewProduct(
+          brandName,
+          album,
+          productDesc,
+          productName,
+          productPrice,
+          quantity,
+          productCategory,
+          productCategoryS,
+          productCategoryT,
+          oldProductName,
+          idProduct);
+    }
+    return orElse();
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult map<TResult extends Object?>({
+    required TResult Function(_$ProductLoadCategoriesEvent value)
+        loadCategories,
+    required TResult Function(_$ProductAddNewCategoriesEvent value)
+        addNewCategories,
+    required TResult Function(_$ProductAddNewProductEvent value) addNewProduct,
+    required TResult Function(_$ProductAddNewBrandEvent value) addNewBrand,
+    required TResult Function(_$ProductLoadBrandsEvent value) loadBrands,
+    required TResult Function(_$ProductsLoadEvent value) loadProducts,
+  }) {
+    return addNewProduct(this);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult? mapOrNull<TResult extends Object?>({
+    TResult? Function(_$ProductLoadCategoriesEvent value)? loadCategories,
+    TResult? Function(_$ProductAddNewCategoriesEvent value)? addNewCategories,
+    TResult? Function(_$ProductAddNewProductEvent value)? addNewProduct,
+    TResult? Function(_$ProductAddNewBrandEvent value)? addNewBrand,
+    TResult? Function(_$ProductLoadBrandsEvent value)? loadBrands,
+    TResult? Function(_$ProductsLoadEvent value)? loadProducts,
+  }) {
+    return addNewProduct?.call(this);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult maybeMap<TResult extends Object?>({
+    TResult Function(_$ProductLoadCategoriesEvent value)? loadCategories,
+    TResult Function(_$ProductAddNewCategoriesEvent value)? addNewCategories,
+    TResult Function(_$ProductAddNewProductEvent value)? addNewProduct,
+    TResult Function(_$ProductAddNewBrandEvent value)? addNewBrand,
+    TResult Function(_$ProductLoadBrandsEvent value)? loadBrands,
+    TResult Function(_$ProductsLoadEvent value)? loadProducts,
+    required TResult orElse(),
+  }) {
+    if (addNewProduct != null) {
+      return addNewProduct(this);
+    }
+    return orElse();
+  }
+}
+
+abstract class _$ProductAddNewProductEvent implements ProductEvent {
+  const factory _$ProductAddNewProductEvent(
+      {required final String brandName,
+      required final List<Uint8List> album,
+      required final String productDesc,
+      required final String productName,
+      required final double productPrice,
+      required final int quantity,
+      required final String productCategory,
+      final String? productCategoryS,
+      final String? productCategoryT,
+      final String? oldProductName,
+      final int? idProduct}) = _$_$ProductAddNewProductEvent;
+
+  String get brandName;
+  List<Uint8List> get album;
+  String get productDesc;
+  String get productName;
+  double get productPrice;
+  int get quantity;
+  String get productCategory;
+  String? get productCategoryS;
+  String? get productCategoryT;
+  String? get oldProductName;
+  int? get idProduct;
+  @JsonKey(ignore: true)
+  _$$_$ProductAddNewProductEventCopyWith<_$_$ProductAddNewProductEvent>
       get copyWith => throw _privateConstructorUsedError;
 }
 
@@ -531,9 +1117,28 @@ class _$_$ProductAddNewBrandEvent
     required TResult Function(String searchText) loadCategories,
     required TResult Function(List<ProductTypeModel> categories)
         addNewCategories,
+    required TResult Function(
+            String brandName,
+            List<Uint8List> album,
+            String productDesc,
+            String productName,
+            double productPrice,
+            int quantity,
+            String productCategory,
+            String? productCategoryS,
+            String? productCategoryT,
+            String? oldProductName,
+            int? idProduct)
+        addNewProduct,
     required TResult Function(String title, String description, Uint8List image)
         addNewBrand,
     required TResult Function(String searchText) loadBrands,
+    required TResult Function(
+            int idOrganization,
+            List<ProductTypeModel>? productTypes,
+            String? searchPath,
+            BrandModel? searchBrand)
+        loadProducts,
   }) {
     return addNewBrand(title, description, image);
   }
@@ -543,9 +1148,25 @@ class _$_$ProductAddNewBrandEvent
   TResult? whenOrNull<TResult extends Object?>({
     TResult? Function(String searchText)? loadCategories,
     TResult? Function(List<ProductTypeModel> categories)? addNewCategories,
+    TResult? Function(
+            String brandName,
+            List<Uint8List> album,
+            String productDesc,
+            String productName,
+            double productPrice,
+            int quantity,
+            String productCategory,
+            String? productCategoryS,
+            String? productCategoryT,
+            String? oldProductName,
+            int? idProduct)?
+        addNewProduct,
     TResult? Function(String title, String description, Uint8List image)?
         addNewBrand,
     TResult? Function(String searchText)? loadBrands,
+    TResult? Function(int idOrganization, List<ProductTypeModel>? productTypes,
+            String? searchPath, BrandModel? searchBrand)?
+        loadProducts,
   }) {
     return addNewBrand?.call(title, description, image);
   }
@@ -555,9 +1176,25 @@ class _$_$ProductAddNewBrandEvent
   TResult maybeWhen<TResult extends Object?>({
     TResult Function(String searchText)? loadCategories,
     TResult Function(List<ProductTypeModel> categories)? addNewCategories,
+    TResult Function(
+            String brandName,
+            List<Uint8List> album,
+            String productDesc,
+            String productName,
+            double productPrice,
+            int quantity,
+            String productCategory,
+            String? productCategoryS,
+            String? productCategoryT,
+            String? oldProductName,
+            int? idProduct)?
+        addNewProduct,
     TResult Function(String title, String description, Uint8List image)?
         addNewBrand,
     TResult Function(String searchText)? loadBrands,
+    TResult Function(int idOrganization, List<ProductTypeModel>? productTypes,
+            String? searchPath, BrandModel? searchBrand)?
+        loadProducts,
     required TResult orElse(),
   }) {
     if (addNewBrand != null) {
@@ -573,8 +1210,10 @@ class _$_$ProductAddNewBrandEvent
         loadCategories,
     required TResult Function(_$ProductAddNewCategoriesEvent value)
         addNewCategories,
+    required TResult Function(_$ProductAddNewProductEvent value) addNewProduct,
     required TResult Function(_$ProductAddNewBrandEvent value) addNewBrand,
     required TResult Function(_$ProductLoadBrandsEvent value) loadBrands,
+    required TResult Function(_$ProductsLoadEvent value) loadProducts,
   }) {
     return addNewBrand(this);
   }
@@ -584,8 +1223,10 @@ class _$_$ProductAddNewBrandEvent
   TResult? mapOrNull<TResult extends Object?>({
     TResult? Function(_$ProductLoadCategoriesEvent value)? loadCategories,
     TResult? Function(_$ProductAddNewCategoriesEvent value)? addNewCategories,
+    TResult? Function(_$ProductAddNewProductEvent value)? addNewProduct,
     TResult? Function(_$ProductAddNewBrandEvent value)? addNewBrand,
     TResult? Function(_$ProductLoadBrandsEvent value)? loadBrands,
+    TResult? Function(_$ProductsLoadEvent value)? loadProducts,
   }) {
     return addNewBrand?.call(this);
   }
@@ -595,8 +1236,10 @@ class _$_$ProductAddNewBrandEvent
   TResult maybeMap<TResult extends Object?>({
     TResult Function(_$ProductLoadCategoriesEvent value)? loadCategories,
     TResult Function(_$ProductAddNewCategoriesEvent value)? addNewCategories,
+    TResult Function(_$ProductAddNewProductEvent value)? addNewProduct,
     TResult Function(_$ProductAddNewBrandEvent value)? addNewBrand,
     TResult Function(_$ProductLoadBrandsEvent value)? loadBrands,
+    TResult Function(_$ProductsLoadEvent value)? loadProducts,
     required TResult orElse(),
   }) {
     if (addNewBrand != null) {
@@ -699,9 +1342,28 @@ class _$_$ProductLoadBrandsEvent
     required TResult Function(String searchText) loadCategories,
     required TResult Function(List<ProductTypeModel> categories)
         addNewCategories,
+    required TResult Function(
+            String brandName,
+            List<Uint8List> album,
+            String productDesc,
+            String productName,
+            double productPrice,
+            int quantity,
+            String productCategory,
+            String? productCategoryS,
+            String? productCategoryT,
+            String? oldProductName,
+            int? idProduct)
+        addNewProduct,
     required TResult Function(String title, String description, Uint8List image)
         addNewBrand,
     required TResult Function(String searchText) loadBrands,
+    required TResult Function(
+            int idOrganization,
+            List<ProductTypeModel>? productTypes,
+            String? searchPath,
+            BrandModel? searchBrand)
+        loadProducts,
   }) {
     return loadBrands(searchText);
   }
@@ -711,9 +1373,25 @@ class _$_$ProductLoadBrandsEvent
   TResult? whenOrNull<TResult extends Object?>({
     TResult? Function(String searchText)? loadCategories,
     TResult? Function(List<ProductTypeModel> categories)? addNewCategories,
+    TResult? Function(
+            String brandName,
+            List<Uint8List> album,
+            String productDesc,
+            String productName,
+            double productPrice,
+            int quantity,
+            String productCategory,
+            String? productCategoryS,
+            String? productCategoryT,
+            String? oldProductName,
+            int? idProduct)?
+        addNewProduct,
     TResult? Function(String title, String description, Uint8List image)?
         addNewBrand,
     TResult? Function(String searchText)? loadBrands,
+    TResult? Function(int idOrganization, List<ProductTypeModel>? productTypes,
+            String? searchPath, BrandModel? searchBrand)?
+        loadProducts,
   }) {
     return loadBrands?.call(searchText);
   }
@@ -723,9 +1401,25 @@ class _$_$ProductLoadBrandsEvent
   TResult maybeWhen<TResult extends Object?>({
     TResult Function(String searchText)? loadCategories,
     TResult Function(List<ProductTypeModel> categories)? addNewCategories,
+    TResult Function(
+            String brandName,
+            List<Uint8List> album,
+            String productDesc,
+            String productName,
+            double productPrice,
+            int quantity,
+            String productCategory,
+            String? productCategoryS,
+            String? productCategoryT,
+            String? oldProductName,
+            int? idProduct)?
+        addNewProduct,
     TResult Function(String title, String description, Uint8List image)?
         addNewBrand,
     TResult Function(String searchText)? loadBrands,
+    TResult Function(int idOrganization, List<ProductTypeModel>? productTypes,
+            String? searchPath, BrandModel? searchBrand)?
+        loadProducts,
     required TResult orElse(),
   }) {
     if (loadBrands != null) {
@@ -741,8 +1435,10 @@ class _$_$ProductLoadBrandsEvent
         loadCategories,
     required TResult Function(_$ProductAddNewCategoriesEvent value)
         addNewCategories,
+    required TResult Function(_$ProductAddNewProductEvent value) addNewProduct,
     required TResult Function(_$ProductAddNewBrandEvent value) addNewBrand,
     required TResult Function(_$ProductLoadBrandsEvent value) loadBrands,
+    required TResult Function(_$ProductsLoadEvent value) loadProducts,
   }) {
     return loadBrands(this);
   }
@@ -752,8 +1448,10 @@ class _$_$ProductLoadBrandsEvent
   TResult? mapOrNull<TResult extends Object?>({
     TResult? Function(_$ProductLoadCategoriesEvent value)? loadCategories,
     TResult? Function(_$ProductAddNewCategoriesEvent value)? addNewCategories,
+    TResult? Function(_$ProductAddNewProductEvent value)? addNewProduct,
     TResult? Function(_$ProductAddNewBrandEvent value)? addNewBrand,
     TResult? Function(_$ProductLoadBrandsEvent value)? loadBrands,
+    TResult? Function(_$ProductsLoadEvent value)? loadProducts,
   }) {
     return loadBrands?.call(this);
   }
@@ -763,8 +1461,10 @@ class _$_$ProductLoadBrandsEvent
   TResult maybeMap<TResult extends Object?>({
     TResult Function(_$ProductLoadCategoriesEvent value)? loadCategories,
     TResult Function(_$ProductAddNewCategoriesEvent value)? addNewCategories,
+    TResult Function(_$ProductAddNewProductEvent value)? addNewProduct,
     TResult Function(_$ProductAddNewBrandEvent value)? addNewBrand,
     TResult Function(_$ProductLoadBrandsEvent value)? loadBrands,
+    TResult Function(_$ProductsLoadEvent value)? loadProducts,
     required TResult orElse(),
   }) {
     if (loadBrands != null) {
@@ -785,12 +1485,294 @@ abstract class _$ProductLoadBrandsEvent implements ProductEvent {
 }
 
 /// @nodoc
+abstract class _$$_$ProductsLoadEventCopyWith<$Res> {
+  factory _$$_$ProductsLoadEventCopyWith(_$_$ProductsLoadEvent value,
+          $Res Function(_$_$ProductsLoadEvent) then) =
+      __$$_$ProductsLoadEventCopyWithImpl<$Res>;
+  @useResult
+  $Res call(
+      {int idOrganization,
+      List<ProductTypeModel>? productTypes,
+      String? searchPath,
+      BrandModel? searchBrand});
+}
+
+/// @nodoc
+class __$$_$ProductsLoadEventCopyWithImpl<$Res>
+    extends _$ProductEventCopyWithImpl<$Res, _$_$ProductsLoadEvent>
+    implements _$$_$ProductsLoadEventCopyWith<$Res> {
+  __$$_$ProductsLoadEventCopyWithImpl(
+      _$_$ProductsLoadEvent _value, $Res Function(_$_$ProductsLoadEvent) _then)
+      : super(_value, _then);
+
+  @pragma('vm:prefer-inline')
+  @override
+  $Res call({
+    Object? idOrganization = null,
+    Object? productTypes = freezed,
+    Object? searchPath = freezed,
+    Object? searchBrand = freezed,
+  }) {
+    return _then(_$_$ProductsLoadEvent(
+      null == idOrganization
+          ? _value.idOrganization
+          : idOrganization // ignore: cast_nullable_to_non_nullable
+              as int,
+      freezed == productTypes
+          ? _value._productTypes
+          : productTypes // ignore: cast_nullable_to_non_nullable
+              as List<ProductTypeModel>?,
+      freezed == searchPath
+          ? _value.searchPath
+          : searchPath // ignore: cast_nullable_to_non_nullable
+              as String?,
+      freezed == searchBrand
+          ? _value.searchBrand
+          : searchBrand // ignore: cast_nullable_to_non_nullable
+              as BrandModel?,
+    ));
+  }
+}
+
+/// @nodoc
+
+class _$_$ProductsLoadEvent
+    with DiagnosticableTreeMixin
+    implements _$ProductsLoadEvent {
+  const _$_$ProductsLoadEvent(
+      this.idOrganization,
+      final List<ProductTypeModel>? productTypes,
+      this.searchPath,
+      this.searchBrand)
+      : _productTypes = productTypes;
+
+  @override
+  final int idOrganization;
+  final List<ProductTypeModel>? _productTypes;
+  @override
+  List<ProductTypeModel>? get productTypes {
+    final value = _productTypes;
+    if (value == null) return null;
+    // ignore: implicit_dynamic_type
+    return EqualUnmodifiableListView(value);
+  }
+
+  @override
+  final String? searchPath;
+  @override
+  final BrandModel? searchBrand;
+
+  @override
+  String toString({DiagnosticLevel minLevel = DiagnosticLevel.info}) {
+    return 'ProductEvent.loadProducts(idOrganization: $idOrganization, productTypes: $productTypes, searchPath: $searchPath, searchBrand: $searchBrand)';
+  }
+
+  @override
+  void debugFillProperties(DiagnosticPropertiesBuilder properties) {
+    super.debugFillProperties(properties);
+    properties
+      ..add(DiagnosticsProperty('type', 'ProductEvent.loadProducts'))
+      ..add(DiagnosticsProperty('idOrganization', idOrganization))
+      ..add(DiagnosticsProperty('productTypes', productTypes))
+      ..add(DiagnosticsProperty('searchPath', searchPath))
+      ..add(DiagnosticsProperty('searchBrand', searchBrand));
+  }
+
+  @override
+  bool operator ==(dynamic other) {
+    return identical(this, other) ||
+        (other.runtimeType == runtimeType &&
+            other is _$_$ProductsLoadEvent &&
+            (identical(other.idOrganization, idOrganization) ||
+                other.idOrganization == idOrganization) &&
+            const DeepCollectionEquality()
+                .equals(other._productTypes, _productTypes) &&
+            (identical(other.searchPath, searchPath) ||
+                other.searchPath == searchPath) &&
+            (identical(other.searchBrand, searchBrand) ||
+                other.searchBrand == searchBrand));
+  }
+
+  @override
+  int get hashCode => Object.hash(
+      runtimeType,
+      idOrganization,
+      const DeepCollectionEquality().hash(_productTypes),
+      searchPath,
+      searchBrand);
+
+  @JsonKey(ignore: true)
+  @override
+  @pragma('vm:prefer-inline')
+  _$$_$ProductsLoadEventCopyWith<_$_$ProductsLoadEvent> get copyWith =>
+      __$$_$ProductsLoadEventCopyWithImpl<_$_$ProductsLoadEvent>(
+          this, _$identity);
+
+  @override
+  @optionalTypeArgs
+  TResult when<TResult extends Object?>({
+    required TResult Function(String searchText) loadCategories,
+    required TResult Function(List<ProductTypeModel> categories)
+        addNewCategories,
+    required TResult Function(
+            String brandName,
+            List<Uint8List> album,
+            String productDesc,
+            String productName,
+            double productPrice,
+            int quantity,
+            String productCategory,
+            String? productCategoryS,
+            String? productCategoryT,
+            String? oldProductName,
+            int? idProduct)
+        addNewProduct,
+    required TResult Function(String title, String description, Uint8List image)
+        addNewBrand,
+    required TResult Function(String searchText) loadBrands,
+    required TResult Function(
+            int idOrganization,
+            List<ProductTypeModel>? productTypes,
+            String? searchPath,
+            BrandModel? searchBrand)
+        loadProducts,
+  }) {
+    return loadProducts(idOrganization, productTypes, searchPath, searchBrand);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult? whenOrNull<TResult extends Object?>({
+    TResult? Function(String searchText)? loadCategories,
+    TResult? Function(List<ProductTypeModel> categories)? addNewCategories,
+    TResult? Function(
+            String brandName,
+            List<Uint8List> album,
+            String productDesc,
+            String productName,
+            double productPrice,
+            int quantity,
+            String productCategory,
+            String? productCategoryS,
+            String? productCategoryT,
+            String? oldProductName,
+            int? idProduct)?
+        addNewProduct,
+    TResult? Function(String title, String description, Uint8List image)?
+        addNewBrand,
+    TResult? Function(String searchText)? loadBrands,
+    TResult? Function(int idOrganization, List<ProductTypeModel>? productTypes,
+            String? searchPath, BrandModel? searchBrand)?
+        loadProducts,
+  }) {
+    return loadProducts?.call(
+        idOrganization, productTypes, searchPath, searchBrand);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult maybeWhen<TResult extends Object?>({
+    TResult Function(String searchText)? loadCategories,
+    TResult Function(List<ProductTypeModel> categories)? addNewCategories,
+    TResult Function(
+            String brandName,
+            List<Uint8List> album,
+            String productDesc,
+            String productName,
+            double productPrice,
+            int quantity,
+            String productCategory,
+            String? productCategoryS,
+            String? productCategoryT,
+            String? oldProductName,
+            int? idProduct)?
+        addNewProduct,
+    TResult Function(String title, String description, Uint8List image)?
+        addNewBrand,
+    TResult Function(String searchText)? loadBrands,
+    TResult Function(int idOrganization, List<ProductTypeModel>? productTypes,
+            String? searchPath, BrandModel? searchBrand)?
+        loadProducts,
+    required TResult orElse(),
+  }) {
+    if (loadProducts != null) {
+      return loadProducts(
+          idOrganization, productTypes, searchPath, searchBrand);
+    }
+    return orElse();
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult map<TResult extends Object?>({
+    required TResult Function(_$ProductLoadCategoriesEvent value)
+        loadCategories,
+    required TResult Function(_$ProductAddNewCategoriesEvent value)
+        addNewCategories,
+    required TResult Function(_$ProductAddNewProductEvent value) addNewProduct,
+    required TResult Function(_$ProductAddNewBrandEvent value) addNewBrand,
+    required TResult Function(_$ProductLoadBrandsEvent value) loadBrands,
+    required TResult Function(_$ProductsLoadEvent value) loadProducts,
+  }) {
+    return loadProducts(this);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult? mapOrNull<TResult extends Object?>({
+    TResult? Function(_$ProductLoadCategoriesEvent value)? loadCategories,
+    TResult? Function(_$ProductAddNewCategoriesEvent value)? addNewCategories,
+    TResult? Function(_$ProductAddNewProductEvent value)? addNewProduct,
+    TResult? Function(_$ProductAddNewBrandEvent value)? addNewBrand,
+    TResult? Function(_$ProductLoadBrandsEvent value)? loadBrands,
+    TResult? Function(_$ProductsLoadEvent value)? loadProducts,
+  }) {
+    return loadProducts?.call(this);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult maybeMap<TResult extends Object?>({
+    TResult Function(_$ProductLoadCategoriesEvent value)? loadCategories,
+    TResult Function(_$ProductAddNewCategoriesEvent value)? addNewCategories,
+    TResult Function(_$ProductAddNewProductEvent value)? addNewProduct,
+    TResult Function(_$ProductAddNewBrandEvent value)? addNewBrand,
+    TResult Function(_$ProductLoadBrandsEvent value)? loadBrands,
+    TResult Function(_$ProductsLoadEvent value)? loadProducts,
+    required TResult orElse(),
+  }) {
+    if (loadProducts != null) {
+      return loadProducts(this);
+    }
+    return orElse();
+  }
+}
+
+abstract class _$ProductsLoadEvent implements ProductEvent {
+  const factory _$ProductsLoadEvent(
+      final int idOrganization,
+      final List<ProductTypeModel>? productTypes,
+      final String? searchPath,
+      final BrandModel? searchBrand) = _$_$ProductsLoadEvent;
+
+  int get idOrganization;
+  List<ProductTypeModel>? get productTypes;
+  String? get searchPath;
+  BrandModel? get searchBrand;
+  @JsonKey(ignore: true)
+  _$$_$ProductsLoadEventCopyWith<_$_$ProductsLoadEvent> get copyWith =>
+      throw _privateConstructorUsedError;
+}
+
+/// @nodoc
 mixin _$ProductState {
   @optionalTypeArgs
   TResult when<TResult extends Object?>({
     required TResult Function() initial,
     required TResult Function(String error) errored,
     required TResult Function(bool isMass) loading,
+    required TResult Function(ProductModel product) productAdded,
+    required TResult Function(List<ProductModel> productModel) loaded,
     required TResult Function(List<ProductTypeModel> categories)
         categoriesLoaded,
     required TResult Function(List<BrandModel> brands) brandsLoaded,
@@ -804,6 +1786,8 @@ mixin _$ProductState {
     TResult? Function()? initial,
     TResult? Function(String error)? errored,
     TResult? Function(bool isMass)? loading,
+    TResult? Function(ProductModel product)? productAdded,
+    TResult? Function(List<ProductModel> productModel)? loaded,
     TResult? Function(List<ProductTypeModel> categories)? categoriesLoaded,
     TResult? Function(List<BrandModel> brands)? brandsLoaded,
     TResult? Function(BrandModel addedBrand)? brandAdded,
@@ -815,6 +1799,8 @@ mixin _$ProductState {
     TResult Function()? initial,
     TResult Function(String error)? errored,
     TResult Function(bool isMass)? loading,
+    TResult Function(ProductModel product)? productAdded,
+    TResult Function(List<ProductModel> productModel)? loaded,
     TResult Function(List<ProductTypeModel> categories)? categoriesLoaded,
     TResult Function(List<BrandModel> brands)? brandsLoaded,
     TResult Function(BrandModel addedBrand)? brandAdded,
@@ -827,6 +1813,8 @@ mixin _$ProductState {
     required TResult Function(_$ProductInitialState value) initial,
     required TResult Function(_$ProductErroredState value) errored,
     required TResult Function(_$ProductLoadingState value) loading,
+    required TResult Function(_$ProductAddedState value) productAdded,
+    required TResult Function(_$ProductsLoadedState value) loaded,
     required TResult Function(_$ProductCategoriesLoadedState value)
         categoriesLoaded,
     required TResult Function(_$ProductBrandsLoadedState value) brandsLoaded,
@@ -840,6 +1828,8 @@ mixin _$ProductState {
     TResult? Function(_$ProductInitialState value)? initial,
     TResult? Function(_$ProductErroredState value)? errored,
     TResult? Function(_$ProductLoadingState value)? loading,
+    TResult? Function(_$ProductAddedState value)? productAdded,
+    TResult? Function(_$ProductsLoadedState value)? loaded,
     TResult? Function(_$ProductCategoriesLoadedState value)? categoriesLoaded,
     TResult? Function(_$ProductBrandsLoadedState value)? brandsLoaded,
     TResult? Function(_$ProductBrandAddedState value)? brandAdded,
@@ -851,6 +1841,8 @@ mixin _$ProductState {
     TResult Function(_$ProductInitialState value)? initial,
     TResult Function(_$ProductErroredState value)? errored,
     TResult Function(_$ProductLoadingState value)? loading,
+    TResult Function(_$ProductAddedState value)? productAdded,
+    TResult Function(_$ProductsLoadedState value)? loaded,
     TResult Function(_$ProductCategoriesLoadedState value)? categoriesLoaded,
     TResult Function(_$ProductBrandsLoadedState value)? brandsLoaded,
     TResult Function(_$ProductBrandAddedState value)? brandAdded,
@@ -927,6 +1919,8 @@ class _$_$ProductInitialState
     required TResult Function() initial,
     required TResult Function(String error) errored,
     required TResult Function(bool isMass) loading,
+    required TResult Function(ProductModel product) productAdded,
+    required TResult Function(List<ProductModel> productModel) loaded,
     required TResult Function(List<ProductTypeModel> categories)
         categoriesLoaded,
     required TResult Function(List<BrandModel> brands) brandsLoaded,
@@ -943,6 +1937,8 @@ class _$_$ProductInitialState
     TResult? Function()? initial,
     TResult? Function(String error)? errored,
     TResult? Function(bool isMass)? loading,
+    TResult? Function(ProductModel product)? productAdded,
+    TResult? Function(List<ProductModel> productModel)? loaded,
     TResult? Function(List<ProductTypeModel> categories)? categoriesLoaded,
     TResult? Function(List<BrandModel> brands)? brandsLoaded,
     TResult? Function(BrandModel addedBrand)? brandAdded,
@@ -957,6 +1953,8 @@ class _$_$ProductInitialState
     TResult Function()? initial,
     TResult Function(String error)? errored,
     TResult Function(bool isMass)? loading,
+    TResult Function(ProductModel product)? productAdded,
+    TResult Function(List<ProductModel> productModel)? loaded,
     TResult Function(List<ProductTypeModel> categories)? categoriesLoaded,
     TResult Function(List<BrandModel> brands)? brandsLoaded,
     TResult Function(BrandModel addedBrand)? brandAdded,
@@ -975,6 +1973,8 @@ class _$_$ProductInitialState
     required TResult Function(_$ProductInitialState value) initial,
     required TResult Function(_$ProductErroredState value) errored,
     required TResult Function(_$ProductLoadingState value) loading,
+    required TResult Function(_$ProductAddedState value) productAdded,
+    required TResult Function(_$ProductsLoadedState value) loaded,
     required TResult Function(_$ProductCategoriesLoadedState value)
         categoriesLoaded,
     required TResult Function(_$ProductBrandsLoadedState value) brandsLoaded,
@@ -991,6 +1991,8 @@ class _$_$ProductInitialState
     TResult? Function(_$ProductInitialState value)? initial,
     TResult? Function(_$ProductErroredState value)? errored,
     TResult? Function(_$ProductLoadingState value)? loading,
+    TResult? Function(_$ProductAddedState value)? productAdded,
+    TResult? Function(_$ProductsLoadedState value)? loaded,
     TResult? Function(_$ProductCategoriesLoadedState value)? categoriesLoaded,
     TResult? Function(_$ProductBrandsLoadedState value)? brandsLoaded,
     TResult? Function(_$ProductBrandAddedState value)? brandAdded,
@@ -1005,6 +2007,8 @@ class _$_$ProductInitialState
     TResult Function(_$ProductInitialState value)? initial,
     TResult Function(_$ProductErroredState value)? errored,
     TResult Function(_$ProductLoadingState value)? loading,
+    TResult Function(_$ProductAddedState value)? productAdded,
+    TResult Function(_$ProductsLoadedState value)? loaded,
     TResult Function(_$ProductCategoriesLoadedState value)? categoriesLoaded,
     TResult Function(_$ProductBrandsLoadedState value)? brandsLoaded,
     TResult Function(_$ProductBrandAddedState value)? brandAdded,
@@ -1100,6 +2104,8 @@ class _$_$ProductErroredState
     required TResult Function() initial,
     required TResult Function(String error) errored,
     required TResult Function(bool isMass) loading,
+    required TResult Function(ProductModel product) productAdded,
+    required TResult Function(List<ProductModel> productModel) loaded,
     required TResult Function(List<ProductTypeModel> categories)
         categoriesLoaded,
     required TResult Function(List<BrandModel> brands) brandsLoaded,
@@ -1116,6 +2122,8 @@ class _$_$ProductErroredState
     TResult? Function()? initial,
     TResult? Function(String error)? errored,
     TResult? Function(bool isMass)? loading,
+    TResult? Function(ProductModel product)? productAdded,
+    TResult? Function(List<ProductModel> productModel)? loaded,
     TResult? Function(List<ProductTypeModel> categories)? categoriesLoaded,
     TResult? Function(List<BrandModel> brands)? brandsLoaded,
     TResult? Function(BrandModel addedBrand)? brandAdded,
@@ -1130,6 +2138,8 @@ class _$_$ProductErroredState
     TResult Function()? initial,
     TResult Function(String error)? errored,
     TResult Function(bool isMass)? loading,
+    TResult Function(ProductModel product)? productAdded,
+    TResult Function(List<ProductModel> productModel)? loaded,
     TResult Function(List<ProductTypeModel> categories)? categoriesLoaded,
     TResult Function(List<BrandModel> brands)? brandsLoaded,
     TResult Function(BrandModel addedBrand)? brandAdded,
@@ -1148,6 +2158,8 @@ class _$_$ProductErroredState
     required TResult Function(_$ProductInitialState value) initial,
     required TResult Function(_$ProductErroredState value) errored,
     required TResult Function(_$ProductLoadingState value) loading,
+    required TResult Function(_$ProductAddedState value) productAdded,
+    required TResult Function(_$ProductsLoadedState value) loaded,
     required TResult Function(_$ProductCategoriesLoadedState value)
         categoriesLoaded,
     required TResult Function(_$ProductBrandsLoadedState value) brandsLoaded,
@@ -1164,6 +2176,8 @@ class _$_$ProductErroredState
     TResult? Function(_$ProductInitialState value)? initial,
     TResult? Function(_$ProductErroredState value)? errored,
     TResult? Function(_$ProductLoadingState value)? loading,
+    TResult? Function(_$ProductAddedState value)? productAdded,
+    TResult? Function(_$ProductsLoadedState value)? loaded,
     TResult? Function(_$ProductCategoriesLoadedState value)? categoriesLoaded,
     TResult? Function(_$ProductBrandsLoadedState value)? brandsLoaded,
     TResult? Function(_$ProductBrandAddedState value)? brandAdded,
@@ -1178,6 +2192,8 @@ class _$_$ProductErroredState
     TResult Function(_$ProductInitialState value)? initial,
     TResult Function(_$ProductErroredState value)? errored,
     TResult Function(_$ProductLoadingState value)? loading,
+    TResult Function(_$ProductAddedState value)? productAdded,
+    TResult Function(_$ProductsLoadedState value)? loaded,
     TResult Function(_$ProductCategoriesLoadedState value)? categoriesLoaded,
     TResult Function(_$ProductBrandsLoadedState value)? brandsLoaded,
     TResult Function(_$ProductBrandAddedState value)? brandAdded,
@@ -1279,6 +2295,8 @@ class _$_$ProductLoadingState
     required TResult Function() initial,
     required TResult Function(String error) errored,
     required TResult Function(bool isMass) loading,
+    required TResult Function(ProductModel product) productAdded,
+    required TResult Function(List<ProductModel> productModel) loaded,
     required TResult Function(List<ProductTypeModel> categories)
         categoriesLoaded,
     required TResult Function(List<BrandModel> brands) brandsLoaded,
@@ -1295,6 +2313,8 @@ class _$_$ProductLoadingState
     TResult? Function()? initial,
     TResult? Function(String error)? errored,
     TResult? Function(bool isMass)? loading,
+    TResult? Function(ProductModel product)? productAdded,
+    TResult? Function(List<ProductModel> productModel)? loaded,
     TResult? Function(List<ProductTypeModel> categories)? categoriesLoaded,
     TResult? Function(List<BrandModel> brands)? brandsLoaded,
     TResult? Function(BrandModel addedBrand)? brandAdded,
@@ -1309,6 +2329,8 @@ class _$_$ProductLoadingState
     TResult Function()? initial,
     TResult Function(String error)? errored,
     TResult Function(bool isMass)? loading,
+    TResult Function(ProductModel product)? productAdded,
+    TResult Function(List<ProductModel> productModel)? loaded,
     TResult Function(List<ProductTypeModel> categories)? categoriesLoaded,
     TResult Function(List<BrandModel> brands)? brandsLoaded,
     TResult Function(BrandModel addedBrand)? brandAdded,
@@ -1327,6 +2349,8 @@ class _$_$ProductLoadingState
     required TResult Function(_$ProductInitialState value) initial,
     required TResult Function(_$ProductErroredState value) errored,
     required TResult Function(_$ProductLoadingState value) loading,
+    required TResult Function(_$ProductAddedState value) productAdded,
+    required TResult Function(_$ProductsLoadedState value) loaded,
     required TResult Function(_$ProductCategoriesLoadedState value)
         categoriesLoaded,
     required TResult Function(_$ProductBrandsLoadedState value) brandsLoaded,
@@ -1343,6 +2367,8 @@ class _$_$ProductLoadingState
     TResult? Function(_$ProductInitialState value)? initial,
     TResult? Function(_$ProductErroredState value)? errored,
     TResult? Function(_$ProductLoadingState value)? loading,
+    TResult? Function(_$ProductAddedState value)? productAdded,
+    TResult? Function(_$ProductsLoadedState value)? loaded,
     TResult? Function(_$ProductCategoriesLoadedState value)? categoriesLoaded,
     TResult? Function(_$ProductBrandsLoadedState value)? brandsLoaded,
     TResult? Function(_$ProductBrandAddedState value)? brandAdded,
@@ -1357,6 +2383,8 @@ class _$_$ProductLoadingState
     TResult Function(_$ProductInitialState value)? initial,
     TResult Function(_$ProductErroredState value)? errored,
     TResult Function(_$ProductLoadingState value)? loading,
+    TResult Function(_$ProductAddedState value)? productAdded,
+    TResult Function(_$ProductsLoadedState value)? loaded,
     TResult Function(_$ProductCategoriesLoadedState value)? categoriesLoaded,
     TResult Function(_$ProductBrandsLoadedState value)? brandsLoaded,
     TResult Function(_$ProductBrandAddedState value)? brandAdded,
@@ -1377,6 +2405,395 @@ abstract class _$ProductLoadingState implements ProductState {
   bool get isMass;
   @JsonKey(ignore: true)
   _$$_$ProductLoadingStateCopyWith<_$_$ProductLoadingState> get copyWith =>
+      throw _privateConstructorUsedError;
+}
+
+/// @nodoc
+abstract class _$$_$ProductAddedStateCopyWith<$Res> {
+  factory _$$_$ProductAddedStateCopyWith(_$_$ProductAddedState value,
+          $Res Function(_$_$ProductAddedState) then) =
+      __$$_$ProductAddedStateCopyWithImpl<$Res>;
+  @useResult
+  $Res call({ProductModel product});
+}
+
+/// @nodoc
+class __$$_$ProductAddedStateCopyWithImpl<$Res>
+    extends _$ProductStateCopyWithImpl<$Res, _$_$ProductAddedState>
+    implements _$$_$ProductAddedStateCopyWith<$Res> {
+  __$$_$ProductAddedStateCopyWithImpl(
+      _$_$ProductAddedState _value, $Res Function(_$_$ProductAddedState) _then)
+      : super(_value, _then);
+
+  @pragma('vm:prefer-inline')
+  @override
+  $Res call({
+    Object? product = null,
+  }) {
+    return _then(_$_$ProductAddedState(
+      null == product
+          ? _value.product
+          : product // ignore: cast_nullable_to_non_nullable
+              as ProductModel,
+    ));
+  }
+}
+
+/// @nodoc
+
+class _$_$ProductAddedState
+    with DiagnosticableTreeMixin
+    implements _$ProductAddedState {
+  const _$_$ProductAddedState(this.product);
+
+  @override
+  final ProductModel product;
+
+  @override
+  String toString({DiagnosticLevel minLevel = DiagnosticLevel.info}) {
+    return 'ProductState.productAdded(product: $product)';
+  }
+
+  @override
+  void debugFillProperties(DiagnosticPropertiesBuilder properties) {
+    super.debugFillProperties(properties);
+    properties
+      ..add(DiagnosticsProperty('type', 'ProductState.productAdded'))
+      ..add(DiagnosticsProperty('product', product));
+  }
+
+  @override
+  bool operator ==(dynamic other) {
+    return identical(this, other) ||
+        (other.runtimeType == runtimeType &&
+            other is _$_$ProductAddedState &&
+            (identical(other.product, product) || other.product == product));
+  }
+
+  @override
+  int get hashCode => Object.hash(runtimeType, product);
+
+  @JsonKey(ignore: true)
+  @override
+  @pragma('vm:prefer-inline')
+  _$$_$ProductAddedStateCopyWith<_$_$ProductAddedState> get copyWith =>
+      __$$_$ProductAddedStateCopyWithImpl<_$_$ProductAddedState>(
+          this, _$identity);
+
+  @override
+  @optionalTypeArgs
+  TResult when<TResult extends Object?>({
+    required TResult Function() initial,
+    required TResult Function(String error) errored,
+    required TResult Function(bool isMass) loading,
+    required TResult Function(ProductModel product) productAdded,
+    required TResult Function(List<ProductModel> productModel) loaded,
+    required TResult Function(List<ProductTypeModel> categories)
+        categoriesLoaded,
+    required TResult Function(List<BrandModel> brands) brandsLoaded,
+    required TResult Function(BrandModel addedBrand) brandAdded,
+    required TResult Function(List<ProductTypeModel> categories)
+        categoriesAdded,
+  }) {
+    return productAdded(product);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult? whenOrNull<TResult extends Object?>({
+    TResult? Function()? initial,
+    TResult? Function(String error)? errored,
+    TResult? Function(bool isMass)? loading,
+    TResult? Function(ProductModel product)? productAdded,
+    TResult? Function(List<ProductModel> productModel)? loaded,
+    TResult? Function(List<ProductTypeModel> categories)? categoriesLoaded,
+    TResult? Function(List<BrandModel> brands)? brandsLoaded,
+    TResult? Function(BrandModel addedBrand)? brandAdded,
+    TResult? Function(List<ProductTypeModel> categories)? categoriesAdded,
+  }) {
+    return productAdded?.call(product);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult maybeWhen<TResult extends Object?>({
+    TResult Function()? initial,
+    TResult Function(String error)? errored,
+    TResult Function(bool isMass)? loading,
+    TResult Function(ProductModel product)? productAdded,
+    TResult Function(List<ProductModel> productModel)? loaded,
+    TResult Function(List<ProductTypeModel> categories)? categoriesLoaded,
+    TResult Function(List<BrandModel> brands)? brandsLoaded,
+    TResult Function(BrandModel addedBrand)? brandAdded,
+    TResult Function(List<ProductTypeModel> categories)? categoriesAdded,
+    required TResult orElse(),
+  }) {
+    if (productAdded != null) {
+      return productAdded(product);
+    }
+    return orElse();
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult map<TResult extends Object?>({
+    required TResult Function(_$ProductInitialState value) initial,
+    required TResult Function(_$ProductErroredState value) errored,
+    required TResult Function(_$ProductLoadingState value) loading,
+    required TResult Function(_$ProductAddedState value) productAdded,
+    required TResult Function(_$ProductsLoadedState value) loaded,
+    required TResult Function(_$ProductCategoriesLoadedState value)
+        categoriesLoaded,
+    required TResult Function(_$ProductBrandsLoadedState value) brandsLoaded,
+    required TResult Function(_$ProductBrandAddedState value) brandAdded,
+    required TResult Function(_$ProductCategoriesAddedState value)
+        categoriesAdded,
+  }) {
+    return productAdded(this);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult? mapOrNull<TResult extends Object?>({
+    TResult? Function(_$ProductInitialState value)? initial,
+    TResult? Function(_$ProductErroredState value)? errored,
+    TResult? Function(_$ProductLoadingState value)? loading,
+    TResult? Function(_$ProductAddedState value)? productAdded,
+    TResult? Function(_$ProductsLoadedState value)? loaded,
+    TResult? Function(_$ProductCategoriesLoadedState value)? categoriesLoaded,
+    TResult? Function(_$ProductBrandsLoadedState value)? brandsLoaded,
+    TResult? Function(_$ProductBrandAddedState value)? brandAdded,
+    TResult? Function(_$ProductCategoriesAddedState value)? categoriesAdded,
+  }) {
+    return productAdded?.call(this);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult maybeMap<TResult extends Object?>({
+    TResult Function(_$ProductInitialState value)? initial,
+    TResult Function(_$ProductErroredState value)? errored,
+    TResult Function(_$ProductLoadingState value)? loading,
+    TResult Function(_$ProductAddedState value)? productAdded,
+    TResult Function(_$ProductsLoadedState value)? loaded,
+    TResult Function(_$ProductCategoriesLoadedState value)? categoriesLoaded,
+    TResult Function(_$ProductBrandsLoadedState value)? brandsLoaded,
+    TResult Function(_$ProductBrandAddedState value)? brandAdded,
+    TResult Function(_$ProductCategoriesAddedState value)? categoriesAdded,
+    required TResult orElse(),
+  }) {
+    if (productAdded != null) {
+      return productAdded(this);
+    }
+    return orElse();
+  }
+}
+
+abstract class _$ProductAddedState implements ProductState {
+  const factory _$ProductAddedState(final ProductModel product) =
+      _$_$ProductAddedState;
+
+  ProductModel get product;
+  @JsonKey(ignore: true)
+  _$$_$ProductAddedStateCopyWith<_$_$ProductAddedState> get copyWith =>
+      throw _privateConstructorUsedError;
+}
+
+/// @nodoc
+abstract class _$$_$ProductsLoadedStateCopyWith<$Res> {
+  factory _$$_$ProductsLoadedStateCopyWith(_$_$ProductsLoadedState value,
+          $Res Function(_$_$ProductsLoadedState) then) =
+      __$$_$ProductsLoadedStateCopyWithImpl<$Res>;
+  @useResult
+  $Res call({List<ProductModel> productModel});
+}
+
+/// @nodoc
+class __$$_$ProductsLoadedStateCopyWithImpl<$Res>
+    extends _$ProductStateCopyWithImpl<$Res, _$_$ProductsLoadedState>
+    implements _$$_$ProductsLoadedStateCopyWith<$Res> {
+  __$$_$ProductsLoadedStateCopyWithImpl(_$_$ProductsLoadedState _value,
+      $Res Function(_$_$ProductsLoadedState) _then)
+      : super(_value, _then);
+
+  @pragma('vm:prefer-inline')
+  @override
+  $Res call({
+    Object? productModel = null,
+  }) {
+    return _then(_$_$ProductsLoadedState(
+      null == productModel
+          ? _value._productModel
+          : productModel // ignore: cast_nullable_to_non_nullable
+              as List<ProductModel>,
+    ));
+  }
+}
+
+/// @nodoc
+
+class _$_$ProductsLoadedState
+    with DiagnosticableTreeMixin
+    implements _$ProductsLoadedState {
+  const _$_$ProductsLoadedState(final List<ProductModel> productModel)
+      : _productModel = productModel;
+
+  final List<ProductModel> _productModel;
+  @override
+  List<ProductModel> get productModel {
+    // ignore: implicit_dynamic_type
+    return EqualUnmodifiableListView(_productModel);
+  }
+
+  @override
+  String toString({DiagnosticLevel minLevel = DiagnosticLevel.info}) {
+    return 'ProductState.loaded(productModel: $productModel)';
+  }
+
+  @override
+  void debugFillProperties(DiagnosticPropertiesBuilder properties) {
+    super.debugFillProperties(properties);
+    properties
+      ..add(DiagnosticsProperty('type', 'ProductState.loaded'))
+      ..add(DiagnosticsProperty('productModel', productModel));
+  }
+
+  @override
+  bool operator ==(dynamic other) {
+    return identical(this, other) ||
+        (other.runtimeType == runtimeType &&
+            other is _$_$ProductsLoadedState &&
+            const DeepCollectionEquality()
+                .equals(other._productModel, _productModel));
+  }
+
+  @override
+  int get hashCode => Object.hash(
+      runtimeType, const DeepCollectionEquality().hash(_productModel));
+
+  @JsonKey(ignore: true)
+  @override
+  @pragma('vm:prefer-inline')
+  _$$_$ProductsLoadedStateCopyWith<_$_$ProductsLoadedState> get copyWith =>
+      __$$_$ProductsLoadedStateCopyWithImpl<_$_$ProductsLoadedState>(
+          this, _$identity);
+
+  @override
+  @optionalTypeArgs
+  TResult when<TResult extends Object?>({
+    required TResult Function() initial,
+    required TResult Function(String error) errored,
+    required TResult Function(bool isMass) loading,
+    required TResult Function(ProductModel product) productAdded,
+    required TResult Function(List<ProductModel> productModel) loaded,
+    required TResult Function(List<ProductTypeModel> categories)
+        categoriesLoaded,
+    required TResult Function(List<BrandModel> brands) brandsLoaded,
+    required TResult Function(BrandModel addedBrand) brandAdded,
+    required TResult Function(List<ProductTypeModel> categories)
+        categoriesAdded,
+  }) {
+    return loaded(productModel);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult? whenOrNull<TResult extends Object?>({
+    TResult? Function()? initial,
+    TResult? Function(String error)? errored,
+    TResult? Function(bool isMass)? loading,
+    TResult? Function(ProductModel product)? productAdded,
+    TResult? Function(List<ProductModel> productModel)? loaded,
+    TResult? Function(List<ProductTypeModel> categories)? categoriesLoaded,
+    TResult? Function(List<BrandModel> brands)? brandsLoaded,
+    TResult? Function(BrandModel addedBrand)? brandAdded,
+    TResult? Function(List<ProductTypeModel> categories)? categoriesAdded,
+  }) {
+    return loaded?.call(productModel);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult maybeWhen<TResult extends Object?>({
+    TResult Function()? initial,
+    TResult Function(String error)? errored,
+    TResult Function(bool isMass)? loading,
+    TResult Function(ProductModel product)? productAdded,
+    TResult Function(List<ProductModel> productModel)? loaded,
+    TResult Function(List<ProductTypeModel> categories)? categoriesLoaded,
+    TResult Function(List<BrandModel> brands)? brandsLoaded,
+    TResult Function(BrandModel addedBrand)? brandAdded,
+    TResult Function(List<ProductTypeModel> categories)? categoriesAdded,
+    required TResult orElse(),
+  }) {
+    if (loaded != null) {
+      return loaded(productModel);
+    }
+    return orElse();
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult map<TResult extends Object?>({
+    required TResult Function(_$ProductInitialState value) initial,
+    required TResult Function(_$ProductErroredState value) errored,
+    required TResult Function(_$ProductLoadingState value) loading,
+    required TResult Function(_$ProductAddedState value) productAdded,
+    required TResult Function(_$ProductsLoadedState value) loaded,
+    required TResult Function(_$ProductCategoriesLoadedState value)
+        categoriesLoaded,
+    required TResult Function(_$ProductBrandsLoadedState value) brandsLoaded,
+    required TResult Function(_$ProductBrandAddedState value) brandAdded,
+    required TResult Function(_$ProductCategoriesAddedState value)
+        categoriesAdded,
+  }) {
+    return loaded(this);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult? mapOrNull<TResult extends Object?>({
+    TResult? Function(_$ProductInitialState value)? initial,
+    TResult? Function(_$ProductErroredState value)? errored,
+    TResult? Function(_$ProductLoadingState value)? loading,
+    TResult? Function(_$ProductAddedState value)? productAdded,
+    TResult? Function(_$ProductsLoadedState value)? loaded,
+    TResult? Function(_$ProductCategoriesLoadedState value)? categoriesLoaded,
+    TResult? Function(_$ProductBrandsLoadedState value)? brandsLoaded,
+    TResult? Function(_$ProductBrandAddedState value)? brandAdded,
+    TResult? Function(_$ProductCategoriesAddedState value)? categoriesAdded,
+  }) {
+    return loaded?.call(this);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult maybeMap<TResult extends Object?>({
+    TResult Function(_$ProductInitialState value)? initial,
+    TResult Function(_$ProductErroredState value)? errored,
+    TResult Function(_$ProductLoadingState value)? loading,
+    TResult Function(_$ProductAddedState value)? productAdded,
+    TResult Function(_$ProductsLoadedState value)? loaded,
+    TResult Function(_$ProductCategoriesLoadedState value)? categoriesLoaded,
+    TResult Function(_$ProductBrandsLoadedState value)? brandsLoaded,
+    TResult Function(_$ProductBrandAddedState value)? brandAdded,
+    TResult Function(_$ProductCategoriesAddedState value)? categoriesAdded,
+    required TResult orElse(),
+  }) {
+    if (loaded != null) {
+      return loaded(this);
+    }
+    return orElse();
+  }
+}
+
+abstract class _$ProductsLoadedState implements ProductState {
+  const factory _$ProductsLoadedState(final List<ProductModel> productModel) =
+      _$_$ProductsLoadedState;
+
+  List<ProductModel> get productModel;
+  @JsonKey(ignore: true)
+  _$$_$ProductsLoadedStateCopyWith<_$_$ProductsLoadedState> get copyWith =>
       throw _privateConstructorUsedError;
 }
 
@@ -1468,6 +2885,8 @@ class _$_$ProductCategoriesLoadedState
     required TResult Function() initial,
     required TResult Function(String error) errored,
     required TResult Function(bool isMass) loading,
+    required TResult Function(ProductModel product) productAdded,
+    required TResult Function(List<ProductModel> productModel) loaded,
     required TResult Function(List<ProductTypeModel> categories)
         categoriesLoaded,
     required TResult Function(List<BrandModel> brands) brandsLoaded,
@@ -1484,6 +2903,8 @@ class _$_$ProductCategoriesLoadedState
     TResult? Function()? initial,
     TResult? Function(String error)? errored,
     TResult? Function(bool isMass)? loading,
+    TResult? Function(ProductModel product)? productAdded,
+    TResult? Function(List<ProductModel> productModel)? loaded,
     TResult? Function(List<ProductTypeModel> categories)? categoriesLoaded,
     TResult? Function(List<BrandModel> brands)? brandsLoaded,
     TResult? Function(BrandModel addedBrand)? brandAdded,
@@ -1498,6 +2919,8 @@ class _$_$ProductCategoriesLoadedState
     TResult Function()? initial,
     TResult Function(String error)? errored,
     TResult Function(bool isMass)? loading,
+    TResult Function(ProductModel product)? productAdded,
+    TResult Function(List<ProductModel> productModel)? loaded,
     TResult Function(List<ProductTypeModel> categories)? categoriesLoaded,
     TResult Function(List<BrandModel> brands)? brandsLoaded,
     TResult Function(BrandModel addedBrand)? brandAdded,
@@ -1516,6 +2939,8 @@ class _$_$ProductCategoriesLoadedState
     required TResult Function(_$ProductInitialState value) initial,
     required TResult Function(_$ProductErroredState value) errored,
     required TResult Function(_$ProductLoadingState value) loading,
+    required TResult Function(_$ProductAddedState value) productAdded,
+    required TResult Function(_$ProductsLoadedState value) loaded,
     required TResult Function(_$ProductCategoriesLoadedState value)
         categoriesLoaded,
     required TResult Function(_$ProductBrandsLoadedState value) brandsLoaded,
@@ -1532,6 +2957,8 @@ class _$_$ProductCategoriesLoadedState
     TResult? Function(_$ProductInitialState value)? initial,
     TResult? Function(_$ProductErroredState value)? errored,
     TResult? Function(_$ProductLoadingState value)? loading,
+    TResult? Function(_$ProductAddedState value)? productAdded,
+    TResult? Function(_$ProductsLoadedState value)? loaded,
     TResult? Function(_$ProductCategoriesLoadedState value)? categoriesLoaded,
     TResult? Function(_$ProductBrandsLoadedState value)? brandsLoaded,
     TResult? Function(_$ProductBrandAddedState value)? brandAdded,
@@ -1546,6 +2973,8 @@ class _$_$ProductCategoriesLoadedState
     TResult Function(_$ProductInitialState value)? initial,
     TResult Function(_$ProductErroredState value)? errored,
     TResult Function(_$ProductLoadingState value)? loading,
+    TResult Function(_$ProductAddedState value)? productAdded,
+    TResult Function(_$ProductsLoadedState value)? loaded,
     TResult Function(_$ProductCategoriesLoadedState value)? categoriesLoaded,
     TResult Function(_$ProductBrandsLoadedState value)? brandsLoaded,
     TResult Function(_$ProductBrandAddedState value)? brandAdded,
@@ -1656,6 +3085,8 @@ class _$_$ProductBrandsLoadedState
     required TResult Function() initial,
     required TResult Function(String error) errored,
     required TResult Function(bool isMass) loading,
+    required TResult Function(ProductModel product) productAdded,
+    required TResult Function(List<ProductModel> productModel) loaded,
     required TResult Function(List<ProductTypeModel> categories)
         categoriesLoaded,
     required TResult Function(List<BrandModel> brands) brandsLoaded,
@@ -1672,6 +3103,8 @@ class _$_$ProductBrandsLoadedState
     TResult? Function()? initial,
     TResult? Function(String error)? errored,
     TResult? Function(bool isMass)? loading,
+    TResult? Function(ProductModel product)? productAdded,
+    TResult? Function(List<ProductModel> productModel)? loaded,
     TResult? Function(List<ProductTypeModel> categories)? categoriesLoaded,
     TResult? Function(List<BrandModel> brands)? brandsLoaded,
     TResult? Function(BrandModel addedBrand)? brandAdded,
@@ -1686,6 +3119,8 @@ class _$_$ProductBrandsLoadedState
     TResult Function()? initial,
     TResult Function(String error)? errored,
     TResult Function(bool isMass)? loading,
+    TResult Function(ProductModel product)? productAdded,
+    TResult Function(List<ProductModel> productModel)? loaded,
     TResult Function(List<ProductTypeModel> categories)? categoriesLoaded,
     TResult Function(List<BrandModel> brands)? brandsLoaded,
     TResult Function(BrandModel addedBrand)? brandAdded,
@@ -1704,6 +3139,8 @@ class _$_$ProductBrandsLoadedState
     required TResult Function(_$ProductInitialState value) initial,
     required TResult Function(_$ProductErroredState value) errored,
     required TResult Function(_$ProductLoadingState value) loading,
+    required TResult Function(_$ProductAddedState value) productAdded,
+    required TResult Function(_$ProductsLoadedState value) loaded,
     required TResult Function(_$ProductCategoriesLoadedState value)
         categoriesLoaded,
     required TResult Function(_$ProductBrandsLoadedState value) brandsLoaded,
@@ -1720,6 +3157,8 @@ class _$_$ProductBrandsLoadedState
     TResult? Function(_$ProductInitialState value)? initial,
     TResult? Function(_$ProductErroredState value)? errored,
     TResult? Function(_$ProductLoadingState value)? loading,
+    TResult? Function(_$ProductAddedState value)? productAdded,
+    TResult? Function(_$ProductsLoadedState value)? loaded,
     TResult? Function(_$ProductCategoriesLoadedState value)? categoriesLoaded,
     TResult? Function(_$ProductBrandsLoadedState value)? brandsLoaded,
     TResult? Function(_$ProductBrandAddedState value)? brandAdded,
@@ -1734,6 +3173,8 @@ class _$_$ProductBrandsLoadedState
     TResult Function(_$ProductInitialState value)? initial,
     TResult Function(_$ProductErroredState value)? errored,
     TResult Function(_$ProductLoadingState value)? loading,
+    TResult Function(_$ProductAddedState value)? productAdded,
+    TResult Function(_$ProductsLoadedState value)? loaded,
     TResult Function(_$ProductCategoriesLoadedState value)? categoriesLoaded,
     TResult Function(_$ProductBrandsLoadedState value)? brandsLoaded,
     TResult Function(_$ProductBrandAddedState value)? brandAdded,
@@ -1837,6 +3278,8 @@ class _$_$ProductBrandAddedState
     required TResult Function() initial,
     required TResult Function(String error) errored,
     required TResult Function(bool isMass) loading,
+    required TResult Function(ProductModel product) productAdded,
+    required TResult Function(List<ProductModel> productModel) loaded,
     required TResult Function(List<ProductTypeModel> categories)
         categoriesLoaded,
     required TResult Function(List<BrandModel> brands) brandsLoaded,
@@ -1853,6 +3296,8 @@ class _$_$ProductBrandAddedState
     TResult? Function()? initial,
     TResult? Function(String error)? errored,
     TResult? Function(bool isMass)? loading,
+    TResult? Function(ProductModel product)? productAdded,
+    TResult? Function(List<ProductModel> productModel)? loaded,
     TResult? Function(List<ProductTypeModel> categories)? categoriesLoaded,
     TResult? Function(List<BrandModel> brands)? brandsLoaded,
     TResult? Function(BrandModel addedBrand)? brandAdded,
@@ -1867,6 +3312,8 @@ class _$_$ProductBrandAddedState
     TResult Function()? initial,
     TResult Function(String error)? errored,
     TResult Function(bool isMass)? loading,
+    TResult Function(ProductModel product)? productAdded,
+    TResult Function(List<ProductModel> productModel)? loaded,
     TResult Function(List<ProductTypeModel> categories)? categoriesLoaded,
     TResult Function(List<BrandModel> brands)? brandsLoaded,
     TResult Function(BrandModel addedBrand)? brandAdded,
@@ -1885,6 +3332,8 @@ class _$_$ProductBrandAddedState
     required TResult Function(_$ProductInitialState value) initial,
     required TResult Function(_$ProductErroredState value) errored,
     required TResult Function(_$ProductLoadingState value) loading,
+    required TResult Function(_$ProductAddedState value) productAdded,
+    required TResult Function(_$ProductsLoadedState value) loaded,
     required TResult Function(_$ProductCategoriesLoadedState value)
         categoriesLoaded,
     required TResult Function(_$ProductBrandsLoadedState value) brandsLoaded,
@@ -1901,6 +3350,8 @@ class _$_$ProductBrandAddedState
     TResult? Function(_$ProductInitialState value)? initial,
     TResult? Function(_$ProductErroredState value)? errored,
     TResult? Function(_$ProductLoadingState value)? loading,
+    TResult? Function(_$ProductAddedState value)? productAdded,
+    TResult? Function(_$ProductsLoadedState value)? loaded,
     TResult? Function(_$ProductCategoriesLoadedState value)? categoriesLoaded,
     TResult? Function(_$ProductBrandsLoadedState value)? brandsLoaded,
     TResult? Function(_$ProductBrandAddedState value)? brandAdded,
@@ -1915,6 +3366,8 @@ class _$_$ProductBrandAddedState
     TResult Function(_$ProductInitialState value)? initial,
     TResult Function(_$ProductErroredState value)? errored,
     TResult Function(_$ProductLoadingState value)? loading,
+    TResult Function(_$ProductAddedState value)? productAdded,
+    TResult Function(_$ProductsLoadedState value)? loaded,
     TResult Function(_$ProductCategoriesLoadedState value)? categoriesLoaded,
     TResult Function(_$ProductBrandsLoadedState value)? brandsLoaded,
     TResult Function(_$ProductBrandAddedState value)? brandAdded,
@@ -2025,6 +3478,8 @@ class _$_$ProductCategoriesAddedState
     required TResult Function() initial,
     required TResult Function(String error) errored,
     required TResult Function(bool isMass) loading,
+    required TResult Function(ProductModel product) productAdded,
+    required TResult Function(List<ProductModel> productModel) loaded,
     required TResult Function(List<ProductTypeModel> categories)
         categoriesLoaded,
     required TResult Function(List<BrandModel> brands) brandsLoaded,
@@ -2041,6 +3496,8 @@ class _$_$ProductCategoriesAddedState
     TResult? Function()? initial,
     TResult? Function(String error)? errored,
     TResult? Function(bool isMass)? loading,
+    TResult? Function(ProductModel product)? productAdded,
+    TResult? Function(List<ProductModel> productModel)? loaded,
     TResult? Function(List<ProductTypeModel> categories)? categoriesLoaded,
     TResult? Function(List<BrandModel> brands)? brandsLoaded,
     TResult? Function(BrandModel addedBrand)? brandAdded,
@@ -2055,6 +3512,8 @@ class _$_$ProductCategoriesAddedState
     TResult Function()? initial,
     TResult Function(String error)? errored,
     TResult Function(bool isMass)? loading,
+    TResult Function(ProductModel product)? productAdded,
+    TResult Function(List<ProductModel> productModel)? loaded,
     TResult Function(List<ProductTypeModel> categories)? categoriesLoaded,
     TResult Function(List<BrandModel> brands)? brandsLoaded,
     TResult Function(BrandModel addedBrand)? brandAdded,
@@ -2073,6 +3532,8 @@ class _$_$ProductCategoriesAddedState
     required TResult Function(_$ProductInitialState value) initial,
     required TResult Function(_$ProductErroredState value) errored,
     required TResult Function(_$ProductLoadingState value) loading,
+    required TResult Function(_$ProductAddedState value) productAdded,
+    required TResult Function(_$ProductsLoadedState value) loaded,
     required TResult Function(_$ProductCategoriesLoadedState value)
         categoriesLoaded,
     required TResult Function(_$ProductBrandsLoadedState value) brandsLoaded,
@@ -2089,6 +3550,8 @@ class _$_$ProductCategoriesAddedState
     TResult? Function(_$ProductInitialState value)? initial,
     TResult? Function(_$ProductErroredState value)? errored,
     TResult? Function(_$ProductLoadingState value)? loading,
+    TResult? Function(_$ProductAddedState value)? productAdded,
+    TResult? Function(_$ProductsLoadedState value)? loaded,
     TResult? Function(_$ProductCategoriesLoadedState value)? categoriesLoaded,
     TResult? Function(_$ProductBrandsLoadedState value)? brandsLoaded,
     TResult? Function(_$ProductBrandAddedState value)? brandAdded,
@@ -2103,6 +3566,8 @@ class _$_$ProductCategoriesAddedState
     TResult Function(_$ProductInitialState value)? initial,
     TResult Function(_$ProductErroredState value)? errored,
     TResult Function(_$ProductLoadingState value)? loading,
+    TResult Function(_$ProductAddedState value)? productAdded,
+    TResult Function(_$ProductsLoadedState value)? loaded,
     TResult Function(_$ProductCategoriesLoadedState value)? categoriesLoaded,
     TResult Function(_$ProductBrandsLoadedState value)? brandsLoaded,
     TResult Function(_$ProductBrandAddedState value)? brandAdded,

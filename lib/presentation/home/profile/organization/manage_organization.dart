@@ -3,10 +3,13 @@ import 'dart:ui';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_neumorphic/flutter_neumorphic.dart';
 import 'package:kursach/data/api/model/graphclient.dart';
+import 'package:kursach/domain/model/brand_model.dart';
 import 'package:kursach/domain/model/product_model.dart';
 import 'package:kursach/domain/model/user_model.dart';
+import 'package:kursach/domain/product/bloc/product_bloc.dart';
 import 'package:kursach/presentation/outstanding/card_picker.dart';
 import 'package:kursach/presentation/outstanding/gradientmask.dart';
 import 'package:kursach/presentation/outstanding/product_card.dart';
@@ -20,7 +23,7 @@ class ManageOrganization extends StatefulWidget {
 class _ManageOrganizationState extends State<ManageOrganization> {
   Uint8List? cardImage;
   Uint8List? logoImage;
-
+  List<ProductModel> loadedProducts = [];
   @override
   void initState() {
     var folderPath =
@@ -41,6 +44,10 @@ class _ManageOrganizationState extends State<ManageOrganization> {
         logoImage = value;
       });
     });
+
+    context.read<ProductBloc>().add(ProductEvent.loadProducts(
+        UserModel.get().organizationModel!.idCompany, null, null, null));
+
     super.initState();
   }
 
@@ -150,41 +157,47 @@ class _ManageOrganizationState extends State<ManageOrganization> {
               ),
             ),
           ),
-          SliverFillRemaining(
-            child: Padding(
-              padding: const EdgeInsets.all(8.0),
-              child: Column(
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  children: [
-                    Text(
-                      "Каталог товаров",
-                      textScaleFactor: 0.9,
-                      style: Theme.of(context).textTheme.titleLarge,
-                    ),
-                    Wrap(
-                      runSpacing: 10,
-                      spacing: 10,
-                      alignment: WrapAlignment.spaceEvenly,
+          BlocListener<ProductBloc, ProductState>(
+            listener: (context, state) {
+              state.maybeWhen(
+                  orElse: () => null,
+                  loaded: ((productModel) {
+                    setState(() {
+                      loadedProducts.addAll(productModel);
+                    });
+                  }));
+            },
+            child: SliverFillRemaining(
+              child: SingleChildScrollView(
+                physics: NeverScrollableScrollPhysics(),
+                child: Padding(
+                  padding: const EdgeInsets.all(8.0),
+                  child: Column(
+                      crossAxisAlignment: CrossAxisAlignment.stretch,
                       children: [
-                        ProductCard(
-                          productModel: ProductModel(
-                            productId: 0,
-                            description:
-                                'История молочных продуктов для всей семьи Простоквашино начинается на молочных фермах. Это свежее молоко, прямо от коровы, поэтому срок годности у него такой короткий.',
-                            price: 69.99,
-                            name: "Молоко простоквашино",
-                            photoAlbum: [],
-                            productType: "",
-                            quantity: 12,
-                            brandName: "Простоквашино",
-                            brandLogoPath: "",
-                            categoryName: "",
-                          ),
+                        Text(
+                          "Каталог товаров",
+                          textScaleFactor: 0.9,
+                          style: Theme.of(context).textTheme.titleLarge,
                         ),
-                        ProductCard(),
-                      ],
-                    )
-                  ]),
+                        Wrap(
+                          crossAxisAlignment: WrapCrossAlignment.start,
+                          runAlignment: WrapAlignment.spaceEvenly,
+                          alignment: WrapAlignment.spaceEvenly,
+                          runSpacing: 10,
+                          children: [
+                            ...loadedProducts.map((element) {
+                              return ProductCard(
+                                isReadctorMode: true,
+                                productModel: element,
+                              );
+                            }).toList(),
+                            ProductCard(),
+                          ],
+                        )
+                      ]),
+                ),
+              ),
             ),
           )
         ],

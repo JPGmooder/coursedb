@@ -11,9 +11,10 @@ final supabaseUrl = 'https://xomxmkboeuoupjkirjnh.supabase.co';
 final supabaseKey = String.fromEnvironment('bqcccZS4hECsxy2T');
 
 void main() async {
- var supa = await Supabase.initialize(url: supabaseUrl, anonKey: supabaseKey);
+  var supa = await Supabase.initialize(url: supabaseUrl, anonKey: supabaseKey);
 
   AndroidYandexMap.useAndroidViewSurface = false;
   var prefs = await SharedPreferences.getInstance();
-  initializeDateFormatting('ru_RU', null).then((value) => runApp(MyApp(prefs.getString('login'), prefs.getString('password'))));
+  initializeDateFormatting('ru_RU', null).then((value) =>
+      runApp(MyApp(prefs.getString('login'), prefs.getString('password'))));
 }

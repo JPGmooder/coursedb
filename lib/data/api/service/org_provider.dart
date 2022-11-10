@@ -42,6 +42,65 @@ mutation MyMutation($p_companydeliveryprice: numeric = "",  $p_companyname: Stri
     });
   }
 
+  static MutationOptions _loadUsersCompaniesMutation(
+      {required int maxDistance,
+      required int idUserAddress,
+      String? companyName,
+      String? companyTypeName,
+      String? brandName}) {
+    String signature =
+        r'''mutation searchUsersCompanies($maxdistance: Int!, $p_id_useraddress: Int!''';
+    String inputParams = r'''{
+  searchnearcomapnies(args: {maxdistance: $maxdistance, p_id_useraddress: $p_id_useraddress}''';
+    var variables = <String, dynamic>{
+      "maxdistance": maxDistance,
+      "p_id_useraddress": idUserAddress
+    };
+    if (companyName != null || companyTypeName != null || brandName != null) {
+      inputParams += ', where{';
+    }
+    if (brandName != null) {
+      signature += r', $_brandName: String = ""';
+      inputParams += r', products: { brandname: {_like: $_brandName}}';
+      variables.addEntries({"_brandName": brandName}.entries);
+    }
+    if (companyTypeName != null) {
+      signature += r', $_companyTypeName: String = ""';
+      inputParams += r', companytypename: {_like: $_companyTypeName}';
+      variables.addEntries({"_companyTypeName": companyTypeName}.entries);
+    }
+    if (companyName != null) {
+      signature += r', $_companyName: String = ""';
+      inputParams += r', companyName: {_like: $_companyName}';
+      variables.addEntries({"_companyName": companyName}.entries);
+    }
+    if (companyName != null || companyTypeName != null || brandName != null) {
+      inputParams += '}';
+    }
+    signature += r')';
+    inputParams += r')';
+
+    String document = signature +
+        inputParams +
+        r'''{
+    address{
+      addresscity,
+      addressstreetname,
+      addressbuildingnum,
+      id_address
+    },
+      companydeliveryprice,
+      companyname,
+      companytypename,
+      id_company, 
+      companystatusname
+  }
+}
+''';
+
+    return MutationOptions(document: gql(document), variables: variables);
+  }
+
   static MutationOptions changeUsersCompanyMutation({
     required String userLogin,
     required int idCompany,
@@ -96,7 +155,24 @@ mutation MyMutation($_similar: String = "", $id_company: Int = 10) {
     return response;
   }
 
-   static Future<Map<String, String>> loadCardsInfo(
+  static Future<QueryResult> loadUsersCompanies(
+      {required int addressId,
+      required int maxDistance,
+      String? companyName,
+      String? companyTypeName,
+      String? brandName}) async {
+    var response = await AppsGraphClient.client.mutate(
+        _loadUsersCompaniesMutation(
+            idUserAddress: addressId,
+            maxDistance: maxDistance,
+            brandName: brandName,
+            companyName: companyName,
+            companyTypeName: companyTypeName));
+
+    return response;
+  }
+
+  static Future<Map<String, String>> loadCardsInfo(
       Uint8List cardImage, Uint8List logoImage, int orgId) async {
     var cardString = await SupaBaseClient.client.storage
         .from('kursach')
@@ -107,7 +183,6 @@ mutation MyMutation($_similar: String = "", $id_company: Int = 10) {
 
     return {'logo': logoString, 'card': cardString};
   }
-
 
   static Future<QueryResult> changeUsersCompany(
       {required int companyId, required String userLogin}) async {

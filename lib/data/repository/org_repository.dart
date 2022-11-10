@@ -9,7 +9,6 @@ class OrganiztionRepository {
     return response.data!['company']!.isEmpty;
   }
 
- 
   static Future<OrganizationModel> addNewCompany(
       {required String companyName,
       required String status,
@@ -24,9 +23,31 @@ class OrganiztionRepository {
         deliveryPrice: deliveryPrice);
     var modelToReturn =
         OrganizationModel.fromMap(response.data!['company_addnew']);
-     await OrganizationProvider.changeUsersCompany(
+    await OrganizationProvider.changeUsersCompany(
         companyId: modelToReturn.idCompany, userLogin: UserModel.get().login);
 
     return modelToReturn;
+  }
+
+  static Future<List<OrganizationModel>> loadUsersCompanies(
+      {required int addressId,
+      required int maxDistance,
+      String? companyName,
+      String? companyTypeName,
+      String? brandName}) async {
+    var response = await OrganizationProvider.loadUsersCompanies(
+        addressId: addressId,
+        maxDistance: maxDistance,
+        brandName: brandName,
+        companyName: companyName,
+        companyTypeName: companyTypeName);
+    if (response.hasException) {
+      throw Exception(response.exception.toString());
+    }
+    List<OrganizationModel> modelsToReturn = [];
+    for (var organization in response.data!['searchnearcomapnies']) {
+      modelsToReturn.add(OrganizationModel.fromMap(organization));
+    }
+    return modelsToReturn;
   }
 }
