@@ -11,7 +11,8 @@ abstract class AuthState with _$AuthState {
       String email,
       UserPersonalDataModel? data,
       List<AddressModel>? addresses,
-      OrganizationModel? company) = _$AuthLogedInState;
+      OrganizationModel? company,
+      List<CartModel> carts) = _$AuthLogedInState;
   const factory AuthState.signedUp(
           String login, String password, String email) =
       _$AuthSignedUpState;

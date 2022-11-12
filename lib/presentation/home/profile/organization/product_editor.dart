@@ -364,7 +364,6 @@ class _ProductEditorScreenState extends State<ProductEditorScreen> {
                                   onPressed: () => context
                                       .read<ProductBloc>()
                                       .add(ProductEvent.addNewProduct(
-                                        oldProductName: widget.model!.name,
                                         idProduct: widget.model?.productId,
                                         brandName: _currentBrand?.name ?? "",
                                         album: _images.map((e) => e!).toList(),

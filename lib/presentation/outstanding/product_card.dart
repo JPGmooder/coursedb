@@ -8,10 +8,11 @@ import 'package:kursach/presentation/outstanding/category_chip.dart';
 import 'package:kursach/presentation/outstanding/gradientmask.dart';
 
 class ProductCard extends StatefulWidget {
-  ProductCard({Key? key, this.productModel, this.isReadctorMode = false})
+  ProductCard({Key? key, this.productModel, this.showProductFunct, this.isReadctorMode = false})
       : super(key: key);
   ProductModel? productModel;
   bool isReadctorMode;
+  void Function(ProductModel)? showProductFunct;
   @override
   State<ProductCard> createState() => _ProductCardState();
 }
@@ -26,9 +27,14 @@ class _ProductCardState extends State<ProductCard> {
           Navigator.of(context)
               .push(MaterialPageRoute(builder: (ctx) => ProductEditorScreen()));
         }
+        else 
+        {
+          widget.showProductFunct!(widget.productModel!);
+        }
+
       },
       child: SizedBox(
-        height: MediaQuery.of(context).size.height * 0.4,
+        height: MediaQuery.of(context).size.height * 0.45,
         child: Neumorphic(
           style: NeumorphicStyle(
               color: widget.productModel == null
@@ -80,6 +86,7 @@ class _ProductCardState extends State<ProductCard> {
                     widget.productModel == null
                         ? "Добавить новый товар"
                         : widget.productModel!.name,
+                    maxLines: 3,
                     textAlign: TextAlign.center,
                     style: Theme.of(context).textTheme.labelMedium!.copyWith(
                         color: Colors.white, fontWeight: FontWeight.bold),

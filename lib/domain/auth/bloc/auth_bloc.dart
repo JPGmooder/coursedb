@@ -6,6 +6,7 @@ import 'package:freezed_annotation/freezed_annotation.dart';
 import 'package:graphql_flutter/graphql_flutter.dart';
 import 'package:kursach/data/api/model/graphclient.dart';
 import 'package:kursach/domain/model/address_model.dart';
+import 'package:kursach/domain/model/cart_model.dart';
 import 'package:kursach/domain/model/organization_model.dart';
 import 'package:kursach/domain/model/user_model.dart';
 import 'package:shared_preferences/shared_preferences.dart';
@@ -38,7 +39,8 @@ class AuthBloc extends Bloc<AuthEvent, AuthState> {
                 UserModel.get().email,
                 userData,
                 UserModel.get().addresses,
-                UserModel.get().organizationModel
+                UserModel.get().organizationModel,
+                UserModel.get().carts
               ));
             } catch (e) {
               emit(AuthState.errored(e.toString()));
@@ -63,7 +65,8 @@ class AuthBloc extends Bloc<AuthEvent, AuthState> {
                 userData['email']!,
                 userData['pd'],
                 userData['addresses'],
-                userData['company']
+                userData['company'],
+                userData['carts']
               ));
               if (userData['pd'] != null &&
                   (userData['addresses'] != null ||

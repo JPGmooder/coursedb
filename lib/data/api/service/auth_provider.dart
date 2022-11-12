@@ -8,6 +8,16 @@ mutation Authentificate($login: String!,  $password: String!) {
     emailaddress,
     userpassword,
     client{
+       carts{
+        cart_id,
+        cartcreationtime,
+        isactive
+        cartitems{
+          cartitem_id,
+          cartitemquantity,
+          id_product
+        }
+      }
       id_company
       addresses{
         addressapartament,
@@ -188,18 +198,6 @@ query FindAddressByLogin($_eq: String!) {
         .timeout(Duration(seconds: 10),
             onTimeout: () => throw Exception(
                 "Невозможно получить ответ от сервера, проверьте интернет-соединение и повторите попытку"));
-    await AppsGraphClient.client.mutate(
-      MutationOptions(document: gql(r'''
-mutation MyMutation($userlogin: String!) {
-  insert_client(objects: {userlogin: $userlogin})
-  {
-    returning {
-      userlogin
-    }
-  }
-}
-'''), variables: {'userlogin': login}),
-    );
     return response;
   }
 

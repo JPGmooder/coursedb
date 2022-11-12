@@ -6,6 +6,7 @@ import 'package:kursach/domain/model/organization_model.dart';
 import 'package:kursach/domain/model/user_model.dart';
 import 'package:kursach/domain/organization/bloc/org_bloc.dart';
 import 'package:kursach/presentation/home/markets/market_widget.dart';
+import 'package:kursach/presentation/home/restaurant/mainpage/restaraunt_mainpage.dart';
 import 'package:kursach/presentation/home/restaurant/pickers.dart';
 import 'package:kursach/presentation/outstanding/gradientmask.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -114,35 +115,76 @@ class _RestarauntListState extends State<RestarauntList> {
           body: Padding(
             padding: const EdgeInsets.all(8.0),
             child: Column(
-              crossAxisAlignment: CrossAxisAlignment.start,
+              crossAxisAlignment: CrossAxisAlignment.stretch,
               children: [
-                Column(
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  children: [
-                    Text(
-                      "Продукты",
-                      style: Theme.of(context)
-                          .textTheme
-                          .titleLarge!
-                          .copyWith(color: Colors.grey[600]),
-                      textScaleFactor: 0.8,
-                    ),
-                    BlocBuilder<OrganizationBloc, OrganizationState>(
-                      builder: (context, state) {
-                        return state.maybeWhen(
-                            orElse: () => Container(),
-                            usersOrganizationsLoaded: (models) =>
-                                ListView.builder(
-                                    shrinkWrap: true,
-                                    itemBuilder: (ctx, index) {
-                                      return MarketWidget(
-                                        model: models[index],
-                                      );
-                                    },
-                                    itemCount: models.length));
-                      },
-                    )
-                  ],
+                Text(
+                  "Продукты",
+                  style: Theme.of(context)
+                      .textTheme
+                      .titleLarge!
+                      .copyWith(color: Colors.grey[600]),
+                  textScaleFactor: 0.8,
+                ),
+                Expanded(
+                  child: BlocBuilder<OrganizationBloc, OrganizationState>(
+                    builder: (context, state) {
+                      return state.maybeWhen(
+                          orElse: () => Container(),
+                          loading: () => Column(
+                                mainAxisAlignment: MainAxisAlignment.center,
+                                crossAxisAlignment: CrossAxisAlignment.center,
+                                children: [
+                                  GradientMask(
+                                    size: 40,
+                                    begin: Alignment.topLeft,
+                                    end: Alignment.bottomRight,
+                                    child: Text(
+                                      "Загрузка",
+                                      textScaleFactor: 1.6,
+                                      style: Theme.of(context)
+                                          .textTheme
+                                          .titleMedium!
+                                          .copyWith(color: Colors.white54),
+                                    ),
+                                  ),
+                                  SizedBox(
+                                    height: 25,
+                                  ),
+                                  CircularProgressIndicator.adaptive()
+                                ],
+                              ),
+                          usersOrganizationsLoaded: (models) => SizedBox(
+                                height:
+                                    MediaQuery.of(context).size.height - 115,
+                                child: RefreshIndicator(
+                                  onRefresh: () async => context
+                                      .read<OrganizationBloc>()
+                                      .add(OrganizationEvent.loadOrganizations(
+                                          sort: sortType.none,
+                                          address: UserModel.get()
+                                              .addresses!
+                                              .first)),
+                                  child: ListView.builder(
+                                      shrinkWrap: true,
+                                      itemBuilder: (ctx, index) {
+                                        return InkWell(
+                                          onTap: () => Navigator.push(
+                                              context,
+                                              MaterialPageRoute(
+                                                  builder: (ctx) =>
+                                                      RestarauntMainPage(
+                                                          currentOrg:
+                                                              models[index]))),
+                                          child: MarketWidget(
+                                            model: models[index],
+                                          ),
+                                        );
+                                      },
+                                      itemCount: models.length),
+                                ),
+                              ));
+                    },
+                  ),
                 )
               ],
             ),

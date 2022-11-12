@@ -1,6 +1,7 @@
 import 'dart:convert';
 
 import 'package:kursach/domain/model/address_model.dart';
+import 'package:kursach/domain/model/cart_model.dart';
 import 'package:kursach/domain/model/organization_model.dart';
 import 'package:supabase_flutter/supabase_flutter.dart';
 
@@ -12,11 +13,13 @@ class UserModel {
   User? supaUser;
   UserPersonalDataModel? personalData;
   OrganizationModel? organizationModel;
+  List<CartModel> carts;
   List<AddressModel>? addresses = [];
   UserModel._({
     required this.login,
     required this.password,
     required this.email,
+    required this.carts,
     this.organizationModel,
     this.addresses,
     this.personalData,
@@ -27,11 +30,13 @@ class UserModel {
           String? password,
           String? email,
           UserPersonalDataModel? pd,
+          List<CartModel>? carts,
           List<AddressModel>? addresses,
           OrganizationModel? orgmodel}) =>
       _context ??= UserModel._(
           email: email!,
           login: login!,
+          carts: carts!,
           password: password!,
           personalData: pd,
           addresses: addresses,
@@ -43,9 +48,11 @@ class UserModel {
     String? login,
     String? password,
     String? email,
+    List<CartModel>? carts,
     UserPersonalDataModel? personalData,
   }) {
     return UserModel._(
+      carts: carts ?? this.carts,
       login: login ?? this.login,
       password: password ?? this.password,
       email: email ?? this.email,
@@ -64,6 +71,7 @@ class UserModel {
 
   factory UserModel.fromMap(Map<String, dynamic> map) {
     return UserModel._(
+      carts: map['client']['carts'] ?? [],
       login: map['userlogin'] ?? '',
       password: map['userpassword'] ?? '',
       email: map['emailaddress'] ?? '',

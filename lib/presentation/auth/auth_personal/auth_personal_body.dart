@@ -171,7 +171,7 @@ class _PersonalInfoBodyState extends State<PersonalInfoBody> {
                 print("ВСЁ ЕСТЬ!");
               }
             },
-            logedIn: (login, password, email, data, addresses, company) {
+            logedIn: (login, password, email, data, addresses, company, carts) {
               UserModel.clearData();
               UserModel.get(
                   login: login,
@@ -179,7 +179,8 @@ class _PersonalInfoBodyState extends State<PersonalInfoBody> {
                   email: email,
                   pd: data,
                   addresses: addresses,
-                  orgmodel: company
+                  orgmodel: company,
+                  carts: carts
                   );
             },
           );

@@ -33,10 +33,12 @@ dependencies:
   bottom_picker: ^2.0.0
   build_runner: ^2.3.0
   cached_network_image: ^3.2.2
+  carousel_slider: ^4.1.1
   crypto: ^3.0.2
   cupertino_icons: ^1.0.2
   custom_image_crop: ^0.0.4
   email_auth: ^1.0.0
+  expandable: ^5.0.1
   flutter:
     sdk: flutter
   flutter_bloc: ^8.1.1
