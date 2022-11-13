@@ -47,7 +47,6 @@ class _RestarauntMainPageState extends State<RestarauntMainPage> {
 
   @override
   Widget build(BuildContext context) {
-    print(widget.currentOrg.loadedProduct.toString());
     return Scaffold(
       body: SafeArea(
         child: NestedScrollView(
@@ -204,6 +203,7 @@ class _RestarauntMainPageState extends State<RestarauntMainPage> {
                             state.maybeWhen(
                                 orElse: () => null,
                                 loaded: (products) {
+                                  widget.currentOrg.loadedProduct = products;
                                   List<ProductTypeModel> curCategories = [];
 
                                   for (var product in products) {
@@ -277,12 +277,16 @@ class _RestarauntMainPageState extends State<RestarauntMainPage> {
                                                   WrapCrossAlignment.center,
                                               children: products
                                                   .map((product) => ProductCard(
+                                                        currentOrg:
+                                                            widget.currentOrg,
                                                         showProductFunct: (_) {
                                                           showBottomSheet(
-                                                            
                                                               context: context,
                                                               builder: (ctx) {
                                                                 return ProductScreen(
+                                                                    currentOrg:
+                                                                        widget
+                                                                            .currentOrg,
                                                                     currentProduct:
                                                                         product);
                                                               });

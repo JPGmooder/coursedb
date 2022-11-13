@@ -1,10 +1,14 @@
 import 'dart:convert';
 
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/foundation.dart';
-
+import 'package:flutter/material.dart';
+import 'package:kursach/domain/cart/bloc/cart_bloc.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:kursach/domain/model/product_model.dart';
+import 'package:kursach/domain/model/user_model.dart';
 
-class CartModel {
+class CartModel with ChangeNotifier {
   int cartID;
   DateTime creationDate;
   bool isActive;
@@ -28,6 +32,75 @@ class CartModel {
       isActive: isActive ?? this.isActive,
       items: items ?? this.items,
     );
+  }
+
+  void addItemToList(CartItemModel cartItem) {
+    var index = items
+        .indexWhere((element) => element.cartItemId == cartItem.cartItemId);
+    if (index == -1) {
+      items.add(cartItem);
+    } else {
+      if (cartItem.amount == 0) {
+        items.removeAt(index);
+      } else {
+        items[index] = cartItem;
+      }
+    }
+    notifyListeners();
+  }
+
+  bool isCartFromSingleShop(List<ProductModel> products) =>
+      products.any((element) =>
+          items.isEmpty ||
+          items.any((cartItem) => element.productId == cartItem.productId));
+
+  void manageCartItems(BuildContext context, List<ProductModel> products,
+      int productCount, int productId) {
+    if (isCartFromSingleShop(products)) {
+      context.read<CartBloc>().add(CartEvent.manageCartItem(
+          userLogin: UserModel.get().login,
+          productQuantity: productCount,
+          productId: productId));
+    } else {
+      showDialog(
+          context: context,
+          builder: (ctx) => AlertDialog(
+                content: Padding(
+                  padding: const EdgeInsets.all(8.0),
+                  child: Column(
+                    crossAxisAlignment: CrossAxisAlignment.center,
+                    children: [
+                      Text(
+                        "Корзина содержит товары другого магазина, однако заказ возможен только из одного.",
+                        style: Theme.of(context).textTheme.labelMedium,
+                      ),
+                      SizedBox(
+                        height: 10,
+                      ),
+                      Text(
+                        "Удалить товары из корзины и добавить новые?",
+                        textAlign: TextAlign.center,
+                        style: Theme.of(context)
+                            .textTheme
+                            .labelMedium!
+                            .copyWith(fontWeight: FontWeight.bold),
+                        textScaleFactor: 1.3,
+                      )
+                    ],
+                  ),
+                ),
+                actions: [
+                  ElevatedButton(
+                      onPressed: () => Navigator.pop(context),
+                      child: Text("Назад")),
+                  ElevatedButton(
+                      onPressed: () {
+                        Navigator.pop(context);
+                      },
+                      child: Text("Очистить корзину")),
+                ],
+              ));
+    }
   }
 
   Map<String, dynamic> toMap() {
