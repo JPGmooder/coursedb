@@ -55,8 +55,10 @@ class CartModel with ChangeNotifier {
           items.any((cartItem) => element.productId == cartItem.productId));
 
   void manageCartItems(BuildContext context, List<ProductModel> products,
-      int productCount, int productId) {
-    if (isCartFromSingleShop(products)) {
+      int productCount, int productId,
+      {bool isPassCheck = false}) {
+
+    if (isCartFromSingleShop(products) || isPassCheck) {
       context.read<CartBloc>().add(CartEvent.manageCartItem(
           userLogin: UserModel.get().login,
           productQuantity: productCount,

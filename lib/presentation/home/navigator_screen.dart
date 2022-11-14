@@ -6,6 +6,7 @@ import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:kursach/assets/colors.dart';
 import 'package:kursach/domain/cart/bloc/cart_bloc.dart';
 import 'package:kursach/domain/model/user_model.dart';
+import 'package:kursach/domain/product/bloc/product_bloc.dart';
 import 'package:kursach/presentation/home/cart/cart.dart';
 import 'package:kursach/presentation/home/markets/markets_list.dart';
 import 'package:kursach/presentation/home/profile/profile_screen.dart';
@@ -23,8 +24,7 @@ class NavigatorScreen extends StatefulWidget {
 class _NavigatorScreenState extends State<NavigatorScreen> {
   @override
   Widget build(BuildContext context) {
-    return BlocProvider(
-      create: ((context) => CartBloc()),
+    return         BlocProvider(create: (ctx) => CartBloc(),
       child: PersistentTabView(
         screenTransitionAnimation:
             ScreenTransitionAnimation(animateTabTransition: true),
@@ -40,12 +40,13 @@ class _NavigatorScreenState extends State<NavigatorScreen> {
             parentContext: context,
           )
         ],
+      
         items: List.generate(5, (index) {
           late IconData icon;
           late IconData inActiveIcon;
-
+    
           late String text;
-
+    
           switch (index) {
             case 0:
               icon = Icons.food_bank;
@@ -55,7 +56,7 @@ class _NavigatorScreenState extends State<NavigatorScreen> {
             case 1:
               icon = Icons.shopping_cart;
               inActiveIcon = Icons.shopping_cart_outlined;
-
+    
               text = "Магазины";
               break;
             case 2:
@@ -75,7 +76,7 @@ class _NavigatorScreenState extends State<NavigatorScreen> {
               break;
             default:
           }
-
+    
           return index == 2
               ? PersistentBottomNavBarItem(
                   icon: CartIconWidget(
@@ -144,9 +145,9 @@ class _cartIconWidgetState extends State<CartIconWidget> {
       var currentCount = activeCart.items
           .map((e) => e.amount)
           .reduce((value, element) => value + element);
-      setState(() {
-        currentNum = "${currentCount > 99 ? '99+' : currentCount}";
-      });
+      // setState(() {
+      //   currentNum = "${currentCount > 99 ? '99+' : currentCount}";
+      // });
     });
     super.initState();
   }

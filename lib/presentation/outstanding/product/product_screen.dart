@@ -212,7 +212,16 @@ class _BottomProductPageState extends State<BottomProductPage> {
   void initState() {
     _productController = StreamController<Map<String, dynamic>>();
 
-    count = 1;
+    
+
+    var actualCart =
+        UserModel.get().carts.firstWhere((element) => element.isActive);
+    var index = actualCart.items.indexWhere(
+        (element) => element.productId == widget.product.productId);
+
+    if (index != -1) {
+      count = actualCart.items[index].amount;
+    }
 
     _productController.stream
         .distinct()
@@ -223,11 +232,13 @@ class _BottomProductPageState extends State<BottomProductPage> {
       var orderedCount = event['quantity'];
       var actualCart =
           UserModel.get().carts.firstWhere((element) => element.isActive);
-      orderedCount += actualCart.items
-          .firstWhere((element) => element.productId == event['productId'])
-          .amount;
+        orderedCount += actualCart.items
+            .firstWhere((element) => element.productId == event['productId'])
+            .amount;
+   
       actualCart.manageCartItems(context, widget.currentOrg.loadedProduct,
-          orderedCount, event['productId']);
+          orderedCount, event['productId'],
+          isPassCheck: false);
     });
 
     super.initState();
@@ -246,6 +257,12 @@ class _BottomProductPageState extends State<BottomProductPage> {
                   onPressed: count > 1
                       ? () => setState(() {
                             count--;
+                           
+                              _productController.add({
+                                'productId': widget.product.productId,
+                                'quantity': count
+                              });
+                            
                           })
                       : null,
                   icon: Icon(Icons.remove)),
@@ -264,6 +281,7 @@ class _BottomProductPageState extends State<BottomProductPage> {
                   onPressed: count < widget.product.quantity
                       ? () => setState(() {
                             count++;
+                            
                           })
                       : null,
                   icon: Icon(Icons.add))
@@ -281,24 +299,25 @@ class _BottomProductPageState extends State<BottomProductPage> {
                       .addItemToList(managedItem!);
                 }));
           },
-          child: count > widget.product.quantity
-              ? NeumorphicButton(child: Text("Нет в наличии"))
-              : GradientMask(
-                  size: 120,
-                  begin: Alignment.topLeft,
-                  end: Alignment.bottomRight,
-                  child: NeumorphicButton(
-                    onPressed: () => _productController.add({
-                      'productId': widget.product.productId,
-                      'quantity': count
-                    }),
-                    style: NeumorphicStyle(color: Colors.white70),
-                    child: Text(
-                      'Добавить ${(count * widget.product.price).toInt()} руб.',
-                      style: Theme.of(context).textTheme.labelMedium,
-                    ),
-                  ),
-                ),
+          child:  count > widget.product.quantity
+                  ? NeumorphicButton(child: Text("Нет в наличии"))
+                  : GradientMask(
+                      size: 120,
+                      begin: Alignment.topLeft,
+                      end: Alignment.bottomRight,
+                      child: NeumorphicButton(
+                        onPressed: () => _productController.add({
+                          'productId': widget.product.productId,
+                          'quantity': count
+                        }),
+                        style: NeumorphicStyle(color: Colors.white70),
+                        child: Text(
+                          'Добавить ${(count * widget.product.price).toInt()} руб.',
+                          style: Theme.of(context).textTheme.labelMedium,
+                        ),
+                      ),
+                    )
+        
         )
       ],
     );

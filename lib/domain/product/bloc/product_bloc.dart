@@ -8,6 +8,7 @@ import 'package:freezed_annotation/freezed_annotation.dart';
 import 'package:graphql_flutter/graphql_flutter.dart';
 import 'package:kursach/data/api/model/graphclient.dart';
 import 'package:kursach/domain/model/brand_model.dart';
+import 'package:kursach/domain/model/organization_model.dart';
 import 'package:kursach/domain/model/product_model.dart';
 import 'package:kursach/domain/model/product_type_model.dart';
 import 'package:kursach/domain/model/user_model.dart';
@@ -58,7 +59,7 @@ class ProductBloc extends Bloc<ProductEvent, ProductState> {
               emit(const ProductState.loading(false));
 
               var loadedProduct = await ProductRepository.addNewProduct(
-                oldProductName: oldProductName,
+                  oldProductName: oldProductName,
                   idProduct: idProduct,
                   album: album,
                   brandName: brandName,
@@ -99,6 +100,7 @@ class ProductBloc extends Bloc<ProductEvent, ProductState> {
 
             emit(ProductState.categoriesAdded(categoriesToReturn));
           },
+        
           loadCategories: (searchText) async {
             var loadedCategories =
                 await ProductRepository.searchCategoryByText(searchText);

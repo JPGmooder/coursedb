@@ -5,4 +5,7 @@ class CartEvent with _$CartEvent {
       {required String userLogin,
       required int productQuantity,
       required int productId}) = _$CartManageCartItemEvent;
+
+        const factory CartEvent.loadProductsById(
+      List<int> ids) = _$CartLoadProductsByIdEvent;
 }

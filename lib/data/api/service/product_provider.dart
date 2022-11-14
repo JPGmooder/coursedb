@@ -14,6 +14,7 @@ class ProductProvider {
         document: gql(query), variables: {"_like": searchString});
   }
 
+
   static QueryOptions _searchBrandByName(String searchString) {
     String query = r'''query SearchBrandByName($_like : String!) {
   brand(where: {brandname: {_like: $_like}}) {
@@ -237,6 +238,8 @@ class ProductProvider {
     return response;
   }
 
+ 
+
   static Future<QueryResult> addNewCategory(
       {required String productTypeName, required int color}) async {
     var response = await AppsGraphClient.client
@@ -278,7 +281,7 @@ class ProductProvider {
       required String productName,
       required bool isNew,
       required int orgId}) async {
-    var currentName =  productName;
+    var currentName = productName;
     var loader = Completer<List<String>>();
     List<String> path = [];
     List<int> appleInBytes = utf8.encode(currentName);
@@ -289,7 +292,7 @@ class ProductProvider {
           .from('kursach')
           .list(path: 'organiztion/$orgId/$codedName/');
     }
-   
+
     for (int i = 0; i < images.length; i++) {
       late Future<String> uploadMethod;
       String uploadPath = 'organiztion/$orgId/$codedName/$i.png';

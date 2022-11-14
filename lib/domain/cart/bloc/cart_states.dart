@@ -6,5 +6,8 @@ class CartState with _$CartState {
   const factory CartState.initial() = _$CartItemInitialState;
     const factory CartState.loading() = _$CartItemLoadingState;
     const factory CartState.errored(String error) = _$CartItemErroredState;
+const factory CartState.empty() = _$CartEmptyState;
+     const factory CartState.productsByIdLoaded(
+      List<ProductModel> products, List<OrganizationModel> organizations) = _$CartProductsByIdLoadedState;
 
 }

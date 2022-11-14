@@ -6,6 +6,7 @@ abstract class ProductEvent implements _$ProductEvent {
       _$ProductLoadCategoriesEvent;
   const factory ProductEvent.addNewCategories(
       List<ProductTypeModel> categories) = _$ProductAddNewCategoriesEvent;
+
   const factory ProductEvent.addNewProduct(
       {required String brandName,
       required List<Uint8List> album,

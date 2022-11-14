@@ -15,6 +15,7 @@ class ProductRepository {
     return decodedProductTypes;
   }
 
+  
   static Future<ProductTypeModel> addNewProductCategory(
       ProductTypeModel model) async {
     var response = await ProductProvider.addNewCategory(

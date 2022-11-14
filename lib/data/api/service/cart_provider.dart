@@ -2,6 +2,62 @@
 part of '../../../domain/cart/bloc/cart_bloc.dart';
 
 class CartProvider {
+
+
+  static QueryOptions _findProductById(int id) {
+    String query = r'''query findProductById($id_product: Int!) {
+  product_by_pk(id_product: $id_product) {
+    producttype {
+      color
+      producttypename
+    }
+    producttypeByProducttypenames {
+      color
+      producttypename
+    }
+    producttypeByProducttypenamet {
+      color
+      producttypename
+    }
+    productquantity
+    productprice
+    productname
+    productdescription
+    productalbum
+    id_product
+    brand {
+      branddescription
+      brandlogo
+      brandname
+    }
+    company {
+      address {
+        addressapartament
+        addressbuildingnum
+        addresscity
+        addresscounty
+        addressentrance
+        addressfloor
+        addresslat
+        addresslon
+        addressname
+        addressstate
+        addressstreetname
+        id_address
+      }
+      companydeliveryprice
+      companyname
+      companystatusname
+      companytypename
+      id_company
+    }
+  }
+}
+
+''';
+    return QueryOptions(document: gql(query), variables: {"id_product": id});
+  }
+
   static MutationOptions _mutateProductToCart(
       int productId, int quantity, String userLogin) {
     String mutationQuery = r'''
@@ -19,6 +75,14 @@ mutation addProductToCart($p_id_product: Int!, $p_productquantity: Int!, $p_user
       "p_userlogin": userLogin
     };
     return MutationOptions(document: gql(mutationQuery), variables: variables);
+  }
+
+
+   static Future<QueryResult> loadProductById(
+      {required int id}) async {
+    var response =
+        await AppsGraphClient.client.query(_findProductById(id));
+    return response;
   }
 
   static Future<QueryResult> addProductToCart(
