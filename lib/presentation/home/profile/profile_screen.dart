@@ -2,8 +2,10 @@ import 'package:flutter/material.dart';
 import 'package:flutter_neumorphic/flutter_neumorphic.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:kursach/domain/model/user_model.dart';
+import 'package:kursach/domain/orders/bloc/orders_bloc.dart';
 import 'package:kursach/presentation/auth/auth_body.dart';
 import 'package:kursach/presentation/auth/auth_screen.dart';
+import 'package:kursach/presentation/home/profile/orders/my_orders_screen.dart';
 import 'package:kursach/presentation/home/profile/organization/manage_organization.dart';
 import 'package:kursach/presentation/home/profile/organization/navigator_organization.dart';
 import 'package:kursach/presentation/outstanding/dialogs.dart';
@@ -11,6 +13,7 @@ import 'package:kursach/presentation/outstanding/gradientmask.dart';
 import 'package:kursach/presentation/outstanding/techsupport_card_widget.dart';
 import 'package:rive/rive.dart';
 import 'package:shared_preferences/shared_preferences.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 
 class ProfileScreen extends StatefulWidget {
   const ProfileScreen({Key? key, required this.parentContext})
@@ -85,7 +88,15 @@ class _ProfileScreenState extends State<ProfileScreen> {
 
                     switch (index) {
                       case 0:
-                        onPressed = () => null;
+                        onPressed = () {
+                          context.read<OrdersBloc>().add(
+                              OrdersEvent.loadUserOrders(
+                                  userLogin: UserModel.get().login));
+                          Navigator.push(
+                              context,
+                              MaterialPageRoute(
+                                  builder: (ctx) => MyOrdersScreen()));
+                        };
 
                         icon = FontAwesomeIcons.bagShopping;
                         title = "Мои заказы";

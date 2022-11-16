@@ -22,6 +22,9 @@ mixin _$CartEvent {
             String userLogin, int productQuantity, int productId)
         manageCartItem,
     required TResult Function(List<int> ids) loadProductsById,
+    required TResult Function(
+            int cartId, double itemsPrice, double deliveryPrice, int addressId)
+        createOrder,
   }) =>
       throw _privateConstructorUsedError;
   @optionalTypeArgs
@@ -29,6 +32,9 @@ mixin _$CartEvent {
     TResult? Function(String userLogin, int productQuantity, int productId)?
         manageCartItem,
     TResult? Function(List<int> ids)? loadProductsById,
+    TResult? Function(
+            int cartId, double itemsPrice, double deliveryPrice, int addressId)?
+        createOrder,
   }) =>
       throw _privateConstructorUsedError;
   @optionalTypeArgs
@@ -36,6 +42,9 @@ mixin _$CartEvent {
     TResult Function(String userLogin, int productQuantity, int productId)?
         manageCartItem,
     TResult Function(List<int> ids)? loadProductsById,
+    TResult Function(
+            int cartId, double itemsPrice, double deliveryPrice, int addressId)?
+        createOrder,
     required TResult orElse(),
   }) =>
       throw _privateConstructorUsedError;
@@ -44,18 +53,21 @@ mixin _$CartEvent {
     required TResult Function(_$CartManageCartItemEvent value) manageCartItem,
     required TResult Function(_$CartLoadProductsByIdEvent value)
         loadProductsById,
+    required TResult Function(_$CartCreateOrderEvent value) createOrder,
   }) =>
       throw _privateConstructorUsedError;
   @optionalTypeArgs
   TResult? mapOrNull<TResult extends Object?>({
     TResult? Function(_$CartManageCartItemEvent value)? manageCartItem,
     TResult? Function(_$CartLoadProductsByIdEvent value)? loadProductsById,
+    TResult? Function(_$CartCreateOrderEvent value)? createOrder,
   }) =>
       throw _privateConstructorUsedError;
   @optionalTypeArgs
   TResult maybeMap<TResult extends Object?>({
     TResult Function(_$CartManageCartItemEvent value)? manageCartItem,
     TResult Function(_$CartLoadProductsByIdEvent value)? loadProductsById,
+    TResult Function(_$CartCreateOrderEvent value)? createOrder,
     required TResult orElse(),
   }) =>
       throw _privateConstructorUsedError;
@@ -171,6 +183,9 @@ class _$_$CartManageCartItemEvent implements _$CartManageCartItemEvent {
             String userLogin, int productQuantity, int productId)
         manageCartItem,
     required TResult Function(List<int> ids) loadProductsById,
+    required TResult Function(
+            int cartId, double itemsPrice, double deliveryPrice, int addressId)
+        createOrder,
   }) {
     return manageCartItem(userLogin, productQuantity, productId);
   }
@@ -181,6 +196,9 @@ class _$_$CartManageCartItemEvent implements _$CartManageCartItemEvent {
     TResult? Function(String userLogin, int productQuantity, int productId)?
         manageCartItem,
     TResult? Function(List<int> ids)? loadProductsById,
+    TResult? Function(
+            int cartId, double itemsPrice, double deliveryPrice, int addressId)?
+        createOrder,
   }) {
     return manageCartItem?.call(userLogin, productQuantity, productId);
   }
@@ -191,6 +209,9 @@ class _$_$CartManageCartItemEvent implements _$CartManageCartItemEvent {
     TResult Function(String userLogin, int productQuantity, int productId)?
         manageCartItem,
     TResult Function(List<int> ids)? loadProductsById,
+    TResult Function(
+            int cartId, double itemsPrice, double deliveryPrice, int addressId)?
+        createOrder,
     required TResult orElse(),
   }) {
     if (manageCartItem != null) {
@@ -205,6 +226,7 @@ class _$_$CartManageCartItemEvent implements _$CartManageCartItemEvent {
     required TResult Function(_$CartManageCartItemEvent value) manageCartItem,
     required TResult Function(_$CartLoadProductsByIdEvent value)
         loadProductsById,
+    required TResult Function(_$CartCreateOrderEvent value) createOrder,
   }) {
     return manageCartItem(this);
   }
@@ -214,6 +236,7 @@ class _$_$CartManageCartItemEvent implements _$CartManageCartItemEvent {
   TResult? mapOrNull<TResult extends Object?>({
     TResult? Function(_$CartManageCartItemEvent value)? manageCartItem,
     TResult? Function(_$CartLoadProductsByIdEvent value)? loadProductsById,
+    TResult? Function(_$CartCreateOrderEvent value)? createOrder,
   }) {
     return manageCartItem?.call(this);
   }
@@ -223,6 +246,7 @@ class _$_$CartManageCartItemEvent implements _$CartManageCartItemEvent {
   TResult maybeMap<TResult extends Object?>({
     TResult Function(_$CartManageCartItemEvent value)? manageCartItem,
     TResult Function(_$CartLoadProductsByIdEvent value)? loadProductsById,
+    TResult Function(_$CartCreateOrderEvent value)? createOrder,
     required TResult orElse(),
   }) {
     if (manageCartItem != null) {
@@ -322,6 +346,9 @@ class _$_$CartLoadProductsByIdEvent implements _$CartLoadProductsByIdEvent {
             String userLogin, int productQuantity, int productId)
         manageCartItem,
     required TResult Function(List<int> ids) loadProductsById,
+    required TResult Function(
+            int cartId, double itemsPrice, double deliveryPrice, int addressId)
+        createOrder,
   }) {
     return loadProductsById(ids);
   }
@@ -332,6 +359,9 @@ class _$_$CartLoadProductsByIdEvent implements _$CartLoadProductsByIdEvent {
     TResult? Function(String userLogin, int productQuantity, int productId)?
         manageCartItem,
     TResult? Function(List<int> ids)? loadProductsById,
+    TResult? Function(
+            int cartId, double itemsPrice, double deliveryPrice, int addressId)?
+        createOrder,
   }) {
     return loadProductsById?.call(ids);
   }
@@ -342,6 +372,9 @@ class _$_$CartLoadProductsByIdEvent implements _$CartLoadProductsByIdEvent {
     TResult Function(String userLogin, int productQuantity, int productId)?
         manageCartItem,
     TResult Function(List<int> ids)? loadProductsById,
+    TResult Function(
+            int cartId, double itemsPrice, double deliveryPrice, int addressId)?
+        createOrder,
     required TResult orElse(),
   }) {
     if (loadProductsById != null) {
@@ -356,6 +389,7 @@ class _$_$CartLoadProductsByIdEvent implements _$CartLoadProductsByIdEvent {
     required TResult Function(_$CartManageCartItemEvent value) manageCartItem,
     required TResult Function(_$CartLoadProductsByIdEvent value)
         loadProductsById,
+    required TResult Function(_$CartCreateOrderEvent value) createOrder,
   }) {
     return loadProductsById(this);
   }
@@ -365,6 +399,7 @@ class _$_$CartLoadProductsByIdEvent implements _$CartLoadProductsByIdEvent {
   TResult? mapOrNull<TResult extends Object?>({
     TResult? Function(_$CartManageCartItemEvent value)? manageCartItem,
     TResult? Function(_$CartLoadProductsByIdEvent value)? loadProductsById,
+    TResult? Function(_$CartCreateOrderEvent value)? createOrder,
   }) {
     return loadProductsById?.call(this);
   }
@@ -374,6 +409,7 @@ class _$_$CartLoadProductsByIdEvent implements _$CartLoadProductsByIdEvent {
   TResult maybeMap<TResult extends Object?>({
     TResult Function(_$CartManageCartItemEvent value)? manageCartItem,
     TResult Function(_$CartLoadProductsByIdEvent value)? loadProductsById,
+    TResult Function(_$CartCreateOrderEvent value)? createOrder,
     required TResult orElse(),
   }) {
     if (loadProductsById != null) {
@@ -394,6 +430,197 @@ abstract class _$CartLoadProductsByIdEvent implements CartEvent {
 }
 
 /// @nodoc
+abstract class _$$_$CartCreateOrderEventCopyWith<$Res> {
+  factory _$$_$CartCreateOrderEventCopyWith(_$_$CartCreateOrderEvent value,
+          $Res Function(_$_$CartCreateOrderEvent) then) =
+      __$$_$CartCreateOrderEventCopyWithImpl<$Res>;
+  @useResult
+  $Res call(
+      {int cartId, double itemsPrice, double deliveryPrice, int addressId});
+}
+
+/// @nodoc
+class __$$_$CartCreateOrderEventCopyWithImpl<$Res>
+    extends _$CartEventCopyWithImpl<$Res, _$_$CartCreateOrderEvent>
+    implements _$$_$CartCreateOrderEventCopyWith<$Res> {
+  __$$_$CartCreateOrderEventCopyWithImpl(_$_$CartCreateOrderEvent _value,
+      $Res Function(_$_$CartCreateOrderEvent) _then)
+      : super(_value, _then);
+
+  @pragma('vm:prefer-inline')
+  @override
+  $Res call({
+    Object? cartId = null,
+    Object? itemsPrice = null,
+    Object? deliveryPrice = null,
+    Object? addressId = null,
+  }) {
+    return _then(_$_$CartCreateOrderEvent(
+      cartId: null == cartId
+          ? _value.cartId
+          : cartId // ignore: cast_nullable_to_non_nullable
+              as int,
+      itemsPrice: null == itemsPrice
+          ? _value.itemsPrice
+          : itemsPrice // ignore: cast_nullable_to_non_nullable
+              as double,
+      deliveryPrice: null == deliveryPrice
+          ? _value.deliveryPrice
+          : deliveryPrice // ignore: cast_nullable_to_non_nullable
+              as double,
+      addressId: null == addressId
+          ? _value.addressId
+          : addressId // ignore: cast_nullable_to_non_nullable
+              as int,
+    ));
+  }
+}
+
+/// @nodoc
+
+class _$_$CartCreateOrderEvent implements _$CartCreateOrderEvent {
+  const _$_$CartCreateOrderEvent(
+      {required this.cartId,
+      required this.itemsPrice,
+      required this.deliveryPrice,
+      required this.addressId});
+
+  @override
+  final int cartId;
+  @override
+  final double itemsPrice;
+  @override
+  final double deliveryPrice;
+  @override
+  final int addressId;
+
+  @override
+  String toString() {
+    return 'CartEvent.createOrder(cartId: $cartId, itemsPrice: $itemsPrice, deliveryPrice: $deliveryPrice, addressId: $addressId)';
+  }
+
+  @override
+  bool operator ==(dynamic other) {
+    return identical(this, other) ||
+        (other.runtimeType == runtimeType &&
+            other is _$_$CartCreateOrderEvent &&
+            (identical(other.cartId, cartId) || other.cartId == cartId) &&
+            (identical(other.itemsPrice, itemsPrice) ||
+                other.itemsPrice == itemsPrice) &&
+            (identical(other.deliveryPrice, deliveryPrice) ||
+                other.deliveryPrice == deliveryPrice) &&
+            (identical(other.addressId, addressId) ||
+                other.addressId == addressId));
+  }
+
+  @override
+  int get hashCode =>
+      Object.hash(runtimeType, cartId, itemsPrice, deliveryPrice, addressId);
+
+  @JsonKey(ignore: true)
+  @override
+  @pragma('vm:prefer-inline')
+  _$$_$CartCreateOrderEventCopyWith<_$_$CartCreateOrderEvent> get copyWith =>
+      __$$_$CartCreateOrderEventCopyWithImpl<_$_$CartCreateOrderEvent>(
+          this, _$identity);
+
+  @override
+  @optionalTypeArgs
+  TResult when<TResult extends Object?>({
+    required TResult Function(
+            String userLogin, int productQuantity, int productId)
+        manageCartItem,
+    required TResult Function(List<int> ids) loadProductsById,
+    required TResult Function(
+            int cartId, double itemsPrice, double deliveryPrice, int addressId)
+        createOrder,
+  }) {
+    return createOrder(cartId, itemsPrice, deliveryPrice, addressId);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult? whenOrNull<TResult extends Object?>({
+    TResult? Function(String userLogin, int productQuantity, int productId)?
+        manageCartItem,
+    TResult? Function(List<int> ids)? loadProductsById,
+    TResult? Function(
+            int cartId, double itemsPrice, double deliveryPrice, int addressId)?
+        createOrder,
+  }) {
+    return createOrder?.call(cartId, itemsPrice, deliveryPrice, addressId);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult maybeWhen<TResult extends Object?>({
+    TResult Function(String userLogin, int productQuantity, int productId)?
+        manageCartItem,
+    TResult Function(List<int> ids)? loadProductsById,
+    TResult Function(
+            int cartId, double itemsPrice, double deliveryPrice, int addressId)?
+        createOrder,
+    required TResult orElse(),
+  }) {
+    if (createOrder != null) {
+      return createOrder(cartId, itemsPrice, deliveryPrice, addressId);
+    }
+    return orElse();
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult map<TResult extends Object?>({
+    required TResult Function(_$CartManageCartItemEvent value) manageCartItem,
+    required TResult Function(_$CartLoadProductsByIdEvent value)
+        loadProductsById,
+    required TResult Function(_$CartCreateOrderEvent value) createOrder,
+  }) {
+    return createOrder(this);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult? mapOrNull<TResult extends Object?>({
+    TResult? Function(_$CartManageCartItemEvent value)? manageCartItem,
+    TResult? Function(_$CartLoadProductsByIdEvent value)? loadProductsById,
+    TResult? Function(_$CartCreateOrderEvent value)? createOrder,
+  }) {
+    return createOrder?.call(this);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult maybeMap<TResult extends Object?>({
+    TResult Function(_$CartManageCartItemEvent value)? manageCartItem,
+    TResult Function(_$CartLoadProductsByIdEvent value)? loadProductsById,
+    TResult Function(_$CartCreateOrderEvent value)? createOrder,
+    required TResult orElse(),
+  }) {
+    if (createOrder != null) {
+      return createOrder(this);
+    }
+    return orElse();
+  }
+}
+
+abstract class _$CartCreateOrderEvent implements CartEvent {
+  const factory _$CartCreateOrderEvent(
+      {required final int cartId,
+      required final double itemsPrice,
+      required final double deliveryPrice,
+      required final int addressId}) = _$_$CartCreateOrderEvent;
+
+  int get cartId;
+  double get itemsPrice;
+  double get deliveryPrice;
+  int get addressId;
+  @JsonKey(ignore: true)
+  _$$_$CartCreateOrderEventCopyWith<_$_$CartCreateOrderEvent> get copyWith =>
+      throw _privateConstructorUsedError;
+}
+
+/// @nodoc
 mixin _$CartState {
   @optionalTypeArgs
   TResult when<TResult extends Object?>({
@@ -401,6 +628,8 @@ mixin _$CartState {
     required TResult Function() initial,
     required TResult Function() loading,
     required TResult Function(String error) errored,
+    required TResult Function(OrderModel order, CartModel newCart)
+        cartToOrderCompleted,
     required TResult Function() empty,
     required TResult Function(
             List<ProductModel> products, List<OrganizationModel> organizations)
@@ -413,6 +642,8 @@ mixin _$CartState {
     TResult? Function()? initial,
     TResult? Function()? loading,
     TResult? Function(String error)? errored,
+    TResult? Function(OrderModel order, CartModel newCart)?
+        cartToOrderCompleted,
     TResult? Function()? empty,
     TResult? Function(
             List<ProductModel> products, List<OrganizationModel> organizations)?
@@ -425,6 +656,7 @@ mixin _$CartState {
     TResult Function()? initial,
     TResult Function()? loading,
     TResult Function(String error)? errored,
+    TResult Function(OrderModel order, CartModel newCart)? cartToOrderCompleted,
     TResult Function()? empty,
     TResult Function(
             List<ProductModel> products, List<OrganizationModel> organizations)?
@@ -438,6 +670,8 @@ mixin _$CartState {
     required TResult Function(_$CartItemInitialState value) initial,
     required TResult Function(_$CartItemLoadingState value) loading,
     required TResult Function(_$CartItemErroredState value) errored,
+    required TResult Function(_$CartCartToOrderCompletedState value)
+        cartToOrderCompleted,
     required TResult Function(_$CartEmptyState value) empty,
     required TResult Function(_$CartProductsByIdLoadedState value)
         productsByIdLoaded,
@@ -449,6 +683,8 @@ mixin _$CartState {
     TResult? Function(_$CartItemInitialState value)? initial,
     TResult? Function(_$CartItemLoadingState value)? loading,
     TResult? Function(_$CartItemErroredState value)? errored,
+    TResult? Function(_$CartCartToOrderCompletedState value)?
+        cartToOrderCompleted,
     TResult? Function(_$CartEmptyState value)? empty,
     TResult? Function(_$CartProductsByIdLoadedState value)? productsByIdLoaded,
   }) =>
@@ -459,6 +695,8 @@ mixin _$CartState {
     TResult Function(_$CartItemInitialState value)? initial,
     TResult Function(_$CartItemLoadingState value)? loading,
     TResult Function(_$CartItemErroredState value)? errored,
+    TResult Function(_$CartCartToOrderCompletedState value)?
+        cartToOrderCompleted,
     TResult Function(_$CartEmptyState value)? empty,
     TResult Function(_$CartProductsByIdLoadedState value)? productsByIdLoaded,
     required TResult orElse(),
@@ -553,6 +791,8 @@ class _$_$CartItemManagedState implements _$CartItemManagedState {
     required TResult Function() initial,
     required TResult Function() loading,
     required TResult Function(String error) errored,
+    required TResult Function(OrderModel order, CartModel newCart)
+        cartToOrderCompleted,
     required TResult Function() empty,
     required TResult Function(
             List<ProductModel> products, List<OrganizationModel> organizations)
@@ -568,6 +808,8 @@ class _$_$CartItemManagedState implements _$CartItemManagedState {
     TResult? Function()? initial,
     TResult? Function()? loading,
     TResult? Function(String error)? errored,
+    TResult? Function(OrderModel order, CartModel newCart)?
+        cartToOrderCompleted,
     TResult? Function()? empty,
     TResult? Function(
             List<ProductModel> products, List<OrganizationModel> organizations)?
@@ -583,6 +825,7 @@ class _$_$CartItemManagedState implements _$CartItemManagedState {
     TResult Function()? initial,
     TResult Function()? loading,
     TResult Function(String error)? errored,
+    TResult Function(OrderModel order, CartModel newCart)? cartToOrderCompleted,
     TResult Function()? empty,
     TResult Function(
             List<ProductModel> products, List<OrganizationModel> organizations)?
@@ -602,6 +845,8 @@ class _$_$CartItemManagedState implements _$CartItemManagedState {
     required TResult Function(_$CartItemInitialState value) initial,
     required TResult Function(_$CartItemLoadingState value) loading,
     required TResult Function(_$CartItemErroredState value) errored,
+    required TResult Function(_$CartCartToOrderCompletedState value)
+        cartToOrderCompleted,
     required TResult Function(_$CartEmptyState value) empty,
     required TResult Function(_$CartProductsByIdLoadedState value)
         productsByIdLoaded,
@@ -616,6 +861,8 @@ class _$_$CartItemManagedState implements _$CartItemManagedState {
     TResult? Function(_$CartItemInitialState value)? initial,
     TResult? Function(_$CartItemLoadingState value)? loading,
     TResult? Function(_$CartItemErroredState value)? errored,
+    TResult? Function(_$CartCartToOrderCompletedState value)?
+        cartToOrderCompleted,
     TResult? Function(_$CartEmptyState value)? empty,
     TResult? Function(_$CartProductsByIdLoadedState value)? productsByIdLoaded,
   }) {
@@ -629,6 +876,8 @@ class _$_$CartItemManagedState implements _$CartItemManagedState {
     TResult Function(_$CartItemInitialState value)? initial,
     TResult Function(_$CartItemLoadingState value)? loading,
     TResult Function(_$CartItemErroredState value)? errored,
+    TResult Function(_$CartCartToOrderCompletedState value)?
+        cartToOrderCompleted,
     TResult Function(_$CartEmptyState value)? empty,
     TResult Function(_$CartProductsByIdLoadedState value)? productsByIdLoaded,
     required TResult orElse(),
@@ -692,6 +941,8 @@ class _$_$CartItemInitialState implements _$CartItemInitialState {
     required TResult Function() initial,
     required TResult Function() loading,
     required TResult Function(String error) errored,
+    required TResult Function(OrderModel order, CartModel newCart)
+        cartToOrderCompleted,
     required TResult Function() empty,
     required TResult Function(
             List<ProductModel> products, List<OrganizationModel> organizations)
@@ -707,6 +958,8 @@ class _$_$CartItemInitialState implements _$CartItemInitialState {
     TResult? Function()? initial,
     TResult? Function()? loading,
     TResult? Function(String error)? errored,
+    TResult? Function(OrderModel order, CartModel newCart)?
+        cartToOrderCompleted,
     TResult? Function()? empty,
     TResult? Function(
             List<ProductModel> products, List<OrganizationModel> organizations)?
@@ -722,6 +975,7 @@ class _$_$CartItemInitialState implements _$CartItemInitialState {
     TResult Function()? initial,
     TResult Function()? loading,
     TResult Function(String error)? errored,
+    TResult Function(OrderModel order, CartModel newCart)? cartToOrderCompleted,
     TResult Function()? empty,
     TResult Function(
             List<ProductModel> products, List<OrganizationModel> organizations)?
@@ -741,6 +995,8 @@ class _$_$CartItemInitialState implements _$CartItemInitialState {
     required TResult Function(_$CartItemInitialState value) initial,
     required TResult Function(_$CartItemLoadingState value) loading,
     required TResult Function(_$CartItemErroredState value) errored,
+    required TResult Function(_$CartCartToOrderCompletedState value)
+        cartToOrderCompleted,
     required TResult Function(_$CartEmptyState value) empty,
     required TResult Function(_$CartProductsByIdLoadedState value)
         productsByIdLoaded,
@@ -755,6 +1011,8 @@ class _$_$CartItemInitialState implements _$CartItemInitialState {
     TResult? Function(_$CartItemInitialState value)? initial,
     TResult? Function(_$CartItemLoadingState value)? loading,
     TResult? Function(_$CartItemErroredState value)? errored,
+    TResult? Function(_$CartCartToOrderCompletedState value)?
+        cartToOrderCompleted,
     TResult? Function(_$CartEmptyState value)? empty,
     TResult? Function(_$CartProductsByIdLoadedState value)? productsByIdLoaded,
   }) {
@@ -768,6 +1026,8 @@ class _$_$CartItemInitialState implements _$CartItemInitialState {
     TResult Function(_$CartItemInitialState value)? initial,
     TResult Function(_$CartItemLoadingState value)? loading,
     TResult Function(_$CartItemErroredState value)? errored,
+    TResult Function(_$CartCartToOrderCompletedState value)?
+        cartToOrderCompleted,
     TResult Function(_$CartEmptyState value)? empty,
     TResult Function(_$CartProductsByIdLoadedState value)? productsByIdLoaded,
     required TResult orElse(),
@@ -825,6 +1085,8 @@ class _$_$CartItemLoadingState implements _$CartItemLoadingState {
     required TResult Function() initial,
     required TResult Function() loading,
     required TResult Function(String error) errored,
+    required TResult Function(OrderModel order, CartModel newCart)
+        cartToOrderCompleted,
     required TResult Function() empty,
     required TResult Function(
             List<ProductModel> products, List<OrganizationModel> organizations)
@@ -840,6 +1102,8 @@ class _$_$CartItemLoadingState implements _$CartItemLoadingState {
     TResult? Function()? initial,
     TResult? Function()? loading,
     TResult? Function(String error)? errored,
+    TResult? Function(OrderModel order, CartModel newCart)?
+        cartToOrderCompleted,
     TResult? Function()? empty,
     TResult? Function(
             List<ProductModel> products, List<OrganizationModel> organizations)?
@@ -855,6 +1119,7 @@ class _$_$CartItemLoadingState implements _$CartItemLoadingState {
     TResult Function()? initial,
     TResult Function()? loading,
     TResult Function(String error)? errored,
+    TResult Function(OrderModel order, CartModel newCart)? cartToOrderCompleted,
     TResult Function()? empty,
     TResult Function(
             List<ProductModel> products, List<OrganizationModel> organizations)?
@@ -874,6 +1139,8 @@ class _$_$CartItemLoadingState implements _$CartItemLoadingState {
     required TResult Function(_$CartItemInitialState value) initial,
     required TResult Function(_$CartItemLoadingState value) loading,
     required TResult Function(_$CartItemErroredState value) errored,
+    required TResult Function(_$CartCartToOrderCompletedState value)
+        cartToOrderCompleted,
     required TResult Function(_$CartEmptyState value) empty,
     required TResult Function(_$CartProductsByIdLoadedState value)
         productsByIdLoaded,
@@ -888,6 +1155,8 @@ class _$_$CartItemLoadingState implements _$CartItemLoadingState {
     TResult? Function(_$CartItemInitialState value)? initial,
     TResult? Function(_$CartItemLoadingState value)? loading,
     TResult? Function(_$CartItemErroredState value)? errored,
+    TResult? Function(_$CartCartToOrderCompletedState value)?
+        cartToOrderCompleted,
     TResult? Function(_$CartEmptyState value)? empty,
     TResult? Function(_$CartProductsByIdLoadedState value)? productsByIdLoaded,
   }) {
@@ -901,6 +1170,8 @@ class _$_$CartItemLoadingState implements _$CartItemLoadingState {
     TResult Function(_$CartItemInitialState value)? initial,
     TResult Function(_$CartItemLoadingState value)? loading,
     TResult Function(_$CartItemErroredState value)? errored,
+    TResult Function(_$CartCartToOrderCompletedState value)?
+        cartToOrderCompleted,
     TResult Function(_$CartEmptyState value)? empty,
     TResult Function(_$CartProductsByIdLoadedState value)? productsByIdLoaded,
     required TResult orElse(),
@@ -985,6 +1256,8 @@ class _$_$CartItemErroredState implements _$CartItemErroredState {
     required TResult Function() initial,
     required TResult Function() loading,
     required TResult Function(String error) errored,
+    required TResult Function(OrderModel order, CartModel newCart)
+        cartToOrderCompleted,
     required TResult Function() empty,
     required TResult Function(
             List<ProductModel> products, List<OrganizationModel> organizations)
@@ -1000,6 +1273,8 @@ class _$_$CartItemErroredState implements _$CartItemErroredState {
     TResult? Function()? initial,
     TResult? Function()? loading,
     TResult? Function(String error)? errored,
+    TResult? Function(OrderModel order, CartModel newCart)?
+        cartToOrderCompleted,
     TResult? Function()? empty,
     TResult? Function(
             List<ProductModel> products, List<OrganizationModel> organizations)?
@@ -1015,6 +1290,7 @@ class _$_$CartItemErroredState implements _$CartItemErroredState {
     TResult Function()? initial,
     TResult Function()? loading,
     TResult Function(String error)? errored,
+    TResult Function(OrderModel order, CartModel newCart)? cartToOrderCompleted,
     TResult Function()? empty,
     TResult Function(
             List<ProductModel> products, List<OrganizationModel> organizations)?
@@ -1034,6 +1310,8 @@ class _$_$CartItemErroredState implements _$CartItemErroredState {
     required TResult Function(_$CartItemInitialState value) initial,
     required TResult Function(_$CartItemLoadingState value) loading,
     required TResult Function(_$CartItemErroredState value) errored,
+    required TResult Function(_$CartCartToOrderCompletedState value)
+        cartToOrderCompleted,
     required TResult Function(_$CartEmptyState value) empty,
     required TResult Function(_$CartProductsByIdLoadedState value)
         productsByIdLoaded,
@@ -1048,6 +1326,8 @@ class _$_$CartItemErroredState implements _$CartItemErroredState {
     TResult? Function(_$CartItemInitialState value)? initial,
     TResult? Function(_$CartItemLoadingState value)? loading,
     TResult? Function(_$CartItemErroredState value)? errored,
+    TResult? Function(_$CartCartToOrderCompletedState value)?
+        cartToOrderCompleted,
     TResult? Function(_$CartEmptyState value)? empty,
     TResult? Function(_$CartProductsByIdLoadedState value)? productsByIdLoaded,
   }) {
@@ -1061,6 +1341,8 @@ class _$_$CartItemErroredState implements _$CartItemErroredState {
     TResult Function(_$CartItemInitialState value)? initial,
     TResult Function(_$CartItemLoadingState value)? loading,
     TResult Function(_$CartItemErroredState value)? errored,
+    TResult Function(_$CartCartToOrderCompletedState value)?
+        cartToOrderCompleted,
     TResult Function(_$CartEmptyState value)? empty,
     TResult Function(_$CartProductsByIdLoadedState value)? productsByIdLoaded,
     required TResult orElse(),
@@ -1080,6 +1362,196 @@ abstract class _$CartItemErroredState implements CartState {
   @JsonKey(ignore: true)
   _$$_$CartItemErroredStateCopyWith<_$_$CartItemErroredState> get copyWith =>
       throw _privateConstructorUsedError;
+}
+
+/// @nodoc
+abstract class _$$_$CartCartToOrderCompletedStateCopyWith<$Res> {
+  factory _$$_$CartCartToOrderCompletedStateCopyWith(
+          _$_$CartCartToOrderCompletedState value,
+          $Res Function(_$_$CartCartToOrderCompletedState) then) =
+      __$$_$CartCartToOrderCompletedStateCopyWithImpl<$Res>;
+  @useResult
+  $Res call({OrderModel order, CartModel newCart});
+}
+
+/// @nodoc
+class __$$_$CartCartToOrderCompletedStateCopyWithImpl<$Res>
+    extends _$CartStateCopyWithImpl<$Res, _$_$CartCartToOrderCompletedState>
+    implements _$$_$CartCartToOrderCompletedStateCopyWith<$Res> {
+  __$$_$CartCartToOrderCompletedStateCopyWithImpl(
+      _$_$CartCartToOrderCompletedState _value,
+      $Res Function(_$_$CartCartToOrderCompletedState) _then)
+      : super(_value, _then);
+
+  @pragma('vm:prefer-inline')
+  @override
+  $Res call({
+    Object? order = null,
+    Object? newCart = null,
+  }) {
+    return _then(_$_$CartCartToOrderCompletedState(
+      null == order
+          ? _value.order
+          : order // ignore: cast_nullable_to_non_nullable
+              as OrderModel,
+      null == newCart
+          ? _value.newCart
+          : newCart // ignore: cast_nullable_to_non_nullable
+              as CartModel,
+    ));
+  }
+}
+
+/// @nodoc
+
+class _$_$CartCartToOrderCompletedState
+    implements _$CartCartToOrderCompletedState {
+  const _$_$CartCartToOrderCompletedState(this.order, this.newCart);
+
+  @override
+  final OrderModel order;
+  @override
+  final CartModel newCart;
+
+  @override
+  String toString() {
+    return 'CartState.cartToOrderCompleted(order: $order, newCart: $newCart)';
+  }
+
+  @override
+  bool operator ==(dynamic other) {
+    return identical(this, other) ||
+        (other.runtimeType == runtimeType &&
+            other is _$_$CartCartToOrderCompletedState &&
+            (identical(other.order, order) || other.order == order) &&
+            (identical(other.newCart, newCart) || other.newCart == newCart));
+  }
+
+  @override
+  int get hashCode => Object.hash(runtimeType, order, newCart);
+
+  @JsonKey(ignore: true)
+  @override
+  @pragma('vm:prefer-inline')
+  _$$_$CartCartToOrderCompletedStateCopyWith<_$_$CartCartToOrderCompletedState>
+      get copyWith => __$$_$CartCartToOrderCompletedStateCopyWithImpl<
+          _$_$CartCartToOrderCompletedState>(this, _$identity);
+
+  @override
+  @optionalTypeArgs
+  TResult when<TResult extends Object?>({
+    required TResult Function(CartItemModel? managedItem) itemManaged,
+    required TResult Function() initial,
+    required TResult Function() loading,
+    required TResult Function(String error) errored,
+    required TResult Function(OrderModel order, CartModel newCart)
+        cartToOrderCompleted,
+    required TResult Function() empty,
+    required TResult Function(
+            List<ProductModel> products, List<OrganizationModel> organizations)
+        productsByIdLoaded,
+  }) {
+    return cartToOrderCompleted(order, newCart);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult? whenOrNull<TResult extends Object?>({
+    TResult? Function(CartItemModel? managedItem)? itemManaged,
+    TResult? Function()? initial,
+    TResult? Function()? loading,
+    TResult? Function(String error)? errored,
+    TResult? Function(OrderModel order, CartModel newCart)?
+        cartToOrderCompleted,
+    TResult? Function()? empty,
+    TResult? Function(
+            List<ProductModel> products, List<OrganizationModel> organizations)?
+        productsByIdLoaded,
+  }) {
+    return cartToOrderCompleted?.call(order, newCart);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult maybeWhen<TResult extends Object?>({
+    TResult Function(CartItemModel? managedItem)? itemManaged,
+    TResult Function()? initial,
+    TResult Function()? loading,
+    TResult Function(String error)? errored,
+    TResult Function(OrderModel order, CartModel newCart)? cartToOrderCompleted,
+    TResult Function()? empty,
+    TResult Function(
+            List<ProductModel> products, List<OrganizationModel> organizations)?
+        productsByIdLoaded,
+    required TResult orElse(),
+  }) {
+    if (cartToOrderCompleted != null) {
+      return cartToOrderCompleted(order, newCart);
+    }
+    return orElse();
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult map<TResult extends Object?>({
+    required TResult Function(_$CartItemManagedState value) itemManaged,
+    required TResult Function(_$CartItemInitialState value) initial,
+    required TResult Function(_$CartItemLoadingState value) loading,
+    required TResult Function(_$CartItemErroredState value) errored,
+    required TResult Function(_$CartCartToOrderCompletedState value)
+        cartToOrderCompleted,
+    required TResult Function(_$CartEmptyState value) empty,
+    required TResult Function(_$CartProductsByIdLoadedState value)
+        productsByIdLoaded,
+  }) {
+    return cartToOrderCompleted(this);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult? mapOrNull<TResult extends Object?>({
+    TResult? Function(_$CartItemManagedState value)? itemManaged,
+    TResult? Function(_$CartItemInitialState value)? initial,
+    TResult? Function(_$CartItemLoadingState value)? loading,
+    TResult? Function(_$CartItemErroredState value)? errored,
+    TResult? Function(_$CartCartToOrderCompletedState value)?
+        cartToOrderCompleted,
+    TResult? Function(_$CartEmptyState value)? empty,
+    TResult? Function(_$CartProductsByIdLoadedState value)? productsByIdLoaded,
+  }) {
+    return cartToOrderCompleted?.call(this);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult maybeMap<TResult extends Object?>({
+    TResult Function(_$CartItemManagedState value)? itemManaged,
+    TResult Function(_$CartItemInitialState value)? initial,
+    TResult Function(_$CartItemLoadingState value)? loading,
+    TResult Function(_$CartItemErroredState value)? errored,
+    TResult Function(_$CartCartToOrderCompletedState value)?
+        cartToOrderCompleted,
+    TResult Function(_$CartEmptyState value)? empty,
+    TResult Function(_$CartProductsByIdLoadedState value)? productsByIdLoaded,
+    required TResult orElse(),
+  }) {
+    if (cartToOrderCompleted != null) {
+      return cartToOrderCompleted(this);
+    }
+    return orElse();
+  }
+}
+
+abstract class _$CartCartToOrderCompletedState implements CartState {
+  const factory _$CartCartToOrderCompletedState(
+          final OrderModel order, final CartModel newCart) =
+      _$_$CartCartToOrderCompletedState;
+
+  OrderModel get order;
+  CartModel get newCart;
+  @JsonKey(ignore: true)
+  _$$_$CartCartToOrderCompletedStateCopyWith<_$_$CartCartToOrderCompletedState>
+      get copyWith => throw _privateConstructorUsedError;
 }
 
 /// @nodoc
@@ -1124,6 +1596,8 @@ class _$_$CartEmptyState implements _$CartEmptyState {
     required TResult Function() initial,
     required TResult Function() loading,
     required TResult Function(String error) errored,
+    required TResult Function(OrderModel order, CartModel newCart)
+        cartToOrderCompleted,
     required TResult Function() empty,
     required TResult Function(
             List<ProductModel> products, List<OrganizationModel> organizations)
@@ -1139,6 +1613,8 @@ class _$_$CartEmptyState implements _$CartEmptyState {
     TResult? Function()? initial,
     TResult? Function()? loading,
     TResult? Function(String error)? errored,
+    TResult? Function(OrderModel order, CartModel newCart)?
+        cartToOrderCompleted,
     TResult? Function()? empty,
     TResult? Function(
             List<ProductModel> products, List<OrganizationModel> organizations)?
@@ -1154,6 +1630,7 @@ class _$_$CartEmptyState implements _$CartEmptyState {
     TResult Function()? initial,
     TResult Function()? loading,
     TResult Function(String error)? errored,
+    TResult Function(OrderModel order, CartModel newCart)? cartToOrderCompleted,
     TResult Function()? empty,
     TResult Function(
             List<ProductModel> products, List<OrganizationModel> organizations)?
@@ -1173,6 +1650,8 @@ class _$_$CartEmptyState implements _$CartEmptyState {
     required TResult Function(_$CartItemInitialState value) initial,
     required TResult Function(_$CartItemLoadingState value) loading,
     required TResult Function(_$CartItemErroredState value) errored,
+    required TResult Function(_$CartCartToOrderCompletedState value)
+        cartToOrderCompleted,
     required TResult Function(_$CartEmptyState value) empty,
     required TResult Function(_$CartProductsByIdLoadedState value)
         productsByIdLoaded,
@@ -1187,6 +1666,8 @@ class _$_$CartEmptyState implements _$CartEmptyState {
     TResult? Function(_$CartItemInitialState value)? initial,
     TResult? Function(_$CartItemLoadingState value)? loading,
     TResult? Function(_$CartItemErroredState value)? errored,
+    TResult? Function(_$CartCartToOrderCompletedState value)?
+        cartToOrderCompleted,
     TResult? Function(_$CartEmptyState value)? empty,
     TResult? Function(_$CartProductsByIdLoadedState value)? productsByIdLoaded,
   }) {
@@ -1200,6 +1681,8 @@ class _$_$CartEmptyState implements _$CartEmptyState {
     TResult Function(_$CartItemInitialState value)? initial,
     TResult Function(_$CartItemLoadingState value)? loading,
     TResult Function(_$CartItemErroredState value)? errored,
+    TResult Function(_$CartCartToOrderCompletedState value)?
+        cartToOrderCompleted,
     TResult Function(_$CartEmptyState value)? empty,
     TResult Function(_$CartProductsByIdLoadedState value)? productsByIdLoaded,
     required TResult orElse(),
@@ -1311,6 +1794,8 @@ class _$_$CartProductsByIdLoadedState implements _$CartProductsByIdLoadedState {
     required TResult Function() initial,
     required TResult Function() loading,
     required TResult Function(String error) errored,
+    required TResult Function(OrderModel order, CartModel newCart)
+        cartToOrderCompleted,
     required TResult Function() empty,
     required TResult Function(
             List<ProductModel> products, List<OrganizationModel> organizations)
@@ -1326,6 +1811,8 @@ class _$_$CartProductsByIdLoadedState implements _$CartProductsByIdLoadedState {
     TResult? Function()? initial,
     TResult? Function()? loading,
     TResult? Function(String error)? errored,
+    TResult? Function(OrderModel order, CartModel newCart)?
+        cartToOrderCompleted,
     TResult? Function()? empty,
     TResult? Function(
             List<ProductModel> products, List<OrganizationModel> organizations)?
@@ -1341,6 +1828,7 @@ class _$_$CartProductsByIdLoadedState implements _$CartProductsByIdLoadedState {
     TResult Function()? initial,
     TResult Function()? loading,
     TResult Function(String error)? errored,
+    TResult Function(OrderModel order, CartModel newCart)? cartToOrderCompleted,
     TResult Function()? empty,
     TResult Function(
             List<ProductModel> products, List<OrganizationModel> organizations)?
@@ -1360,6 +1848,8 @@ class _$_$CartProductsByIdLoadedState implements _$CartProductsByIdLoadedState {
     required TResult Function(_$CartItemInitialState value) initial,
     required TResult Function(_$CartItemLoadingState value) loading,
     required TResult Function(_$CartItemErroredState value) errored,
+    required TResult Function(_$CartCartToOrderCompletedState value)
+        cartToOrderCompleted,
     required TResult Function(_$CartEmptyState value) empty,
     required TResult Function(_$CartProductsByIdLoadedState value)
         productsByIdLoaded,
@@ -1374,6 +1864,8 @@ class _$_$CartProductsByIdLoadedState implements _$CartProductsByIdLoadedState {
     TResult? Function(_$CartItemInitialState value)? initial,
     TResult? Function(_$CartItemLoadingState value)? loading,
     TResult? Function(_$CartItemErroredState value)? errored,
+    TResult? Function(_$CartCartToOrderCompletedState value)?
+        cartToOrderCompleted,
     TResult? Function(_$CartEmptyState value)? empty,
     TResult? Function(_$CartProductsByIdLoadedState value)? productsByIdLoaded,
   }) {
@@ -1387,6 +1879,8 @@ class _$_$CartProductsByIdLoadedState implements _$CartProductsByIdLoadedState {
     TResult Function(_$CartItemInitialState value)? initial,
     TResult Function(_$CartItemLoadingState value)? loading,
     TResult Function(_$CartItemErroredState value)? errored,
+    TResult Function(_$CartCartToOrderCompletedState value)?
+        cartToOrderCompleted,
     TResult Function(_$CartEmptyState value)? empty,
     TResult Function(_$CartProductsByIdLoadedState value)? productsByIdLoaded,
     required TResult orElse(),

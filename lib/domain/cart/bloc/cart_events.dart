@@ -8,4 +8,5 @@ class CartEvent with _$CartEvent {
 
         const factory CartEvent.loadProductsById(
       List<int> ids) = _$CartLoadProductsByIdEvent;
+      const factory CartEvent.createOrder({required int cartId, required double itemsPrice, required double deliveryPrice, required int addressId}) = _$CartCreateOrderEvent;
 }

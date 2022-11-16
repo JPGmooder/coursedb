@@ -110,6 +110,6 @@ class AuthRepository {
       addressesToReturn.add(AddressModel.fromMap(element));
     }
 
-    return [];
+    return addressesToReturn;
   }
 }

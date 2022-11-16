@@ -38,7 +38,9 @@ class CartModel with ChangeNotifier {
     var index = items
         .indexWhere((element) => element.cartItemId == cartItem.cartItemId);
     if (index == -1) {
-      items.add(cartItem);
+      if (cartItem.amount != 0) {
+        items.add(cartItem);
+      }
     } else {
       if (cartItem.amount == 0) {
         items.removeAt(index);
@@ -49,6 +51,8 @@ class CartModel with ChangeNotifier {
     notifyListeners();
   }
 
+  
+
   bool isCartFromSingleShop(List<ProductModel> products) =>
       products.any((element) =>
           items.isEmpty ||
@@ -57,7 +61,6 @@ class CartModel with ChangeNotifier {
   void manageCartItems(BuildContext context, List<ProductModel> products,
       int productCount, int productId,
       {bool isPassCheck = false}) {
-
     if (isCartFromSingleShop(products) || isPassCheck) {
       context.read<CartBloc>().add(CartEvent.manageCartItem(
           userLogin: UserModel.get().login,

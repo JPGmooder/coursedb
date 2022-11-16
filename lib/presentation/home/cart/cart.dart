@@ -10,6 +10,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:kursach/domain/product/bloc/product_bloc.dart';
 import 'package:kursach/presentation/home/cart/cart_item_widget.dart';
 import 'package:kursach/presentation/outstanding/gradientmask.dart';
+import 'package:supabase_flutter/supabase_flutter.dart';
 
 class CartScreen extends StatefulWidget {
   const CartScreen({Key? key}) : super(key: key);
@@ -38,50 +39,39 @@ class _CartScreenState extends State<CartScreen> {
         builder: (context, state) {
           return state.maybeWhen(
               loading: () => CircularProgressIndicator(),
-              empty: () => Text("Тут ничего нет"),
+              empty: () {
+                orderedProducts = [];
+                return Text("Тут ничего нет");
+              },
               itemManaged: (managedItem) {
                 UserModel.get()
                     .carts
                     .firstWhere((element) => element.isActive)
                     .addItemToList(managedItem!);
-                if (orderedProducts == null) {
-                  var items = UserModel.get()
-                      .carts
-                      .firstWhere((element) => element.isActive)
-                      .items;
-                  context.read<CartBloc>().add(CartEvent.loadProductsById(
-                      items.map((e) => e.productId).toList()));
-                }
-                return orderedProducts == null
-                    ? CircularProgressIndicator()
-                    : CartBody(
-                        onDelete: (e) {
-                          setState(() {
-                            orderedProducts!.remove(e);
-                            UserModel.get()
-                                .carts
-                                .firstWhere((element) => element.isActive)
-                                .items
-                                .removeWhere((element) =>
-                                    element.productId == e.productId);
-                          });
-                          context.read<CartBloc>().add(CartEvent.manageCartItem(
-                              userLogin: UserModel.get().login,
-                              productQuantity: 0,
-                              productId: e.productId));
-                        },
-                        items: UserModel.get()
-                            .carts
-                            .firstWhere((element) => element.isActive)
-                            .items,
-                        orderedProducts: orderedProducts!,
-                        orgModel: orgModel);
+
+                var items = UserModel.get()
+                    .carts
+                    .firstWhere((element) => element.isActive)
+                    .items;
+                context.read<CartBloc>().add(CartEvent.loadProductsById(
+                    items.map((e) => e.productId).toList()));
+
+                return CircularProgressIndicator();
+              },
+              cartToOrderCompleted: (order, newCart) {
+                UserModel.get().orders!.add(order);
+                UserModel.get().addNewCart(newCart);
+                return Text("Тут ничего нет");
               },
               productsByIdLoaded: ((products, organizations) {
-                orgModel = organizations.first;
+                if (organizations.isNotEmpty) {
+                  orgModel = organizations.first;
+                }
 
-                orderedProducts ??= [...products];
-
+                orderedProducts = [...products];
+                if (orderedProducts!.isEmpty) {
+                  context.read<CartBloc>().emit(CartState.empty());
+                }
                 return CartBody(
                     onDelete: (e) {
                       setState(() {
@@ -105,28 +95,7 @@ class _CartScreenState extends State<CartScreen> {
                     orderedProducts: orderedProducts!,
                     orgModel: organizations.first);
               }),
-              orElse: () => CartBody(
-                  onDelete: (e) {
-                    setState(() {
-                      orderedProducts!.remove(e);
-                      UserModel.get()
-                          .carts
-                          .firstWhere((element) => element.isActive)
-                          .items
-                          .removeWhere(
-                              (element) => element.productId == e.productId);
-                    });
-                    context.read<CartBloc>().add(CartEvent.manageCartItem(
-                        userLogin: UserModel.get().login,
-                        productQuantity: 0,
-                        productId: e.productId));
-                  },
-                  items: UserModel.get()
-                      .carts
-                      .firstWhere((element) => element.isActive)
-                      .items,
-                  orderedProducts: orderedProducts!,
-                  orgModel: orgModel));
+              orElse: () => CircularProgressIndicator());
         },
       ),
     );
@@ -180,110 +149,120 @@ class CartBody extends StatelessWidget {
       SliverFillRemaining(
         child: Padding(
           padding: const EdgeInsets.symmetric(vertical: 10.0, horizontal: 15),
-          child: orderedProducts.isEmpty
-              ? Text("Тут ничего нет")
-              : Column(children: [
-                  ...orderedProducts
-                      .map((e) => CartItemWidget(
-                            onDelete: (_) => onDelete(e),
-                            count: items
-                                .firstWhere((element) =>
-                                    element.productId == e.productId)
-                                .amount,
-                            product: e,
-                            currentOrg: orgModel,
-                          ))
-                      .toList(),
-                  Padding(
-                    padding: const EdgeInsets.symmetric(horizontal: 5.0),
-                    child: Column(
-                      children: [
-                        Divider(),
-                        Row(
-                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                          children: [
-                            Text(
-                              "Доставка",
-                              style: Theme.of(context).textTheme.titleMedium,
-                            ),
-                            GradientMask(
-                              size: 50,
-                              begin: Alignment.topLeft,
-                              end: Alignment.bottomRight,
-                              child: Text(
-                                orgModel == null
-                                    ? "Загрузка.."
-                                    : "${orgModel!.companyDeliveryPrice.toString()} р.",
-                                style: Theme.of(context)
-                                    .textTheme
-                                    .titleMedium!
-                                    .copyWith(color: Colors.white54),
-                              ),
-                            )
-                          ],
+          child: Column(children: [
+            ...orderedProducts
+                .map((e) => CartItemWidget(
+                      onDelete: (_) => onDelete(e),
+                      count: items
+                          .firstWhere(
+                              (element) => element.productId == e.productId)
+                          .amount,
+                      product: e,
+                      currentOrg: orgModel,
+                    ))
+                .toList(),
+            Padding(
+              padding: const EdgeInsets.symmetric(horizontal: 5.0),
+              child: Column(
+                children: [
+                  Divider(),
+                  Row(
+                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                    children: [
+                      Text(
+                        "Доставка",
+                        style: Theme.of(context).textTheme.titleMedium,
+                      ),
+                      GradientMask(
+                        size: 50,
+                        begin: Alignment.topLeft,
+                        end: Alignment.bottomRight,
+                        child: Text(
+                          orgModel == null
+                              ? "Загрузка.."
+                              : "${orgModel!.companyDeliveryPrice.toString()} р.",
+                          style: Theme.of(context)
+                              .textTheme
+                              .titleMedium!
+                              .copyWith(color: Colors.white54),
                         ),
-                        Divider(),
-                        Row(
-                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                          children: [
-                            Text(
-                              "Итого",
-                              style: Theme.of(context).textTheme.titleMedium,
-                            ),
-                            GradientMask(
-                              size: 50,
-                              begin: Alignment.topLeft,
-                              end: Alignment.bottomRight,
-                              child: Text(
-                                orgModel == null
-                                    ? "Загрузка.."
-                                    : "${getPrice() + orgModel!.companyDeliveryPrice} р.",
-                                style: Theme.of(context)
-                                    .textTheme
-                                    .titleMedium!
-                                    .copyWith(color: Colors.white54),
-                              ),
-                            )
-                          ],
-                        )
-                      ],
-                    ),
+                      )
+                    ],
                   ),
-                  Spacer(),
-                  Padding(
-                    padding: const EdgeInsets.symmetric(horizontal: 20.0),
-                    child: GradientMask(
-                      size: 200,
-                      begin: Alignment.topLeft,
-                      end: Alignment.bottomRight,
-                      child: NeumorphicButton(
-                          style: NeumorphicStyle(color: Colors.white54),
-                          onPressed: () => null,
-                          child: Padding(
-                            padding: const EdgeInsets.all(8.0),
-                            child: Row(
-                              mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                              children: [
-                                Text(
-                                  "Оформить доставку",
-                                  style:
-                                      Theme.of(context).textTheme.labelMedium,
-                                ),
-                                Text(
-                                  orgModel == null
-                                      ? "Загрузка.."
-                                      : "${getPrice() + orgModel!.companyDeliveryPrice} р.",
-                                  style: Theme.of(context)
-                                      .textTheme
-                                      .labelMedium!
-                                      .copyWith(fontWeight: FontWeight.bold),
-                                )
-                              ],
-                            ),
-                          )),
-                    ),
+                  Divider(),
+                  Row(
+                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                    children: [
+                      Text(
+                        "Итого",
+                        style: Theme.of(context).textTheme.titleMedium,
+                      ),
+                      GradientMask(
+                        size: 50,
+                        begin: Alignment.topLeft,
+                        end: Alignment.bottomRight,
+                        child: Text(
+                          orgModel == null
+                              ? "Загрузка.."
+                              : "${getPrice() + orgModel!.companyDeliveryPrice} р.",
+                          style: Theme.of(context)
+                              .textTheme
+                              .titleMedium!
+                              .copyWith(color: Colors.white54),
+                        ),
+                      )
+                    ],
                   )
-                ]),
+                ],
+              ),
+            ),
+            Spacer(),
+            Padding(
+              padding: const EdgeInsets.symmetric(horizontal: 20.0),
+              child: GradientMask(
+                size: 200,
+                begin: Alignment.topLeft,
+                end: Alignment.bottomRight,
+                child: NeumorphicButton(
+                    style: NeumorphicStyle(color: Colors.white54),
+                    onPressed: () => context.read<CartBloc>().add(
+                        CartEvent.createOrder(
+                            cartId:
+                                UserModel.get()
+                                    .carts
+                                    .firstWhere((element) => element.isActive)
+                                    .cartID,
+                            itemsPrice: getPrice().toDouble(),
+                            deliveryPrice:
+                                orgModel!.companyDeliveryPrice.toDouble(),
+                            addressId: UserModel.get()
+                                .addresses!
+                                .firstWhere((element) => element.isActive)
+                                .id_address)),
+                    child: Padding(
+                      padding: const EdgeInsets.all(8.0),
+                      child: Row(
+                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                        children: [
+                          Text(
+                            "Оформить доставку",
+                            style: Theme.of(context).textTheme.labelMedium,
+                          ),
+                          Text(
+                            orgModel == null
+                                ? "Загрузка.."
+                                : "${getPrice() + orgModel!.companyDeliveryPrice} р.",
+                            style: Theme.of(context)
+                                .textTheme
+                                .labelMedium!
+                                .copyWith(fontWeight: FontWeight.bold),
+                          )
+                        ],
+                      ),
+                    )),
+              ),
+            )
+          ]),
         ),
       )
     ]);

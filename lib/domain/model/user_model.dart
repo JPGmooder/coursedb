@@ -1,11 +1,13 @@
 import 'dart:convert';
 
+import 'package:flutter/widgets.dart';
 import 'package:kursach/domain/model/address_model.dart';
 import 'package:kursach/domain/model/cart_model.dart';
+import 'package:kursach/domain/model/order_model.dart';
 import 'package:kursach/domain/model/organization_model.dart';
 import 'package:supabase_flutter/supabase_flutter.dart';
 
-class UserModel {
+class UserModel with ChangeNotifier {
   static UserModel? _context;
   String login;
   String password;
@@ -15,6 +17,8 @@ class UserModel {
   OrganizationModel? organizationModel;
   List<CartModel> carts;
   List<AddressModel>? addresses = [];
+  List<OrderModel>? orders = [];
+
   UserModel._({
     required this.login,
     required this.password,
@@ -24,6 +28,13 @@ class UserModel {
     this.addresses,
     this.personalData,
   });
+
+  void addNewCart(CartModel cart) {
+    cart.isActive = true;
+    carts[carts.indexWhere((element) => element.isActive)].isActive = false;
+    carts = [...carts, cart];
+    notifyListeners();
+  }
 
   factory UserModel.get(
           {String? login,
@@ -36,8 +47,8 @@ class UserModel {
       _context ??= UserModel._(
           email: email!,
           login: login!,
-          carts: carts!,
           password: password!,
+          carts: carts ?? [],
           personalData: pd,
           addresses: addresses,
           organizationModel: orgmodel);

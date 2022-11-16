@@ -38,25 +38,32 @@ class _ProductCardState extends State<ProductCard> {
   void initState() {
     if (!widget.isReadctorMode &&
         widget.productModel != null &&
-        widget.currentOrg != null)
+        widget.currentOrg != null) {
       _productController = StreamController<Map<String, dynamic>>();
-    var actualCart =
-        UserModel.get().carts.firstWhere((element) => element.isActive);
-    var index = actualCart.items.indexWhere(
-        (element) => element.productId == widget.productModel!.productId);
-
-    if (index != -1) {
-      count = actualCart.items[index].amount;
-    }
-    _productController!.stream
-        .distinct()
-        .debounceTime(Duration(seconds: 3))
-        .listen((event) {
       var actualCart =
           UserModel.get().carts.firstWhere((element) => element.isActive);
-      actualCart.manageCartItems(context, widget.currentOrg!.loadedProduct,
-          event['quantity'], event['productId']);
-    });
+      var index = actualCart.items.indexWhere(
+          (element) => element.productId == widget.productModel!.productId);
+
+      UserModel.get().addListener(() {
+        setState(() {
+          count = 0;
+        });
+      });
+
+      if (index != -1) {
+        count = actualCart.items[index].amount;
+      }
+      _productController!.stream
+          .distinct()
+          .debounceTime(Duration(seconds: 1))
+          .listen((event) {
+        var actualCart =
+            UserModel.get().carts.firstWhere((element) => element.isActive);
+        actualCart.manageCartItems(context, widget.currentOrg!.loadedProduct,
+            event['quantity'], event['productId']);
+      });
+    }
     super.initState();
   }
 

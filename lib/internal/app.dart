@@ -6,6 +6,7 @@ import 'package:kursach/assets/colors.dart';
 import 'package:kursach/domain/auth/bloc/auth_bloc.dart';
 import 'package:kursach/domain/cart/bloc/cart_bloc.dart';
 import 'package:kursach/domain/model/address_model.dart';
+import 'package:kursach/domain/orders/bloc/orders_bloc.dart';
 import 'package:kursach/domain/organization/bloc/org_bloc.dart';
 import 'package:kursach/domain/place_searcher/bloc/place_searcher_bloc.dart';
 import 'package:kursach/domain/product/bloc/product_bloc.dart';
@@ -30,6 +31,7 @@ class MyApp extends StatelessWidget {
         BlocProvider(create: (ctx) => PlaceSearcherBloc()),
         BlocProvider(create: (ctx) => OrganizationBloc()),
         BlocProvider(create: (ctx) => ProductBloc()),
+        BlocProvider(create: (ctx) => OrdersBloc())
       ],
       child: MaterialApp(
           title: 'Material App',

@@ -2,6 +2,7 @@ import 'dart:async';
 
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:kursach/domain/model/address_model.dart';
 import 'package:kursach/presentation/home/navigator_screen.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -72,7 +73,7 @@ class _AuthBodyState extends State<AuthBody> {
                 password: password,
                 email: email,
                 pd: pd,
-                addresses: address,
+                addresses:  address,
                 orgmodel: org,
                 carts: carts);
             if (pd == null) {

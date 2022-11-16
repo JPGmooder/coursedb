@@ -2,6 +2,7 @@ import 'dart:convert';
 
 class AddressModel {
   int id_address;
+  bool isActive = true;
   String? name;
   String street;
   String housenumber;
@@ -54,7 +55,7 @@ class AddressModel {
 
   Map<String, dynamic> toMap() {
     return {
-      'id_address' : id_address,
+      'id_address': id_address,
       'name': name,
       'street': street,
       'housenumber': housenumber,

@@ -37,4 +37,33 @@ class CartRepository {
     }
     return completer.future;
   }
+
+  static Future<CartModel> findActualCart({
+    required String userLogin,
+  }) async {
+    var response = await CartProvider.findActualCard(userLogin);
+    if (response.hasException ||
+        response.data == null ||
+        response.data!.isEmpty) {
+      throw Exception("Ошибка какая-та");
+    }
+    return CartModel.fromMap((response.data!['cart'] as List<Object?>)
+        .cast<Map<String, dynamic>>()
+        .first);
+  }
+
+  static Future<OrderModel> createNewOrder(
+      {required int cartId,
+      required double deliveryPrice,
+      required double cartSum,
+      required int addressId}) async {
+    var response = await CartProvider.convertCartToOrder(
+        cartId, addressId, deliveryPrice + cartSum);
+    if (response.hasException ||
+        response.data == null ||
+        response.data!.isEmpty) {
+      throw Exception("Ошибка какая-та");
+    }
+    return OrderModel.fromMap(response.data!['orders_addnew']);
+  }
 }
