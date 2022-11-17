@@ -7,6 +7,7 @@ import 'package:graphql_flutter/graphql_flutter.dart';
 import 'package:kursach/data/api/model/graphclient.dart';
 import 'package:kursach/domain/model/address_model.dart';
 import 'package:kursach/domain/model/cart_model.dart';
+import 'package:kursach/domain/model/employee_model.dart';
 import 'package:kursach/domain/model/organization_model.dart';
 import 'package:kursach/domain/model/user_model.dart';
 import 'package:shared_preferences/shared_preferences.dart';
@@ -40,6 +41,7 @@ class AuthBloc extends Bloc<AuthEvent, AuthState> {
                 userData,
                 UserModel.get().addresses,
                 UserModel.get().organizationModel,
+                UserModel.get().courier,
                 UserModel.get().carts
               ));
             } catch (e) {
@@ -66,6 +68,7 @@ class AuthBloc extends Bloc<AuthEvent, AuthState> {
                 userData['pd'],
                 userData['addresses'],
                 userData['company'],
+                userData['employee'],
                 userData['carts']
               ));
               if (userData['pd'] != null &&

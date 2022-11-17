@@ -5,6 +5,7 @@ import 'package:kursach/domain/model/user_model.dart';
 import 'package:kursach/domain/orders/bloc/orders_bloc.dart';
 import 'package:kursach/presentation/auth/auth_body.dart';
 import 'package:kursach/presentation/auth/auth_screen.dart';
+import 'package:kursach/presentation/home/profile/courier/courier_navigator.dart';
 import 'package:kursach/presentation/home/profile/orders/my_orders_screen.dart';
 import 'package:kursach/presentation/home/profile/organization/manage_organization.dart';
 import 'package:kursach/presentation/home/profile/organization/navigator_organization.dart';
@@ -125,9 +126,21 @@ class _ProfileScreenState extends State<ProfileScreen> {
                                 as SMITrigger;
                             _bump.fire();
                           }
+                          UserModel.get().courier == null
+                              ? showGeneralDialog(
+                                  context: context,
+                                  pageBuilder: (ctx, _, __) {
+                                    return MainDialogWidget(
+                                      isCourier: true,
+                                    );
+                                  })
+                              : Navigator.of(widget.parentContext)
+                                  .pushNamed(CourierNavigatorWidget.route);
                         };
                         icon = FontAwesomeIcons.magnet;
-                        title = "Стать курьером!";
+                        title = UserModel.get().courier == null
+                            ? "Стать курьером!"
+                            : "Меню курьера";
                         break;
                       case 5:
                         icon = UserModel.get().organizationModel == null

@@ -5,6 +5,7 @@ import 'package:google_fonts/google_fonts.dart';
 import 'package:kursach/assets/colors.dart';
 import 'package:kursach/domain/auth/bloc/auth_bloc.dart';
 import 'package:kursach/domain/cart/bloc/cart_bloc.dart';
+import 'package:kursach/domain/employee/bloc/employee_bloc.dart';
 import 'package:kursach/domain/model/address_model.dart';
 import 'package:kursach/domain/orders/bloc/orders_bloc.dart';
 import 'package:kursach/domain/organization/bloc/org_bloc.dart';
@@ -14,6 +15,7 @@ import 'package:kursach/presentation/additional/setlocation_screen.dart';
 import 'package:kursach/presentation/auth/auth_personal/auth_personal_screen.dart';
 import 'package:kursach/presentation/auth/auth_screen.dart';
 import 'package:kursach/presentation/home/navigator_screen.dart';
+import 'package:kursach/presentation/home/profile/courier/courier_navigator.dart';
 import 'package:kursach/presentation/home/profile/organization/manage_organization.dart';
 import 'package:kursach/presentation/home/profile/organization/navigator_organization.dart';
 import 'package:kursach/presentation/home/profile/partnership/partnership_reg.dart';
@@ -31,7 +33,8 @@ class MyApp extends StatelessWidget {
         BlocProvider(create: (ctx) => PlaceSearcherBloc()),
         BlocProvider(create: (ctx) => OrganizationBloc()),
         BlocProvider(create: (ctx) => ProductBloc()),
-        BlocProvider(create: (ctx) => OrdersBloc())
+        BlocProvider(create: (ctx) => OrdersBloc()),
+        BlocProvider(create: (ctx) => EmployeeBloc())
       ],
       child: MaterialApp(
           title: 'Material App',
@@ -88,6 +91,9 @@ class MyApp extends StatelessWidget {
                       screen = PartnerShipReg(
                         pickedAddress: settings.arguments as AddressModel,
                       );
+                      break;
+                    case CourierNavigatorWidget.route:
+                      screen = CourierNavigatorWidget();
                       break;
                     case NavigatorOrganizationScreen.route:
                       screen = NavigatorOrganizationScreen();

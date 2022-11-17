@@ -67,12 +67,13 @@ class _AuthBodyState extends State<AuthBody> {
               print("ВСЁ ЕСТЬ!");
             }
           },
-          logedIn: (login, password, email, pd, address, org, carts) {
+          logedIn: (login, password, email, pd, address, org, employee, carts) {
             UserModel.get(
                 login: login,
                 password: password,
                 email: email,
                 pd: pd,
+                courierModel: employee,
                 addresses:  address,
                 orgmodel: org,
                 carts: carts);

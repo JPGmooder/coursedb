@@ -70,7 +70,7 @@ class _LoadinScreenState extends State<LoadinScreen> {
                 });
               });
             },
-            logedIn: (login, password, email, data, address, org, carts) {
+            logedIn: (login, password, email, data, address, org, employee, carts) {
               _thirdPackage!.value = true;
               Future.delayed(Duration(seconds: 1)).then((value) {
                 UserModel.get(
@@ -80,6 +80,7 @@ class _LoadinScreenState extends State<LoadinScreen> {
                     pd: data,
                     addresses: address,
                     orgmodel: org,
+                    courierModel: employee,
                     carts: carts);
                 Navigator.of(context)
                     .pushReplacementNamed(NavigatorScreen.route);

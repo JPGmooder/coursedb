@@ -2,12 +2,13 @@ import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_neumorphic/flutter_neumorphic.dart';
 import 'package:kursach/presentation/additional/setlocation_screen.dart';
+import 'package:kursach/presentation/home/profile/courier/courie_manage_field.dart';
 import 'package:kursach/presentation/outstanding/gradientmask.dart';
 
 class MainDialogWidget extends StatelessWidget {
-  const MainDialogWidget({
-    Key? key,
-  }) : super(key: key);
+  const MainDialogWidget({Key? key, this.isCourier = false}) : super(key: key);
+
+  final bool isCourier;
 
   @override
   Widget build(BuildContext context) {
@@ -37,14 +38,16 @@ class MainDialogWidget extends StatelessWidget {
                     crossAxisAlignment: CrossAxisAlignment.stretch,
                     children: [
                       Text(
-                        "Стать предпринимателем",
+                        isCourier ? "Стать курьером" : "Стать предпринимателем",
                         textScaleFactor: 0.8,
                         style: Theme.of(context).textTheme.titleLarge,
                       ),
                       Padding(
                         padding: const EdgeInsets.only(top: 8.0),
                         child: Text(
-                          "Опубликуйте своё предприятие в Deliver, чтобы получить полные возможности по осуществлению доставки",
+                          isCourier
+                              ? "Станьте курьером в два клика и сделайте свой вклад в развитие нашей системы доставки"
+                              : "Опубликуйте своё предприятие в Deliver, чтобы получить полные возможности по осуществлению доставки",
                           style: Theme.of(context).textTheme.labelMedium,
                         ),
                       ),
@@ -62,9 +65,12 @@ class MainDialogWidget extends StatelessWidget {
                               Icons.map_outlined,
                               color: Colors.white,
                             );
-                            title = "Запредельная зона покрытия";
-                            subTitle =
-                                "Зоны покрытия формируются на текущем местоположении курьеров, обеспечивая доступность доставки по всему миру";
+                            title = isCourier
+                                ? "Персональная зона доставки"
+                                : "Запредельная зона покрытия";
+                            subTitle = isCourier
+                                ? "Выберите свою поисковую зону поиска заказов, чтобы обеспечить максимальную скорость их выполнения."
+                                : "Зоны покрытия формируются на текущем местоположении курьеров, обеспечивая доступность доставки по всему миру";
                             break;
                           case 1:
                             leading = Row(
@@ -88,8 +94,9 @@ class MainDialogWidget extends StatelessWidget {
                               ],
                             );
                             title = "Технически бесплатный сервис";
-                            subTitle =
-                                "Размещение компаний в Deliver абсолютно бесплатно!";
+                            subTitle = isCourier
+                                ? "Осуществляйте благотворительную деятельность и зарабатывайте карму."
+                                : "Размещение компаний в Deliver абсолютно бесплатно!";
                             break;
                           case 2:
                             leading = Icon(
@@ -97,17 +104,19 @@ class MainDialogWidget extends StatelessWidget {
                               color: Colors.white,
                             );
                             title = "Актуальная статистика";
-                            subTitle =
-                                "Получите доступ к актуальной статистике предприятия для осуществления точного прогнозирования с помощью наших автоматизированных систем. ";
+                            subTitle = isCourier
+                                ? "Получите доступ к актуальной статистике ваших доставок, соревнуйтесь с друзьями.. "
+                                : "Получите доступ к актуальной статистике предприятия для осуществления точного прогнозирования с помощью наших автоматизированных систем. ";
                             break;
                           case 3:
                             leading = Icon(
-                              Icons.security,
+                              isCourier ? Icons.bedroom_baby : Icons.security,
                               color: Colors.white,
                             );
-                            title = "Безопасно";
-                            subTitle =
-                                "Каждый курьер отслеживается на нашей карте в режиме реального времени, а техническая поддержка работает в формате 24/7 ";
+                            title = isCourier ? "Удобно" : "Безопасно";
+                            subTitle = isCourier
+                                ? "Перед принятием заказа, вы получите оптимально-сформированный маршрут, следуя которому, вы экономите время."
+                                : "Каждый курьер отслеживается на нашей карте в режиме реального времени, а техническая поддержка работает в формате 24/7 ";
                             break;
                           case 4:
                             leading = Icon(
@@ -115,8 +124,9 @@ class MainDialogWidget extends StatelessWidget {
                               color: Colors.white,
                             );
                             title = "Эффективно";
-                            subTitle =
-                                "Благодаря Deliver десятки компаний увеличили свой доход более чем на 25%";
+                            subTitle = isCourier
+                                ? "Прокачайте свои физические данные и сделайте вклад в отечественную коммерческую благотворительность уже сегодня"
+                                : "Благодаря Deliver десятки компаний увеличили свой доход более чем на 25%";
                             break;
                           default:
                         }
@@ -164,9 +174,14 @@ class MainDialogWidget extends StatelessWidget {
                         padding: const EdgeInsets.symmetric(
                             vertical: 10.0, horizontal: 8),
                         child: NeumorphicButton(
-                          onPressed: () async => Navigator.of(context).pushNamed(
-                              SetLocationScreen.path,
-                              arguments: LocationPickerMode.orgAddress),
+                          onPressed: () => isCourier
+                              ? Navigator.push(
+                                  context,
+                                  MaterialPageRoute(
+                                      builder: (ctx) => CourierFieldManage(isReg: true,)))
+                              : Navigator.of(context).pushNamed(
+                                  SetLocationScreen.path,
+                                  arguments: LocationPickerMode.orgAddress),
                           style: const NeumorphicStyle(depth: -5),
                           child: Padding(
                             padding: const EdgeInsets.all(5.0),

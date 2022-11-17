@@ -60,6 +60,7 @@ dependencies:
   shared_preferences: ^2.0.15
   sliver_tools: ^0.2.8
   supabase_flutter: ^1.0.1
+  syncfusion_flutter_sliders: ^20.3.57
   translit: ^2.0.0
   yandex_geocoder: ^2.0.2
   yandex_mapkit: ^3.1.1

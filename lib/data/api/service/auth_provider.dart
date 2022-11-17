@@ -7,6 +7,12 @@ mutation Authentificate($login: String!,  $password: String!) {
     userlogin,
     emailaddress,
     userpassword,
+    employee
+    {
+      postname,
+      status,
+      deliverarea
+    }
     client{
        carts{
         cart_id,

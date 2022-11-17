@@ -29,6 +29,7 @@ class AuthRepository {
               as List<Object?>?)
           ?.map((e) => AddressModel.fromMap(e as Map<String, dynamic>))
           .toList(),
+      'employee': rawData.data!['users_login']['employee'] == null ? null : CourierModel.fromMap(rawData.data!['users_login']['employee']),
       'carts':
           (rawData.data!['users_login']['client']['carts'] as List<Object?>)
               .map((e) => CartModel.fromMap(e as Map<String, dynamic>))

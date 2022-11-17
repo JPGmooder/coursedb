@@ -3,6 +3,7 @@ import 'dart:convert';
 import 'package:flutter/widgets.dart';
 import 'package:kursach/domain/model/address_model.dart';
 import 'package:kursach/domain/model/cart_model.dart';
+import 'package:kursach/domain/model/employee_model.dart';
 import 'package:kursach/domain/model/order_model.dart';
 import 'package:kursach/domain/model/organization_model.dart';
 import 'package:supabase_flutter/supabase_flutter.dart';
@@ -15,6 +16,7 @@ class UserModel with ChangeNotifier {
   User? supaUser;
   UserPersonalDataModel? personalData;
   OrganizationModel? organizationModel;
+  CourierModel? courier;
   List<CartModel> carts;
   List<AddressModel>? addresses = [];
   List<OrderModel>? orders = [];
@@ -24,10 +26,16 @@ class UserModel with ChangeNotifier {
     required this.password,
     required this.email,
     required this.carts,
+    this.courier,
     this.organizationModel,
     this.addresses,
     this.personalData,
   });
+
+  void regNewCourier(CourierModel courier) {
+    this.courier = courier;
+    notifyListeners();
+  }
 
   void addNewCart(CartModel cart) {
     cart.isActive = true;
@@ -42,9 +50,11 @@ class UserModel with ChangeNotifier {
           String? email,
           UserPersonalDataModel? pd,
           List<CartModel>? carts,
+          CourierModel? courierModel,
           List<AddressModel>? addresses,
           OrganizationModel? orgmodel}) =>
       _context ??= UserModel._(
+          courier: courierModel,
           email: email!,
           login: login!,
           password: password!,

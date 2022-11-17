@@ -90,6 +90,15 @@ class _MyOrdersScreenState extends State<MyOrdersScreen> {
               return Padding(
                 padding: const EdgeInsets.all(8.0),
                 child: CustomScrollView(slivers: [
+                  SliverAppBar(
+                    iconTheme: IconThemeData(color: Colors.black),
+                    title: Text(
+                      "Мои заказы",
+                      style: Theme.of(context).textTheme.titleMedium,
+                    ),
+                    pinned: true,
+                    backgroundColor: Theme.of(context).colorScheme.surface,
+                  ),
                   ...listToMap.entries
                       .map((e) => Section(
                           ordersAmount: e.value.length,
