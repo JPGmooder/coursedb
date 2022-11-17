@@ -10,4 +10,6 @@ abstract class EmployeeState with _$EmployeeState {
       _$EmployeeErroredState;
   const factory EmployeeState.courierReged(CourierModel courier) =
       _$EmployeeCourierRegistredState;
+    const factory EmployeeState.ordersFounded(List<OrderModel> orders) =
+      _$EmployeeOrdersFoundedState;
 }

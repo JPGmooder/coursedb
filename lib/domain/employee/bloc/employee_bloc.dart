@@ -3,6 +3,7 @@ import 'package:freezed_annotation/freezed_annotation.dart';
 import 'package:graphql_flutter/graphql_flutter.dart';
 import 'package:kursach/data/api/model/graphclient.dart';
 import 'package:kursach/domain/model/employee_model.dart';
+import 'package:kursach/domain/model/order_model.dart';
 
 part "employee_events.dart";
 part "employee_states.dart";
@@ -21,6 +22,7 @@ class EmployeeBloc extends Bloc<EmployeeEvent, EmployeeState> {
               userLogin: userLogin, deliverAreaDiametr: deliveryArea);
           emit(EmployeeState.courierReged(loadedCourier));
         },
+       
       );
     });
   }

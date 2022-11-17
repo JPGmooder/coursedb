@@ -17,37 +17,48 @@ final _privateConstructorUsedError = UnsupportedError(
 /// @nodoc
 mixin _$EmployeeEvent {
   String get userLogin => throw _privateConstructorUsedError;
-  double get deliveryAreaDiametr => throw _privateConstructorUsedError;
   @optionalTypeArgs
   TResult when<TResult extends Object?>({
     required TResult Function(String userLogin, double deliveryAreaDiametr)
         register,
+    required TResult Function(
+            String userLogin, double currentLat, double currentLon)
+        findNearestOrders,
   }) =>
       throw _privateConstructorUsedError;
   @optionalTypeArgs
   TResult? whenOrNull<TResult extends Object?>({
     TResult? Function(String userLogin, double deliveryAreaDiametr)? register,
+    TResult? Function(String userLogin, double currentLat, double currentLon)?
+        findNearestOrders,
   }) =>
       throw _privateConstructorUsedError;
   @optionalTypeArgs
   TResult maybeWhen<TResult extends Object?>({
     TResult Function(String userLogin, double deliveryAreaDiametr)? register,
+    TResult Function(String userLogin, double currentLat, double currentLon)?
+        findNearestOrders,
     required TResult orElse(),
   }) =>
       throw _privateConstructorUsedError;
   @optionalTypeArgs
   TResult map<TResult extends Object?>({
     required TResult Function(_$EmployeeRegisterEvent value) register,
+    required TResult Function(_$EmployeeFindNearestOrdersEvent value)
+        findNearestOrders,
   }) =>
       throw _privateConstructorUsedError;
   @optionalTypeArgs
   TResult? mapOrNull<TResult extends Object?>({
     TResult? Function(_$EmployeeRegisterEvent value)? register,
+    TResult? Function(_$EmployeeFindNearestOrdersEvent value)?
+        findNearestOrders,
   }) =>
       throw _privateConstructorUsedError;
   @optionalTypeArgs
   TResult maybeMap<TResult extends Object?>({
     TResult Function(_$EmployeeRegisterEvent value)? register,
+    TResult Function(_$EmployeeFindNearestOrdersEvent value)? findNearestOrders,
     required TResult orElse(),
   }) =>
       throw _privateConstructorUsedError;
@@ -63,7 +74,7 @@ abstract class $EmployeeEventCopyWith<$Res> {
           EmployeeEvent value, $Res Function(EmployeeEvent) then) =
       _$EmployeeEventCopyWithImpl<$Res, EmployeeEvent>;
   @useResult
-  $Res call({String userLogin, double deliveryAreaDiametr});
+  $Res call({String userLogin});
 }
 
 /// @nodoc
@@ -80,17 +91,12 @@ class _$EmployeeEventCopyWithImpl<$Res, $Val extends EmployeeEvent>
   @override
   $Res call({
     Object? userLogin = null,
-    Object? deliveryAreaDiametr = null,
   }) {
     return _then(_value.copyWith(
       userLogin: null == userLogin
           ? _value.userLogin
           : userLogin // ignore: cast_nullable_to_non_nullable
               as String,
-      deliveryAreaDiametr: null == deliveryAreaDiametr
-          ? _value.deliveryAreaDiametr
-          : deliveryAreaDiametr // ignore: cast_nullable_to_non_nullable
-              as double,
     ) as $Val);
   }
 }
@@ -175,6 +181,9 @@ class _$_$EmployeeRegisterEvent implements _$EmployeeRegisterEvent {
   TResult when<TResult extends Object?>({
     required TResult Function(String userLogin, double deliveryAreaDiametr)
         register,
+    required TResult Function(
+            String userLogin, double currentLat, double currentLon)
+        findNearestOrders,
   }) {
     return register(userLogin, deliveryAreaDiametr);
   }
@@ -183,6 +192,8 @@ class _$_$EmployeeRegisterEvent implements _$EmployeeRegisterEvent {
   @optionalTypeArgs
   TResult? whenOrNull<TResult extends Object?>({
     TResult? Function(String userLogin, double deliveryAreaDiametr)? register,
+    TResult? Function(String userLogin, double currentLat, double currentLon)?
+        findNearestOrders,
   }) {
     return register?.call(userLogin, deliveryAreaDiametr);
   }
@@ -191,6 +202,8 @@ class _$_$EmployeeRegisterEvent implements _$EmployeeRegisterEvent {
   @optionalTypeArgs
   TResult maybeWhen<TResult extends Object?>({
     TResult Function(String userLogin, double deliveryAreaDiametr)? register,
+    TResult Function(String userLogin, double currentLat, double currentLon)?
+        findNearestOrders,
     required TResult orElse(),
   }) {
     if (register != null) {
@@ -203,6 +216,8 @@ class _$_$EmployeeRegisterEvent implements _$EmployeeRegisterEvent {
   @optionalTypeArgs
   TResult map<TResult extends Object?>({
     required TResult Function(_$EmployeeRegisterEvent value) register,
+    required TResult Function(_$EmployeeFindNearestOrdersEvent value)
+        findNearestOrders,
   }) {
     return register(this);
   }
@@ -211,6 +226,8 @@ class _$_$EmployeeRegisterEvent implements _$EmployeeRegisterEvent {
   @optionalTypeArgs
   TResult? mapOrNull<TResult extends Object?>({
     TResult? Function(_$EmployeeRegisterEvent value)? register,
+    TResult? Function(_$EmployeeFindNearestOrdersEvent value)?
+        findNearestOrders,
   }) {
     return register?.call(this);
   }
@@ -219,6 +236,7 @@ class _$_$EmployeeRegisterEvent implements _$EmployeeRegisterEvent {
   @optionalTypeArgs
   TResult maybeMap<TResult extends Object?>({
     TResult Function(_$EmployeeRegisterEvent value)? register,
+    TResult Function(_$EmployeeFindNearestOrdersEvent value)? findNearestOrders,
     required TResult orElse(),
   }) {
     if (register != null) {
@@ -235,12 +253,190 @@ abstract class _$EmployeeRegisterEvent implements EmployeeEvent {
 
   @override
   String get userLogin;
-  @override
   double get deliveryAreaDiametr;
   @override
   @JsonKey(ignore: true)
   _$$_$EmployeeRegisterEventCopyWith<_$_$EmployeeRegisterEvent> get copyWith =>
       throw _privateConstructorUsedError;
+}
+
+/// @nodoc
+abstract class _$$_$EmployeeFindNearestOrdersEventCopyWith<$Res>
+    implements $EmployeeEventCopyWith<$Res> {
+  factory _$$_$EmployeeFindNearestOrdersEventCopyWith(
+          _$_$EmployeeFindNearestOrdersEvent value,
+          $Res Function(_$_$EmployeeFindNearestOrdersEvent) then) =
+      __$$_$EmployeeFindNearestOrdersEventCopyWithImpl<$Res>;
+  @override
+  @useResult
+  $Res call({String userLogin, double currentLat, double currentLon});
+}
+
+/// @nodoc
+class __$$_$EmployeeFindNearestOrdersEventCopyWithImpl<$Res>
+    extends _$EmployeeEventCopyWithImpl<$Res,
+        _$_$EmployeeFindNearestOrdersEvent>
+    implements _$$_$EmployeeFindNearestOrdersEventCopyWith<$Res> {
+  __$$_$EmployeeFindNearestOrdersEventCopyWithImpl(
+      _$_$EmployeeFindNearestOrdersEvent _value,
+      $Res Function(_$_$EmployeeFindNearestOrdersEvent) _then)
+      : super(_value, _then);
+
+  @pragma('vm:prefer-inline')
+  @override
+  $Res call({
+    Object? userLogin = null,
+    Object? currentLat = null,
+    Object? currentLon = null,
+  }) {
+    return _then(_$_$EmployeeFindNearestOrdersEvent(
+      userLogin: null == userLogin
+          ? _value.userLogin
+          : userLogin // ignore: cast_nullable_to_non_nullable
+              as String,
+      currentLat: null == currentLat
+          ? _value.currentLat
+          : currentLat // ignore: cast_nullable_to_non_nullable
+              as double,
+      currentLon: null == currentLon
+          ? _value.currentLon
+          : currentLon // ignore: cast_nullable_to_non_nullable
+              as double,
+    ));
+  }
+}
+
+/// @nodoc
+
+class _$_$EmployeeFindNearestOrdersEvent
+    implements _$EmployeeFindNearestOrdersEvent {
+  const _$_$EmployeeFindNearestOrdersEvent(
+      {required this.userLogin,
+      required this.currentLat,
+      required this.currentLon});
+
+  @override
+  final String userLogin;
+  @override
+  final double currentLat;
+  @override
+  final double currentLon;
+
+  @override
+  String toString() {
+    return 'EmployeeEvent.findNearestOrders(userLogin: $userLogin, currentLat: $currentLat, currentLon: $currentLon)';
+  }
+
+  @override
+  bool operator ==(dynamic other) {
+    return identical(this, other) ||
+        (other.runtimeType == runtimeType &&
+            other is _$_$EmployeeFindNearestOrdersEvent &&
+            (identical(other.userLogin, userLogin) ||
+                other.userLogin == userLogin) &&
+            (identical(other.currentLat, currentLat) ||
+                other.currentLat == currentLat) &&
+            (identical(other.currentLon, currentLon) ||
+                other.currentLon == currentLon));
+  }
+
+  @override
+  int get hashCode =>
+      Object.hash(runtimeType, userLogin, currentLat, currentLon);
+
+  @JsonKey(ignore: true)
+  @override
+  @pragma('vm:prefer-inline')
+  _$$_$EmployeeFindNearestOrdersEventCopyWith<
+          _$_$EmployeeFindNearestOrdersEvent>
+      get copyWith => __$$_$EmployeeFindNearestOrdersEventCopyWithImpl<
+          _$_$EmployeeFindNearestOrdersEvent>(this, _$identity);
+
+  @override
+  @optionalTypeArgs
+  TResult when<TResult extends Object?>({
+    required TResult Function(String userLogin, double deliveryAreaDiametr)
+        register,
+    required TResult Function(
+            String userLogin, double currentLat, double currentLon)
+        findNearestOrders,
+  }) {
+    return findNearestOrders(userLogin, currentLat, currentLon);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult? whenOrNull<TResult extends Object?>({
+    TResult? Function(String userLogin, double deliveryAreaDiametr)? register,
+    TResult? Function(String userLogin, double currentLat, double currentLon)?
+        findNearestOrders,
+  }) {
+    return findNearestOrders?.call(userLogin, currentLat, currentLon);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult maybeWhen<TResult extends Object?>({
+    TResult Function(String userLogin, double deliveryAreaDiametr)? register,
+    TResult Function(String userLogin, double currentLat, double currentLon)?
+        findNearestOrders,
+    required TResult orElse(),
+  }) {
+    if (findNearestOrders != null) {
+      return findNearestOrders(userLogin, currentLat, currentLon);
+    }
+    return orElse();
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult map<TResult extends Object?>({
+    required TResult Function(_$EmployeeRegisterEvent value) register,
+    required TResult Function(_$EmployeeFindNearestOrdersEvent value)
+        findNearestOrders,
+  }) {
+    return findNearestOrders(this);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult? mapOrNull<TResult extends Object?>({
+    TResult? Function(_$EmployeeRegisterEvent value)? register,
+    TResult? Function(_$EmployeeFindNearestOrdersEvent value)?
+        findNearestOrders,
+  }) {
+    return findNearestOrders?.call(this);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult maybeMap<TResult extends Object?>({
+    TResult Function(_$EmployeeRegisterEvent value)? register,
+    TResult Function(_$EmployeeFindNearestOrdersEvent value)? findNearestOrders,
+    required TResult orElse(),
+  }) {
+    if (findNearestOrders != null) {
+      return findNearestOrders(this);
+    }
+    return orElse();
+  }
+}
+
+abstract class _$EmployeeFindNearestOrdersEvent implements EmployeeEvent {
+  const factory _$EmployeeFindNearestOrdersEvent(
+      {required final String userLogin,
+      required final double currentLat,
+      required final double currentLon}) = _$_$EmployeeFindNearestOrdersEvent;
+
+  @override
+  String get userLogin;
+  double get currentLat;
+  double get currentLon;
+  @override
+  @JsonKey(ignore: true)
+  _$$_$EmployeeFindNearestOrdersEventCopyWith<
+          _$_$EmployeeFindNearestOrdersEvent>
+      get copyWith => throw _privateConstructorUsedError;
 }
 
 /// @nodoc
@@ -251,6 +447,7 @@ mixin _$EmployeeState {
     required TResult Function() loading,
     required TResult Function(String error) errored,
     required TResult Function(CourierModel courier) courierReged,
+    required TResult Function(List<OrderModel> orders) ordersFounded,
   }) =>
       throw _privateConstructorUsedError;
   @optionalTypeArgs
@@ -259,6 +456,7 @@ mixin _$EmployeeState {
     TResult? Function()? loading,
     TResult? Function(String error)? errored,
     TResult? Function(CourierModel courier)? courierReged,
+    TResult? Function(List<OrderModel> orders)? ordersFounded,
   }) =>
       throw _privateConstructorUsedError;
   @optionalTypeArgs
@@ -267,6 +465,7 @@ mixin _$EmployeeState {
     TResult Function()? loading,
     TResult Function(String error)? errored,
     TResult Function(CourierModel courier)? courierReged,
+    TResult Function(List<OrderModel> orders)? ordersFounded,
     required TResult orElse(),
   }) =>
       throw _privateConstructorUsedError;
@@ -277,6 +476,7 @@ mixin _$EmployeeState {
     required TResult Function(_$EmployeeErroredState value) errored,
     required TResult Function(_$EmployeeCourierRegistredState value)
         courierReged,
+    required TResult Function(_$EmployeeOrdersFoundedState value) ordersFounded,
   }) =>
       throw _privateConstructorUsedError;
   @optionalTypeArgs
@@ -285,6 +485,7 @@ mixin _$EmployeeState {
     TResult? Function(_$EmployeeLoadingState value)? loading,
     TResult? Function(_$EmployeeErroredState value)? errored,
     TResult? Function(_$EmployeeCourierRegistredState value)? courierReged,
+    TResult? Function(_$EmployeeOrdersFoundedState value)? ordersFounded,
   }) =>
       throw _privateConstructorUsedError;
   @optionalTypeArgs
@@ -293,6 +494,7 @@ mixin _$EmployeeState {
     TResult Function(_$EmployeeLoadingState value)? loading,
     TResult Function(_$EmployeeErroredState value)? errored,
     TResult Function(_$EmployeeCourierRegistredState value)? courierReged,
+    TResult Function(_$EmployeeOrdersFoundedState value)? ordersFounded,
     required TResult orElse(),
   }) =>
       throw _privateConstructorUsedError;
@@ -358,6 +560,7 @@ class _$_$EmployeeInitialState implements _$EmployeeInitialState {
     required TResult Function() loading,
     required TResult Function(String error) errored,
     required TResult Function(CourierModel courier) courierReged,
+    required TResult Function(List<OrderModel> orders) ordersFounded,
   }) {
     return initial();
   }
@@ -369,6 +572,7 @@ class _$_$EmployeeInitialState implements _$EmployeeInitialState {
     TResult? Function()? loading,
     TResult? Function(String error)? errored,
     TResult? Function(CourierModel courier)? courierReged,
+    TResult? Function(List<OrderModel> orders)? ordersFounded,
   }) {
     return initial?.call();
   }
@@ -380,6 +584,7 @@ class _$_$EmployeeInitialState implements _$EmployeeInitialState {
     TResult Function()? loading,
     TResult Function(String error)? errored,
     TResult Function(CourierModel courier)? courierReged,
+    TResult Function(List<OrderModel> orders)? ordersFounded,
     required TResult orElse(),
   }) {
     if (initial != null) {
@@ -396,6 +601,7 @@ class _$_$EmployeeInitialState implements _$EmployeeInitialState {
     required TResult Function(_$EmployeeErroredState value) errored,
     required TResult Function(_$EmployeeCourierRegistredState value)
         courierReged,
+    required TResult Function(_$EmployeeOrdersFoundedState value) ordersFounded,
   }) {
     return initial(this);
   }
@@ -407,6 +613,7 @@ class _$_$EmployeeInitialState implements _$EmployeeInitialState {
     TResult? Function(_$EmployeeLoadingState value)? loading,
     TResult? Function(_$EmployeeErroredState value)? errored,
     TResult? Function(_$EmployeeCourierRegistredState value)? courierReged,
+    TResult? Function(_$EmployeeOrdersFoundedState value)? ordersFounded,
   }) {
     return initial?.call(this);
   }
@@ -418,6 +625,7 @@ class _$_$EmployeeInitialState implements _$EmployeeInitialState {
     TResult Function(_$EmployeeLoadingState value)? loading,
     TResult Function(_$EmployeeErroredState value)? errored,
     TResult Function(_$EmployeeCourierRegistredState value)? courierReged,
+    TResult Function(_$EmployeeOrdersFoundedState value)? ordersFounded,
     required TResult orElse(),
   }) {
     if (initial != null) {
@@ -473,6 +681,7 @@ class _$_$EmployeeLoadingState implements _$EmployeeLoadingState {
     required TResult Function() loading,
     required TResult Function(String error) errored,
     required TResult Function(CourierModel courier) courierReged,
+    required TResult Function(List<OrderModel> orders) ordersFounded,
   }) {
     return loading();
   }
@@ -484,6 +693,7 @@ class _$_$EmployeeLoadingState implements _$EmployeeLoadingState {
     TResult? Function()? loading,
     TResult? Function(String error)? errored,
     TResult? Function(CourierModel courier)? courierReged,
+    TResult? Function(List<OrderModel> orders)? ordersFounded,
   }) {
     return loading?.call();
   }
@@ -495,6 +705,7 @@ class _$_$EmployeeLoadingState implements _$EmployeeLoadingState {
     TResult Function()? loading,
     TResult Function(String error)? errored,
     TResult Function(CourierModel courier)? courierReged,
+    TResult Function(List<OrderModel> orders)? ordersFounded,
     required TResult orElse(),
   }) {
     if (loading != null) {
@@ -511,6 +722,7 @@ class _$_$EmployeeLoadingState implements _$EmployeeLoadingState {
     required TResult Function(_$EmployeeErroredState value) errored,
     required TResult Function(_$EmployeeCourierRegistredState value)
         courierReged,
+    required TResult Function(_$EmployeeOrdersFoundedState value) ordersFounded,
   }) {
     return loading(this);
   }
@@ -522,6 +734,7 @@ class _$_$EmployeeLoadingState implements _$EmployeeLoadingState {
     TResult? Function(_$EmployeeLoadingState value)? loading,
     TResult? Function(_$EmployeeErroredState value)? errored,
     TResult? Function(_$EmployeeCourierRegistredState value)? courierReged,
+    TResult? Function(_$EmployeeOrdersFoundedState value)? ordersFounded,
   }) {
     return loading?.call(this);
   }
@@ -533,6 +746,7 @@ class _$_$EmployeeLoadingState implements _$EmployeeLoadingState {
     TResult Function(_$EmployeeLoadingState value)? loading,
     TResult Function(_$EmployeeErroredState value)? errored,
     TResult Function(_$EmployeeCourierRegistredState value)? courierReged,
+    TResult Function(_$EmployeeOrdersFoundedState value)? ordersFounded,
     required TResult orElse(),
   }) {
     if (loading != null) {
@@ -615,6 +829,7 @@ class _$_$EmployeeErroredState implements _$EmployeeErroredState {
     required TResult Function() loading,
     required TResult Function(String error) errored,
     required TResult Function(CourierModel courier) courierReged,
+    required TResult Function(List<OrderModel> orders) ordersFounded,
   }) {
     return errored(error);
   }
@@ -626,6 +841,7 @@ class _$_$EmployeeErroredState implements _$EmployeeErroredState {
     TResult? Function()? loading,
     TResult? Function(String error)? errored,
     TResult? Function(CourierModel courier)? courierReged,
+    TResult? Function(List<OrderModel> orders)? ordersFounded,
   }) {
     return errored?.call(error);
   }
@@ -637,6 +853,7 @@ class _$_$EmployeeErroredState implements _$EmployeeErroredState {
     TResult Function()? loading,
     TResult Function(String error)? errored,
     TResult Function(CourierModel courier)? courierReged,
+    TResult Function(List<OrderModel> orders)? ordersFounded,
     required TResult orElse(),
   }) {
     if (errored != null) {
@@ -653,6 +870,7 @@ class _$_$EmployeeErroredState implements _$EmployeeErroredState {
     required TResult Function(_$EmployeeErroredState value) errored,
     required TResult Function(_$EmployeeCourierRegistredState value)
         courierReged,
+    required TResult Function(_$EmployeeOrdersFoundedState value) ordersFounded,
   }) {
     return errored(this);
   }
@@ -664,6 +882,7 @@ class _$_$EmployeeErroredState implements _$EmployeeErroredState {
     TResult? Function(_$EmployeeLoadingState value)? loading,
     TResult? Function(_$EmployeeErroredState value)? errored,
     TResult? Function(_$EmployeeCourierRegistredState value)? courierReged,
+    TResult? Function(_$EmployeeOrdersFoundedState value)? ordersFounded,
   }) {
     return errored?.call(this);
   }
@@ -675,6 +894,7 @@ class _$_$EmployeeErroredState implements _$EmployeeErroredState {
     TResult Function(_$EmployeeLoadingState value)? loading,
     TResult Function(_$EmployeeErroredState value)? errored,
     TResult Function(_$EmployeeCourierRegistredState value)? courierReged,
+    TResult Function(_$EmployeeOrdersFoundedState value)? ordersFounded,
     required TResult orElse(),
   }) {
     if (errored != null) {
@@ -766,6 +986,7 @@ class _$_$EmployeeCourierRegistredState
     required TResult Function() loading,
     required TResult Function(String error) errored,
     required TResult Function(CourierModel courier) courierReged,
+    required TResult Function(List<OrderModel> orders) ordersFounded,
   }) {
     return courierReged(courier);
   }
@@ -777,6 +998,7 @@ class _$_$EmployeeCourierRegistredState
     TResult? Function()? loading,
     TResult? Function(String error)? errored,
     TResult? Function(CourierModel courier)? courierReged,
+    TResult? Function(List<OrderModel> orders)? ordersFounded,
   }) {
     return courierReged?.call(courier);
   }
@@ -788,6 +1010,7 @@ class _$_$EmployeeCourierRegistredState
     TResult Function()? loading,
     TResult Function(String error)? errored,
     TResult Function(CourierModel courier)? courierReged,
+    TResult Function(List<OrderModel> orders)? ordersFounded,
     required TResult orElse(),
   }) {
     if (courierReged != null) {
@@ -804,6 +1027,7 @@ class _$_$EmployeeCourierRegistredState
     required TResult Function(_$EmployeeErroredState value) errored,
     required TResult Function(_$EmployeeCourierRegistredState value)
         courierReged,
+    required TResult Function(_$EmployeeOrdersFoundedState value) ordersFounded,
   }) {
     return courierReged(this);
   }
@@ -815,6 +1039,7 @@ class _$_$EmployeeCourierRegistredState
     TResult? Function(_$EmployeeLoadingState value)? loading,
     TResult? Function(_$EmployeeErroredState value)? errored,
     TResult? Function(_$EmployeeCourierRegistredState value)? courierReged,
+    TResult? Function(_$EmployeeOrdersFoundedState value)? ordersFounded,
   }) {
     return courierReged?.call(this);
   }
@@ -826,6 +1051,7 @@ class _$_$EmployeeCourierRegistredState
     TResult Function(_$EmployeeLoadingState value)? loading,
     TResult Function(_$EmployeeErroredState value)? errored,
     TResult Function(_$EmployeeCourierRegistredState value)? courierReged,
+    TResult Function(_$EmployeeOrdersFoundedState value)? ordersFounded,
     required TResult orElse(),
   }) {
     if (courierReged != null) {
@@ -842,5 +1068,167 @@ abstract class _$EmployeeCourierRegistredState implements EmployeeState {
   CourierModel get courier;
   @JsonKey(ignore: true)
   _$$_$EmployeeCourierRegistredStateCopyWith<_$_$EmployeeCourierRegistredState>
+      get copyWith => throw _privateConstructorUsedError;
+}
+
+/// @nodoc
+abstract class _$$_$EmployeeOrdersFoundedStateCopyWith<$Res> {
+  factory _$$_$EmployeeOrdersFoundedStateCopyWith(
+          _$_$EmployeeOrdersFoundedState value,
+          $Res Function(_$_$EmployeeOrdersFoundedState) then) =
+      __$$_$EmployeeOrdersFoundedStateCopyWithImpl<$Res>;
+  @useResult
+  $Res call({List<OrderModel> orders});
+}
+
+/// @nodoc
+class __$$_$EmployeeOrdersFoundedStateCopyWithImpl<$Res>
+    extends _$EmployeeStateCopyWithImpl<$Res, _$_$EmployeeOrdersFoundedState>
+    implements _$$_$EmployeeOrdersFoundedStateCopyWith<$Res> {
+  __$$_$EmployeeOrdersFoundedStateCopyWithImpl(
+      _$_$EmployeeOrdersFoundedState _value,
+      $Res Function(_$_$EmployeeOrdersFoundedState) _then)
+      : super(_value, _then);
+
+  @pragma('vm:prefer-inline')
+  @override
+  $Res call({
+    Object? orders = null,
+  }) {
+    return _then(_$_$EmployeeOrdersFoundedState(
+      null == orders
+          ? _value._orders
+          : orders // ignore: cast_nullable_to_non_nullable
+              as List<OrderModel>,
+    ));
+  }
+}
+
+/// @nodoc
+
+class _$_$EmployeeOrdersFoundedState implements _$EmployeeOrdersFoundedState {
+  const _$_$EmployeeOrdersFoundedState(final List<OrderModel> orders)
+      : _orders = orders;
+
+  final List<OrderModel> _orders;
+  @override
+  List<OrderModel> get orders {
+    // ignore: implicit_dynamic_type
+    return EqualUnmodifiableListView(_orders);
+  }
+
+  @override
+  String toString() {
+    return 'EmployeeState.ordersFounded(orders: $orders)';
+  }
+
+  @override
+  bool operator ==(dynamic other) {
+    return identical(this, other) ||
+        (other.runtimeType == runtimeType &&
+            other is _$_$EmployeeOrdersFoundedState &&
+            const DeepCollectionEquality().equals(other._orders, _orders));
+  }
+
+  @override
+  int get hashCode =>
+      Object.hash(runtimeType, const DeepCollectionEquality().hash(_orders));
+
+  @JsonKey(ignore: true)
+  @override
+  @pragma('vm:prefer-inline')
+  _$$_$EmployeeOrdersFoundedStateCopyWith<_$_$EmployeeOrdersFoundedState>
+      get copyWith => __$$_$EmployeeOrdersFoundedStateCopyWithImpl<
+          _$_$EmployeeOrdersFoundedState>(this, _$identity);
+
+  @override
+  @optionalTypeArgs
+  TResult when<TResult extends Object?>({
+    required TResult Function() initial,
+    required TResult Function() loading,
+    required TResult Function(String error) errored,
+    required TResult Function(CourierModel courier) courierReged,
+    required TResult Function(List<OrderModel> orders) ordersFounded,
+  }) {
+    return ordersFounded(orders);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult? whenOrNull<TResult extends Object?>({
+    TResult? Function()? initial,
+    TResult? Function()? loading,
+    TResult? Function(String error)? errored,
+    TResult? Function(CourierModel courier)? courierReged,
+    TResult? Function(List<OrderModel> orders)? ordersFounded,
+  }) {
+    return ordersFounded?.call(orders);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult maybeWhen<TResult extends Object?>({
+    TResult Function()? initial,
+    TResult Function()? loading,
+    TResult Function(String error)? errored,
+    TResult Function(CourierModel courier)? courierReged,
+    TResult Function(List<OrderModel> orders)? ordersFounded,
+    required TResult orElse(),
+  }) {
+    if (ordersFounded != null) {
+      return ordersFounded(orders);
+    }
+    return orElse();
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult map<TResult extends Object?>({
+    required TResult Function(_$EmployeeInitialState value) initial,
+    required TResult Function(_$EmployeeLoadingState value) loading,
+    required TResult Function(_$EmployeeErroredState value) errored,
+    required TResult Function(_$EmployeeCourierRegistredState value)
+        courierReged,
+    required TResult Function(_$EmployeeOrdersFoundedState value) ordersFounded,
+  }) {
+    return ordersFounded(this);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult? mapOrNull<TResult extends Object?>({
+    TResult? Function(_$EmployeeInitialState value)? initial,
+    TResult? Function(_$EmployeeLoadingState value)? loading,
+    TResult? Function(_$EmployeeErroredState value)? errored,
+    TResult? Function(_$EmployeeCourierRegistredState value)? courierReged,
+    TResult? Function(_$EmployeeOrdersFoundedState value)? ordersFounded,
+  }) {
+    return ordersFounded?.call(this);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult maybeMap<TResult extends Object?>({
+    TResult Function(_$EmployeeInitialState value)? initial,
+    TResult Function(_$EmployeeLoadingState value)? loading,
+    TResult Function(_$EmployeeErroredState value)? errored,
+    TResult Function(_$EmployeeCourierRegistredState value)? courierReged,
+    TResult Function(_$EmployeeOrdersFoundedState value)? ordersFounded,
+    required TResult orElse(),
+  }) {
+    if (ordersFounded != null) {
+      return ordersFounded(this);
+    }
+    return orElse();
+  }
+}
+
+abstract class _$EmployeeOrdersFoundedState implements EmployeeState {
+  const factory _$EmployeeOrdersFoundedState(final List<OrderModel> orders) =
+      _$_$EmployeeOrdersFoundedState;
+
+  List<OrderModel> get orders;
+  @JsonKey(ignore: true)
+  _$$_$EmployeeOrdersFoundedStateCopyWith<_$_$EmployeeOrdersFoundedState>
       get copyWith => throw _privateConstructorUsedError;
 }
