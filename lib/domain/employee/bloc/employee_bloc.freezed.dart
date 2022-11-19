@@ -447,7 +447,7 @@ mixin _$EmployeeState {
     required TResult Function() loading,
     required TResult Function(String error) errored,
     required TResult Function(CourierModel courier) courierReged,
-    required TResult Function(List<OrderModel> orders) ordersFounded,
+    required TResult Function(List<Map<String, dynamic>> orders) ordersFounded,
   }) =>
       throw _privateConstructorUsedError;
   @optionalTypeArgs
@@ -456,7 +456,7 @@ mixin _$EmployeeState {
     TResult? Function()? loading,
     TResult? Function(String error)? errored,
     TResult? Function(CourierModel courier)? courierReged,
-    TResult? Function(List<OrderModel> orders)? ordersFounded,
+    TResult? Function(List<Map<String, dynamic>> orders)? ordersFounded,
   }) =>
       throw _privateConstructorUsedError;
   @optionalTypeArgs
@@ -465,7 +465,7 @@ mixin _$EmployeeState {
     TResult Function()? loading,
     TResult Function(String error)? errored,
     TResult Function(CourierModel courier)? courierReged,
-    TResult Function(List<OrderModel> orders)? ordersFounded,
+    TResult Function(List<Map<String, dynamic>> orders)? ordersFounded,
     required TResult orElse(),
   }) =>
       throw _privateConstructorUsedError;
@@ -560,7 +560,7 @@ class _$_$EmployeeInitialState implements _$EmployeeInitialState {
     required TResult Function() loading,
     required TResult Function(String error) errored,
     required TResult Function(CourierModel courier) courierReged,
-    required TResult Function(List<OrderModel> orders) ordersFounded,
+    required TResult Function(List<Map<String, dynamic>> orders) ordersFounded,
   }) {
     return initial();
   }
@@ -572,7 +572,7 @@ class _$_$EmployeeInitialState implements _$EmployeeInitialState {
     TResult? Function()? loading,
     TResult? Function(String error)? errored,
     TResult? Function(CourierModel courier)? courierReged,
-    TResult? Function(List<OrderModel> orders)? ordersFounded,
+    TResult? Function(List<Map<String, dynamic>> orders)? ordersFounded,
   }) {
     return initial?.call();
   }
@@ -584,7 +584,7 @@ class _$_$EmployeeInitialState implements _$EmployeeInitialState {
     TResult Function()? loading,
     TResult Function(String error)? errored,
     TResult Function(CourierModel courier)? courierReged,
-    TResult Function(List<OrderModel> orders)? ordersFounded,
+    TResult Function(List<Map<String, dynamic>> orders)? ordersFounded,
     required TResult orElse(),
   }) {
     if (initial != null) {
@@ -681,7 +681,7 @@ class _$_$EmployeeLoadingState implements _$EmployeeLoadingState {
     required TResult Function() loading,
     required TResult Function(String error) errored,
     required TResult Function(CourierModel courier) courierReged,
-    required TResult Function(List<OrderModel> orders) ordersFounded,
+    required TResult Function(List<Map<String, dynamic>> orders) ordersFounded,
   }) {
     return loading();
   }
@@ -693,7 +693,7 @@ class _$_$EmployeeLoadingState implements _$EmployeeLoadingState {
     TResult? Function()? loading,
     TResult? Function(String error)? errored,
     TResult? Function(CourierModel courier)? courierReged,
-    TResult? Function(List<OrderModel> orders)? ordersFounded,
+    TResult? Function(List<Map<String, dynamic>> orders)? ordersFounded,
   }) {
     return loading?.call();
   }
@@ -705,7 +705,7 @@ class _$_$EmployeeLoadingState implements _$EmployeeLoadingState {
     TResult Function()? loading,
     TResult Function(String error)? errored,
     TResult Function(CourierModel courier)? courierReged,
-    TResult Function(List<OrderModel> orders)? ordersFounded,
+    TResult Function(List<Map<String, dynamic>> orders)? ordersFounded,
     required TResult orElse(),
   }) {
     if (loading != null) {
@@ -829,7 +829,7 @@ class _$_$EmployeeErroredState implements _$EmployeeErroredState {
     required TResult Function() loading,
     required TResult Function(String error) errored,
     required TResult Function(CourierModel courier) courierReged,
-    required TResult Function(List<OrderModel> orders) ordersFounded,
+    required TResult Function(List<Map<String, dynamic>> orders) ordersFounded,
   }) {
     return errored(error);
   }
@@ -841,7 +841,7 @@ class _$_$EmployeeErroredState implements _$EmployeeErroredState {
     TResult? Function()? loading,
     TResult? Function(String error)? errored,
     TResult? Function(CourierModel courier)? courierReged,
-    TResult? Function(List<OrderModel> orders)? ordersFounded,
+    TResult? Function(List<Map<String, dynamic>> orders)? ordersFounded,
   }) {
     return errored?.call(error);
   }
@@ -853,7 +853,7 @@ class _$_$EmployeeErroredState implements _$EmployeeErroredState {
     TResult Function()? loading,
     TResult Function(String error)? errored,
     TResult Function(CourierModel courier)? courierReged,
-    TResult Function(List<OrderModel> orders)? ordersFounded,
+    TResult Function(List<Map<String, dynamic>> orders)? ordersFounded,
     required TResult orElse(),
   }) {
     if (errored != null) {
@@ -986,7 +986,7 @@ class _$_$EmployeeCourierRegistredState
     required TResult Function() loading,
     required TResult Function(String error) errored,
     required TResult Function(CourierModel courier) courierReged,
-    required TResult Function(List<OrderModel> orders) ordersFounded,
+    required TResult Function(List<Map<String, dynamic>> orders) ordersFounded,
   }) {
     return courierReged(courier);
   }
@@ -998,7 +998,7 @@ class _$_$EmployeeCourierRegistredState
     TResult? Function()? loading,
     TResult? Function(String error)? errored,
     TResult? Function(CourierModel courier)? courierReged,
-    TResult? Function(List<OrderModel> orders)? ordersFounded,
+    TResult? Function(List<Map<String, dynamic>> orders)? ordersFounded,
   }) {
     return courierReged?.call(courier);
   }
@@ -1010,7 +1010,7 @@ class _$_$EmployeeCourierRegistredState
     TResult Function()? loading,
     TResult Function(String error)? errored,
     TResult Function(CourierModel courier)? courierReged,
-    TResult Function(List<OrderModel> orders)? ordersFounded,
+    TResult Function(List<Map<String, dynamic>> orders)? ordersFounded,
     required TResult orElse(),
   }) {
     if (courierReged != null) {
@@ -1078,7 +1078,7 @@ abstract class _$$_$EmployeeOrdersFoundedStateCopyWith<$Res> {
           $Res Function(_$_$EmployeeOrdersFoundedState) then) =
       __$$_$EmployeeOrdersFoundedStateCopyWithImpl<$Res>;
   @useResult
-  $Res call({List<OrderModel> orders});
+  $Res call({List<Map<String, dynamic>> orders});
 }
 
 /// @nodoc
@@ -1099,7 +1099,7 @@ class __$$_$EmployeeOrdersFoundedStateCopyWithImpl<$Res>
       null == orders
           ? _value._orders
           : orders // ignore: cast_nullable_to_non_nullable
-              as List<OrderModel>,
+              as List<Map<String, dynamic>>,
     ));
   }
 }
@@ -1107,12 +1107,12 @@ class __$$_$EmployeeOrdersFoundedStateCopyWithImpl<$Res>
 /// @nodoc
 
 class _$_$EmployeeOrdersFoundedState implements _$EmployeeOrdersFoundedState {
-  const _$_$EmployeeOrdersFoundedState(final List<OrderModel> orders)
+  const _$_$EmployeeOrdersFoundedState(final List<Map<String, dynamic>> orders)
       : _orders = orders;
 
-  final List<OrderModel> _orders;
+  final List<Map<String, dynamic>> _orders;
   @override
-  List<OrderModel> get orders {
+  List<Map<String, dynamic>> get orders {
     // ignore: implicit_dynamic_type
     return EqualUnmodifiableListView(_orders);
   }
@@ -1148,7 +1148,7 @@ class _$_$EmployeeOrdersFoundedState implements _$EmployeeOrdersFoundedState {
     required TResult Function() loading,
     required TResult Function(String error) errored,
     required TResult Function(CourierModel courier) courierReged,
-    required TResult Function(List<OrderModel> orders) ordersFounded,
+    required TResult Function(List<Map<String, dynamic>> orders) ordersFounded,
   }) {
     return ordersFounded(orders);
   }
@@ -1160,7 +1160,7 @@ class _$_$EmployeeOrdersFoundedState implements _$EmployeeOrdersFoundedState {
     TResult? Function()? loading,
     TResult? Function(String error)? errored,
     TResult? Function(CourierModel courier)? courierReged,
-    TResult? Function(List<OrderModel> orders)? ordersFounded,
+    TResult? Function(List<Map<String, dynamic>> orders)? ordersFounded,
   }) {
     return ordersFounded?.call(orders);
   }
@@ -1172,7 +1172,7 @@ class _$_$EmployeeOrdersFoundedState implements _$EmployeeOrdersFoundedState {
     TResult Function()? loading,
     TResult Function(String error)? errored,
     TResult Function(CourierModel courier)? courierReged,
-    TResult Function(List<OrderModel> orders)? ordersFounded,
+    TResult Function(List<Map<String, dynamic>> orders)? ordersFounded,
     required TResult orElse(),
   }) {
     if (ordersFounded != null) {
@@ -1224,10 +1224,10 @@ class _$_$EmployeeOrdersFoundedState implements _$EmployeeOrdersFoundedState {
 }
 
 abstract class _$EmployeeOrdersFoundedState implements EmployeeState {
-  const factory _$EmployeeOrdersFoundedState(final List<OrderModel> orders) =
-      _$_$EmployeeOrdersFoundedState;
+  const factory _$EmployeeOrdersFoundedState(
+      final List<Map<String, dynamic>> orders) = _$_$EmployeeOrdersFoundedState;
 
-  List<OrderModel> get orders;
+  List<Map<String, dynamic>> get orders;
   @JsonKey(ignore: true)
   _$$_$EmployeeOrdersFoundedStateCopyWith<_$_$EmployeeOrdersFoundedState>
       get copyWith => throw _privateConstructorUsedError;

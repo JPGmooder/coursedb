@@ -30,14 +30,46 @@ class EmployeeProvider {
       orderstep
     }
     id_address
-    cart_id
+    cart {
+      cart_id
+      cartcreationtime
+      cartitems {
+        id_product
+        cartitemquantity
+        cartitem_id
+      }
+    }
   }
 }
 ''';
     return MutationOptions(document: gql(query), variables: {
-      "userlogin": userLogin,
+      "p_userlogin": userLogin,
       "clat": latitude,
       'clon': longtitude
+    });
+  }
+
+  static QueryOptions _searchAddressByPk(int addressPk) {
+    String query = r'''query MyQuery($id_address: Int!) {
+  address_by_pk(id_address: $id_address) {
+    userlogin
+    id_address
+    addressstreetname
+    addressstate
+    addressname
+    addresslon
+    addresslat
+    addressfloor
+    addressentrance
+    addresscounty
+    addresscity
+    addressbuildingnum
+    addressapartament
+  }
+}
+''';
+    return QueryOptions(document: gql(query), variables: {
+      "id_address": addressPk,
     });
   }
 
@@ -45,6 +77,12 @@ class EmployeeProvider {
       String userLogin, double deliverArea) async {
     var response = await AppsGraphClient.client
         .mutate(_regNewCourier(userLogin, deliverArea));
+    return response;
+  }
+
+  static Future<QueryResult> searchAddressByPk(int addressPK) async {
+    var response =
+        await AppsGraphClient.client.query(_searchAddressByPk(addressPK));
     return response;
   }
 
