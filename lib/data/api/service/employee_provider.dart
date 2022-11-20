@@ -49,6 +49,27 @@ class EmployeeProvider {
     });
   }
 
+  static MutationOptions _changeOrderStatus(
+      String userLogin, int orderId, String statusName) {
+    String query =
+        r'''mutation MyMutation($p_id_order: Int!, $p_orderstatusname: String!, $p_userlogin: String!) {
+  orders_changestatus(args: {p_id_order: $p_id_order, p_orderstatusname: $p_orderstatusname, p_userlogin: $p_userlogin}) {
+    id_order
+     orderstatus {
+      orderstatusname
+      orderstep
+    }
+  }
+}
+
+''';
+    return MutationOptions(document: gql(query), variables: {
+      "p_id_order": orderId,
+      "p_orderstatusname": statusName,
+      'p_userlogin': userLogin
+    });
+  }
+
   static QueryOptions _searchAddressByPk(int addressPk) {
     String query = r'''query MyQuery($id_address: Int!) {
   address_by_pk(id_address: $id_address) {
@@ -73,10 +94,57 @@ class EmployeeProvider {
     });
   }
 
+  static QueryOptions _searchUserPDByAddress(int addressPk) {
+    String query = r'''query MyQuery($_eq: Int!) {
+  address(where: {id_address: {_eq: $_eq}}) {
+    client {
+      user {
+        personaldatum {
+          personallname
+          personalmobilenumber
+          personalname
+          personalpatronymic
+          personaldateofbirth
+        }
+      }
+    }
+  }
+}
+
+''';
+    return QueryOptions(document: gql(query), variables: {
+      "_eq": addressPk,
+    });
+  }
+
+  static MutationOptions _regCourierPlacement(
+      int idOrder, double lat, double lon) {
+    String query =
+        r'''mutation setCourierPlacement($id_order: Int!, $latitude: numeric!, $longtitude: numeric!) {
+  insert_courierplacement_one(object: {id_order: $id_order, isactive: true, latitude: $latitude, longtitude: $longtitude}) {
+    id_order
+    isactive
+    latitude
+    longtitude
+  }
+}
+
+''';
+    return MutationOptions(
+        document: gql(query),
+        variables: {"id_order": idOrder, "latitude": lat, "longtitude": lon});
+  }
+
   static Future<QueryResult> regNewCourier(
       String userLogin, double deliverArea) async {
     var response = await AppsGraphClient.client
         .mutate(_regNewCourier(userLogin, deliverArea));
+    return response;
+  }
+
+  static Future<QueryResult> findUserPKByAddress(int addressPK) async {
+    var response =
+        await AppsGraphClient.client.query(_searchUserPDByAddress(addressPK));
     return response;
   }
 
@@ -90,6 +158,20 @@ class EmployeeProvider {
       String userLogin, double latitude, double longtitude) async {
     var response = await AppsGraphClient.client
         .mutate(_searchNearestOrders(userLogin, latitude, longtitude));
+    return response;
+  }
+
+  static Future<QueryResult> changeOrderStatus(
+      String userLogin, int orderId, String statusName) async {
+    var response = await AppsGraphClient.client
+        .mutate(_changeOrderStatus(userLogin, orderId, statusName));
+    return response;
+  }
+
+  static Future<QueryResult> regCourierPlacement(
+      int orderId, double lat, double lon) async {
+    var response = await AppsGraphClient.client
+        .mutate(_regCourierPlacement(orderId, lat, lon));
     return response;
   }
 }

@@ -10,6 +10,21 @@ class AppsGraphClient {
             'content-type': 'application/json'
           }),
       cache: GraphQLCache());
+
+  static final websocketclient = GraphQLClient(
+      link: WebSocketLink(
+        'wss://massive-raven-89.hasura.app/v1/graphql',
+        config: SocketClientConfig(
+          autoReconnect: true,
+          headers: {
+            'x-hasura-admin-secret':
+                '0ROBu6QENTh2SDcnC3Cysnbx1DOJCvcHvLDj0BH33BvphcJkQcxx2dapoZxVxnfn',
+            'content-type': 'application/json'
+          },
+          inactivityTimeout: Duration(seconds: 30),
+        ),
+      ),
+      cache: GraphQLCache());
 }
 
 class SupaBaseClient {

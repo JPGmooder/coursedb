@@ -56,7 +56,7 @@ class OrdersProvider {
     return QueryOptions(document: gql(query), variables: {"_in": ids});
   }
 
- static QueryOptions _findOrdersById(String userLogin) {
+  static QueryOptions _findOrdersById(String userLogin) {
     String query = r'''query findOrdersByUserLogin($_eq: String = "") {
   orders {
     cart {
@@ -85,18 +85,35 @@ class OrdersProvider {
     return QueryOptions(document: gql(query), variables: {"_eq": userLogin});
   }
 
+  static SubscriptionOptions _checkActualOrders() {
+    String query = r'''subscription OrdersChecker {
+  orders(limit: 1) {
+    id_order
+    orderstatusname
+  }
+}
 
-   static Future<QueryResult> findOrders(
-      String userLogin) async {
-    var response = await AppsGraphClient.client
-        .query(_findOrdersById(userLogin));
+
+
+''';
+    return SubscriptionOptions(document: gql(query));
+  }
+
+  static Future<QueryResult> findOrders(String userLogin) async {
+    var response =
+        await AppsGraphClient.client.query(_findOrdersById(userLogin));
     return response;
   }
 
   static Future<QueryResult> findOrderProduct(List<int> productsIds) async {
-    var response = await AppsGraphClient.client
-        .query(_findProductsById(productsIds));
+    var response =
+        await AppsGraphClient.client.query(_findProductsById(productsIds));
     return response;
   }
-  
+
+  static Stream<QueryResult<Object?>> checkActualOrders() {
+    var response =
+        AppsGraphClient.websocketclient.subscribe(_checkActualOrders());
+    return response;
+  }
 }

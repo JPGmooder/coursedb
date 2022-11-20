@@ -8,5 +8,9 @@ abstract class EmployeeState with _$EmployeeState {
   const factory EmployeeState.courierReged(CourierModel courier) =
       _$EmployeeCourierRegistredState;
   const factory EmployeeState.ordersFounded(List<Map<String, dynamic>> orders) =
-      _$EmployeeOrdersFoundedState; //* Keys: company for CompanyModel, order for OrderModel, products for List<ProductModel>
+      _$EmployeeOrdersFoundedState; 
+   const factory EmployeeState.orderStatusChanged(int orderId, OrderStatusName status) =
+      _$EmployeeOrdersStatusChangedState; 
+   const factory EmployeeState.personalDataFindedState(UserPersonalDataModel personalData) =
+      _$EmployeePersonalDataFindedState; 
 }

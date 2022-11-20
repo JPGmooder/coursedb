@@ -56,4 +56,45 @@ class EmployeeRepository {
 
     return await completer.future;
   }
+
+  static Future<Map<int, OrderStatusName>> changeOrderStatus(
+      {required String userLogin,
+      required int orderId,
+      required String statusName}) async {
+    var response = await EmployeeProvider.changeOrderStatus(
+        userLogin, orderId, statusName);
+    if (response.hasException) {
+      throw Exception(
+          "Что-то пошло не так (эмплойе репозитори) + ${response.toString()}");
+    }
+    var loadedModel =
+        (response.data!['orders_changestatus'] as Map<String, dynamic>);
+
+    return {
+      loadedModel['id_order']:
+          OrderStatusName.fromMap(loadedModel['orderstatus'])
+    };
+  }
+
+  static Future<void> regCourierPlacement(
+      {required int orderId, required double lat, required double lon}) async {
+    var response =
+        await EmployeeProvider.regCourierPlacement(orderId, lat, lon);
+    if (response.hasException) {
+      throw Exception(
+          "Что-то пошло не так (эмплойе репозитори) + ${response.toString()}");
+    }
+  }
+
+  static Future<UserPersonalDataModel> findPersonalDataByPK(
+      {required int addressPK}) async {
+    var response = await EmployeeProvider.findUserPKByAddress(addressPK);
+    if (response.hasException) {
+      throw Exception(
+          "Что-то пошло не так (эмплойе репозитори) + ${response.toString()}");
+    }
+    var personalData = UserPersonalDataModel.fromMap(
+        response.data!['address'].first()['client']['user']['personaldatum']);
+    return personalData;
+  }
 }

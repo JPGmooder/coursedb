@@ -47,142 +47,159 @@ class _ProductScreenState extends State<ProductScreen> {
       child: SizedBox(
         height: MediaQuery.of(context).size.height * 0.8,
         child: SingleChildScrollView(
-          child: Column(
-            mainAxisSize: MainAxisSize.min,
-            crossAxisAlignment: CrossAxisAlignment.stretch,
+          child: Stack(
             children: [
-              CarouselSlider.builder(
-                  itemCount: widget.currentProduct.photoAlbum.length,
-                  itemBuilder: (ctx, index, realIndex) => CachedNetworkImage(
-                      fit: BoxFit.fill,
-                      imageUrl: widget.currentProduct.photoAlbum[index]),
-                  options: CarouselOptions(
-                    viewportFraction: 1,
-                    autoPlay: true,
-                  )),
-              Padding(
-                padding: const EdgeInsets.all(8.0),
-                child: Column(
-                  crossAxisAlignment: CrossAxisAlignment.stretch,
-                  children: [
-                    Text(
-                      widget.currentProduct.name,
-                      style: Theme.of(context).textTheme.titleLarge,
-                      textScaleFactor: 0.8,
-                    ),
-                    Padding(
-                      padding: const EdgeInsets.symmetric(vertical: 8.0),
-                      child: Wrap(
-                        spacing: 10,
-                        runSpacing: 10,
-                        children: [
-                          CategoryChip(
-                              color: widget.currentProduct.category.color,
-                              label: widget.currentProduct.category.label,
-                              isSelected: true),
-                          if (widget.currentProduct.categoryS != null)
-                            CategoryChip(
-                                color: widget.currentProduct.categoryS!.color,
-                                label: widget.currentProduct.categoryS!.label,
-                                isSelected: true),
-                          if (widget.currentProduct.categoryT != null)
-                            CategoryChip(
-                                color: widget.currentProduct.categoryT!.color,
-                                label: widget.currentProduct.categoryT!.label,
-                                isSelected: true),
-                        ],
-                      ),
-                    ),
-                    Text(
-                      widget.currentProduct.quantity > 20
-                          ? "В наличии"
-                          : widget.currentProduct.quantity == 0
-                              ? "Нет в наличии"
-                              : "Осталось ${widget.currentProduct.quantity} шт.",
-                      textScaleFactor: 1.2,
-                      style: Theme.of(context).textTheme.labelMedium!.copyWith(
-                          color: widget.currentProduct.quantity > 20
-                              ? Colors.grey
-                              : Colors.red[400]),
-                    ),
-                    Card(
-                      child: Padding(
-                        padding: const EdgeInsets.all(8.0),
-                        child: Column(
-                          crossAxisAlignment: CrossAxisAlignment.stretch,
-                          children: [
-                            Text(
-                              "Торговая марка",
-                              style: Theme.of(context).textTheme.titleMedium,
-                            ),
-                            Divider(),
-                            BrandWidget(brand: widget.currentProduct.brand),
-                          ],
+              Column(
+                mainAxisSize: MainAxisSize.min,
+                crossAxisAlignment: CrossAxisAlignment.stretch,
+                children: [
+                  CarouselSlider.builder(
+                      itemCount: widget.currentProduct.photoAlbum.length,
+                      itemBuilder: (ctx, index, realIndex) =>
+                          CachedNetworkImage(
+                              fit: BoxFit.fill,
+                              imageUrl:
+                                  widget.currentProduct.photoAlbum[index]),
+                      options: CarouselOptions(
+                        viewportFraction: 1,
+                        autoPlay: true,
+                      )),
+                  Padding(
+                    padding: const EdgeInsets.all(8.0),
+                    child: Column(
+                      crossAxisAlignment: CrossAxisAlignment.stretch,
+                      children: [
+                        Text(
+                          widget.currentProduct.name,
+                          style: Theme.of(context).textTheme.titleLarge,
+                          textScaleFactor: 0.8,
                         ),
-                      ),
-                    ),
-                    Padding(
-                      padding: const EdgeInsets.symmetric(vertical: 8.0),
-                      child: Text(
-                        "Описание",
-                        style: Theme.of(context).textTheme.titleMedium,
-                      ),
-                    ),
-                    ExpandablePanel(
-                      controller: _controller,
-                      theme: ExpandableThemeData(),
-                      collapsed: Column(
-                        crossAxisAlignment: CrossAxisAlignment.stretch,
-                        children: [
-                          Text(
-                            widget.currentProduct.description,
-                            maxLines: 2,
-                            overflow: TextOverflow.fade,
-                            style: Theme.of(context).textTheme.labelMedium,
-                            textScaleFactor: 1.3,
+                        Padding(
+                          padding: const EdgeInsets.symmetric(vertical: 8.0),
+                          child: Wrap(
+                            spacing: 10,
+                            runSpacing: 10,
+                            children: [
+                              CategoryChip(
+                                  color: widget.currentProduct.category.color,
+                                  label: widget.currentProduct.category.label,
+                                  isSelected: true),
+                              if (widget.currentProduct.categoryS != null)
+                                CategoryChip(
+                                    color:
+                                        widget.currentProduct.categoryS!.color,
+                                    label:
+                                        widget.currentProduct.categoryS!.label,
+                                    isSelected: true),
+                              if (widget.currentProduct.categoryT != null)
+                                CategoryChip(
+                                    color:
+                                        widget.currentProduct.categoryT!.color,
+                                    label:
+                                        widget.currentProduct.categoryT!.label,
+                                    isSelected: true),
+                            ],
                           ),
-                          IconButton(
-                              onPressed: () => setState(() {
-                                    _controller.toggle();
-                                  }),
-                              icon: Icon(
-                                Icons.keyboard_arrow_down_rounded,
-                                color: Colors.grey,
-                              ))
-                        ],
-                      ),
-                      expanded: Column(
-                        crossAxisAlignment: CrossAxisAlignment.stretch,
-                        children: [
-                          Text(
-                            widget.currentProduct.description,
-                            overflow: TextOverflow.fade,
-                            style: Theme.of(context).textTheme.labelMedium,
-                            textScaleFactor: 1.3,
+                        ),
+                        Text(
+                          widget.currentProduct.quantity > 20
+                              ? "В наличии"
+                              : widget.currentProduct.quantity == 0
+                                  ? "Нет в наличии"
+                                  : "Осталось ${widget.currentProduct.quantity} шт.",
+                          textScaleFactor: 1.2,
+                          style: Theme.of(context)
+                              .textTheme
+                              .labelMedium!
+                              .copyWith(
+                                  color: widget.currentProduct.quantity > 20
+                                      ? Colors.grey
+                                      : Colors.red[400]),
+                        ),
+                        Card(
+                          child: Padding(
+                            padding: const EdgeInsets.all(8.0),
+                            child: Column(
+                              crossAxisAlignment: CrossAxisAlignment.stretch,
+                              children: [
+                                Text(
+                                  "Торговая марка",
+                                  style:
+                                      Theme.of(context).textTheme.titleMedium,
+                                ),
+                                Divider(),
+                                BrandWidget(brand: widget.currentProduct.brand),
+                              ],
+                            ),
                           ),
-                          IconButton(
-                              onPressed: () => setState(() {
-                                    _controller.toggle();
-                                  }),
-                              icon: Icon(
-                                Icons.keyboard_arrow_up_rounded,
-                                color: Colors.grey,
-                              ))
-                        ],
-                      ),
+                        ),
+                        Padding(
+                          padding: const EdgeInsets.symmetric(vertical: 8.0),
+                          child: Text(
+                            "Описание",
+                            style: Theme.of(context).textTheme.titleMedium,
+                          ),
+                        ),
+                        ExpandablePanel(
+                          controller: _controller,
+                          theme: ExpandableThemeData(),
+                          collapsed: Column(
+                            crossAxisAlignment: CrossAxisAlignment.stretch,
+                            children: [
+                              Text(
+                                widget.currentProduct.description,
+                                maxLines: 2,
+                                overflow: TextOverflow.fade,
+                                style: Theme.of(context).textTheme.labelMedium,
+                                textScaleFactor: 1.3,
+                              ),
+                              IconButton(
+                                  onPressed: () => setState(() {
+                                        _controller.toggle();
+                                      }),
+                                  icon: Icon(
+                                    Icons.keyboard_arrow_down_rounded,
+                                    color: Colors.grey,
+                                  ))
+                            ],
+                          ),
+                          expanded: Column(
+                            crossAxisAlignment: CrossAxisAlignment.stretch,
+                            children: [
+                              Text(
+                                widget.currentProduct.description,
+                                overflow: TextOverflow.fade,
+                                style: Theme.of(context).textTheme.labelMedium,
+                                textScaleFactor: 1.3,
+                              ),
+                              IconButton(
+                                  onPressed: () => setState(() {
+                                        _controller.toggle();
+                                      }),
+                                  icon: Icon(
+                                    Icons.keyboard_arrow_up_rounded,
+                                    color: Colors.grey,
+                                  ))
+                            ],
+                          ),
+                        ),
+                        BottomProductPage(
+                          updateParent: (currentQuantity) {
+                            setState(() {
+                              widget.currentProduct.quantity = currentQuantity;
+                            });
+                          },
+                          currentOrg: widget.currentOrg,
+                          product: widget.currentProduct,
+                        )
+                      ],
                     ),
-                    BottomProductPage(
-                      updateParent: (currentQuantity) {
-                        setState(() {
-                          widget.currentProduct.quantity = currentQuantity;
-                        });
-                      },
-                      currentOrg: widget.currentOrg,
-                      product: widget.currentProduct,
-                    )
-                  ],
-                ),
-              )
+                  )
+                ],
+              ),
+              IconButton(
+                  onPressed: () => Navigator.pop(context),
+                  icon: Icon(Icons.arrow_back_ios_new)),
             ],
           ),
         ),
