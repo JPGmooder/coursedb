@@ -35,9 +35,12 @@ class EmployeeBloc extends Bloc<EmployeeEvent, EmployeeState> {
             emit(EmployeeState.orderStatusChanged(
                 loadedStatusInfo.keys.first, loadedStatusInfo.values.first));
           },
-          regCourierPlacement: (orderId, lat, lon) async {
+          regCourierPlacement: (orderId, lat, lon, isCompanyPassed) async {
             await EmployeeRepository.regCourierPlacement(
-                orderId: orderId, lat: lat, lon: lon);
+                orderId: orderId,
+                lat: lat,
+                lon: lon,
+                isCompanyPassed: isCompanyPassed);
           },
           findNearestOrders: (userLogin, currentLat, currentLon) async {
             var loadedInfo = await EmployeeRepository.searchCourierOrders(

@@ -54,14 +54,17 @@ class OrderModel {
       orderPrice: map['orderprice']?.toDouble() ?? 0.0,
       addressId: map['id_address']?.toInt() ?? 0,
       cartId: map['cart_id']?.toInt() ?? 0,
-      courierData: map['employee'] != null ? _CourierContactData.fromMap(map['employee']['user']) : null,
+      courierData: map['employee'] != null
+          ? _CourierContactData.fromMap(map['employee']['user'])
+          : null,
       orderStatusName: OrderStatusName.fromMap(map['orderstatus']),
     );
   }
 
   String toJson() => json.encode(toMap());
 
-  factory OrderModel.fromJson(String source) => OrderModel.fromMap(json.decode(source));
+  factory OrderModel.fromJson(String source) =>
+      OrderModel.fromMap(json.decode(source));
 
   @override
   String toString() {
@@ -71,24 +74,24 @@ class OrderModel {
   @override
   bool operator ==(Object other) {
     if (identical(this, other)) return true;
-  
+
     return other is OrderModel &&
-      other.idOrder == idOrder &&
-      other.orderPrice == orderPrice &&
-      other.addressId == addressId &&
-      other.cartId == cartId &&
-      other.courierData == courierData &&
-      other.orderStatusName == orderStatusName;
+        other.idOrder == idOrder &&
+        other.orderPrice == orderPrice &&
+        other.addressId == addressId &&
+        other.cartId == cartId &&
+        other.courierData == courierData &&
+        other.orderStatusName == orderStatusName;
   }
 
   @override
   int get hashCode {
     return idOrder.hashCode ^
-      orderPrice.hashCode ^
-      addressId.hashCode ^
-      cartId.hashCode ^
-      courierData.hashCode ^
-      orderStatusName.hashCode;
+        orderPrice.hashCode ^
+        addressId.hashCode ^
+        cartId.hashCode ^
+        courierData.hashCode ^
+        orderStatusName.hashCode;
   }
 }
 
@@ -123,7 +126,7 @@ class _CourierContactData {
 
   Map<String, dynamic> toMap() {
     return {
-      'userLogin' : userLogin,
+      'userLogin': userLogin,
       'personalname': name,
       'personallname': lName,
       'personalpatronymic': patronymic,
@@ -140,14 +143,15 @@ class _CourierContactData {
       mobileNumber: map['personaldatum']['personalmobilenumber'] ?? '',
     );
   }
-
-
 }
 
 enum OrderStep {
   waiting('На рассмотрении'),
-  searching('Поиск курьера'),  
-  delivery('Доставка');
+  searching('Поиск курьера'),
+  ready('Подготовка'),
+  building('Сборка'),
+  delivery('Доставка'),
+  delivered('Доставлено');
 
   final String text;
   const OrderStep(this.text);

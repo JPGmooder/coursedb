@@ -17,7 +17,8 @@ abstract class EmployeeEvent with _$EmployeeEvent {
   const factory EmployeeEvent.regCourierPlacement(
       {required int orderId,
       required double lat,
-      required double lon}) = _$EmployeeRegCourierPlacementEvent;
+      required double lon,
+      required bool isCompanyPassed}) = _$EmployeeRegCourierPlacementEvent;
    const factory EmployeeEvent.findPersonalDataByAddress(
       {required int addressId}) = _$EmployeeFindPDbyAddressEvent;
 }

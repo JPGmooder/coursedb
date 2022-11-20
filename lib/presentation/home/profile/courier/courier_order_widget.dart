@@ -1,3 +1,5 @@
+import 'dart:async';
+
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:expandable/expandable.dart';
 import 'package:flutter/foundation.dart';
@@ -23,6 +25,7 @@ import 'package:rive/rive.dart';
 import 'package:supabase_flutter/supabase_flutter.dart';
 import 'package:yandex_mapkit/yandex_mapkit.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:url_launcher/url_launcher.dart';
 
 class CourierOrder extends StatefulWidget {
   CourierOrder(
@@ -194,6 +197,7 @@ class ExpandedCouriersOrder extends StatefulWidget {
   ExpandedCouriersOrder(
       {Key? key,
       this.isMainOrder = false,
+      this.isPassed = false,
       required this.addressModel,
       required this.cart,
       required this.order,
@@ -210,6 +214,7 @@ class ExpandedCouriersOrder extends StatefulWidget {
   PlacemarkMapObject clientMark;
   DrivingSessionResult? drivingRoute;
   BicycleSessionResult? bicycleRoute;
+  bool isPassed;
   final AddressModel addressModel;
   final OrderModel order;
   final List<ProductModel> products;
@@ -292,6 +297,7 @@ class _ExpandedCouriersOrderState extends State<ExpandedCouriersOrder> {
                       if (UserModel.get().courier!.currentOrder == null) {
                         context.read<EmployeeBloc>().add(
                             EmployeeEvent.regCourierPlacement(
+                                isCompanyPassed: false,
                                 orderId: orderId,
                                 lat: widget.courierMark.point.latitude,
                                 lon: widget.courierMark.point.longitude));
@@ -316,7 +322,6 @@ class _ExpandedCouriersOrderState extends State<ExpandedCouriersOrder> {
                     });
               },
               builder: (context, state) {
-                
                 return state.maybeWhen(
                     loading: () => CircularProgressIndicator(),
                     orElse: () => GradientMask(
@@ -351,6 +356,7 @@ class _ExpandedCouriersOrderState extends State<ExpandedCouriersOrder> {
             ),
           if (widget.isMainOrder)
             CourierAdditional(
+              isPassed: widget.isPassed,
               items: widget.cart.items,
               organizationModel: widget.organization,
               products: widget.products,
@@ -364,10 +370,12 @@ class _ExpandedCouriersOrderState extends State<ExpandedCouriersOrder> {
 class CourierAdditional extends StatefulWidget {
   CourierAdditional(
       {Key? key,
+      required this.isPassed,
       required this.products,
       required this.items,
       required this.organizationModel})
       : super(key: key);
+  bool isPassed;
   List<ProductModel> products;
   List<CartItemModel> items;
   OrganizationModel organizationModel;
@@ -376,6 +384,29 @@ class CourierAdditional extends StatefulWidget {
 }
 
 class _CourierAdditionalState extends State<CourierAdditional> {
+  late StreamSubscription<EmployeeState> pdSub;
+  UserPersonalDataModel? clientData;
+
+  @override
+  void initState() {
+    context.read<EmployeeBloc>().add(EmployeeEvent.findPersonalDataByAddress(
+        addressId: UserModel.get().courier!.currentOrder!.order.addressId));
+    pdSub = BlocProvider.of<EmployeeBloc>(context).stream.listen((state) {
+      state.maybeWhen(
+          orElse: () => null,
+          personalDataFindedState: (pd) => setState(() {
+                clientData = pd;
+              }));
+    });
+    super.initState();
+  }
+
+  @override
+  void dispose() {
+    pdSub.cancel();
+    super.dispose();
+  }
+
   @override
   Widget build(BuildContext context) {
     return Column(
@@ -469,7 +500,166 @@ class _CourierAdditionalState extends State<CourierAdditional> {
             ),
           ),
         ),
+        if (clientData != null)
+          Card(
+            child: Padding(
+              padding: const EdgeInsets.all(8.0),
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.stretch,
+                children: [
+                  Text(
+                    "Информация о заказчике",
+                    style: Theme.of(context).textTheme.titleMedium,
+                  ),
+                  Padding(
+                    padding: const EdgeInsets.all(8.0),
+                    child: NeumorphicButton(
+                      onPressed: () => launchUrl(
+                          Uri.parse("tel://${clientData!.mobileNumber}"),
+                          mode: LaunchMode.externalApplication),
+                      child: Padding(
+                        padding: const EdgeInsets.all(8.0),
+                        child: Row(
+                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                          children: [
+                            Expanded(
+                              child: Center(
+                                child: Text(
+                                  clientData!.mobileNumber,
+                                  style:
+                                      Theme.of(context).textTheme.labelMedium,
+                                  textScaleFactor: 1.3,
+                                ),
+                              ),
+                            ),
+                            GradientMask(
+                                size: 25,
+                                begin: Alignment.topLeft,
+                                end: Alignment.bottomRight,
+                                child: Icon(
+                                  Icons.phone,
+                                  color: Colors.white,
+                                ))
+                          ],
+                        ),
+                      ),
+                    ),
+                  ),
+                  Card(
+                      child: Padding(
+                    padding: const EdgeInsets.all(8.0),
+                    child: Text(
+                      "Адрес получателя: ${UserModel.get().courier!.currentOrder!.addressModel.toString()}",
+                      style: Theme.of(context).textTheme.labelMedium,
+                      textScaleFactor: 1.25,
+                    ),
+                  )),
+                  OrderStatusPicker(
+                    isPassed: widget.isPassed,
+                  )
+                ],
+              ),
+            ),
+          )
       ],
+    );
+  }
+}
+
+class OrderStatusPicker extends StatefulWidget {
+  OrderStatusPicker({Key? key, required this.isPassed, this.defaultValue})
+      : super(key: key);
+  OrderStatusName? defaultValue;
+  bool isPassed;
+  @override
+  State<OrderStatusPicker> createState() => _OrderStatusPickerState();
+}
+
+class _OrderStatusPickerState extends State<OrderStatusPicker> {
+  late OrderStatusName currentValue;
+  @override
+  void initState() {
+    currentValue = widget.defaultValue ??
+        OrderStatusName(
+            name: "Получение курьером информации.", step: OrderStep.ready);
+    super.initState();
+  }
+
+  @override
+  Widget build(BuildContext context) {
+    return Card(
+      child: Column(
+        children: [
+          Text(
+            "Изменение статуса заказа",
+            style: Theme.of(context).textTheme.titleMedium,
+          ),
+          ...List.generate(6, (index) {
+            void Function(OrderStatusName?)? onChanged;
+            late OrderStatusName currentStatus;
+            switch (index) {
+              case 0:
+                currentStatus = OrderStatusName(
+                    name: "Получение курьером информации.",
+                    step: OrderStep.ready);
+                break;
+              case 1:
+                currentStatus = OrderStatusName(
+                    name: "На пути к магазину.", step: OrderStep.delivery);
+                break;
+              case 2:
+                currentStatus = OrderStatusName(
+                    name: "Сборка заказа.", step: OrderStep.building);
+                break;
+              case 3:
+                onChanged = widget.isPassed
+                    ? (value) => setState(() {
+                          currentValue = value!;
+                        })
+                    : null;
+                currentStatus = OrderStatusName(
+                    name: "На пути к заказчику.", step: OrderStep.delivery);
+                break;
+              case 4:
+                currentStatus = OrderStatusName(
+                    name: "Ождиание ответа заказчика.",
+                    step: OrderStep.waiting);
+                break;
+              case 5:
+                onChanged = widget.isPassed
+                    ? (value) => setState(() {
+                          currentValue = value!;
+                        })
+                    : null;
+                currentStatus = OrderStatusName(
+                    name: "Доставлено.", step: OrderStep.delivered);
+                break;
+              default:
+            }
+
+            if (!(index == 3 || index == 5 || index == 0) &&
+                onChanged == null) {
+              onChanged = (value) => setState(() {
+                    currentValue = value!;
+                  });
+            }
+
+            return RadioListTile<OrderStatusName>(
+              groupValue: currentValue,
+              value: currentStatus,
+              onChanged: index == 0
+                  ? null
+                  : (value) => setState(() {
+                        currentValue = value!;
+                      }),
+              title: Text(
+                currentStatus.name,
+                style: Theme.of(context).textTheme.labelMedium,
+              ),
+            );
+          })
+        ],
+      ),
     );
   }
 }

@@ -118,21 +118,20 @@ class EmployeeProvider {
   }
 
   static MutationOptions _regCourierPlacement(
-      int idOrder, double lat, double lon) {
+      int idOrder, double lat, double lon, bool isPassed) {
     String query =
-        r'''mutation setCourierPlacement($id_order: Int!, $latitude: numeric!, $longtitude: numeric!) {
-  insert_courierplacement_one(object: {id_order: $id_order, isactive: true, latitude: $latitude, longtitude: $longtitude}) {
+        r'''mutation MyMutation($id_order: Int!, $latitude: numeric!, $longtitude: numeric!, $ispassedcompany: Boolean = false) {
+  update_courierplacement_by_pk(pk_columns: {id_order: $id_order}, _set: {latitude: $latitude, longtitude: $longtitude, isactive: true, ispassedcompany: $ispassedcompany}) {
     id_order
-    isactive
-    latitude
-    longtitude
   }
 }
-
 ''';
-    return MutationOptions(
-        document: gql(query),
-        variables: {"id_order": idOrder, "latitude": lat, "longtitude": lon});
+    return MutationOptions(document: gql(query), variables: {
+      "id_order": idOrder,
+      "latitude": lat,
+      "longtitude": lon,
+      "ispassedcompany": isPassed
+    });
   }
 
   static Future<QueryResult> regNewCourier(
@@ -169,9 +168,9 @@ class EmployeeProvider {
   }
 
   static Future<QueryResult> regCourierPlacement(
-      int orderId, double lat, double lon) async {
+      int orderId, double lat, double lon, bool isCompanyPassed) async {
     var response = await AppsGraphClient.client
-        .mutate(_regCourierPlacement(orderId, lat, lon));
+        .mutate(_regCourierPlacement(orderId, lat, lon, isCompanyPassed));
     return response;
   }
 }

@@ -27,6 +27,7 @@ environment:
 # the latest version available on pub.dev. To see which dependencies have newer
 # versions available, run `flutter pub outdated`.
 dependencies:
+  android_alarm_manager_plus: ^2.1.0
   animated_text_kit: ^4.2.2
   bloc: ^8.1.0
   bottom_drawer: ^0.0.5
@@ -63,6 +64,7 @@ dependencies:
   supabase_flutter: ^1.0.1
   syncfusion_flutter_sliders: ^20.3.57
   translit: ^2.0.0
+  url_launcher: ^6.1.6
   yandex_geocoder: ^2.0.2
   yandex_mapkit: ^3.1.1
 

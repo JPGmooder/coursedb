@@ -6,6 +6,7 @@ import 'package:location/location.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:supabase_flutter/supabase_flutter.dart';
 import 'package:yandex_mapkit/yandex_mapkit.dart';
+import 'package:android_alarm_manager_plus/android_alarm_manager_plus.dart';
 
 final supabaseUrl = 'https://xomxmkboeuoupjkirjnh.supabase.co';
 final supabaseKey = String.fromEnvironment('bqcccZS4hECsxy2T');
@@ -14,6 +15,8 @@ void main() async {
   var supa = await Supabase.initialize(url: supabaseUrl, anonKey: supabaseKey);
 
   AndroidYandexMap.useAndroidViewSurface = false;
+  await AndroidAlarmManager.initialize();
+
   var prefs = await SharedPreferences.getInstance();
   initializeDateFormatting('ru_RU', null).then((value) =>
       runApp(MyApp(prefs.getString('login'), prefs.getString('password'))));

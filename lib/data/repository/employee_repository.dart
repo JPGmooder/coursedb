@@ -77,9 +77,12 @@ class EmployeeRepository {
   }
 
   static Future<void> regCourierPlacement(
-      {required int orderId, required double lat, required double lon}) async {
-    var response =
-        await EmployeeProvider.regCourierPlacement(orderId, lat, lon);
+      {required int orderId,
+      required double lat,
+      required double lon,
+      required bool isCompanyPassed}) async {
+    var response = await EmployeeProvider.regCourierPlacement(
+        orderId, lat, lon, isCompanyPassed);
     if (response.hasException) {
       throw Exception(
           "Что-то пошло не так (эмплойе репозитори) + ${response.toString()}");
@@ -94,7 +97,10 @@ class EmployeeRepository {
           "Что-то пошло не так (эмплойе репозитори) + ${response.toString()}");
     }
     var personalData = UserPersonalDataModel.fromMap(
-        response.data!['address'].first()['client']['user']['personaldatum']);
+        (response.data!['address'] as List<Object?>)
+            .cast<Map<String, dynamic>>()
+            .toList()
+            .first['client']['user']['personaldatum']);
     return personalData;
   }
 }

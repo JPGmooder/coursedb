@@ -26,7 +26,8 @@ mixin _$EmployeeEvent {
     required TResult Function(
             String userLogin, int orderId, OrderStatusName orderStatusName)
         changeOrderStatus,
-    required TResult Function(int orderId, double lat, double lon)
+    required TResult Function(
+            int orderId, double lat, double lon, bool isCompanyPassed)
         regCourierPlacement,
     required TResult Function(int addressId) findPersonalDataByAddress,
   }) =>
@@ -39,7 +40,9 @@ mixin _$EmployeeEvent {
     TResult? Function(
             String userLogin, int orderId, OrderStatusName orderStatusName)?
         changeOrderStatus,
-    TResult? Function(int orderId, double lat, double lon)? regCourierPlacement,
+    TResult? Function(
+            int orderId, double lat, double lon, bool isCompanyPassed)?
+        regCourierPlacement,
     TResult? Function(int addressId)? findPersonalDataByAddress,
   }) =>
       throw _privateConstructorUsedError;
@@ -51,7 +54,8 @@ mixin _$EmployeeEvent {
     TResult Function(
             String userLogin, int orderId, OrderStatusName orderStatusName)?
         changeOrderStatus,
-    TResult Function(int orderId, double lat, double lon)? regCourierPlacement,
+    TResult Function(int orderId, double lat, double lon, bool isCompanyPassed)?
+        regCourierPlacement,
     TResult Function(int addressId)? findPersonalDataByAddress,
     required TResult orElse(),
   }) =>
@@ -198,7 +202,8 @@ class _$_$EmployeeRegisterEvent implements _$EmployeeRegisterEvent {
     required TResult Function(
             String userLogin, int orderId, OrderStatusName orderStatusName)
         changeOrderStatus,
-    required TResult Function(int orderId, double lat, double lon)
+    required TResult Function(
+            int orderId, double lat, double lon, bool isCompanyPassed)
         regCourierPlacement,
     required TResult Function(int addressId) findPersonalDataByAddress,
   }) {
@@ -214,7 +219,9 @@ class _$_$EmployeeRegisterEvent implements _$EmployeeRegisterEvent {
     TResult? Function(
             String userLogin, int orderId, OrderStatusName orderStatusName)?
         changeOrderStatus,
-    TResult? Function(int orderId, double lat, double lon)? regCourierPlacement,
+    TResult? Function(
+            int orderId, double lat, double lon, bool isCompanyPassed)?
+        regCourierPlacement,
     TResult? Function(int addressId)? findPersonalDataByAddress,
   }) {
     return register?.call(userLogin, deliveryAreaDiametr);
@@ -229,7 +236,8 @@ class _$_$EmployeeRegisterEvent implements _$EmployeeRegisterEvent {
     TResult Function(
             String userLogin, int orderId, OrderStatusName orderStatusName)?
         changeOrderStatus,
-    TResult Function(int orderId, double lat, double lon)? regCourierPlacement,
+    TResult Function(int orderId, double lat, double lon, bool isCompanyPassed)?
+        regCourierPlacement,
     TResult Function(int addressId)? findPersonalDataByAddress,
     required TResult orElse(),
   }) {
@@ -403,7 +411,8 @@ class _$_$EmployeeFindNearestOrdersEvent
     required TResult Function(
             String userLogin, int orderId, OrderStatusName orderStatusName)
         changeOrderStatus,
-    required TResult Function(int orderId, double lat, double lon)
+    required TResult Function(
+            int orderId, double lat, double lon, bool isCompanyPassed)
         regCourierPlacement,
     required TResult Function(int addressId) findPersonalDataByAddress,
   }) {
@@ -419,7 +428,9 @@ class _$_$EmployeeFindNearestOrdersEvent
     TResult? Function(
             String userLogin, int orderId, OrderStatusName orderStatusName)?
         changeOrderStatus,
-    TResult? Function(int orderId, double lat, double lon)? regCourierPlacement,
+    TResult? Function(
+            int orderId, double lat, double lon, bool isCompanyPassed)?
+        regCourierPlacement,
     TResult? Function(int addressId)? findPersonalDataByAddress,
   }) {
     return findNearestOrders?.call(userLogin, currentLat, currentLon);
@@ -434,7 +445,8 @@ class _$_$EmployeeFindNearestOrdersEvent
     TResult Function(
             String userLogin, int orderId, OrderStatusName orderStatusName)?
         changeOrderStatus,
-    TResult Function(int orderId, double lat, double lon)? regCourierPlacement,
+    TResult Function(int orderId, double lat, double lon, bool isCompanyPassed)?
+        regCourierPlacement,
     TResult Function(int addressId)? findPersonalDataByAddress,
     required TResult orElse(),
   }) {
@@ -610,7 +622,8 @@ class _$_$EmployeeChangeOrderStatusEvent
     required TResult Function(
             String userLogin, int orderId, OrderStatusName orderStatusName)
         changeOrderStatus,
-    required TResult Function(int orderId, double lat, double lon)
+    required TResult Function(
+            int orderId, double lat, double lon, bool isCompanyPassed)
         regCourierPlacement,
     required TResult Function(int addressId) findPersonalDataByAddress,
   }) {
@@ -626,7 +639,9 @@ class _$_$EmployeeChangeOrderStatusEvent
     TResult? Function(
             String userLogin, int orderId, OrderStatusName orderStatusName)?
         changeOrderStatus,
-    TResult? Function(int orderId, double lat, double lon)? regCourierPlacement,
+    TResult? Function(
+            int orderId, double lat, double lon, bool isCompanyPassed)?
+        regCourierPlacement,
     TResult? Function(int addressId)? findPersonalDataByAddress,
   }) {
     return changeOrderStatus?.call(userLogin, orderId, orderStatusName);
@@ -641,7 +656,8 @@ class _$_$EmployeeChangeOrderStatusEvent
     TResult Function(
             String userLogin, int orderId, OrderStatusName orderStatusName)?
         changeOrderStatus,
-    TResult Function(int orderId, double lat, double lon)? regCourierPlacement,
+    TResult Function(int orderId, double lat, double lon, bool isCompanyPassed)?
+        regCourierPlacement,
     TResult Function(int addressId)? findPersonalDataByAddress,
     required TResult orElse(),
   }) {
@@ -725,7 +741,7 @@ abstract class _$$_$EmployeeRegCourierPlacementEventCopyWith<$Res> {
           $Res Function(_$_$EmployeeRegCourierPlacementEvent) then) =
       __$$_$EmployeeRegCourierPlacementEventCopyWithImpl<$Res>;
   @useResult
-  $Res call({int orderId, double lat, double lon});
+  $Res call({int orderId, double lat, double lon, bool isCompanyPassed});
 }
 
 /// @nodoc
@@ -744,6 +760,7 @@ class __$$_$EmployeeRegCourierPlacementEventCopyWithImpl<$Res>
     Object? orderId = null,
     Object? lat = null,
     Object? lon = null,
+    Object? isCompanyPassed = null,
   }) {
     return _then(_$_$EmployeeRegCourierPlacementEvent(
       orderId: null == orderId
@@ -758,6 +775,10 @@ class __$$_$EmployeeRegCourierPlacementEventCopyWithImpl<$Res>
           ? _value.lon
           : lon // ignore: cast_nullable_to_non_nullable
               as double,
+      isCompanyPassed: null == isCompanyPassed
+          ? _value.isCompanyPassed
+          : isCompanyPassed // ignore: cast_nullable_to_non_nullable
+              as bool,
     ));
   }
 }
@@ -767,7 +788,10 @@ class __$$_$EmployeeRegCourierPlacementEventCopyWithImpl<$Res>
 class _$_$EmployeeRegCourierPlacementEvent
     implements _$EmployeeRegCourierPlacementEvent {
   const _$_$EmployeeRegCourierPlacementEvent(
-      {required this.orderId, required this.lat, required this.lon});
+      {required this.orderId,
+      required this.lat,
+      required this.lon,
+      required this.isCompanyPassed});
 
   @override
   final int orderId;
@@ -775,10 +799,12 @@ class _$_$EmployeeRegCourierPlacementEvent
   final double lat;
   @override
   final double lon;
+  @override
+  final bool isCompanyPassed;
 
   @override
   String toString() {
-    return 'EmployeeEvent.regCourierPlacement(orderId: $orderId, lat: $lat, lon: $lon)';
+    return 'EmployeeEvent.regCourierPlacement(orderId: $orderId, lat: $lat, lon: $lon, isCompanyPassed: $isCompanyPassed)';
   }
 
   @override
@@ -788,11 +814,14 @@ class _$_$EmployeeRegCourierPlacementEvent
             other is _$_$EmployeeRegCourierPlacementEvent &&
             (identical(other.orderId, orderId) || other.orderId == orderId) &&
             (identical(other.lat, lat) || other.lat == lat) &&
-            (identical(other.lon, lon) || other.lon == lon));
+            (identical(other.lon, lon) || other.lon == lon) &&
+            (identical(other.isCompanyPassed, isCompanyPassed) ||
+                other.isCompanyPassed == isCompanyPassed));
   }
 
   @override
-  int get hashCode => Object.hash(runtimeType, orderId, lat, lon);
+  int get hashCode =>
+      Object.hash(runtimeType, orderId, lat, lon, isCompanyPassed);
 
   @JsonKey(ignore: true)
   @override
@@ -813,11 +842,12 @@ class _$_$EmployeeRegCourierPlacementEvent
     required TResult Function(
             String userLogin, int orderId, OrderStatusName orderStatusName)
         changeOrderStatus,
-    required TResult Function(int orderId, double lat, double lon)
+    required TResult Function(
+            int orderId, double lat, double lon, bool isCompanyPassed)
         regCourierPlacement,
     required TResult Function(int addressId) findPersonalDataByAddress,
   }) {
-    return regCourierPlacement(orderId, lat, lon);
+    return regCourierPlacement(orderId, lat, lon, isCompanyPassed);
   }
 
   @override
@@ -829,10 +859,12 @@ class _$_$EmployeeRegCourierPlacementEvent
     TResult? Function(
             String userLogin, int orderId, OrderStatusName orderStatusName)?
         changeOrderStatus,
-    TResult? Function(int orderId, double lat, double lon)? regCourierPlacement,
+    TResult? Function(
+            int orderId, double lat, double lon, bool isCompanyPassed)?
+        regCourierPlacement,
     TResult? Function(int addressId)? findPersonalDataByAddress,
   }) {
-    return regCourierPlacement?.call(orderId, lat, lon);
+    return regCourierPlacement?.call(orderId, lat, lon, isCompanyPassed);
   }
 
   @override
@@ -844,12 +876,13 @@ class _$_$EmployeeRegCourierPlacementEvent
     TResult Function(
             String userLogin, int orderId, OrderStatusName orderStatusName)?
         changeOrderStatus,
-    TResult Function(int orderId, double lat, double lon)? regCourierPlacement,
+    TResult Function(int orderId, double lat, double lon, bool isCompanyPassed)?
+        regCourierPlacement,
     TResult Function(int addressId)? findPersonalDataByAddress,
     required TResult orElse(),
   }) {
     if (regCourierPlacement != null) {
-      return regCourierPlacement(orderId, lat, lon);
+      return regCourierPlacement(orderId, lat, lon, isCompanyPassed);
     }
     return orElse();
   }
@@ -907,13 +940,16 @@ class _$_$EmployeeRegCourierPlacementEvent
 
 abstract class _$EmployeeRegCourierPlacementEvent implements EmployeeEvent {
   const factory _$EmployeeRegCourierPlacementEvent(
-      {required final int orderId,
-      required final double lat,
-      required final double lon}) = _$_$EmployeeRegCourierPlacementEvent;
+          {required final int orderId,
+          required final double lat,
+          required final double lon,
+          required final bool isCompanyPassed}) =
+      _$_$EmployeeRegCourierPlacementEvent;
 
   int get orderId;
   double get lat;
   double get lon;
+  bool get isCompanyPassed;
   @JsonKey(ignore: true)
   _$$_$EmployeeRegCourierPlacementEventCopyWith<
           _$_$EmployeeRegCourierPlacementEvent>
@@ -997,7 +1033,8 @@ class _$_$EmployeeFindPDbyAddressEvent
     required TResult Function(
             String userLogin, int orderId, OrderStatusName orderStatusName)
         changeOrderStatus,
-    required TResult Function(int orderId, double lat, double lon)
+    required TResult Function(
+            int orderId, double lat, double lon, bool isCompanyPassed)
         regCourierPlacement,
     required TResult Function(int addressId) findPersonalDataByAddress,
   }) {
@@ -1013,7 +1050,9 @@ class _$_$EmployeeFindPDbyAddressEvent
     TResult? Function(
             String userLogin, int orderId, OrderStatusName orderStatusName)?
         changeOrderStatus,
-    TResult? Function(int orderId, double lat, double lon)? regCourierPlacement,
+    TResult? Function(
+            int orderId, double lat, double lon, bool isCompanyPassed)?
+        regCourierPlacement,
     TResult? Function(int addressId)? findPersonalDataByAddress,
   }) {
     return findPersonalDataByAddress?.call(addressId);
@@ -1028,7 +1067,8 @@ class _$_$EmployeeFindPDbyAddressEvent
     TResult Function(
             String userLogin, int orderId, OrderStatusName orderStatusName)?
         changeOrderStatus,
-    TResult Function(int orderId, double lat, double lon)? regCourierPlacement,
+    TResult Function(int orderId, double lat, double lon, bool isCompanyPassed)?
+        regCourierPlacement,
     TResult Function(int addressId)? findPersonalDataByAddress,
     required TResult orElse(),
   }) {
