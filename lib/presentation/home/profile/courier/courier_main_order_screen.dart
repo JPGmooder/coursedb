@@ -7,21 +7,19 @@ import 'package:kursach/domain/model/address_model.dart';
 import 'package:kursach/domain/model/employee_model.dart';
 import 'package:kursach/domain/model/user_model.dart';
 import 'package:kursach/presentation/home/profile/courier/courier_order_widget.dart';
+import 'package:kursach/presentation/outstanding/gradientmask.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:sliver_tools/sliver_tools.dart';
 import 'package:slide_countdown/slide_countdown.dart';
+import 'package:stop_watch_timer/stop_watch_timer.dart';
 import 'package:yandex_mapkit/yandex_mapkit.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'dart:developer' as developer;
-import 'dart:isolate';
-import 'dart:math';
-import 'dart:ui';
-
-import 'package:android_alarm_manager_plus/android_alarm_manager_plus.dart';
 
 class CourierMainOrderScreen extends StatefulWidget {
-  CourierMainOrderScreen({Key? key}) : super(key: key);
-
+  CourierMainOrderScreen(
+      {Key? key, this.clientMarkl, this.companyMark, this.courierMark})
+      : super(key: key);
+  PlacemarkMapObject? courierMark, companyMark, clientMarkl;
   @override
   State<CourierMainOrderScreen> createState() => _CourierMainOrderScreenState();
 }
@@ -41,17 +39,24 @@ class _CourierMainOrderScreenState extends State<CourierMainOrderScreen> {
   void initState() {
     currentOrder = UserModel.get().courier!.currentOrder!;
     isPassedCompany = false; //TODO при получении тут динамика.
-
     super.initState();
 
     Future.delayed(Duration.zero, () {
-      var args =
-          ModalRoute.of(context)!.settings.arguments as Map<String, dynamic>;
-      setState(() {
-        _courierMark = args['courier'];
-        _companyMark = args['org'];
-        _clientMarkl = args['client'];
-      });
+      if (widget.clientMarkl == null &&
+          widget.companyMark == null &&
+          widget.clientMarkl == null) {
+        var args =
+            ModalRoute.of(context)!.settings.arguments as Map<String, dynamic>;
+        setState(() {
+          _courierMark = args['courier'];
+          _companyMark = args['org'];
+          _clientMarkl = args['client'];
+        });
+      } else {
+        _companyMark = widget.companyMark;
+        _courierMark = widget.courierMark;
+        _clientMarkl = widget.clientMarkl;
+      }
 
       context.read<EmployeeBloc>().add(EmployeeEvent.regCourierPlacement(
           isCompanyPassed: false,
@@ -174,8 +179,7 @@ class _CourierMainOrderScreenState extends State<CourierMainOrderScreen> {
               ),
             ),
             SliverPinnedHeader(
-              child: orderTimer(
-                  drivingRoute: _drivingRoute, bicycleRoute: _bicycleRoute),
+              child: orderTimer(),
             ),
             SliverToBoxAdapter(
               child: _clientMarkl == null ||
@@ -204,65 +208,58 @@ class _CourierMainOrderScreenState extends State<CourierMainOrderScreen> {
 }
 
 class orderTimer extends StatefulWidget {
-  const orderTimer({
-    Key? key,
-    required DrivingSessionResult? drivingRoute,
-    required BicycleSessionResult? bicycleRoute,
-  })  : _drivingRoute = drivingRoute,
-        _bicycleRoute = bicycleRoute,
-        super(key: key);
-
-  final DrivingSessionResult? _drivingRoute;
-  final BicycleSessionResult? _bicycleRoute;
-
+  const orderTimer({Key? key, this.defaultValue}) : super(key: key);
+  final DateTime? defaultValue;
   @override
   State<orderTimer> createState() => _orderTimerState();
 }
 
 class _orderTimerState extends State<orderTimer> {
-  ReceivePort port = ReceivePort();
-  SharedPreferences? prefs;
-  int _counter = 0;
-  static SendPort? uiSendPort;
-
-  @pragma('vm:entry-point')
-  static Future<void> callback() async {
-    developer.log('Alarm fired!');
-    final prefs = await SharedPreferences.getInstance();
-    final currentCount = prefs.getInt("timer") ?? 0;
-    await prefs.setInt("timer", currentCount + 1);
-    uiSendPort ??= IsolateNameServer.lookupPortByName("timer");
-    uiSendPort?.send(null);
-  }
-
-  Future<void> _incrementCounter() async {
-    await prefs?.reload();
-
-    setState(() {
-      _counter++;
-    });
-  }
-
+  StopWatchTimer? timer;
+  StreamSubscription<EmployeeState>? sub;
+  late int count;
   @override
   void initState() {
-    _counter = 0;
-    AndroidAlarmManager.periodic(Duration(seconds: 1), 0, callback);
-//! ОСТАНОВИЛся ТУТ НИЧО НЕ РАБОТАЕТ
-    SharedPreferences.getInstance().then((value) {
-      prefs = value;
-
-      if (prefs!.containsKey("timer")) {
-        setState(() {
-          _counter += prefs!.getInt("timer")!;
-        });
-      }
-    });
-    port.listen((_) async => await _incrementCounter());
+    if (widget.defaultValue != null) {
+      var diff = DateTime.now().difference(widget.defaultValue!);
+      setState(() {
+        timer = StopWatchTimer(
+          mode: StopWatchMode.countUp,
+        );
+        timer!.setPresetTime(mSec: diff.inMilliseconds);
+      });
+    }
+    if (timer == null) {
+      sub = BlocProvider.of<EmployeeBloc>(context).stream.listen((event) {
+        event.maybeWhen(
+            orElse: () => null,
+            timeRegistred: (time) {
+              var diff = DateTime.now().difference(time.toLocal());
+              setState(() {
+                timer = StopWatchTimer(
+                  mode: StopWatchMode.countUp,
+                );
+                timer!.setPresetTime(mSec: diff.inMilliseconds);
+              });
+              sub!.cancel();
+            });
+      });
+    }
     super.initState();
   }
 
   @override
+  void dispose() {
+    sub?.cancel();
+    timer?.dispose();
+    super.dispose();
+  }
+
+  @override
   Widget build(BuildContext context) {
+    if (timer?.isRunning == false) {
+      timer!.onStartTimer();
+    }
     return Card(
       child: Padding(
         padding: const EdgeInsets.all(8.0),
@@ -272,40 +269,48 @@ class _orderTimerState extends State<orderTimer> {
               mainAxisAlignment: MainAxisAlignment.spaceEvenly,
               children: [
                 Text(
-                  "Времени прошло: ${_counter}",
+                  "Времени прошло:",
                   style: Theme.of(context).textTheme.titleMedium,
                 ),
-                // SlideCountdown(
-                //   separatorType: SeparatorType.title,
-                //   durationTitle: DurationTitle.ruShort(),
-                //   suffixIcon: Padding(
-                //     padding: const EdgeInsets.only(left: 8.0),
-                //     child: Icon(
-                //       Icons.timer,
-                //       size: 15,
-                //       color: Colors.white,
-                //     ),
-                //   ),
-                //   duration: Duration(days: 1),
-                //   infinityCountUp: true,
-                //   shouldShowMinutes: (duration) => duration.inSeconds > 60,
-                //   shouldShowHours: (duration) => duration.inMinutes > 60,
-                //   countUp: true,
-                // )
-              ],
-            ),
-            Row(
-              mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-              children: [
-                Text(
-                  "Ожидаемое время доставки: ",
-                  style: Theme.of(context).textTheme.titleMedium,
-                ),
-                if (widget._drivingRoute == null ||
-                    widget._bicycleRoute == null)
-                  CircularProgressIndicator()
-                else
-                  Card()
+                timer == null
+                    ? CircularProgressIndicator()
+                    : Card(
+                        color: Colors.red,
+                        shape: StadiumBorder(),
+                        child: Padding(
+                          padding: const EdgeInsets.all(8.0),
+                          child: Row(
+                            mainAxisSize: MainAxisSize.min,
+                            children: [
+                              StreamBuilder<int>(
+                                  stream: timer!.rawTime,
+                                  builder: (context, snap) {
+                                    return snap.data == null
+                                        ? CircularProgressIndicator()
+                                        : Text(
+                                            StopWatchTimer.getDisplayTime(
+                                                snap.data!,
+                                                milliSecond: false),
+                                            style: Theme.of(context)
+                                                .textTheme
+                                                .labelMedium!
+                                                .copyWith(color: Colors.white),
+                                            textScaleFactor: 1.2,
+                                          );
+                                  }),
+                              Padding(
+                                padding:
+                                    const EdgeInsets.symmetric(horizontal: 3.0),
+                                child: Icon(
+                                  Icons.watch_later_rounded,
+                                  color: Colors.white,
+                                  size: 15,
+                                ),
+                              )
+                            ],
+                          ),
+                        ),
+                      )
               ],
             ),
           ],

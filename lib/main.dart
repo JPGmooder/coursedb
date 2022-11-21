@@ -15,7 +15,6 @@ void main() async {
   var supa = await Supabase.initialize(url: supabaseUrl, anonKey: supabaseKey);
 
   AndroidYandexMap.useAndroidViewSurface = false;
-  await AndroidAlarmManager.initialize();
 
   var prefs = await SharedPreferences.getInstance();
   initializeDateFormatting('ru_RU', null).then((value) =>

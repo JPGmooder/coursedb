@@ -12,6 +12,8 @@ import 'package:kursach/domain/model/organization_model.dart';
 import 'package:kursach/domain/model/product_model.dart';
 import 'package:kursach/domain/model/user_model.dart';
 import 'package:kursach/domain/orders/bloc/orders_bloc.dart';
+import 'package:kursach/presentation/home/profile/orders/my_orders_detailed.dart';
+import 'package:kursach/presentation/outstanding/gradientmask.dart';
 import 'package:kursach/presentation/outstanding/product/product_screen.dart';
 import 'package:sliver_tools/sliver_tools.dart';
 import 'package:rxdart/rxdart.dart';
@@ -157,9 +159,14 @@ class _OrderWidgetState extends State<OrderWidget> {
         padding: const EdgeInsets.all(8.0),
         child: ExpandablePanel(
             controller: _controller,
-            header: Text(
-              "Заказ №${widget.order.idOrder} на сумму ${widget.order.orderPrice}",
-              style: Theme.of(context).textTheme.titleMedium,
+            header: Row(
+              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+              children: [
+                Text(
+                  "Заказ №${widget.order.idOrder} на сумму ${widget.order.orderPrice}",
+                  style: Theme.of(context).textTheme.titleMedium,
+                ),
+              ],
             ),
             collapsed: Column(
               crossAxisAlignment: CrossAxisAlignment.stretch,
@@ -197,9 +204,45 @@ class _OrderWidgetState extends State<OrderWidget> {
                       return Column(
                         crossAxisAlignment: CrossAxisAlignment.stretch,
                         children: [
-                          Text(
-                            "${productsAmount == 1 ? "1 товар" : productsAmount < 5 ? "$productsAmount товара" : "$productsAmount товаров"} из ${this.organization!.companyName}",
-                            style: Theme.of(context).textTheme.titleMedium,
+                          Row(
+                            children: [
+                              Expanded(
+                                flex: 6,
+                                child: Text(
+                                  "${productsAmount == 1 ? "1 товар" : productsAmount < 5 ? "$productsAmount товара" : "$productsAmount товаров"} из ${this.organization!.companyName}",
+                                  style:
+                                      Theme.of(context).textTheme.titleMedium,
+                                ),
+                              ),
+                              if (widget.order.orderStatusName.step ==
+                                      OrderStep.delivery ||
+                                  widget.order.orderStatusName.step ==
+                                      OrderStep.waiting)
+                                Expanded(
+                                  flex: 1,
+                                  child: GradientMask(
+                                    size: 50,
+                                    begin: Alignment.topLeft,
+                                    end: Alignment.bottomRight,
+                                    child: IconButton(
+                                        onPressed: () => Navigator.push(
+                                            context,
+                                            MaterialPageRoute(
+                                                builder: (ctx) =>
+                                                    MyOrdersDetailedScreen(
+                                                      order: widget.order,
+                                                      cart: widget.cart,
+                                                      organization:
+                                                          organization,
+                                                      products: products,
+                                                    ))),
+                                        icon: Icon(
+                                          Icons.info_outline,
+                                          color: Colors.white,
+                                        )),
+                                  ),
+                                )
+                            ],
                           ),
                           Padding(
                             padding: const EdgeInsets.all(8.0),

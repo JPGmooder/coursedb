@@ -9,8 +9,12 @@ abstract class EmployeeState with _$EmployeeState {
       _$EmployeeCourierRegistredState;
   const factory EmployeeState.ordersFounded(List<Map<String, dynamic>> orders) =
       _$EmployeeOrdersFoundedState; 
+  const factory EmployeeState.currentOrderFound(List<Map<String, dynamic>> orders) =
+      _$EmployeecurrentOrderFoundedState; 
    const factory EmployeeState.orderStatusChanged(int orderId, OrderStatusName status) =
       _$EmployeeOrdersStatusChangedState; 
    const factory EmployeeState.personalDataFindedState(UserPersonalDataModel personalData) =
       _$EmployeePersonalDataFindedState; 
+  const factory EmployeeState.timeRegistred(DateTime time) =
+      _$EmployeeTimeRegistredState; 
 }

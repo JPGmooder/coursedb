@@ -18,6 +18,7 @@ import 'package:kursach/domain/model/organization_model.dart';
 import 'package:kursach/domain/model/product_model.dart';
 import 'package:kursach/domain/model/user_model.dart';
 import 'package:kursach/presentation/home/profile/courier/courier_main_order_screen.dart';
+import 'package:kursach/presentation/home/profile/courier/courier_orders.dart';
 import 'package:kursach/presentation/outstanding/gradientmask.dart';
 import 'package:kursach/presentation/outstanding/product/product_screen.dart';
 import 'package:kursach/presentation/outstanding/product_card.dart';
@@ -294,7 +295,8 @@ class _ExpandedCouriersOrderState extends State<ExpandedCouriersOrder> {
                 state.maybeWhen(
                     orElse: () => null,
                     orderStatusChanged: (orderId, status) {
-                      if (UserModel.get().courier!.currentOrder == null) {
+                      if (UserModel.get().courier!.currentOrder == null &&
+                          widget.order.idOrder == orderId) {
                         context.read<EmployeeBloc>().add(
                             EmployeeEvent.regCourierPlacement(
                                 isCompanyPassed: false,
@@ -356,6 +358,7 @@ class _ExpandedCouriersOrderState extends State<ExpandedCouriersOrder> {
             ),
           if (widget.isMainOrder)
             CourierAdditional(
+              orderModel: widget.order,
               isPassed: widget.isPassed,
               items: widget.cart.items,
               organizationModel: widget.organization,
@@ -370,12 +373,16 @@ class _ExpandedCouriersOrderState extends State<ExpandedCouriersOrder> {
 class CourierAdditional extends StatefulWidget {
   CourierAdditional(
       {Key? key,
+      this.isClient = false,
+      required this.orderModel,
       required this.isPassed,
       required this.products,
       required this.items,
       required this.organizationModel})
       : super(key: key);
+  bool isClient;
   bool isPassed;
+  OrderModel orderModel;
   List<ProductModel> products;
   List<CartItemModel> items;
   OrganizationModel organizationModel;
@@ -389,15 +396,17 @@ class _CourierAdditionalState extends State<CourierAdditional> {
 
   @override
   void initState() {
-    context.read<EmployeeBloc>().add(EmployeeEvent.findPersonalDataByAddress(
-        addressId: UserModel.get().courier!.currentOrder!.order.addressId));
-    pdSub = BlocProvider.of<EmployeeBloc>(context).stream.listen((state) {
-      state.maybeWhen(
-          orElse: () => null,
-          personalDataFindedState: (pd) => setState(() {
-                clientData = pd;
-              }));
-    });
+    if (!widget.isClient) {
+      context.read<EmployeeBloc>().add(EmployeeEvent.findPersonalDataByAddress(
+          addressId: UserModel.get().courier!.currentOrder!.order.addressId));
+      pdSub = BlocProvider.of<EmployeeBloc>(context).stream.listen((state) {
+        state.maybeWhen(
+            orElse: () => null,
+            personalDataFindedState: (pd) => setState(() {
+                  clientData = pd;
+                }));
+      });
+    }
     super.initState();
   }
 
@@ -555,6 +564,7 @@ class _CourierAdditionalState extends State<CourierAdditional> {
                     ),
                   )),
                   OrderStatusPicker(
+                    order: widget.orderModel,
                     isPassed: widget.isPassed,
                   )
                 ],
@@ -567,9 +577,14 @@ class _CourierAdditionalState extends State<CourierAdditional> {
 }
 
 class OrderStatusPicker extends StatefulWidget {
-  OrderStatusPicker({Key? key, required this.isPassed, this.defaultValue})
+  OrderStatusPicker(
+      {Key? key,
+      required this.isPassed,
+      required this.order,
+      this.defaultValue})
       : super(key: key);
   OrderStatusName? defaultValue;
+  OrderModel order;
   bool isPassed;
   @override
   State<OrderStatusPicker> createState() => _OrderStatusPickerState();
@@ -609,30 +624,68 @@ class _OrderStatusPickerState extends State<OrderStatusPicker> {
                 break;
               case 2:
                 currentStatus = OrderStatusName(
-                    name: "Сборка заказа.", step: OrderStep.building);
+                    name: "Сборка заказа", step: OrderStep.building);
                 break;
               case 3:
+                currentStatus = OrderStatusName(
+                    name: "На пути к заказчику", step: OrderStep.delivery);
                 onChanged = widget.isPassed
                     ? (value) => setState(() {
                           currentValue = value!;
+                          context.read<EmployeeBloc>().add(
+                              EmployeeEvent.changeOrderStatus(
+                                  userLogin: UserModel.get().login,
+                                  orderId: widget.order.idOrder,
+                                  orderStatusName: currentStatus));
                         })
                     : null;
-                currentStatus = OrderStatusName(
-                    name: "На пути к заказчику.", step: OrderStep.delivery);
+
                 break;
               case 4:
                 currentStatus = OrderStatusName(
-                    name: "Ождиание ответа заказчика.",
-                    step: OrderStep.waiting);
+                    name: "Ождиание ответа заказчика", step: OrderStep.waiting);
                 break;
               case 5:
-                onChanged = widget.isPassed
-                    ? (value) => setState(() {
-                          currentValue = value!;
-                        })
-                    : null;
                 currentStatus = OrderStatusName(
                     name: "Доставлено.", step: OrderStep.delivered);
+                onChanged = (value) {
+                  bool isCanceled = false;
+                  showDialog(
+                      context: context,
+                      builder: (ctx) => AlertDialog(
+                            content: Text(
+                              "Вы точно доставили заказ? После его доставки, к нему нельзя будет вернуться.",
+                            ),
+                            actions: [
+                              ElevatedButton(
+                                  onPressed: () {
+                                    isCanceled = true;
+                                    Navigator.pop(ctx);
+                                  },
+                                  child: Text("Отмена")),
+                              ElevatedButton(
+                                  onPressed: () {
+                                    isCanceled = false;
+                                    context.read<EmployeeBloc>().add(
+                                        EmployeeEvent.changeOrderStatus(
+                                            userLogin: UserModel.get().login,
+                                            orderId: widget.order.idOrder,
+                                            orderStatusName: currentStatus));
+                                    Navigator.pop(ctx);
+                                  },
+                                  child: Text("Да, заказ доставлен")),
+                            ],
+                          )).then((_) => isCanceled
+                      ? null
+                      : setState(() {
+                          currentValue = value!;
+                          Navigator.pushReplacement(
+                              context,
+                              MaterialPageRoute(
+                                  builder: (ctx) => CourierOrdersScreen()));
+                        }));
+                };
+
                 break;
               default:
             }
@@ -641,17 +694,20 @@ class _OrderStatusPickerState extends State<OrderStatusPicker> {
                 onChanged == null) {
               onChanged = (value) => setState(() {
                     currentValue = value!;
+                    context.read<EmployeeBloc>().add(
+                        EmployeeEvent.changeOrderStatus(
+                            userLogin: UserModel.get().login,
+                            orderId: widget.order.idOrder,
+                            orderStatusName: currentStatus));
                   });
             }
 
             return RadioListTile<OrderStatusName>(
               groupValue: currentValue,
               value: currentStatus,
-              onChanged: index == 0
-                  ? null
-                  : (value) => setState(() {
-                        currentValue = value!;
-                      }),
+              onChanged: onChanged,
+              activeColor: AppsColors.accentColor,
+              selectedTileColor: AppsColors.primaryColor,
               title: Text(
                 currentStatus.name,
                 style: Theme.of(context).textTheme.labelMedium,

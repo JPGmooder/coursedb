@@ -1148,10 +1148,13 @@ mixin _$EmployeeState {
     required TResult Function(String error) errored,
     required TResult Function(CourierModel courier) courierReged,
     required TResult Function(List<Map<String, dynamic>> orders) ordersFounded,
+    required TResult Function(List<Map<String, dynamic>> orders)
+        currentOrderFound,
     required TResult Function(int orderId, OrderStatusName status)
         orderStatusChanged,
     required TResult Function(UserPersonalDataModel personalData)
         personalDataFindedState,
+    required TResult Function(DateTime time) timeRegistred,
   }) =>
       throw _privateConstructorUsedError;
   @optionalTypeArgs
@@ -1161,9 +1164,11 @@ mixin _$EmployeeState {
     TResult? Function(String error)? errored,
     TResult? Function(CourierModel courier)? courierReged,
     TResult? Function(List<Map<String, dynamic>> orders)? ordersFounded,
+    TResult? Function(List<Map<String, dynamic>> orders)? currentOrderFound,
     TResult? Function(int orderId, OrderStatusName status)? orderStatusChanged,
     TResult? Function(UserPersonalDataModel personalData)?
         personalDataFindedState,
+    TResult? Function(DateTime time)? timeRegistred,
   }) =>
       throw _privateConstructorUsedError;
   @optionalTypeArgs
@@ -1173,9 +1178,11 @@ mixin _$EmployeeState {
     TResult Function(String error)? errored,
     TResult Function(CourierModel courier)? courierReged,
     TResult Function(List<Map<String, dynamic>> orders)? ordersFounded,
+    TResult Function(List<Map<String, dynamic>> orders)? currentOrderFound,
     TResult Function(int orderId, OrderStatusName status)? orderStatusChanged,
     TResult Function(UserPersonalDataModel personalData)?
         personalDataFindedState,
+    TResult Function(DateTime time)? timeRegistred,
     required TResult orElse(),
   }) =>
       throw _privateConstructorUsedError;
@@ -1187,10 +1194,13 @@ mixin _$EmployeeState {
     required TResult Function(_$EmployeeCourierRegistredState value)
         courierReged,
     required TResult Function(_$EmployeeOrdersFoundedState value) ordersFounded,
+    required TResult Function(_$EmployeecurrentOrderFoundedState value)
+        currentOrderFound,
     required TResult Function(_$EmployeeOrdersStatusChangedState value)
         orderStatusChanged,
     required TResult Function(_$EmployeePersonalDataFindedState value)
         personalDataFindedState,
+    required TResult Function(_$EmployeeTimeRegistredState value) timeRegistred,
   }) =>
       throw _privateConstructorUsedError;
   @optionalTypeArgs
@@ -1200,10 +1210,13 @@ mixin _$EmployeeState {
     TResult? Function(_$EmployeeErroredState value)? errored,
     TResult? Function(_$EmployeeCourierRegistredState value)? courierReged,
     TResult? Function(_$EmployeeOrdersFoundedState value)? ordersFounded,
+    TResult? Function(_$EmployeecurrentOrderFoundedState value)?
+        currentOrderFound,
     TResult? Function(_$EmployeeOrdersStatusChangedState value)?
         orderStatusChanged,
     TResult? Function(_$EmployeePersonalDataFindedState value)?
         personalDataFindedState,
+    TResult? Function(_$EmployeeTimeRegistredState value)? timeRegistred,
   }) =>
       throw _privateConstructorUsedError;
   @optionalTypeArgs
@@ -1213,10 +1226,13 @@ mixin _$EmployeeState {
     TResult Function(_$EmployeeErroredState value)? errored,
     TResult Function(_$EmployeeCourierRegistredState value)? courierReged,
     TResult Function(_$EmployeeOrdersFoundedState value)? ordersFounded,
+    TResult Function(_$EmployeecurrentOrderFoundedState value)?
+        currentOrderFound,
     TResult Function(_$EmployeeOrdersStatusChangedState value)?
         orderStatusChanged,
     TResult Function(_$EmployeePersonalDataFindedState value)?
         personalDataFindedState,
+    TResult Function(_$EmployeeTimeRegistredState value)? timeRegistred,
     required TResult orElse(),
   }) =>
       throw _privateConstructorUsedError;
@@ -1283,10 +1299,13 @@ class _$_$EmployeeInitialState implements _$EmployeeInitialState {
     required TResult Function(String error) errored,
     required TResult Function(CourierModel courier) courierReged,
     required TResult Function(List<Map<String, dynamic>> orders) ordersFounded,
+    required TResult Function(List<Map<String, dynamic>> orders)
+        currentOrderFound,
     required TResult Function(int orderId, OrderStatusName status)
         orderStatusChanged,
     required TResult Function(UserPersonalDataModel personalData)
         personalDataFindedState,
+    required TResult Function(DateTime time) timeRegistred,
   }) {
     return initial();
   }
@@ -1299,9 +1318,11 @@ class _$_$EmployeeInitialState implements _$EmployeeInitialState {
     TResult? Function(String error)? errored,
     TResult? Function(CourierModel courier)? courierReged,
     TResult? Function(List<Map<String, dynamic>> orders)? ordersFounded,
+    TResult? Function(List<Map<String, dynamic>> orders)? currentOrderFound,
     TResult? Function(int orderId, OrderStatusName status)? orderStatusChanged,
     TResult? Function(UserPersonalDataModel personalData)?
         personalDataFindedState,
+    TResult? Function(DateTime time)? timeRegistred,
   }) {
     return initial?.call();
   }
@@ -1314,9 +1335,11 @@ class _$_$EmployeeInitialState implements _$EmployeeInitialState {
     TResult Function(String error)? errored,
     TResult Function(CourierModel courier)? courierReged,
     TResult Function(List<Map<String, dynamic>> orders)? ordersFounded,
+    TResult Function(List<Map<String, dynamic>> orders)? currentOrderFound,
     TResult Function(int orderId, OrderStatusName status)? orderStatusChanged,
     TResult Function(UserPersonalDataModel personalData)?
         personalDataFindedState,
+    TResult Function(DateTime time)? timeRegistred,
     required TResult orElse(),
   }) {
     if (initial != null) {
@@ -1334,10 +1357,13 @@ class _$_$EmployeeInitialState implements _$EmployeeInitialState {
     required TResult Function(_$EmployeeCourierRegistredState value)
         courierReged,
     required TResult Function(_$EmployeeOrdersFoundedState value) ordersFounded,
+    required TResult Function(_$EmployeecurrentOrderFoundedState value)
+        currentOrderFound,
     required TResult Function(_$EmployeeOrdersStatusChangedState value)
         orderStatusChanged,
     required TResult Function(_$EmployeePersonalDataFindedState value)
         personalDataFindedState,
+    required TResult Function(_$EmployeeTimeRegistredState value) timeRegistred,
   }) {
     return initial(this);
   }
@@ -1350,10 +1376,13 @@ class _$_$EmployeeInitialState implements _$EmployeeInitialState {
     TResult? Function(_$EmployeeErroredState value)? errored,
     TResult? Function(_$EmployeeCourierRegistredState value)? courierReged,
     TResult? Function(_$EmployeeOrdersFoundedState value)? ordersFounded,
+    TResult? Function(_$EmployeecurrentOrderFoundedState value)?
+        currentOrderFound,
     TResult? Function(_$EmployeeOrdersStatusChangedState value)?
         orderStatusChanged,
     TResult? Function(_$EmployeePersonalDataFindedState value)?
         personalDataFindedState,
+    TResult? Function(_$EmployeeTimeRegistredState value)? timeRegistred,
   }) {
     return initial?.call(this);
   }
@@ -1366,10 +1395,13 @@ class _$_$EmployeeInitialState implements _$EmployeeInitialState {
     TResult Function(_$EmployeeErroredState value)? errored,
     TResult Function(_$EmployeeCourierRegistredState value)? courierReged,
     TResult Function(_$EmployeeOrdersFoundedState value)? ordersFounded,
+    TResult Function(_$EmployeecurrentOrderFoundedState value)?
+        currentOrderFound,
     TResult Function(_$EmployeeOrdersStatusChangedState value)?
         orderStatusChanged,
     TResult Function(_$EmployeePersonalDataFindedState value)?
         personalDataFindedState,
+    TResult Function(_$EmployeeTimeRegistredState value)? timeRegistred,
     required TResult orElse(),
   }) {
     if (initial != null) {
@@ -1426,10 +1458,13 @@ class _$_$EmployeeLoadingState implements _$EmployeeLoadingState {
     required TResult Function(String error) errored,
     required TResult Function(CourierModel courier) courierReged,
     required TResult Function(List<Map<String, dynamic>> orders) ordersFounded,
+    required TResult Function(List<Map<String, dynamic>> orders)
+        currentOrderFound,
     required TResult Function(int orderId, OrderStatusName status)
         orderStatusChanged,
     required TResult Function(UserPersonalDataModel personalData)
         personalDataFindedState,
+    required TResult Function(DateTime time) timeRegistred,
   }) {
     return loading();
   }
@@ -1442,9 +1477,11 @@ class _$_$EmployeeLoadingState implements _$EmployeeLoadingState {
     TResult? Function(String error)? errored,
     TResult? Function(CourierModel courier)? courierReged,
     TResult? Function(List<Map<String, dynamic>> orders)? ordersFounded,
+    TResult? Function(List<Map<String, dynamic>> orders)? currentOrderFound,
     TResult? Function(int orderId, OrderStatusName status)? orderStatusChanged,
     TResult? Function(UserPersonalDataModel personalData)?
         personalDataFindedState,
+    TResult? Function(DateTime time)? timeRegistred,
   }) {
     return loading?.call();
   }
@@ -1457,9 +1494,11 @@ class _$_$EmployeeLoadingState implements _$EmployeeLoadingState {
     TResult Function(String error)? errored,
     TResult Function(CourierModel courier)? courierReged,
     TResult Function(List<Map<String, dynamic>> orders)? ordersFounded,
+    TResult Function(List<Map<String, dynamic>> orders)? currentOrderFound,
     TResult Function(int orderId, OrderStatusName status)? orderStatusChanged,
     TResult Function(UserPersonalDataModel personalData)?
         personalDataFindedState,
+    TResult Function(DateTime time)? timeRegistred,
     required TResult orElse(),
   }) {
     if (loading != null) {
@@ -1477,10 +1516,13 @@ class _$_$EmployeeLoadingState implements _$EmployeeLoadingState {
     required TResult Function(_$EmployeeCourierRegistredState value)
         courierReged,
     required TResult Function(_$EmployeeOrdersFoundedState value) ordersFounded,
+    required TResult Function(_$EmployeecurrentOrderFoundedState value)
+        currentOrderFound,
     required TResult Function(_$EmployeeOrdersStatusChangedState value)
         orderStatusChanged,
     required TResult Function(_$EmployeePersonalDataFindedState value)
         personalDataFindedState,
+    required TResult Function(_$EmployeeTimeRegistredState value) timeRegistred,
   }) {
     return loading(this);
   }
@@ -1493,10 +1535,13 @@ class _$_$EmployeeLoadingState implements _$EmployeeLoadingState {
     TResult? Function(_$EmployeeErroredState value)? errored,
     TResult? Function(_$EmployeeCourierRegistredState value)? courierReged,
     TResult? Function(_$EmployeeOrdersFoundedState value)? ordersFounded,
+    TResult? Function(_$EmployeecurrentOrderFoundedState value)?
+        currentOrderFound,
     TResult? Function(_$EmployeeOrdersStatusChangedState value)?
         orderStatusChanged,
     TResult? Function(_$EmployeePersonalDataFindedState value)?
         personalDataFindedState,
+    TResult? Function(_$EmployeeTimeRegistredState value)? timeRegistred,
   }) {
     return loading?.call(this);
   }
@@ -1509,10 +1554,13 @@ class _$_$EmployeeLoadingState implements _$EmployeeLoadingState {
     TResult Function(_$EmployeeErroredState value)? errored,
     TResult Function(_$EmployeeCourierRegistredState value)? courierReged,
     TResult Function(_$EmployeeOrdersFoundedState value)? ordersFounded,
+    TResult Function(_$EmployeecurrentOrderFoundedState value)?
+        currentOrderFound,
     TResult Function(_$EmployeeOrdersStatusChangedState value)?
         orderStatusChanged,
     TResult Function(_$EmployeePersonalDataFindedState value)?
         personalDataFindedState,
+    TResult Function(_$EmployeeTimeRegistredState value)? timeRegistred,
     required TResult orElse(),
   }) {
     if (loading != null) {
@@ -1596,10 +1644,13 @@ class _$_$EmployeeErroredState implements _$EmployeeErroredState {
     required TResult Function(String error) errored,
     required TResult Function(CourierModel courier) courierReged,
     required TResult Function(List<Map<String, dynamic>> orders) ordersFounded,
+    required TResult Function(List<Map<String, dynamic>> orders)
+        currentOrderFound,
     required TResult Function(int orderId, OrderStatusName status)
         orderStatusChanged,
     required TResult Function(UserPersonalDataModel personalData)
         personalDataFindedState,
+    required TResult Function(DateTime time) timeRegistred,
   }) {
     return errored(error);
   }
@@ -1612,9 +1663,11 @@ class _$_$EmployeeErroredState implements _$EmployeeErroredState {
     TResult? Function(String error)? errored,
     TResult? Function(CourierModel courier)? courierReged,
     TResult? Function(List<Map<String, dynamic>> orders)? ordersFounded,
+    TResult? Function(List<Map<String, dynamic>> orders)? currentOrderFound,
     TResult? Function(int orderId, OrderStatusName status)? orderStatusChanged,
     TResult? Function(UserPersonalDataModel personalData)?
         personalDataFindedState,
+    TResult? Function(DateTime time)? timeRegistred,
   }) {
     return errored?.call(error);
   }
@@ -1627,9 +1680,11 @@ class _$_$EmployeeErroredState implements _$EmployeeErroredState {
     TResult Function(String error)? errored,
     TResult Function(CourierModel courier)? courierReged,
     TResult Function(List<Map<String, dynamic>> orders)? ordersFounded,
+    TResult Function(List<Map<String, dynamic>> orders)? currentOrderFound,
     TResult Function(int orderId, OrderStatusName status)? orderStatusChanged,
     TResult Function(UserPersonalDataModel personalData)?
         personalDataFindedState,
+    TResult Function(DateTime time)? timeRegistred,
     required TResult orElse(),
   }) {
     if (errored != null) {
@@ -1647,10 +1702,13 @@ class _$_$EmployeeErroredState implements _$EmployeeErroredState {
     required TResult Function(_$EmployeeCourierRegistredState value)
         courierReged,
     required TResult Function(_$EmployeeOrdersFoundedState value) ordersFounded,
+    required TResult Function(_$EmployeecurrentOrderFoundedState value)
+        currentOrderFound,
     required TResult Function(_$EmployeeOrdersStatusChangedState value)
         orderStatusChanged,
     required TResult Function(_$EmployeePersonalDataFindedState value)
         personalDataFindedState,
+    required TResult Function(_$EmployeeTimeRegistredState value) timeRegistred,
   }) {
     return errored(this);
   }
@@ -1663,10 +1721,13 @@ class _$_$EmployeeErroredState implements _$EmployeeErroredState {
     TResult? Function(_$EmployeeErroredState value)? errored,
     TResult? Function(_$EmployeeCourierRegistredState value)? courierReged,
     TResult? Function(_$EmployeeOrdersFoundedState value)? ordersFounded,
+    TResult? Function(_$EmployeecurrentOrderFoundedState value)?
+        currentOrderFound,
     TResult? Function(_$EmployeeOrdersStatusChangedState value)?
         orderStatusChanged,
     TResult? Function(_$EmployeePersonalDataFindedState value)?
         personalDataFindedState,
+    TResult? Function(_$EmployeeTimeRegistredState value)? timeRegistred,
   }) {
     return errored?.call(this);
   }
@@ -1679,10 +1740,13 @@ class _$_$EmployeeErroredState implements _$EmployeeErroredState {
     TResult Function(_$EmployeeErroredState value)? errored,
     TResult Function(_$EmployeeCourierRegistredState value)? courierReged,
     TResult Function(_$EmployeeOrdersFoundedState value)? ordersFounded,
+    TResult Function(_$EmployeecurrentOrderFoundedState value)?
+        currentOrderFound,
     TResult Function(_$EmployeeOrdersStatusChangedState value)?
         orderStatusChanged,
     TResult Function(_$EmployeePersonalDataFindedState value)?
         personalDataFindedState,
+    TResult Function(_$EmployeeTimeRegistredState value)? timeRegistred,
     required TResult orElse(),
   }) {
     if (errored != null) {
@@ -1775,10 +1839,13 @@ class _$_$EmployeeCourierRegistredState
     required TResult Function(String error) errored,
     required TResult Function(CourierModel courier) courierReged,
     required TResult Function(List<Map<String, dynamic>> orders) ordersFounded,
+    required TResult Function(List<Map<String, dynamic>> orders)
+        currentOrderFound,
     required TResult Function(int orderId, OrderStatusName status)
         orderStatusChanged,
     required TResult Function(UserPersonalDataModel personalData)
         personalDataFindedState,
+    required TResult Function(DateTime time) timeRegistred,
   }) {
     return courierReged(courier);
   }
@@ -1791,9 +1858,11 @@ class _$_$EmployeeCourierRegistredState
     TResult? Function(String error)? errored,
     TResult? Function(CourierModel courier)? courierReged,
     TResult? Function(List<Map<String, dynamic>> orders)? ordersFounded,
+    TResult? Function(List<Map<String, dynamic>> orders)? currentOrderFound,
     TResult? Function(int orderId, OrderStatusName status)? orderStatusChanged,
     TResult? Function(UserPersonalDataModel personalData)?
         personalDataFindedState,
+    TResult? Function(DateTime time)? timeRegistred,
   }) {
     return courierReged?.call(courier);
   }
@@ -1806,9 +1875,11 @@ class _$_$EmployeeCourierRegistredState
     TResult Function(String error)? errored,
     TResult Function(CourierModel courier)? courierReged,
     TResult Function(List<Map<String, dynamic>> orders)? ordersFounded,
+    TResult Function(List<Map<String, dynamic>> orders)? currentOrderFound,
     TResult Function(int orderId, OrderStatusName status)? orderStatusChanged,
     TResult Function(UserPersonalDataModel personalData)?
         personalDataFindedState,
+    TResult Function(DateTime time)? timeRegistred,
     required TResult orElse(),
   }) {
     if (courierReged != null) {
@@ -1826,10 +1897,13 @@ class _$_$EmployeeCourierRegistredState
     required TResult Function(_$EmployeeCourierRegistredState value)
         courierReged,
     required TResult Function(_$EmployeeOrdersFoundedState value) ordersFounded,
+    required TResult Function(_$EmployeecurrentOrderFoundedState value)
+        currentOrderFound,
     required TResult Function(_$EmployeeOrdersStatusChangedState value)
         orderStatusChanged,
     required TResult Function(_$EmployeePersonalDataFindedState value)
         personalDataFindedState,
+    required TResult Function(_$EmployeeTimeRegistredState value) timeRegistred,
   }) {
     return courierReged(this);
   }
@@ -1842,10 +1916,13 @@ class _$_$EmployeeCourierRegistredState
     TResult? Function(_$EmployeeErroredState value)? errored,
     TResult? Function(_$EmployeeCourierRegistredState value)? courierReged,
     TResult? Function(_$EmployeeOrdersFoundedState value)? ordersFounded,
+    TResult? Function(_$EmployeecurrentOrderFoundedState value)?
+        currentOrderFound,
     TResult? Function(_$EmployeeOrdersStatusChangedState value)?
         orderStatusChanged,
     TResult? Function(_$EmployeePersonalDataFindedState value)?
         personalDataFindedState,
+    TResult? Function(_$EmployeeTimeRegistredState value)? timeRegistred,
   }) {
     return courierReged?.call(this);
   }
@@ -1858,10 +1935,13 @@ class _$_$EmployeeCourierRegistredState
     TResult Function(_$EmployeeErroredState value)? errored,
     TResult Function(_$EmployeeCourierRegistredState value)? courierReged,
     TResult Function(_$EmployeeOrdersFoundedState value)? ordersFounded,
+    TResult Function(_$EmployeecurrentOrderFoundedState value)?
+        currentOrderFound,
     TResult Function(_$EmployeeOrdersStatusChangedState value)?
         orderStatusChanged,
     TResult Function(_$EmployeePersonalDataFindedState value)?
         personalDataFindedState,
+    TResult Function(_$EmployeeTimeRegistredState value)? timeRegistred,
     required TResult orElse(),
   }) {
     if (courierReged != null) {
@@ -1959,10 +2039,13 @@ class _$_$EmployeeOrdersFoundedState implements _$EmployeeOrdersFoundedState {
     required TResult Function(String error) errored,
     required TResult Function(CourierModel courier) courierReged,
     required TResult Function(List<Map<String, dynamic>> orders) ordersFounded,
+    required TResult Function(List<Map<String, dynamic>> orders)
+        currentOrderFound,
     required TResult Function(int orderId, OrderStatusName status)
         orderStatusChanged,
     required TResult Function(UserPersonalDataModel personalData)
         personalDataFindedState,
+    required TResult Function(DateTime time) timeRegistred,
   }) {
     return ordersFounded(orders);
   }
@@ -1975,9 +2058,11 @@ class _$_$EmployeeOrdersFoundedState implements _$EmployeeOrdersFoundedState {
     TResult? Function(String error)? errored,
     TResult? Function(CourierModel courier)? courierReged,
     TResult? Function(List<Map<String, dynamic>> orders)? ordersFounded,
+    TResult? Function(List<Map<String, dynamic>> orders)? currentOrderFound,
     TResult? Function(int orderId, OrderStatusName status)? orderStatusChanged,
     TResult? Function(UserPersonalDataModel personalData)?
         personalDataFindedState,
+    TResult? Function(DateTime time)? timeRegistred,
   }) {
     return ordersFounded?.call(orders);
   }
@@ -1990,9 +2075,11 @@ class _$_$EmployeeOrdersFoundedState implements _$EmployeeOrdersFoundedState {
     TResult Function(String error)? errored,
     TResult Function(CourierModel courier)? courierReged,
     TResult Function(List<Map<String, dynamic>> orders)? ordersFounded,
+    TResult Function(List<Map<String, dynamic>> orders)? currentOrderFound,
     TResult Function(int orderId, OrderStatusName status)? orderStatusChanged,
     TResult Function(UserPersonalDataModel personalData)?
         personalDataFindedState,
+    TResult Function(DateTime time)? timeRegistred,
     required TResult orElse(),
   }) {
     if (ordersFounded != null) {
@@ -2010,10 +2097,13 @@ class _$_$EmployeeOrdersFoundedState implements _$EmployeeOrdersFoundedState {
     required TResult Function(_$EmployeeCourierRegistredState value)
         courierReged,
     required TResult Function(_$EmployeeOrdersFoundedState value) ordersFounded,
+    required TResult Function(_$EmployeecurrentOrderFoundedState value)
+        currentOrderFound,
     required TResult Function(_$EmployeeOrdersStatusChangedState value)
         orderStatusChanged,
     required TResult Function(_$EmployeePersonalDataFindedState value)
         personalDataFindedState,
+    required TResult Function(_$EmployeeTimeRegistredState value) timeRegistred,
   }) {
     return ordersFounded(this);
   }
@@ -2026,10 +2116,13 @@ class _$_$EmployeeOrdersFoundedState implements _$EmployeeOrdersFoundedState {
     TResult? Function(_$EmployeeErroredState value)? errored,
     TResult? Function(_$EmployeeCourierRegistredState value)? courierReged,
     TResult? Function(_$EmployeeOrdersFoundedState value)? ordersFounded,
+    TResult? Function(_$EmployeecurrentOrderFoundedState value)?
+        currentOrderFound,
     TResult? Function(_$EmployeeOrdersStatusChangedState value)?
         orderStatusChanged,
     TResult? Function(_$EmployeePersonalDataFindedState value)?
         personalDataFindedState,
+    TResult? Function(_$EmployeeTimeRegistredState value)? timeRegistred,
   }) {
     return ordersFounded?.call(this);
   }
@@ -2042,10 +2135,13 @@ class _$_$EmployeeOrdersFoundedState implements _$EmployeeOrdersFoundedState {
     TResult Function(_$EmployeeErroredState value)? errored,
     TResult Function(_$EmployeeCourierRegistredState value)? courierReged,
     TResult Function(_$EmployeeOrdersFoundedState value)? ordersFounded,
+    TResult Function(_$EmployeecurrentOrderFoundedState value)?
+        currentOrderFound,
     TResult Function(_$EmployeeOrdersStatusChangedState value)?
         orderStatusChanged,
     TResult Function(_$EmployeePersonalDataFindedState value)?
         personalDataFindedState,
+    TResult Function(_$EmployeeTimeRegistredState value)? timeRegistred,
     required TResult orElse(),
   }) {
     if (ordersFounded != null) {
@@ -2062,6 +2158,212 @@ abstract class _$EmployeeOrdersFoundedState implements EmployeeState {
   List<Map<String, dynamic>> get orders;
   @JsonKey(ignore: true)
   _$$_$EmployeeOrdersFoundedStateCopyWith<_$_$EmployeeOrdersFoundedState>
+      get copyWith => throw _privateConstructorUsedError;
+}
+
+/// @nodoc
+abstract class _$$_$EmployeecurrentOrderFoundedStateCopyWith<$Res> {
+  factory _$$_$EmployeecurrentOrderFoundedStateCopyWith(
+          _$_$EmployeecurrentOrderFoundedState value,
+          $Res Function(_$_$EmployeecurrentOrderFoundedState) then) =
+      __$$_$EmployeecurrentOrderFoundedStateCopyWithImpl<$Res>;
+  @useResult
+  $Res call({List<Map<String, dynamic>> orders});
+}
+
+/// @nodoc
+class __$$_$EmployeecurrentOrderFoundedStateCopyWithImpl<$Res>
+    extends _$EmployeeStateCopyWithImpl<$Res,
+        _$_$EmployeecurrentOrderFoundedState>
+    implements _$$_$EmployeecurrentOrderFoundedStateCopyWith<$Res> {
+  __$$_$EmployeecurrentOrderFoundedStateCopyWithImpl(
+      _$_$EmployeecurrentOrderFoundedState _value,
+      $Res Function(_$_$EmployeecurrentOrderFoundedState) _then)
+      : super(_value, _then);
+
+  @pragma('vm:prefer-inline')
+  @override
+  $Res call({
+    Object? orders = null,
+  }) {
+    return _then(_$_$EmployeecurrentOrderFoundedState(
+      null == orders
+          ? _value._orders
+          : orders // ignore: cast_nullable_to_non_nullable
+              as List<Map<String, dynamic>>,
+    ));
+  }
+}
+
+/// @nodoc
+
+class _$_$EmployeecurrentOrderFoundedState
+    implements _$EmployeecurrentOrderFoundedState {
+  const _$_$EmployeecurrentOrderFoundedState(
+      final List<Map<String, dynamic>> orders)
+      : _orders = orders;
+
+  final List<Map<String, dynamic>> _orders;
+  @override
+  List<Map<String, dynamic>> get orders {
+    // ignore: implicit_dynamic_type
+    return EqualUnmodifiableListView(_orders);
+  }
+
+  @override
+  String toString() {
+    return 'EmployeeState.currentOrderFound(orders: $orders)';
+  }
+
+  @override
+  bool operator ==(dynamic other) {
+    return identical(this, other) ||
+        (other.runtimeType == runtimeType &&
+            other is _$_$EmployeecurrentOrderFoundedState &&
+            const DeepCollectionEquality().equals(other._orders, _orders));
+  }
+
+  @override
+  int get hashCode =>
+      Object.hash(runtimeType, const DeepCollectionEquality().hash(_orders));
+
+  @JsonKey(ignore: true)
+  @override
+  @pragma('vm:prefer-inline')
+  _$$_$EmployeecurrentOrderFoundedStateCopyWith<
+          _$_$EmployeecurrentOrderFoundedState>
+      get copyWith => __$$_$EmployeecurrentOrderFoundedStateCopyWithImpl<
+          _$_$EmployeecurrentOrderFoundedState>(this, _$identity);
+
+  @override
+  @optionalTypeArgs
+  TResult when<TResult extends Object?>({
+    required TResult Function() initial,
+    required TResult Function() loading,
+    required TResult Function(String error) errored,
+    required TResult Function(CourierModel courier) courierReged,
+    required TResult Function(List<Map<String, dynamic>> orders) ordersFounded,
+    required TResult Function(List<Map<String, dynamic>> orders)
+        currentOrderFound,
+    required TResult Function(int orderId, OrderStatusName status)
+        orderStatusChanged,
+    required TResult Function(UserPersonalDataModel personalData)
+        personalDataFindedState,
+    required TResult Function(DateTime time) timeRegistred,
+  }) {
+    return currentOrderFound(orders);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult? whenOrNull<TResult extends Object?>({
+    TResult? Function()? initial,
+    TResult? Function()? loading,
+    TResult? Function(String error)? errored,
+    TResult? Function(CourierModel courier)? courierReged,
+    TResult? Function(List<Map<String, dynamic>> orders)? ordersFounded,
+    TResult? Function(List<Map<String, dynamic>> orders)? currentOrderFound,
+    TResult? Function(int orderId, OrderStatusName status)? orderStatusChanged,
+    TResult? Function(UserPersonalDataModel personalData)?
+        personalDataFindedState,
+    TResult? Function(DateTime time)? timeRegistred,
+  }) {
+    return currentOrderFound?.call(orders);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult maybeWhen<TResult extends Object?>({
+    TResult Function()? initial,
+    TResult Function()? loading,
+    TResult Function(String error)? errored,
+    TResult Function(CourierModel courier)? courierReged,
+    TResult Function(List<Map<String, dynamic>> orders)? ordersFounded,
+    TResult Function(List<Map<String, dynamic>> orders)? currentOrderFound,
+    TResult Function(int orderId, OrderStatusName status)? orderStatusChanged,
+    TResult Function(UserPersonalDataModel personalData)?
+        personalDataFindedState,
+    TResult Function(DateTime time)? timeRegistred,
+    required TResult orElse(),
+  }) {
+    if (currentOrderFound != null) {
+      return currentOrderFound(orders);
+    }
+    return orElse();
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult map<TResult extends Object?>({
+    required TResult Function(_$EmployeeInitialState value) initial,
+    required TResult Function(_$EmployeeLoadingState value) loading,
+    required TResult Function(_$EmployeeErroredState value) errored,
+    required TResult Function(_$EmployeeCourierRegistredState value)
+        courierReged,
+    required TResult Function(_$EmployeeOrdersFoundedState value) ordersFounded,
+    required TResult Function(_$EmployeecurrentOrderFoundedState value)
+        currentOrderFound,
+    required TResult Function(_$EmployeeOrdersStatusChangedState value)
+        orderStatusChanged,
+    required TResult Function(_$EmployeePersonalDataFindedState value)
+        personalDataFindedState,
+    required TResult Function(_$EmployeeTimeRegistredState value) timeRegistred,
+  }) {
+    return currentOrderFound(this);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult? mapOrNull<TResult extends Object?>({
+    TResult? Function(_$EmployeeInitialState value)? initial,
+    TResult? Function(_$EmployeeLoadingState value)? loading,
+    TResult? Function(_$EmployeeErroredState value)? errored,
+    TResult? Function(_$EmployeeCourierRegistredState value)? courierReged,
+    TResult? Function(_$EmployeeOrdersFoundedState value)? ordersFounded,
+    TResult? Function(_$EmployeecurrentOrderFoundedState value)?
+        currentOrderFound,
+    TResult? Function(_$EmployeeOrdersStatusChangedState value)?
+        orderStatusChanged,
+    TResult? Function(_$EmployeePersonalDataFindedState value)?
+        personalDataFindedState,
+    TResult? Function(_$EmployeeTimeRegistredState value)? timeRegistred,
+  }) {
+    return currentOrderFound?.call(this);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult maybeMap<TResult extends Object?>({
+    TResult Function(_$EmployeeInitialState value)? initial,
+    TResult Function(_$EmployeeLoadingState value)? loading,
+    TResult Function(_$EmployeeErroredState value)? errored,
+    TResult Function(_$EmployeeCourierRegistredState value)? courierReged,
+    TResult Function(_$EmployeeOrdersFoundedState value)? ordersFounded,
+    TResult Function(_$EmployeecurrentOrderFoundedState value)?
+        currentOrderFound,
+    TResult Function(_$EmployeeOrdersStatusChangedState value)?
+        orderStatusChanged,
+    TResult Function(_$EmployeePersonalDataFindedState value)?
+        personalDataFindedState,
+    TResult Function(_$EmployeeTimeRegistredState value)? timeRegistred,
+    required TResult orElse(),
+  }) {
+    if (currentOrderFound != null) {
+      return currentOrderFound(this);
+    }
+    return orElse();
+  }
+}
+
+abstract class _$EmployeecurrentOrderFoundedState implements EmployeeState {
+  const factory _$EmployeecurrentOrderFoundedState(
+          final List<Map<String, dynamic>> orders) =
+      _$_$EmployeecurrentOrderFoundedState;
+
+  List<Map<String, dynamic>> get orders;
+  @JsonKey(ignore: true)
+  _$$_$EmployeecurrentOrderFoundedStateCopyWith<
+          _$_$EmployeecurrentOrderFoundedState>
       get copyWith => throw _privateConstructorUsedError;
 }
 
@@ -2148,10 +2450,13 @@ class _$_$EmployeeOrdersStatusChangedState
     required TResult Function(String error) errored,
     required TResult Function(CourierModel courier) courierReged,
     required TResult Function(List<Map<String, dynamic>> orders) ordersFounded,
+    required TResult Function(List<Map<String, dynamic>> orders)
+        currentOrderFound,
     required TResult Function(int orderId, OrderStatusName status)
         orderStatusChanged,
     required TResult Function(UserPersonalDataModel personalData)
         personalDataFindedState,
+    required TResult Function(DateTime time) timeRegistred,
   }) {
     return orderStatusChanged(orderId, status);
   }
@@ -2164,9 +2469,11 @@ class _$_$EmployeeOrdersStatusChangedState
     TResult? Function(String error)? errored,
     TResult? Function(CourierModel courier)? courierReged,
     TResult? Function(List<Map<String, dynamic>> orders)? ordersFounded,
+    TResult? Function(List<Map<String, dynamic>> orders)? currentOrderFound,
     TResult? Function(int orderId, OrderStatusName status)? orderStatusChanged,
     TResult? Function(UserPersonalDataModel personalData)?
         personalDataFindedState,
+    TResult? Function(DateTime time)? timeRegistred,
   }) {
     return orderStatusChanged?.call(orderId, status);
   }
@@ -2179,9 +2486,11 @@ class _$_$EmployeeOrdersStatusChangedState
     TResult Function(String error)? errored,
     TResult Function(CourierModel courier)? courierReged,
     TResult Function(List<Map<String, dynamic>> orders)? ordersFounded,
+    TResult Function(List<Map<String, dynamic>> orders)? currentOrderFound,
     TResult Function(int orderId, OrderStatusName status)? orderStatusChanged,
     TResult Function(UserPersonalDataModel personalData)?
         personalDataFindedState,
+    TResult Function(DateTime time)? timeRegistred,
     required TResult orElse(),
   }) {
     if (orderStatusChanged != null) {
@@ -2199,10 +2508,13 @@ class _$_$EmployeeOrdersStatusChangedState
     required TResult Function(_$EmployeeCourierRegistredState value)
         courierReged,
     required TResult Function(_$EmployeeOrdersFoundedState value) ordersFounded,
+    required TResult Function(_$EmployeecurrentOrderFoundedState value)
+        currentOrderFound,
     required TResult Function(_$EmployeeOrdersStatusChangedState value)
         orderStatusChanged,
     required TResult Function(_$EmployeePersonalDataFindedState value)
         personalDataFindedState,
+    required TResult Function(_$EmployeeTimeRegistredState value) timeRegistred,
   }) {
     return orderStatusChanged(this);
   }
@@ -2215,10 +2527,13 @@ class _$_$EmployeeOrdersStatusChangedState
     TResult? Function(_$EmployeeErroredState value)? errored,
     TResult? Function(_$EmployeeCourierRegistredState value)? courierReged,
     TResult? Function(_$EmployeeOrdersFoundedState value)? ordersFounded,
+    TResult? Function(_$EmployeecurrentOrderFoundedState value)?
+        currentOrderFound,
     TResult? Function(_$EmployeeOrdersStatusChangedState value)?
         orderStatusChanged,
     TResult? Function(_$EmployeePersonalDataFindedState value)?
         personalDataFindedState,
+    TResult? Function(_$EmployeeTimeRegistredState value)? timeRegistred,
   }) {
     return orderStatusChanged?.call(this);
   }
@@ -2231,10 +2546,13 @@ class _$_$EmployeeOrdersStatusChangedState
     TResult Function(_$EmployeeErroredState value)? errored,
     TResult Function(_$EmployeeCourierRegistredState value)? courierReged,
     TResult Function(_$EmployeeOrdersFoundedState value)? ordersFounded,
+    TResult Function(_$EmployeecurrentOrderFoundedState value)?
+        currentOrderFound,
     TResult Function(_$EmployeeOrdersStatusChangedState value)?
         orderStatusChanged,
     TResult Function(_$EmployeePersonalDataFindedState value)?
         personalDataFindedState,
+    TResult Function(_$EmployeeTimeRegistredState value)? timeRegistred,
     required TResult orElse(),
   }) {
     if (orderStatusChanged != null) {
@@ -2333,10 +2651,13 @@ class _$_$EmployeePersonalDataFindedState
     required TResult Function(String error) errored,
     required TResult Function(CourierModel courier) courierReged,
     required TResult Function(List<Map<String, dynamic>> orders) ordersFounded,
+    required TResult Function(List<Map<String, dynamic>> orders)
+        currentOrderFound,
     required TResult Function(int orderId, OrderStatusName status)
         orderStatusChanged,
     required TResult Function(UserPersonalDataModel personalData)
         personalDataFindedState,
+    required TResult Function(DateTime time) timeRegistred,
   }) {
     return personalDataFindedState(personalData);
   }
@@ -2349,9 +2670,11 @@ class _$_$EmployeePersonalDataFindedState
     TResult? Function(String error)? errored,
     TResult? Function(CourierModel courier)? courierReged,
     TResult? Function(List<Map<String, dynamic>> orders)? ordersFounded,
+    TResult? Function(List<Map<String, dynamic>> orders)? currentOrderFound,
     TResult? Function(int orderId, OrderStatusName status)? orderStatusChanged,
     TResult? Function(UserPersonalDataModel personalData)?
         personalDataFindedState,
+    TResult? Function(DateTime time)? timeRegistred,
   }) {
     return personalDataFindedState?.call(personalData);
   }
@@ -2364,9 +2687,11 @@ class _$_$EmployeePersonalDataFindedState
     TResult Function(String error)? errored,
     TResult Function(CourierModel courier)? courierReged,
     TResult Function(List<Map<String, dynamic>> orders)? ordersFounded,
+    TResult Function(List<Map<String, dynamic>> orders)? currentOrderFound,
     TResult Function(int orderId, OrderStatusName status)? orderStatusChanged,
     TResult Function(UserPersonalDataModel personalData)?
         personalDataFindedState,
+    TResult Function(DateTime time)? timeRegistred,
     required TResult orElse(),
   }) {
     if (personalDataFindedState != null) {
@@ -2384,10 +2709,13 @@ class _$_$EmployeePersonalDataFindedState
     required TResult Function(_$EmployeeCourierRegistredState value)
         courierReged,
     required TResult Function(_$EmployeeOrdersFoundedState value) ordersFounded,
+    required TResult Function(_$EmployeecurrentOrderFoundedState value)
+        currentOrderFound,
     required TResult Function(_$EmployeeOrdersStatusChangedState value)
         orderStatusChanged,
     required TResult Function(_$EmployeePersonalDataFindedState value)
         personalDataFindedState,
+    required TResult Function(_$EmployeeTimeRegistredState value) timeRegistred,
   }) {
     return personalDataFindedState(this);
   }
@@ -2400,10 +2728,13 @@ class _$_$EmployeePersonalDataFindedState
     TResult? Function(_$EmployeeErroredState value)? errored,
     TResult? Function(_$EmployeeCourierRegistredState value)? courierReged,
     TResult? Function(_$EmployeeOrdersFoundedState value)? ordersFounded,
+    TResult? Function(_$EmployeecurrentOrderFoundedState value)?
+        currentOrderFound,
     TResult? Function(_$EmployeeOrdersStatusChangedState value)?
         orderStatusChanged,
     TResult? Function(_$EmployeePersonalDataFindedState value)?
         personalDataFindedState,
+    TResult? Function(_$EmployeeTimeRegistredState value)? timeRegistred,
   }) {
     return personalDataFindedState?.call(this);
   }
@@ -2416,10 +2747,13 @@ class _$_$EmployeePersonalDataFindedState
     TResult Function(_$EmployeeErroredState value)? errored,
     TResult Function(_$EmployeeCourierRegistredState value)? courierReged,
     TResult Function(_$EmployeeOrdersFoundedState value)? ordersFounded,
+    TResult Function(_$EmployeecurrentOrderFoundedState value)?
+        currentOrderFound,
     TResult Function(_$EmployeeOrdersStatusChangedState value)?
         orderStatusChanged,
     TResult Function(_$EmployeePersonalDataFindedState value)?
         personalDataFindedState,
+    TResult Function(_$EmployeeTimeRegistredState value)? timeRegistred,
     required TResult orElse(),
   }) {
     if (personalDataFindedState != null) {
@@ -2438,5 +2772,199 @@ abstract class _$EmployeePersonalDataFindedState implements EmployeeState {
   @JsonKey(ignore: true)
   _$$_$EmployeePersonalDataFindedStateCopyWith<
           _$_$EmployeePersonalDataFindedState>
+      get copyWith => throw _privateConstructorUsedError;
+}
+
+/// @nodoc
+abstract class _$$_$EmployeeTimeRegistredStateCopyWith<$Res> {
+  factory _$$_$EmployeeTimeRegistredStateCopyWith(
+          _$_$EmployeeTimeRegistredState value,
+          $Res Function(_$_$EmployeeTimeRegistredState) then) =
+      __$$_$EmployeeTimeRegistredStateCopyWithImpl<$Res>;
+  @useResult
+  $Res call({DateTime time});
+}
+
+/// @nodoc
+class __$$_$EmployeeTimeRegistredStateCopyWithImpl<$Res>
+    extends _$EmployeeStateCopyWithImpl<$Res, _$_$EmployeeTimeRegistredState>
+    implements _$$_$EmployeeTimeRegistredStateCopyWith<$Res> {
+  __$$_$EmployeeTimeRegistredStateCopyWithImpl(
+      _$_$EmployeeTimeRegistredState _value,
+      $Res Function(_$_$EmployeeTimeRegistredState) _then)
+      : super(_value, _then);
+
+  @pragma('vm:prefer-inline')
+  @override
+  $Res call({
+    Object? time = null,
+  }) {
+    return _then(_$_$EmployeeTimeRegistredState(
+      null == time
+          ? _value.time
+          : time // ignore: cast_nullable_to_non_nullable
+              as DateTime,
+    ));
+  }
+}
+
+/// @nodoc
+
+class _$_$EmployeeTimeRegistredState implements _$EmployeeTimeRegistredState {
+  const _$_$EmployeeTimeRegistredState(this.time);
+
+  @override
+  final DateTime time;
+
+  @override
+  String toString() {
+    return 'EmployeeState.timeRegistred(time: $time)';
+  }
+
+  @override
+  bool operator ==(dynamic other) {
+    return identical(this, other) ||
+        (other.runtimeType == runtimeType &&
+            other is _$_$EmployeeTimeRegistredState &&
+            (identical(other.time, time) || other.time == time));
+  }
+
+  @override
+  int get hashCode => Object.hash(runtimeType, time);
+
+  @JsonKey(ignore: true)
+  @override
+  @pragma('vm:prefer-inline')
+  _$$_$EmployeeTimeRegistredStateCopyWith<_$_$EmployeeTimeRegistredState>
+      get copyWith => __$$_$EmployeeTimeRegistredStateCopyWithImpl<
+          _$_$EmployeeTimeRegistredState>(this, _$identity);
+
+  @override
+  @optionalTypeArgs
+  TResult when<TResult extends Object?>({
+    required TResult Function() initial,
+    required TResult Function() loading,
+    required TResult Function(String error) errored,
+    required TResult Function(CourierModel courier) courierReged,
+    required TResult Function(List<Map<String, dynamic>> orders) ordersFounded,
+    required TResult Function(List<Map<String, dynamic>> orders)
+        currentOrderFound,
+    required TResult Function(int orderId, OrderStatusName status)
+        orderStatusChanged,
+    required TResult Function(UserPersonalDataModel personalData)
+        personalDataFindedState,
+    required TResult Function(DateTime time) timeRegistred,
+  }) {
+    return timeRegistred(time);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult? whenOrNull<TResult extends Object?>({
+    TResult? Function()? initial,
+    TResult? Function()? loading,
+    TResult? Function(String error)? errored,
+    TResult? Function(CourierModel courier)? courierReged,
+    TResult? Function(List<Map<String, dynamic>> orders)? ordersFounded,
+    TResult? Function(List<Map<String, dynamic>> orders)? currentOrderFound,
+    TResult? Function(int orderId, OrderStatusName status)? orderStatusChanged,
+    TResult? Function(UserPersonalDataModel personalData)?
+        personalDataFindedState,
+    TResult? Function(DateTime time)? timeRegistred,
+  }) {
+    return timeRegistred?.call(time);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult maybeWhen<TResult extends Object?>({
+    TResult Function()? initial,
+    TResult Function()? loading,
+    TResult Function(String error)? errored,
+    TResult Function(CourierModel courier)? courierReged,
+    TResult Function(List<Map<String, dynamic>> orders)? ordersFounded,
+    TResult Function(List<Map<String, dynamic>> orders)? currentOrderFound,
+    TResult Function(int orderId, OrderStatusName status)? orderStatusChanged,
+    TResult Function(UserPersonalDataModel personalData)?
+        personalDataFindedState,
+    TResult Function(DateTime time)? timeRegistred,
+    required TResult orElse(),
+  }) {
+    if (timeRegistred != null) {
+      return timeRegistred(time);
+    }
+    return orElse();
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult map<TResult extends Object?>({
+    required TResult Function(_$EmployeeInitialState value) initial,
+    required TResult Function(_$EmployeeLoadingState value) loading,
+    required TResult Function(_$EmployeeErroredState value) errored,
+    required TResult Function(_$EmployeeCourierRegistredState value)
+        courierReged,
+    required TResult Function(_$EmployeeOrdersFoundedState value) ordersFounded,
+    required TResult Function(_$EmployeecurrentOrderFoundedState value)
+        currentOrderFound,
+    required TResult Function(_$EmployeeOrdersStatusChangedState value)
+        orderStatusChanged,
+    required TResult Function(_$EmployeePersonalDataFindedState value)
+        personalDataFindedState,
+    required TResult Function(_$EmployeeTimeRegistredState value) timeRegistred,
+  }) {
+    return timeRegistred(this);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult? mapOrNull<TResult extends Object?>({
+    TResult? Function(_$EmployeeInitialState value)? initial,
+    TResult? Function(_$EmployeeLoadingState value)? loading,
+    TResult? Function(_$EmployeeErroredState value)? errored,
+    TResult? Function(_$EmployeeCourierRegistredState value)? courierReged,
+    TResult? Function(_$EmployeeOrdersFoundedState value)? ordersFounded,
+    TResult? Function(_$EmployeecurrentOrderFoundedState value)?
+        currentOrderFound,
+    TResult? Function(_$EmployeeOrdersStatusChangedState value)?
+        orderStatusChanged,
+    TResult? Function(_$EmployeePersonalDataFindedState value)?
+        personalDataFindedState,
+    TResult? Function(_$EmployeeTimeRegistredState value)? timeRegistred,
+  }) {
+    return timeRegistred?.call(this);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult maybeMap<TResult extends Object?>({
+    TResult Function(_$EmployeeInitialState value)? initial,
+    TResult Function(_$EmployeeLoadingState value)? loading,
+    TResult Function(_$EmployeeErroredState value)? errored,
+    TResult Function(_$EmployeeCourierRegistredState value)? courierReged,
+    TResult Function(_$EmployeeOrdersFoundedState value)? ordersFounded,
+    TResult Function(_$EmployeecurrentOrderFoundedState value)?
+        currentOrderFound,
+    TResult Function(_$EmployeeOrdersStatusChangedState value)?
+        orderStatusChanged,
+    TResult Function(_$EmployeePersonalDataFindedState value)?
+        personalDataFindedState,
+    TResult Function(_$EmployeeTimeRegistredState value)? timeRegistred,
+    required TResult orElse(),
+  }) {
+    if (timeRegistred != null) {
+      return timeRegistred(this);
+    }
+    return orElse();
+  }
+}
+
+abstract class _$EmployeeTimeRegistredState implements EmployeeState {
+  const factory _$EmployeeTimeRegistredState(final DateTime time) =
+      _$_$EmployeeTimeRegistredState;
+
+  DateTime get time;
+  @JsonKey(ignore: true)
+  _$$_$EmployeeTimeRegistredStateCopyWith<_$_$EmployeeTimeRegistredState>
       get copyWith => throw _privateConstructorUsedError;
 }

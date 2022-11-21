@@ -49,6 +49,34 @@ class EmployeeProvider {
     });
   }
 
+  static QueryOptions _findActiveOrder(String userLogin) {
+    String query = r'''query findActiveOrder($_eq: String!,) {
+  orders(where: {userlogin: {_eq: $_eq}, orderstatusname: {_neq: "На рассмотрении"}, _and: {orderstatusname: {_neq: "Доставлено."}}}) {
+    orderprice
+    id_order
+    userlogin
+    orderstatus {
+      orderstatusname
+      orderstep
+    }
+    id_address
+    cart {
+      cartcreationtime
+      cartitems {
+        id_product
+        cartitemquantity
+        cartitem_id
+      }
+    }
+  }
+}
+
+''';
+    return QueryOptions(document: gql(query), variables: {
+      "_eq": userLogin,
+    });
+  }
+
   static MutationOptions _changeOrderStatus(
       String userLogin, int orderId, String statusName) {
     String query =
@@ -122,7 +150,8 @@ class EmployeeProvider {
     String query =
         r'''mutation MyMutation($id_order: Int!, $latitude: numeric!, $longtitude: numeric!, $ispassedcompany: Boolean = false) {
   update_courierplacement_by_pk(pk_columns: {id_order: $id_order}, _set: {latitude: $latitude, longtitude: $longtitude, isactive: true, ispassedcompany: $ispassedcompany}) {
-    id_order
+    id_order,
+    accepttime
   }
 }
 ''';
@@ -157,6 +186,12 @@ class EmployeeProvider {
       String userLogin, double latitude, double longtitude) async {
     var response = await AppsGraphClient.client
         .mutate(_searchNearestOrders(userLogin, latitude, longtitude));
+    return response;
+  }
+
+  static Future<QueryResult> findCourierActiveOrder(String userLogin) async {
+    var response =
+        await AppsGraphClient.client.query(_findActiveOrder(userLogin));
     return response;
   }
 

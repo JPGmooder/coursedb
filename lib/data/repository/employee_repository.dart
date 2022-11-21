@@ -18,17 +18,32 @@ class EmployeeRepository {
       {required String userLogin,
       required double latitude,
       required double longtitude}) async {
+    bool isCurrentAvailable = true;
     var completer = Completer<List<Map<String, dynamic>>>();
-    var response = await EmployeeProvider.searchNearOrders(
-        userLogin, latitude, longtitude);
-    if (response.hasException) {
-      throw Exception(
-          "Что-то пошло не так (эмплойе репозитори) + ${response.toString()}");
+    late QueryResult<Object?> response;
+    List<Map<String, dynamic>> mapper;
+    response = await EmployeeProvider.findCourierActiveOrder(userLogin);
+    if (response.data == null ||
+        (response.data!['orders'] as List<Object?>).isEmpty) {
+      response = await EmployeeProvider.searchNearOrders(
+          userLogin, latitude, longtitude);
+      if (response.hasException) {
+        throw Exception(
+            "Что-то пошло не так (эмплойе репозитори) + ${response.toString()}");
+      }
+
+      isCurrentAvailable = false;
+      mapper = (response.data!['findcouriernearorders'] as List<Object?>)
+          .cast<Map<String, dynamic>>()
+          .toList();
+    } else {
+      mapper = (response.data!['orders'] as List<Object?>)
+          .cast<Map<String, dynamic>>()
+          .toList();
     }
 
     List<Map<String, dynamic>> modelsToReturn = [];
-
-    for (var order in response.data!['findcouriernearorders']) {
+    for (var order in mapper) {
       var currentOrder = OrderModel.fromMap(order);
       var addressResponse =
           await EmployeeProvider.searchAddressByPk(currentOrder.addressId);
@@ -40,6 +55,7 @@ class EmployeeRepository {
                   .toList())
           .then((orderMetaData) async {
         modelsToReturn.add({
+          'isCurrent': isCurrentAvailable,
           'address':
               AddressModel.fromMap(addressResponse.data!['address_by_pk']),
           'order': currentOrder,
@@ -47,8 +63,7 @@ class EmployeeRepository {
           'cart': CartModel.fromMap(order['cart']),
           'products': orderMetaData['products']
         });
-        if (modelsToReturn.length ==
-            (response.data!['findcouriernearorders'] as List<Object?>).length) {
+        if (modelsToReturn.length == mapper.length) {
           completer.complete(modelsToReturn);
         }
       });
@@ -76,7 +91,7 @@ class EmployeeRepository {
     };
   }
 
-  static Future<void> regCourierPlacement(
+  static Future<DateTime> regCourierPlacement(
       {required int orderId,
       required double lat,
       required double lon,
@@ -87,6 +102,8 @@ class EmployeeRepository {
       throw Exception(
           "Что-то пошло не так (эмплойе репозитори) + ${response.toString()}");
     }
+    return DateTime.parse(
+        response.data!['update_courierplacement_by_pk']['accepttime']);
   }
 
   static Future<UserPersonalDataModel> findPersonalDataByPK(

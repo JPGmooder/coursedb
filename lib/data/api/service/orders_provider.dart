@@ -56,6 +56,43 @@ class OrdersProvider {
     return QueryOptions(document: gql(query), variables: {"_in": ids});
   }
 
+  static SubscriptionOptions _listenCourierMoves(int orderId) {
+    String query = r'''subscription MySubscription($_eq: Int!) {
+  courierplacement(where: {id_order: {_eq: $_eq}}, limit: 1) {
+    accepttime
+    id_order
+    isactive
+    
+    ispassedcompany
+    latitude
+    longtitude
+    order {
+      orderstatus{
+        orderstatusname,
+        orderstep
+      }
+      employee {
+        user {
+          personaldatum {
+            personaldateofbirth
+            personallname
+            personalmobilenumber
+            personalname
+            personalpatronymic
+            userlogin
+          }
+        }
+      }
+    }
+  }
+}
+
+
+''';
+    return SubscriptionOptions(
+        document: gql(query), variables: {"_eq": orderId});
+  }
+
   static QueryOptions _findOrdersById(String userLogin) {
     String query = r'''query findOrdersByUserLogin($_eq: String = "") {
   orders {
@@ -114,6 +151,12 @@ class OrdersProvider {
   static Stream<QueryResult<Object?>> checkActualOrders() {
     var response =
         AppsGraphClient.websocketclient.subscribe(_checkActualOrders());
+    return response;
+  }
+
+  static Stream<QueryResult<Object?>> listenToCourierPlacement(int orderId) {
+    var response =
+        AppsGraphClient.websocketclient.subscribe(_listenCourierMoves(orderId));
     return response;
   }
 }
