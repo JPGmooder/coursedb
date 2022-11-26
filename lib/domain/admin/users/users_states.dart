@@ -6,10 +6,8 @@ class UsersState with _$UsersState {
       _$UsersLoadedState;
   const factory UsersState.initial() =
       _$UsersInitialState;
-  const factory UsersState.userAdded(List<Map<String, dynamic>> user) =
-      _$UsersUserAddedState;
-  const factory UsersState.userUpdated(List<Map<String, dynamic>> user) =
-      _$UsersUserUpdatedState;
-  const factory UsersState.userDeleted(List<String> userLogin) =
-      _$UsersUserDeletedState;
+  const factory UsersState.loading() =
+      _$UsersLoadingState;
+  const factory UsersState.usersManaged(Map<String, dynamic> users) =
+      _$UsersManagedState;
 }

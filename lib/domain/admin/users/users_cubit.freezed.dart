@@ -20,27 +20,24 @@ mixin _$UsersState {
   TResult when<TResult extends Object?>({
     required TResult Function(List<Map<String, dynamic>> users) loaded,
     required TResult Function() initial,
-    required TResult Function(List<Map<String, dynamic>> user) userAdded,
-    required TResult Function(List<Map<String, dynamic>> user) userUpdated,
-    required TResult Function(List<String> userLogin) userDeleted,
+    required TResult Function() loading,
+    required TResult Function(Map<String, dynamic> users) usersManaged,
   }) =>
       throw _privateConstructorUsedError;
   @optionalTypeArgs
   TResult? whenOrNull<TResult extends Object?>({
     TResult? Function(List<Map<String, dynamic>> users)? loaded,
     TResult? Function()? initial,
-    TResult? Function(List<Map<String, dynamic>> user)? userAdded,
-    TResult? Function(List<Map<String, dynamic>> user)? userUpdated,
-    TResult? Function(List<String> userLogin)? userDeleted,
+    TResult? Function()? loading,
+    TResult? Function(Map<String, dynamic> users)? usersManaged,
   }) =>
       throw _privateConstructorUsedError;
   @optionalTypeArgs
   TResult maybeWhen<TResult extends Object?>({
     TResult Function(List<Map<String, dynamic>> users)? loaded,
     TResult Function()? initial,
-    TResult Function(List<Map<String, dynamic>> user)? userAdded,
-    TResult Function(List<Map<String, dynamic>> user)? userUpdated,
-    TResult Function(List<String> userLogin)? userDeleted,
+    TResult Function()? loading,
+    TResult Function(Map<String, dynamic> users)? usersManaged,
     required TResult orElse(),
   }) =>
       throw _privateConstructorUsedError;
@@ -48,27 +45,24 @@ mixin _$UsersState {
   TResult map<TResult extends Object?>({
     required TResult Function(_$UsersLoadedState value) loaded,
     required TResult Function(_$UsersInitialState value) initial,
-    required TResult Function(_$UsersUserAddedState value) userAdded,
-    required TResult Function(_$UsersUserUpdatedState value) userUpdated,
-    required TResult Function(_$UsersUserDeletedState value) userDeleted,
+    required TResult Function(_$UsersLoadingState value) loading,
+    required TResult Function(_$UsersManagedState value) usersManaged,
   }) =>
       throw _privateConstructorUsedError;
   @optionalTypeArgs
   TResult? mapOrNull<TResult extends Object?>({
     TResult? Function(_$UsersLoadedState value)? loaded,
     TResult? Function(_$UsersInitialState value)? initial,
-    TResult? Function(_$UsersUserAddedState value)? userAdded,
-    TResult? Function(_$UsersUserUpdatedState value)? userUpdated,
-    TResult? Function(_$UsersUserDeletedState value)? userDeleted,
+    TResult? Function(_$UsersLoadingState value)? loading,
+    TResult? Function(_$UsersManagedState value)? usersManaged,
   }) =>
       throw _privateConstructorUsedError;
   @optionalTypeArgs
   TResult maybeMap<TResult extends Object?>({
     TResult Function(_$UsersLoadedState value)? loaded,
     TResult Function(_$UsersInitialState value)? initial,
-    TResult Function(_$UsersUserAddedState value)? userAdded,
-    TResult Function(_$UsersUserUpdatedState value)? userUpdated,
-    TResult Function(_$UsersUserDeletedState value)? userDeleted,
+    TResult Function(_$UsersLoadingState value)? loading,
+    TResult Function(_$UsersManagedState value)? usersManaged,
     required TResult orElse(),
   }) =>
       throw _privateConstructorUsedError;
@@ -165,9 +159,8 @@ class _$_$UsersLoadedState implements _$UsersLoadedState {
   TResult when<TResult extends Object?>({
     required TResult Function(List<Map<String, dynamic>> users) loaded,
     required TResult Function() initial,
-    required TResult Function(List<Map<String, dynamic>> user) userAdded,
-    required TResult Function(List<Map<String, dynamic>> user) userUpdated,
-    required TResult Function(List<String> userLogin) userDeleted,
+    required TResult Function() loading,
+    required TResult Function(Map<String, dynamic> users) usersManaged,
   }) {
     return loaded(users);
   }
@@ -177,9 +170,8 @@ class _$_$UsersLoadedState implements _$UsersLoadedState {
   TResult? whenOrNull<TResult extends Object?>({
     TResult? Function(List<Map<String, dynamic>> users)? loaded,
     TResult? Function()? initial,
-    TResult? Function(List<Map<String, dynamic>> user)? userAdded,
-    TResult? Function(List<Map<String, dynamic>> user)? userUpdated,
-    TResult? Function(List<String> userLogin)? userDeleted,
+    TResult? Function()? loading,
+    TResult? Function(Map<String, dynamic> users)? usersManaged,
   }) {
     return loaded?.call(users);
   }
@@ -189,9 +181,8 @@ class _$_$UsersLoadedState implements _$UsersLoadedState {
   TResult maybeWhen<TResult extends Object?>({
     TResult Function(List<Map<String, dynamic>> users)? loaded,
     TResult Function()? initial,
-    TResult Function(List<Map<String, dynamic>> user)? userAdded,
-    TResult Function(List<Map<String, dynamic>> user)? userUpdated,
-    TResult Function(List<String> userLogin)? userDeleted,
+    TResult Function()? loading,
+    TResult Function(Map<String, dynamic> users)? usersManaged,
     required TResult orElse(),
   }) {
     if (loaded != null) {
@@ -205,9 +196,8 @@ class _$_$UsersLoadedState implements _$UsersLoadedState {
   TResult map<TResult extends Object?>({
     required TResult Function(_$UsersLoadedState value) loaded,
     required TResult Function(_$UsersInitialState value) initial,
-    required TResult Function(_$UsersUserAddedState value) userAdded,
-    required TResult Function(_$UsersUserUpdatedState value) userUpdated,
-    required TResult Function(_$UsersUserDeletedState value) userDeleted,
+    required TResult Function(_$UsersLoadingState value) loading,
+    required TResult Function(_$UsersManagedState value) usersManaged,
   }) {
     return loaded(this);
   }
@@ -217,9 +207,8 @@ class _$_$UsersLoadedState implements _$UsersLoadedState {
   TResult? mapOrNull<TResult extends Object?>({
     TResult? Function(_$UsersLoadedState value)? loaded,
     TResult? Function(_$UsersInitialState value)? initial,
-    TResult? Function(_$UsersUserAddedState value)? userAdded,
-    TResult? Function(_$UsersUserUpdatedState value)? userUpdated,
-    TResult? Function(_$UsersUserDeletedState value)? userDeleted,
+    TResult? Function(_$UsersLoadingState value)? loading,
+    TResult? Function(_$UsersManagedState value)? usersManaged,
   }) {
     return loaded?.call(this);
   }
@@ -229,9 +218,8 @@ class _$_$UsersLoadedState implements _$UsersLoadedState {
   TResult maybeMap<TResult extends Object?>({
     TResult Function(_$UsersLoadedState value)? loaded,
     TResult Function(_$UsersInitialState value)? initial,
-    TResult Function(_$UsersUserAddedState value)? userAdded,
-    TResult Function(_$UsersUserUpdatedState value)? userUpdated,
-    TResult Function(_$UsersUserDeletedState value)? userDeleted,
+    TResult Function(_$UsersLoadingState value)? loading,
+    TResult Function(_$UsersManagedState value)? usersManaged,
     required TResult orElse(),
   }) {
     if (loaded != null) {
@@ -291,9 +279,8 @@ class _$_$UsersInitialState implements _$UsersInitialState {
   TResult when<TResult extends Object?>({
     required TResult Function(List<Map<String, dynamic>> users) loaded,
     required TResult Function() initial,
-    required TResult Function(List<Map<String, dynamic>> user) userAdded,
-    required TResult Function(List<Map<String, dynamic>> user) userUpdated,
-    required TResult Function(List<String> userLogin) userDeleted,
+    required TResult Function() loading,
+    required TResult Function(Map<String, dynamic> users) usersManaged,
   }) {
     return initial();
   }
@@ -303,9 +290,8 @@ class _$_$UsersInitialState implements _$UsersInitialState {
   TResult? whenOrNull<TResult extends Object?>({
     TResult? Function(List<Map<String, dynamic>> users)? loaded,
     TResult? Function()? initial,
-    TResult? Function(List<Map<String, dynamic>> user)? userAdded,
-    TResult? Function(List<Map<String, dynamic>> user)? userUpdated,
-    TResult? Function(List<String> userLogin)? userDeleted,
+    TResult? Function()? loading,
+    TResult? Function(Map<String, dynamic> users)? usersManaged,
   }) {
     return initial?.call();
   }
@@ -315,9 +301,8 @@ class _$_$UsersInitialState implements _$UsersInitialState {
   TResult maybeWhen<TResult extends Object?>({
     TResult Function(List<Map<String, dynamic>> users)? loaded,
     TResult Function()? initial,
-    TResult Function(List<Map<String, dynamic>> user)? userAdded,
-    TResult Function(List<Map<String, dynamic>> user)? userUpdated,
-    TResult Function(List<String> userLogin)? userDeleted,
+    TResult Function()? loading,
+    TResult Function(Map<String, dynamic> users)? usersManaged,
     required TResult orElse(),
   }) {
     if (initial != null) {
@@ -331,9 +316,8 @@ class _$_$UsersInitialState implements _$UsersInitialState {
   TResult map<TResult extends Object?>({
     required TResult Function(_$UsersLoadedState value) loaded,
     required TResult Function(_$UsersInitialState value) initial,
-    required TResult Function(_$UsersUserAddedState value) userAdded,
-    required TResult Function(_$UsersUserUpdatedState value) userUpdated,
-    required TResult Function(_$UsersUserDeletedState value) userDeleted,
+    required TResult Function(_$UsersLoadingState value) loading,
+    required TResult Function(_$UsersManagedState value) usersManaged,
   }) {
     return initial(this);
   }
@@ -343,9 +327,8 @@ class _$_$UsersInitialState implements _$UsersInitialState {
   TResult? mapOrNull<TResult extends Object?>({
     TResult? Function(_$UsersLoadedState value)? loaded,
     TResult? Function(_$UsersInitialState value)? initial,
-    TResult? Function(_$UsersUserAddedState value)? userAdded,
-    TResult? Function(_$UsersUserUpdatedState value)? userUpdated,
-    TResult? Function(_$UsersUserDeletedState value)? userDeleted,
+    TResult? Function(_$UsersLoadingState value)? loading,
+    TResult? Function(_$UsersManagedState value)? usersManaged,
   }) {
     return initial?.call(this);
   }
@@ -355,9 +338,8 @@ class _$_$UsersInitialState implements _$UsersInitialState {
   TResult maybeMap<TResult extends Object?>({
     TResult Function(_$UsersLoadedState value)? loaded,
     TResult Function(_$UsersInitialState value)? initial,
-    TResult Function(_$UsersUserAddedState value)? userAdded,
-    TResult Function(_$UsersUserUpdatedState value)? userUpdated,
-    TResult Function(_$UsersUserDeletedState value)? userDeleted,
+    TResult Function(_$UsersLoadingState value)? loading,
+    TResult Function(_$UsersManagedState value)? usersManaged,
     required TResult orElse(),
   }) {
     if (initial != null) {
@@ -372,83 +354,49 @@ abstract class _$UsersInitialState implements UsersState {
 }
 
 /// @nodoc
-abstract class _$$_$UsersUserAddedStateCopyWith<$Res> {
-  factory _$$_$UsersUserAddedStateCopyWith(_$_$UsersUserAddedState value,
-          $Res Function(_$_$UsersUserAddedState) then) =
-      __$$_$UsersUserAddedStateCopyWithImpl<$Res>;
-  @useResult
-  $Res call({List<Map<String, dynamic>> user});
+abstract class _$$_$UsersLoadingStateCopyWith<$Res> {
+  factory _$$_$UsersLoadingStateCopyWith(_$_$UsersLoadingState value,
+          $Res Function(_$_$UsersLoadingState) then) =
+      __$$_$UsersLoadingStateCopyWithImpl<$Res>;
 }
 
 /// @nodoc
-class __$$_$UsersUserAddedStateCopyWithImpl<$Res>
-    extends _$UsersStateCopyWithImpl<$Res, _$_$UsersUserAddedState>
-    implements _$$_$UsersUserAddedStateCopyWith<$Res> {
-  __$$_$UsersUserAddedStateCopyWithImpl(_$_$UsersUserAddedState _value,
-      $Res Function(_$_$UsersUserAddedState) _then)
+class __$$_$UsersLoadingStateCopyWithImpl<$Res>
+    extends _$UsersStateCopyWithImpl<$Res, _$_$UsersLoadingState>
+    implements _$$_$UsersLoadingStateCopyWith<$Res> {
+  __$$_$UsersLoadingStateCopyWithImpl(
+      _$_$UsersLoadingState _value, $Res Function(_$_$UsersLoadingState) _then)
       : super(_value, _then);
-
-  @pragma('vm:prefer-inline')
-  @override
-  $Res call({
-    Object? user = null,
-  }) {
-    return _then(_$_$UsersUserAddedState(
-      null == user
-          ? _value._user
-          : user // ignore: cast_nullable_to_non_nullable
-              as List<Map<String, dynamic>>,
-    ));
-  }
 }
 
 /// @nodoc
 
-class _$_$UsersUserAddedState implements _$UsersUserAddedState {
-  const _$_$UsersUserAddedState(final List<Map<String, dynamic>> user)
-      : _user = user;
-
-  final List<Map<String, dynamic>> _user;
-  @override
-  List<Map<String, dynamic>> get user {
-    // ignore: implicit_dynamic_type
-    return EqualUnmodifiableListView(_user);
-  }
+class _$_$UsersLoadingState implements _$UsersLoadingState {
+  const _$_$UsersLoadingState();
 
   @override
   String toString() {
-    return 'UsersState.userAdded(user: $user)';
+    return 'UsersState.loading()';
   }
 
   @override
   bool operator ==(dynamic other) {
     return identical(this, other) ||
-        (other.runtimeType == runtimeType &&
-            other is _$_$UsersUserAddedState &&
-            const DeepCollectionEquality().equals(other._user, _user));
+        (other.runtimeType == runtimeType && other is _$_$UsersLoadingState);
   }
 
   @override
-  int get hashCode =>
-      Object.hash(runtimeType, const DeepCollectionEquality().hash(_user));
-
-  @JsonKey(ignore: true)
-  @override
-  @pragma('vm:prefer-inline')
-  _$$_$UsersUserAddedStateCopyWith<_$_$UsersUserAddedState> get copyWith =>
-      __$$_$UsersUserAddedStateCopyWithImpl<_$_$UsersUserAddedState>(
-          this, _$identity);
+  int get hashCode => runtimeType.hashCode;
 
   @override
   @optionalTypeArgs
   TResult when<TResult extends Object?>({
     required TResult Function(List<Map<String, dynamic>> users) loaded,
     required TResult Function() initial,
-    required TResult Function(List<Map<String, dynamic>> user) userAdded,
-    required TResult Function(List<Map<String, dynamic>> user) userUpdated,
-    required TResult Function(List<String> userLogin) userDeleted,
+    required TResult Function() loading,
+    required TResult Function(Map<String, dynamic> users) usersManaged,
   }) {
-    return userAdded(user);
+    return loading();
   }
 
   @override
@@ -456,11 +404,10 @@ class _$_$UsersUserAddedState implements _$UsersUserAddedState {
   TResult? whenOrNull<TResult extends Object?>({
     TResult? Function(List<Map<String, dynamic>> users)? loaded,
     TResult? Function()? initial,
-    TResult? Function(List<Map<String, dynamic>> user)? userAdded,
-    TResult? Function(List<Map<String, dynamic>> user)? userUpdated,
-    TResult? Function(List<String> userLogin)? userDeleted,
+    TResult? Function()? loading,
+    TResult? Function(Map<String, dynamic> users)? usersManaged,
   }) {
-    return userAdded?.call(user);
+    return loading?.call();
   }
 
   @override
@@ -468,13 +415,12 @@ class _$_$UsersUserAddedState implements _$UsersUserAddedState {
   TResult maybeWhen<TResult extends Object?>({
     TResult Function(List<Map<String, dynamic>> users)? loaded,
     TResult Function()? initial,
-    TResult Function(List<Map<String, dynamic>> user)? userAdded,
-    TResult Function(List<Map<String, dynamic>> user)? userUpdated,
-    TResult Function(List<String> userLogin)? userDeleted,
+    TResult Function()? loading,
+    TResult Function(Map<String, dynamic> users)? usersManaged,
     required TResult orElse(),
   }) {
-    if (userAdded != null) {
-      return userAdded(user);
+    if (loading != null) {
+      return loading();
     }
     return orElse();
   }
@@ -484,11 +430,10 @@ class _$_$UsersUserAddedState implements _$UsersUserAddedState {
   TResult map<TResult extends Object?>({
     required TResult Function(_$UsersLoadedState value) loaded,
     required TResult Function(_$UsersInitialState value) initial,
-    required TResult Function(_$UsersUserAddedState value) userAdded,
-    required TResult Function(_$UsersUserUpdatedState value) userUpdated,
-    required TResult Function(_$UsersUserDeletedState value) userDeleted,
+    required TResult Function(_$UsersLoadingState value) loading,
+    required TResult Function(_$UsersManagedState value) usersManaged,
   }) {
-    return userAdded(this);
+    return loading(this);
   }
 
   @override
@@ -496,11 +441,10 @@ class _$_$UsersUserAddedState implements _$UsersUserAddedState {
   TResult? mapOrNull<TResult extends Object?>({
     TResult? Function(_$UsersLoadedState value)? loaded,
     TResult? Function(_$UsersInitialState value)? initial,
-    TResult? Function(_$UsersUserAddedState value)? userAdded,
-    TResult? Function(_$UsersUserUpdatedState value)? userUpdated,
-    TResult? Function(_$UsersUserDeletedState value)? userDeleted,
+    TResult? Function(_$UsersLoadingState value)? loading,
+    TResult? Function(_$UsersManagedState value)? usersManaged,
   }) {
-    return userAdded?.call(this);
+    return loading?.call(this);
   }
 
   @override
@@ -508,94 +452,87 @@ class _$_$UsersUserAddedState implements _$UsersUserAddedState {
   TResult maybeMap<TResult extends Object?>({
     TResult Function(_$UsersLoadedState value)? loaded,
     TResult Function(_$UsersInitialState value)? initial,
-    TResult Function(_$UsersUserAddedState value)? userAdded,
-    TResult Function(_$UsersUserUpdatedState value)? userUpdated,
-    TResult Function(_$UsersUserDeletedState value)? userDeleted,
+    TResult Function(_$UsersLoadingState value)? loading,
+    TResult Function(_$UsersManagedState value)? usersManaged,
     required TResult orElse(),
   }) {
-    if (userAdded != null) {
-      return userAdded(this);
+    if (loading != null) {
+      return loading(this);
     }
     return orElse();
   }
 }
 
-abstract class _$UsersUserAddedState implements UsersState {
-  const factory _$UsersUserAddedState(final List<Map<String, dynamic>> user) =
-      _$_$UsersUserAddedState;
-
-  List<Map<String, dynamic>> get user;
-  @JsonKey(ignore: true)
-  _$$_$UsersUserAddedStateCopyWith<_$_$UsersUserAddedState> get copyWith =>
-      throw _privateConstructorUsedError;
+abstract class _$UsersLoadingState implements UsersState {
+  const factory _$UsersLoadingState() = _$_$UsersLoadingState;
 }
 
 /// @nodoc
-abstract class _$$_$UsersUserUpdatedStateCopyWith<$Res> {
-  factory _$$_$UsersUserUpdatedStateCopyWith(_$_$UsersUserUpdatedState value,
-          $Res Function(_$_$UsersUserUpdatedState) then) =
-      __$$_$UsersUserUpdatedStateCopyWithImpl<$Res>;
+abstract class _$$_$UsersManagedStateCopyWith<$Res> {
+  factory _$$_$UsersManagedStateCopyWith(_$_$UsersManagedState value,
+          $Res Function(_$_$UsersManagedState) then) =
+      __$$_$UsersManagedStateCopyWithImpl<$Res>;
   @useResult
-  $Res call({List<Map<String, dynamic>> user});
+  $Res call({Map<String, dynamic> users});
 }
 
 /// @nodoc
-class __$$_$UsersUserUpdatedStateCopyWithImpl<$Res>
-    extends _$UsersStateCopyWithImpl<$Res, _$_$UsersUserUpdatedState>
-    implements _$$_$UsersUserUpdatedStateCopyWith<$Res> {
-  __$$_$UsersUserUpdatedStateCopyWithImpl(_$_$UsersUserUpdatedState _value,
-      $Res Function(_$_$UsersUserUpdatedState) _then)
+class __$$_$UsersManagedStateCopyWithImpl<$Res>
+    extends _$UsersStateCopyWithImpl<$Res, _$_$UsersManagedState>
+    implements _$$_$UsersManagedStateCopyWith<$Res> {
+  __$$_$UsersManagedStateCopyWithImpl(
+      _$_$UsersManagedState _value, $Res Function(_$_$UsersManagedState) _then)
       : super(_value, _then);
 
   @pragma('vm:prefer-inline')
   @override
   $Res call({
-    Object? user = null,
+    Object? users = null,
   }) {
-    return _then(_$_$UsersUserUpdatedState(
-      null == user
-          ? _value._user
-          : user // ignore: cast_nullable_to_non_nullable
-              as List<Map<String, dynamic>>,
+    return _then(_$_$UsersManagedState(
+      null == users
+          ? _value._users
+          : users // ignore: cast_nullable_to_non_nullable
+              as Map<String, dynamic>,
     ));
   }
 }
 
 /// @nodoc
 
-class _$_$UsersUserUpdatedState implements _$UsersUserUpdatedState {
-  const _$_$UsersUserUpdatedState(final List<Map<String, dynamic>> user)
-      : _user = user;
+class _$_$UsersManagedState implements _$UsersManagedState {
+  const _$_$UsersManagedState(final Map<String, dynamic> users)
+      : _users = users;
 
-  final List<Map<String, dynamic>> _user;
+  final Map<String, dynamic> _users;
   @override
-  List<Map<String, dynamic>> get user {
+  Map<String, dynamic> get users {
     // ignore: implicit_dynamic_type
-    return EqualUnmodifiableListView(_user);
+    return EqualUnmodifiableMapView(_users);
   }
 
   @override
   String toString() {
-    return 'UsersState.userUpdated(user: $user)';
+    return 'UsersState.usersManaged(users: $users)';
   }
 
   @override
   bool operator ==(dynamic other) {
     return identical(this, other) ||
         (other.runtimeType == runtimeType &&
-            other is _$_$UsersUserUpdatedState &&
-            const DeepCollectionEquality().equals(other._user, _user));
+            other is _$_$UsersManagedState &&
+            const DeepCollectionEquality().equals(other._users, _users));
   }
 
   @override
   int get hashCode =>
-      Object.hash(runtimeType, const DeepCollectionEquality().hash(_user));
+      Object.hash(runtimeType, const DeepCollectionEquality().hash(_users));
 
   @JsonKey(ignore: true)
   @override
   @pragma('vm:prefer-inline')
-  _$$_$UsersUserUpdatedStateCopyWith<_$_$UsersUserUpdatedState> get copyWith =>
-      __$$_$UsersUserUpdatedStateCopyWithImpl<_$_$UsersUserUpdatedState>(
+  _$$_$UsersManagedStateCopyWith<_$_$UsersManagedState> get copyWith =>
+      __$$_$UsersManagedStateCopyWithImpl<_$_$UsersManagedState>(
           this, _$identity);
 
   @override
@@ -603,11 +540,10 @@ class _$_$UsersUserUpdatedState implements _$UsersUserUpdatedState {
   TResult when<TResult extends Object?>({
     required TResult Function(List<Map<String, dynamic>> users) loaded,
     required TResult Function() initial,
-    required TResult Function(List<Map<String, dynamic>> user) userAdded,
-    required TResult Function(List<Map<String, dynamic>> user) userUpdated,
-    required TResult Function(List<String> userLogin) userDeleted,
+    required TResult Function() loading,
+    required TResult Function(Map<String, dynamic> users) usersManaged,
   }) {
-    return userUpdated(user);
+    return usersManaged(users);
   }
 
   @override
@@ -615,11 +551,10 @@ class _$_$UsersUserUpdatedState implements _$UsersUserUpdatedState {
   TResult? whenOrNull<TResult extends Object?>({
     TResult? Function(List<Map<String, dynamic>> users)? loaded,
     TResult? Function()? initial,
-    TResult? Function(List<Map<String, dynamic>> user)? userAdded,
-    TResult? Function(List<Map<String, dynamic>> user)? userUpdated,
-    TResult? Function(List<String> userLogin)? userDeleted,
+    TResult? Function()? loading,
+    TResult? Function(Map<String, dynamic> users)? usersManaged,
   }) {
-    return userUpdated?.call(user);
+    return usersManaged?.call(users);
   }
 
   @override
@@ -627,13 +562,12 @@ class _$_$UsersUserUpdatedState implements _$UsersUserUpdatedState {
   TResult maybeWhen<TResult extends Object?>({
     TResult Function(List<Map<String, dynamic>> users)? loaded,
     TResult Function()? initial,
-    TResult Function(List<Map<String, dynamic>> user)? userAdded,
-    TResult Function(List<Map<String, dynamic>> user)? userUpdated,
-    TResult Function(List<String> userLogin)? userDeleted,
+    TResult Function()? loading,
+    TResult Function(Map<String, dynamic> users)? usersManaged,
     required TResult orElse(),
   }) {
-    if (userUpdated != null) {
-      return userUpdated(user);
+    if (usersManaged != null) {
+      return usersManaged(users);
     }
     return orElse();
   }
@@ -643,11 +577,10 @@ class _$_$UsersUserUpdatedState implements _$UsersUserUpdatedState {
   TResult map<TResult extends Object?>({
     required TResult Function(_$UsersLoadedState value) loaded,
     required TResult Function(_$UsersInitialState value) initial,
-    required TResult Function(_$UsersUserAddedState value) userAdded,
-    required TResult Function(_$UsersUserUpdatedState value) userUpdated,
-    required TResult Function(_$UsersUserDeletedState value) userDeleted,
+    required TResult Function(_$UsersLoadingState value) loading,
+    required TResult Function(_$UsersManagedState value) usersManaged,
   }) {
-    return userUpdated(this);
+    return usersManaged(this);
   }
 
   @override
@@ -655,11 +588,10 @@ class _$_$UsersUserUpdatedState implements _$UsersUserUpdatedState {
   TResult? mapOrNull<TResult extends Object?>({
     TResult? Function(_$UsersLoadedState value)? loaded,
     TResult? Function(_$UsersInitialState value)? initial,
-    TResult? Function(_$UsersUserAddedState value)? userAdded,
-    TResult? Function(_$UsersUserUpdatedState value)? userUpdated,
-    TResult? Function(_$UsersUserDeletedState value)? userDeleted,
+    TResult? Function(_$UsersLoadingState value)? loading,
+    TResult? Function(_$UsersManagedState value)? usersManaged,
   }) {
-    return userUpdated?.call(this);
+    return usersManaged?.call(this);
   }
 
   @override
@@ -667,184 +599,23 @@ class _$_$UsersUserUpdatedState implements _$UsersUserUpdatedState {
   TResult maybeMap<TResult extends Object?>({
     TResult Function(_$UsersLoadedState value)? loaded,
     TResult Function(_$UsersInitialState value)? initial,
-    TResult Function(_$UsersUserAddedState value)? userAdded,
-    TResult Function(_$UsersUserUpdatedState value)? userUpdated,
-    TResult Function(_$UsersUserDeletedState value)? userDeleted,
+    TResult Function(_$UsersLoadingState value)? loading,
+    TResult Function(_$UsersManagedState value)? usersManaged,
     required TResult orElse(),
   }) {
-    if (userUpdated != null) {
-      return userUpdated(this);
+    if (usersManaged != null) {
+      return usersManaged(this);
     }
     return orElse();
   }
 }
 
-abstract class _$UsersUserUpdatedState implements UsersState {
-  const factory _$UsersUserUpdatedState(final List<Map<String, dynamic>> user) =
-      _$_$UsersUserUpdatedState;
+abstract class _$UsersManagedState implements UsersState {
+  const factory _$UsersManagedState(final Map<String, dynamic> users) =
+      _$_$UsersManagedState;
 
-  List<Map<String, dynamic>> get user;
+  Map<String, dynamic> get users;
   @JsonKey(ignore: true)
-  _$$_$UsersUserUpdatedStateCopyWith<_$_$UsersUserUpdatedState> get copyWith =>
-      throw _privateConstructorUsedError;
-}
-
-/// @nodoc
-abstract class _$$_$UsersUserDeletedStateCopyWith<$Res> {
-  factory _$$_$UsersUserDeletedStateCopyWith(_$_$UsersUserDeletedState value,
-          $Res Function(_$_$UsersUserDeletedState) then) =
-      __$$_$UsersUserDeletedStateCopyWithImpl<$Res>;
-  @useResult
-  $Res call({List<String> userLogin});
-}
-
-/// @nodoc
-class __$$_$UsersUserDeletedStateCopyWithImpl<$Res>
-    extends _$UsersStateCopyWithImpl<$Res, _$_$UsersUserDeletedState>
-    implements _$$_$UsersUserDeletedStateCopyWith<$Res> {
-  __$$_$UsersUserDeletedStateCopyWithImpl(_$_$UsersUserDeletedState _value,
-      $Res Function(_$_$UsersUserDeletedState) _then)
-      : super(_value, _then);
-
-  @pragma('vm:prefer-inline')
-  @override
-  $Res call({
-    Object? userLogin = null,
-  }) {
-    return _then(_$_$UsersUserDeletedState(
-      null == userLogin
-          ? _value._userLogin
-          : userLogin // ignore: cast_nullable_to_non_nullable
-              as List<String>,
-    ));
-  }
-}
-
-/// @nodoc
-
-class _$_$UsersUserDeletedState implements _$UsersUserDeletedState {
-  const _$_$UsersUserDeletedState(final List<String> userLogin)
-      : _userLogin = userLogin;
-
-  final List<String> _userLogin;
-  @override
-  List<String> get userLogin {
-    // ignore: implicit_dynamic_type
-    return EqualUnmodifiableListView(_userLogin);
-  }
-
-  @override
-  String toString() {
-    return 'UsersState.userDeleted(userLogin: $userLogin)';
-  }
-
-  @override
-  bool operator ==(dynamic other) {
-    return identical(this, other) ||
-        (other.runtimeType == runtimeType &&
-            other is _$_$UsersUserDeletedState &&
-            const DeepCollectionEquality()
-                .equals(other._userLogin, _userLogin));
-  }
-
-  @override
-  int get hashCode =>
-      Object.hash(runtimeType, const DeepCollectionEquality().hash(_userLogin));
-
-  @JsonKey(ignore: true)
-  @override
-  @pragma('vm:prefer-inline')
-  _$$_$UsersUserDeletedStateCopyWith<_$_$UsersUserDeletedState> get copyWith =>
-      __$$_$UsersUserDeletedStateCopyWithImpl<_$_$UsersUserDeletedState>(
-          this, _$identity);
-
-  @override
-  @optionalTypeArgs
-  TResult when<TResult extends Object?>({
-    required TResult Function(List<Map<String, dynamic>> users) loaded,
-    required TResult Function() initial,
-    required TResult Function(List<Map<String, dynamic>> user) userAdded,
-    required TResult Function(List<Map<String, dynamic>> user) userUpdated,
-    required TResult Function(List<String> userLogin) userDeleted,
-  }) {
-    return userDeleted(userLogin);
-  }
-
-  @override
-  @optionalTypeArgs
-  TResult? whenOrNull<TResult extends Object?>({
-    TResult? Function(List<Map<String, dynamic>> users)? loaded,
-    TResult? Function()? initial,
-    TResult? Function(List<Map<String, dynamic>> user)? userAdded,
-    TResult? Function(List<Map<String, dynamic>> user)? userUpdated,
-    TResult? Function(List<String> userLogin)? userDeleted,
-  }) {
-    return userDeleted?.call(userLogin);
-  }
-
-  @override
-  @optionalTypeArgs
-  TResult maybeWhen<TResult extends Object?>({
-    TResult Function(List<Map<String, dynamic>> users)? loaded,
-    TResult Function()? initial,
-    TResult Function(List<Map<String, dynamic>> user)? userAdded,
-    TResult Function(List<Map<String, dynamic>> user)? userUpdated,
-    TResult Function(List<String> userLogin)? userDeleted,
-    required TResult orElse(),
-  }) {
-    if (userDeleted != null) {
-      return userDeleted(userLogin);
-    }
-    return orElse();
-  }
-
-  @override
-  @optionalTypeArgs
-  TResult map<TResult extends Object?>({
-    required TResult Function(_$UsersLoadedState value) loaded,
-    required TResult Function(_$UsersInitialState value) initial,
-    required TResult Function(_$UsersUserAddedState value) userAdded,
-    required TResult Function(_$UsersUserUpdatedState value) userUpdated,
-    required TResult Function(_$UsersUserDeletedState value) userDeleted,
-  }) {
-    return userDeleted(this);
-  }
-
-  @override
-  @optionalTypeArgs
-  TResult? mapOrNull<TResult extends Object?>({
-    TResult? Function(_$UsersLoadedState value)? loaded,
-    TResult? Function(_$UsersInitialState value)? initial,
-    TResult? Function(_$UsersUserAddedState value)? userAdded,
-    TResult? Function(_$UsersUserUpdatedState value)? userUpdated,
-    TResult? Function(_$UsersUserDeletedState value)? userDeleted,
-  }) {
-    return userDeleted?.call(this);
-  }
-
-  @override
-  @optionalTypeArgs
-  TResult maybeMap<TResult extends Object?>({
-    TResult Function(_$UsersLoadedState value)? loaded,
-    TResult Function(_$UsersInitialState value)? initial,
-    TResult Function(_$UsersUserAddedState value)? userAdded,
-    TResult Function(_$UsersUserUpdatedState value)? userUpdated,
-    TResult Function(_$UsersUserDeletedState value)? userDeleted,
-    required TResult orElse(),
-  }) {
-    if (userDeleted != null) {
-      return userDeleted(this);
-    }
-    return orElse();
-  }
-}
-
-abstract class _$UsersUserDeletedState implements UsersState {
-  const factory _$UsersUserDeletedState(final List<String> userLogin) =
-      _$_$UsersUserDeletedState;
-
-  List<String> get userLogin;
-  @JsonKey(ignore: true)
-  _$$_$UsersUserDeletedStateCopyWith<_$_$UsersUserDeletedState> get copyWith =>
+  _$$_$UsersManagedStateCopyWith<_$_$UsersManagedState> get copyWith =>
       throw _privateConstructorUsedError;
 }
