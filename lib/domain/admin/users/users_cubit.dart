@@ -28,4 +28,10 @@ class UsersCubit extends Cubit<UsersState> {
         editedUsers: editedUsers);
     emit(UsersState.usersManaged(loadedUsers));
   }
+
+  Future<void> findUsers({required String userLogin}) async {
+    emit(const UsersState.loading());
+    var loadedUsers = await UsersRepository().findUnhiredUsers(userLogin);
+    emit(UsersState.usersFounded(loadedUsers));
+  }
 }

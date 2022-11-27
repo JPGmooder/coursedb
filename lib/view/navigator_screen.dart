@@ -1,8 +1,12 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
+import 'package:kursachdesktop/domain/admin/employees/employees_cubit.dart';
 import 'package:kursachdesktop/domain/admin/users/users_cubit.dart';
-import 'package:kursachdesktop/view/admin/company_screen.dart';
+
+import 'package:kursachdesktop/domain/employee/courier/courier_cubit.dart';
+import 'package:kursachdesktop/domain/employee/organizations/organization_cubit.dart';
+
 import 'package:kursachdesktop/view/admin/employee_screen.dart';
 import 'package:kursachdesktop/view/admin/settings_screen.dart';
 import 'package:kursachdesktop/view/admin/users.dart';
@@ -22,16 +26,11 @@ class NavigatorScreen extends StatefulWidget {
   List<Widget> pages(NavigatorMode mode) {
     switch (mode) {
       case NavigatorMode.admin:
-        return [
-          UsersScreen(),
-          EmployeeScreen(),
-          CompanyScreen(),
-          SettingsScreen()
-        ];
+        return [UsersScreen(), EmployeeScreen(), SettingsScreen()];
       case NavigatorMode.employee:
         return [
           DashboardScreen(),
-          OrgainzationScreen(),
+          OrganizationScreen(),
           CouriersScreen(),
           ProfileScreen()
         ];
@@ -94,10 +93,6 @@ class _NavigatorScreenState extends State<NavigatorScreen>
                         currentIcon = FontAwesomeIcons.personBiking;
                         break;
                       case 2:
-                        currentText = "Организации";
-                        currentIcon = Icons.cases_outlined;
-                        break;
-                      case 3:
                         currentText = "Настройки БД";
                         currentIcon = Icons.settings;
                         break;
@@ -149,8 +144,17 @@ class _NavigatorScreenState extends State<NavigatorScreen>
               }),
         ),
         Expanded(
-          child: BlocProvider(
-            create: (context) => UsersCubit(),
+          child: MultiBlocProvider(
+            providers: [
+              BlocProvider(
+                create: (context) => UsersCubit(),
+              ),
+              BlocProvider(
+                create: (context) => EmployeesCubit(),
+              ),
+              BlocProvider(create: (ctx) => CourierCubit()),
+              BlocProvider(create: (ctx) => OrganizationCubit())
+            ],
             child: AnimatedSwitcher(
               duration: Duration(milliseconds: 500),
               child: widget.pages(widget.mode)[_controller.index],

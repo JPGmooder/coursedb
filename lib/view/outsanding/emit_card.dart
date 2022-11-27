@@ -4,17 +4,11 @@ import 'package:kursachdesktop/domain/admin/users/users_cubit.dart';
 import 'package:pluto_grid/pluto_grid.dart';
 
 class EmitCard extends StatefulWidget {
-  const EmitCard(
-      {Key? key,
-      required this.deletedRows,
-      required this.onAccept,
-      required this.onDeny,
-      required this.editedRows,
-      required this.addedRowsKeys})
-      : super(key: key);
-  final List<PlutoRow> editedRows;
-  final List<PlutoRow> deletedRows;
-  final List<Key> addedRowsKeys;
+  const EmitCard({
+    Key? key,
+    required this.onAccept,
+    required this.onDeny,
+  }) : super(key: key);
   final void Function() onAccept;
   final void Function() onDeny;
 
@@ -113,8 +107,8 @@ class _EmitCardState extends State<EmitCard>
                                           backgroundColor: Colors.red[200]),
                                       onPressed: () {
                                         isClosed = true;
-                                        context.read<UsersCubit>().loadUsers();
                                         _controller.reverse();
+                                        widget.onDeny();
                                       },
                                       child: Text("Откатить изменения")),
                                   ElevatedButton(
@@ -122,51 +116,8 @@ class _EmitCardState extends State<EmitCard>
                                           backgroundColor: Colors.lightGreen),
                                       onPressed: () {
                                         isClosed = true;
-
-                                        _controller.reverse();
-                                        List<Map<String, dynamic>>
-                                            loadedDeletedRows = [];
-                                        List<Map<String, dynamic>>
-                                            loadedEditedRows = [];
-                                        List<Map<String, dynamic>>
-                                            loadedAddedRows = [];
-                                        for (var element
-                                            in widget.deletedRows) {
-                                          Map<String, dynamic> currentMap = {};
-                                          for (var cell
-                                              in element.cells.entries) {
-                                            var currentEntry = {
-                                              cell.key: cell.value.value
-                                            };
-                                            currentMap.addAll(currentEntry);
-                                          }
-                                          loadedDeletedRows.add(currentMap);
-                                        }
-
-                                        for (var element in widget.editedRows) {
-                                          Map<String, dynamic> currentMap = {};
-                                        
-                                          for (var cell
-                                              in element.cells.entries) {
-                                            var currentEntry = {
-                                              cell.key: cell.value.value
-                                            };
-
-                                            currentMap.addAll(currentEntry);
-                                          }
-                                          if (widget.addedRowsKeys
-                                              .contains(element.key)) {
-                                            loadedAddedRows.add(currentMap);
-                                          } else {
-                                            loadedEditedRows.add(currentMap);
-                                          }
-                                        }
-
                                         widget.onAccept();
-                                        context.read<UsersCubit>().changeUsers(
-                                            editedUsers: loadedEditedRows,
-                                            deletedUsers: loadedDeletedRows,
-                                            addedUsers: loadedAddedRows);
+                                        _controller.reverse();
                                       },
                                       child: Text("Сохранить"))
                                 ],

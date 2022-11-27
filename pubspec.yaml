@@ -32,6 +32,7 @@ dependencies:
   animated_text_kit: ^4.2.2
   bloc: ^8.1.0
   build_runner: ^2.3.2
+  cli_script: ^0.2.6
   contextmenu: ^3.0.0
   cupertino_icons: ^1.0.2
   file_picker: ^5.2.2
@@ -47,8 +48,10 @@ dependencies:
   intl: ^0.17.0
   pluto_grid: ^5.4.3
   pluto_grid_export: ^1.0.3
+  process_run: ^0.12.3+2
   rive: ^0.9.1
   shared_preferences: ^2.0.15
+  shell: ^2.0.0
   supabase: ^1.2.0
 
 dev_dependencies:

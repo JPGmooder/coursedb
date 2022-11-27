@@ -21,6 +21,7 @@ mixin _$UsersState {
     required TResult Function(List<Map<String, dynamic>> users) loaded,
     required TResult Function() initial,
     required TResult Function() loading,
+    required TResult Function(List<Map<String, dynamic>> users) usersFounded,
     required TResult Function(Map<String, dynamic> users) usersManaged,
   }) =>
       throw _privateConstructorUsedError;
@@ -29,6 +30,7 @@ mixin _$UsersState {
     TResult? Function(List<Map<String, dynamic>> users)? loaded,
     TResult? Function()? initial,
     TResult? Function()? loading,
+    TResult? Function(List<Map<String, dynamic>> users)? usersFounded,
     TResult? Function(Map<String, dynamic> users)? usersManaged,
   }) =>
       throw _privateConstructorUsedError;
@@ -37,6 +39,7 @@ mixin _$UsersState {
     TResult Function(List<Map<String, dynamic>> users)? loaded,
     TResult Function()? initial,
     TResult Function()? loading,
+    TResult Function(List<Map<String, dynamic>> users)? usersFounded,
     TResult Function(Map<String, dynamic> users)? usersManaged,
     required TResult orElse(),
   }) =>
@@ -46,6 +49,7 @@ mixin _$UsersState {
     required TResult Function(_$UsersLoadedState value) loaded,
     required TResult Function(_$UsersInitialState value) initial,
     required TResult Function(_$UsersLoadingState value) loading,
+    required TResult Function(_$UsersFoundedState value) usersFounded,
     required TResult Function(_$UsersManagedState value) usersManaged,
   }) =>
       throw _privateConstructorUsedError;
@@ -54,6 +58,7 @@ mixin _$UsersState {
     TResult? Function(_$UsersLoadedState value)? loaded,
     TResult? Function(_$UsersInitialState value)? initial,
     TResult? Function(_$UsersLoadingState value)? loading,
+    TResult? Function(_$UsersFoundedState value)? usersFounded,
     TResult? Function(_$UsersManagedState value)? usersManaged,
   }) =>
       throw _privateConstructorUsedError;
@@ -62,6 +67,7 @@ mixin _$UsersState {
     TResult Function(_$UsersLoadedState value)? loaded,
     TResult Function(_$UsersInitialState value)? initial,
     TResult Function(_$UsersLoadingState value)? loading,
+    TResult Function(_$UsersFoundedState value)? usersFounded,
     TResult Function(_$UsersManagedState value)? usersManaged,
     required TResult orElse(),
   }) =>
@@ -160,6 +166,7 @@ class _$_$UsersLoadedState implements _$UsersLoadedState {
     required TResult Function(List<Map<String, dynamic>> users) loaded,
     required TResult Function() initial,
     required TResult Function() loading,
+    required TResult Function(List<Map<String, dynamic>> users) usersFounded,
     required TResult Function(Map<String, dynamic> users) usersManaged,
   }) {
     return loaded(users);
@@ -171,6 +178,7 @@ class _$_$UsersLoadedState implements _$UsersLoadedState {
     TResult? Function(List<Map<String, dynamic>> users)? loaded,
     TResult? Function()? initial,
     TResult? Function()? loading,
+    TResult? Function(List<Map<String, dynamic>> users)? usersFounded,
     TResult? Function(Map<String, dynamic> users)? usersManaged,
   }) {
     return loaded?.call(users);
@@ -182,6 +190,7 @@ class _$_$UsersLoadedState implements _$UsersLoadedState {
     TResult Function(List<Map<String, dynamic>> users)? loaded,
     TResult Function()? initial,
     TResult Function()? loading,
+    TResult Function(List<Map<String, dynamic>> users)? usersFounded,
     TResult Function(Map<String, dynamic> users)? usersManaged,
     required TResult orElse(),
   }) {
@@ -197,6 +206,7 @@ class _$_$UsersLoadedState implements _$UsersLoadedState {
     required TResult Function(_$UsersLoadedState value) loaded,
     required TResult Function(_$UsersInitialState value) initial,
     required TResult Function(_$UsersLoadingState value) loading,
+    required TResult Function(_$UsersFoundedState value) usersFounded,
     required TResult Function(_$UsersManagedState value) usersManaged,
   }) {
     return loaded(this);
@@ -208,6 +218,7 @@ class _$_$UsersLoadedState implements _$UsersLoadedState {
     TResult? Function(_$UsersLoadedState value)? loaded,
     TResult? Function(_$UsersInitialState value)? initial,
     TResult? Function(_$UsersLoadingState value)? loading,
+    TResult? Function(_$UsersFoundedState value)? usersFounded,
     TResult? Function(_$UsersManagedState value)? usersManaged,
   }) {
     return loaded?.call(this);
@@ -219,6 +230,7 @@ class _$_$UsersLoadedState implements _$UsersLoadedState {
     TResult Function(_$UsersLoadedState value)? loaded,
     TResult Function(_$UsersInitialState value)? initial,
     TResult Function(_$UsersLoadingState value)? loading,
+    TResult Function(_$UsersFoundedState value)? usersFounded,
     TResult Function(_$UsersManagedState value)? usersManaged,
     required TResult orElse(),
   }) {
@@ -280,6 +292,7 @@ class _$_$UsersInitialState implements _$UsersInitialState {
     required TResult Function(List<Map<String, dynamic>> users) loaded,
     required TResult Function() initial,
     required TResult Function() loading,
+    required TResult Function(List<Map<String, dynamic>> users) usersFounded,
     required TResult Function(Map<String, dynamic> users) usersManaged,
   }) {
     return initial();
@@ -291,6 +304,7 @@ class _$_$UsersInitialState implements _$UsersInitialState {
     TResult? Function(List<Map<String, dynamic>> users)? loaded,
     TResult? Function()? initial,
     TResult? Function()? loading,
+    TResult? Function(List<Map<String, dynamic>> users)? usersFounded,
     TResult? Function(Map<String, dynamic> users)? usersManaged,
   }) {
     return initial?.call();
@@ -302,6 +316,7 @@ class _$_$UsersInitialState implements _$UsersInitialState {
     TResult Function(List<Map<String, dynamic>> users)? loaded,
     TResult Function()? initial,
     TResult Function()? loading,
+    TResult Function(List<Map<String, dynamic>> users)? usersFounded,
     TResult Function(Map<String, dynamic> users)? usersManaged,
     required TResult orElse(),
   }) {
@@ -317,6 +332,7 @@ class _$_$UsersInitialState implements _$UsersInitialState {
     required TResult Function(_$UsersLoadedState value) loaded,
     required TResult Function(_$UsersInitialState value) initial,
     required TResult Function(_$UsersLoadingState value) loading,
+    required TResult Function(_$UsersFoundedState value) usersFounded,
     required TResult Function(_$UsersManagedState value) usersManaged,
   }) {
     return initial(this);
@@ -328,6 +344,7 @@ class _$_$UsersInitialState implements _$UsersInitialState {
     TResult? Function(_$UsersLoadedState value)? loaded,
     TResult? Function(_$UsersInitialState value)? initial,
     TResult? Function(_$UsersLoadingState value)? loading,
+    TResult? Function(_$UsersFoundedState value)? usersFounded,
     TResult? Function(_$UsersManagedState value)? usersManaged,
   }) {
     return initial?.call(this);
@@ -339,6 +356,7 @@ class _$_$UsersInitialState implements _$UsersInitialState {
     TResult Function(_$UsersLoadedState value)? loaded,
     TResult Function(_$UsersInitialState value)? initial,
     TResult Function(_$UsersLoadingState value)? loading,
+    TResult Function(_$UsersFoundedState value)? usersFounded,
     TResult Function(_$UsersManagedState value)? usersManaged,
     required TResult orElse(),
   }) {
@@ -394,6 +412,7 @@ class _$_$UsersLoadingState implements _$UsersLoadingState {
     required TResult Function(List<Map<String, dynamic>> users) loaded,
     required TResult Function() initial,
     required TResult Function() loading,
+    required TResult Function(List<Map<String, dynamic>> users) usersFounded,
     required TResult Function(Map<String, dynamic> users) usersManaged,
   }) {
     return loading();
@@ -405,6 +424,7 @@ class _$_$UsersLoadingState implements _$UsersLoadingState {
     TResult? Function(List<Map<String, dynamic>> users)? loaded,
     TResult? Function()? initial,
     TResult? Function()? loading,
+    TResult? Function(List<Map<String, dynamic>> users)? usersFounded,
     TResult? Function(Map<String, dynamic> users)? usersManaged,
   }) {
     return loading?.call();
@@ -416,6 +436,7 @@ class _$_$UsersLoadingState implements _$UsersLoadingState {
     TResult Function(List<Map<String, dynamic>> users)? loaded,
     TResult Function()? initial,
     TResult Function()? loading,
+    TResult Function(List<Map<String, dynamic>> users)? usersFounded,
     TResult Function(Map<String, dynamic> users)? usersManaged,
     required TResult orElse(),
   }) {
@@ -431,6 +452,7 @@ class _$_$UsersLoadingState implements _$UsersLoadingState {
     required TResult Function(_$UsersLoadedState value) loaded,
     required TResult Function(_$UsersInitialState value) initial,
     required TResult Function(_$UsersLoadingState value) loading,
+    required TResult Function(_$UsersFoundedState value) usersFounded,
     required TResult Function(_$UsersManagedState value) usersManaged,
   }) {
     return loading(this);
@@ -442,6 +464,7 @@ class _$_$UsersLoadingState implements _$UsersLoadingState {
     TResult? Function(_$UsersLoadedState value)? loaded,
     TResult? Function(_$UsersInitialState value)? initial,
     TResult? Function(_$UsersLoadingState value)? loading,
+    TResult? Function(_$UsersFoundedState value)? usersFounded,
     TResult? Function(_$UsersManagedState value)? usersManaged,
   }) {
     return loading?.call(this);
@@ -453,6 +476,7 @@ class _$_$UsersLoadingState implements _$UsersLoadingState {
     TResult Function(_$UsersLoadedState value)? loaded,
     TResult Function(_$UsersInitialState value)? initial,
     TResult Function(_$UsersLoadingState value)? loading,
+    TResult Function(_$UsersFoundedState value)? usersFounded,
     TResult Function(_$UsersManagedState value)? usersManaged,
     required TResult orElse(),
   }) {
@@ -465,6 +489,165 @@ class _$_$UsersLoadingState implements _$UsersLoadingState {
 
 abstract class _$UsersLoadingState implements UsersState {
   const factory _$UsersLoadingState() = _$_$UsersLoadingState;
+}
+
+/// @nodoc
+abstract class _$$_$UsersFoundedStateCopyWith<$Res> {
+  factory _$$_$UsersFoundedStateCopyWith(_$_$UsersFoundedState value,
+          $Res Function(_$_$UsersFoundedState) then) =
+      __$$_$UsersFoundedStateCopyWithImpl<$Res>;
+  @useResult
+  $Res call({List<Map<String, dynamic>> users});
+}
+
+/// @nodoc
+class __$$_$UsersFoundedStateCopyWithImpl<$Res>
+    extends _$UsersStateCopyWithImpl<$Res, _$_$UsersFoundedState>
+    implements _$$_$UsersFoundedStateCopyWith<$Res> {
+  __$$_$UsersFoundedStateCopyWithImpl(
+      _$_$UsersFoundedState _value, $Res Function(_$_$UsersFoundedState) _then)
+      : super(_value, _then);
+
+  @pragma('vm:prefer-inline')
+  @override
+  $Res call({
+    Object? users = null,
+  }) {
+    return _then(_$_$UsersFoundedState(
+      null == users
+          ? _value._users
+          : users // ignore: cast_nullable_to_non_nullable
+              as List<Map<String, dynamic>>,
+    ));
+  }
+}
+
+/// @nodoc
+
+class _$_$UsersFoundedState implements _$UsersFoundedState {
+  const _$_$UsersFoundedState(final List<Map<String, dynamic>> users)
+      : _users = users;
+
+  final List<Map<String, dynamic>> _users;
+  @override
+  List<Map<String, dynamic>> get users {
+    // ignore: implicit_dynamic_type
+    return EqualUnmodifiableListView(_users);
+  }
+
+  @override
+  String toString() {
+    return 'UsersState.usersFounded(users: $users)';
+  }
+
+  @override
+  bool operator ==(dynamic other) {
+    return identical(this, other) ||
+        (other.runtimeType == runtimeType &&
+            other is _$_$UsersFoundedState &&
+            const DeepCollectionEquality().equals(other._users, _users));
+  }
+
+  @override
+  int get hashCode =>
+      Object.hash(runtimeType, const DeepCollectionEquality().hash(_users));
+
+  @JsonKey(ignore: true)
+  @override
+  @pragma('vm:prefer-inline')
+  _$$_$UsersFoundedStateCopyWith<_$_$UsersFoundedState> get copyWith =>
+      __$$_$UsersFoundedStateCopyWithImpl<_$_$UsersFoundedState>(
+          this, _$identity);
+
+  @override
+  @optionalTypeArgs
+  TResult when<TResult extends Object?>({
+    required TResult Function(List<Map<String, dynamic>> users) loaded,
+    required TResult Function() initial,
+    required TResult Function() loading,
+    required TResult Function(List<Map<String, dynamic>> users) usersFounded,
+    required TResult Function(Map<String, dynamic> users) usersManaged,
+  }) {
+    return usersFounded(users);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult? whenOrNull<TResult extends Object?>({
+    TResult? Function(List<Map<String, dynamic>> users)? loaded,
+    TResult? Function()? initial,
+    TResult? Function()? loading,
+    TResult? Function(List<Map<String, dynamic>> users)? usersFounded,
+    TResult? Function(Map<String, dynamic> users)? usersManaged,
+  }) {
+    return usersFounded?.call(users);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult maybeWhen<TResult extends Object?>({
+    TResult Function(List<Map<String, dynamic>> users)? loaded,
+    TResult Function()? initial,
+    TResult Function()? loading,
+    TResult Function(List<Map<String, dynamic>> users)? usersFounded,
+    TResult Function(Map<String, dynamic> users)? usersManaged,
+    required TResult orElse(),
+  }) {
+    if (usersFounded != null) {
+      return usersFounded(users);
+    }
+    return orElse();
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult map<TResult extends Object?>({
+    required TResult Function(_$UsersLoadedState value) loaded,
+    required TResult Function(_$UsersInitialState value) initial,
+    required TResult Function(_$UsersLoadingState value) loading,
+    required TResult Function(_$UsersFoundedState value) usersFounded,
+    required TResult Function(_$UsersManagedState value) usersManaged,
+  }) {
+    return usersFounded(this);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult? mapOrNull<TResult extends Object?>({
+    TResult? Function(_$UsersLoadedState value)? loaded,
+    TResult? Function(_$UsersInitialState value)? initial,
+    TResult? Function(_$UsersLoadingState value)? loading,
+    TResult? Function(_$UsersFoundedState value)? usersFounded,
+    TResult? Function(_$UsersManagedState value)? usersManaged,
+  }) {
+    return usersFounded?.call(this);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult maybeMap<TResult extends Object?>({
+    TResult Function(_$UsersLoadedState value)? loaded,
+    TResult Function(_$UsersInitialState value)? initial,
+    TResult Function(_$UsersLoadingState value)? loading,
+    TResult Function(_$UsersFoundedState value)? usersFounded,
+    TResult Function(_$UsersManagedState value)? usersManaged,
+    required TResult orElse(),
+  }) {
+    if (usersFounded != null) {
+      return usersFounded(this);
+    }
+    return orElse();
+  }
+}
+
+abstract class _$UsersFoundedState implements UsersState {
+  const factory _$UsersFoundedState(final List<Map<String, dynamic>> users) =
+      _$_$UsersFoundedState;
+
+  List<Map<String, dynamic>> get users;
+  @JsonKey(ignore: true)
+  _$$_$UsersFoundedStateCopyWith<_$_$UsersFoundedState> get copyWith =>
+      throw _privateConstructorUsedError;
 }
 
 /// @nodoc
@@ -541,6 +724,7 @@ class _$_$UsersManagedState implements _$UsersManagedState {
     required TResult Function(List<Map<String, dynamic>> users) loaded,
     required TResult Function() initial,
     required TResult Function() loading,
+    required TResult Function(List<Map<String, dynamic>> users) usersFounded,
     required TResult Function(Map<String, dynamic> users) usersManaged,
   }) {
     return usersManaged(users);
@@ -552,6 +736,7 @@ class _$_$UsersManagedState implements _$UsersManagedState {
     TResult? Function(List<Map<String, dynamic>> users)? loaded,
     TResult? Function()? initial,
     TResult? Function()? loading,
+    TResult? Function(List<Map<String, dynamic>> users)? usersFounded,
     TResult? Function(Map<String, dynamic> users)? usersManaged,
   }) {
     return usersManaged?.call(users);
@@ -563,6 +748,7 @@ class _$_$UsersManagedState implements _$UsersManagedState {
     TResult Function(List<Map<String, dynamic>> users)? loaded,
     TResult Function()? initial,
     TResult Function()? loading,
+    TResult Function(List<Map<String, dynamic>> users)? usersFounded,
     TResult Function(Map<String, dynamic> users)? usersManaged,
     required TResult orElse(),
   }) {
@@ -578,6 +764,7 @@ class _$_$UsersManagedState implements _$UsersManagedState {
     required TResult Function(_$UsersLoadedState value) loaded,
     required TResult Function(_$UsersInitialState value) initial,
     required TResult Function(_$UsersLoadingState value) loading,
+    required TResult Function(_$UsersFoundedState value) usersFounded,
     required TResult Function(_$UsersManagedState value) usersManaged,
   }) {
     return usersManaged(this);
@@ -589,6 +776,7 @@ class _$_$UsersManagedState implements _$UsersManagedState {
     TResult? Function(_$UsersLoadedState value)? loaded,
     TResult? Function(_$UsersInitialState value)? initial,
     TResult? Function(_$UsersLoadingState value)? loading,
+    TResult? Function(_$UsersFoundedState value)? usersFounded,
     TResult? Function(_$UsersManagedState value)? usersManaged,
   }) {
     return usersManaged?.call(this);
@@ -600,6 +788,7 @@ class _$_$UsersManagedState implements _$UsersManagedState {
     TResult Function(_$UsersLoadedState value)? loaded,
     TResult Function(_$UsersInitialState value)? initial,
     TResult Function(_$UsersLoadingState value)? loading,
+    TResult Function(_$UsersFoundedState value)? usersFounded,
     TResult Function(_$UsersManagedState value)? usersManaged,
     required TResult orElse(),
   }) {

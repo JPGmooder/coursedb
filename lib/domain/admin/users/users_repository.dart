@@ -25,6 +25,21 @@ class UsersRepository {
     return parsedMap;
   }
 
+  Future<List<Map<String, dynamic>>> findUnhiredUsers(String userLogin) async {
+    var response = await UsersProvider.findUsersByLogin(userLogin: userLogin);
+    if (response.hasException) {
+      throw response.exception!;
+    }
+    var listToReturn = (response.data!['users'] as List<Object?>)
+        .cast<Map<String, dynamic>>()
+        .where((element) =>
+            element['banlist'] == null &&
+            element['employee'] == null &&
+            element['personaldatum'] != null)
+        .toList();
+    return listToReturn;
+  }
+
   Future<Map<String, dynamic>> changeUsers(
       {required List<Map<String, dynamic>> editedUsers,
       required List<Map<String, dynamic>> deletedUsers,
@@ -94,7 +109,7 @@ class UsersRepository {
           }
         });
       } else {
-        updatedUsersResult.add({'aboba' : 'boba'});
+        updatedUsersResult.add({'aboba': 'boba'});
         if (updatedUsersResult.length == editedUsers.length) {
           editCompleter.complete(updatedUsersResult);
         }

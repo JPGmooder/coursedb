@@ -351,15 +351,40 @@ class _UsersScreenState extends State<UsersScreen> {
                   width: 300,
                   height: 188,
                   child: EmitCard(
-                      onAccept: () => null,
-                      onDeny: () => setState(() {
-                            rows = [];
-                            stateManager!.removeAllRows();
-                            context.read<UsersCubit>().loadUsers();
-                          }),
-                      addedRowsKeys: addedRows,
-                      deletedRows: removedRows,
-                      editedRows: changedRows))),
+                    onAccept: () {
+                      List<Map<String, dynamic>> loadedDeletedRows = [];
+                      List<Map<String, dynamic>> loadedEditedRows = [];
+                      List<Map<String, dynamic>> loadedAddedRows = [];
+                      for (var element in removedRows) {
+                        Map<String, dynamic> currentMap = {};
+                        for (var cell in element.cells.entries) {
+                          var currentEntry = {cell.key: cell.value.value};
+                          currentMap.addAll(currentEntry);
+                        }
+                        loadedDeletedRows.add(currentMap);
+                      }
+
+                      for (var element in changedRows) {
+                        Map<String, dynamic> currentMap = {};
+
+                        for (var cell in element.cells.entries) {
+                          var currentEntry = {cell.key: cell.value.value};
+
+                          currentMap.addAll(currentEntry);
+                        }
+                        if (addedRows.contains(element.key)) {
+                          loadedAddedRows.add(currentMap);
+                        } else {
+                          loadedEditedRows.add(currentMap);
+                        }
+                      }
+                      context.read<UsersCubit>().changeUsers(
+                          editedUsers: loadedEditedRows,
+                          deletedUsers: loadedDeletedRows,
+                          addedUsers: loadedAddedRows);
+                    },
+                    onDeny: () => context.read<UsersCubit>().loadUsers(),
+                  ))),
         if (isLoading)
           Positioned.fill(
               child: ColoredBox(

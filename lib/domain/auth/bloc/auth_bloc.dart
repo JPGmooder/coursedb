@@ -23,7 +23,6 @@ class AuthBloc extends Bloc<AuthEvent, AuthState> {
         logIn: (login, password, isRemember) async {
           try {
             var userData = await AuthRepository.authUser(login, password);
-
             emit(AuthState.logedIn(userData['login']!, userData['password']!,
                 userData['email']!, userData['pd'], userData['postName']));
 

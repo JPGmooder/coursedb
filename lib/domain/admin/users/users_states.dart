@@ -8,6 +8,8 @@ class UsersState with _$UsersState {
       _$UsersInitialState;
   const factory UsersState.loading() =
       _$UsersLoadingState;
+   const factory UsersState.usersFounded(List<Map<String, dynamic>> users) =
+      _$UsersFoundedState;
   const factory UsersState.usersManaged(Map<String, dynamic> users) =
       _$UsersManagedState;
 }

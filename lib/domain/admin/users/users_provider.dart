@@ -208,4 +208,39 @@ mutation MyMutation($userlogin: String!) {
         mobileNumber: mobileNumber));
     return response;
   }
+
+  static QueryOptions _findUnhiredUsers(String userlogin) {
+    String query = r'''
+query MyQuery($_like: String!) {
+  users(where: {userlogin: {_like: $_like}}) {
+    userlogin
+    personaldatum {
+      personallname
+      personalname
+      personalpatronymic
+      personaldateofbirth
+    }
+    banlist {
+      userlogin
+    }
+    employee {
+      userlogin
+    }
+  }
+}
+''';
+    return QueryOptions(
+        document: gql(query),
+        fetchPolicy: FetchPolicy.networkOnly,
+        variables: {"_like": "%$userlogin%"});
+  }
+
+  static Future<QueryResult<Object?>> findUsersByLogin({
+    required String userLogin,
+  }) async {
+    var response = await AppsGraphClient.client.query(_findUnhiredUsers(
+      userLogin,
+    ));
+    return response;
+  }
 }
