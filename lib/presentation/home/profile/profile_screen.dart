@@ -1,14 +1,18 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_neumorphic/flutter_neumorphic.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
+import 'package:kursach/domain/employee/bloc/employee_bloc.dart';
+import 'package:kursach/domain/model/employee_model.dart';
 import 'package:kursach/domain/model/user_model.dart';
 import 'package:kursach/domain/orders/bloc/orders_bloc.dart';
+import 'package:kursach/domain/organization/bloc/org_bloc.dart';
 import 'package:kursach/presentation/auth/auth_body.dart';
 import 'package:kursach/presentation/auth/auth_screen.dart';
 import 'package:kursach/presentation/home/profile/courier/courier_navigator.dart';
 import 'package:kursach/presentation/home/profile/orders/my_orders_screen.dart';
 import 'package:kursach/presentation/home/profile/organization/manage_organization.dart';
 import 'package:kursach/presentation/home/profile/organization/navigator_organization.dart';
+import 'package:kursach/presentation/home/profile/support/my_tickets_screen.dart';
 import 'package:kursach/presentation/outstanding/dialogs.dart';
 import 'package:kursach/presentation/outstanding/gradientmask.dart';
 import 'package:kursach/presentation/outstanding/techsupport_card_widget.dart';
@@ -115,9 +119,12 @@ class _ProfileScreenState extends State<ProfileScreen> {
                         title = "Мои адреса";
                         break;
                       case 3:
-                        onPressed = () => null;
-                        icon = FontAwesomeIcons.addressCard;
-                        title = "Мои карты";
+                        onPressed = () => Navigator.push(
+                            context,
+                            MaterialPageRoute(
+                                builder: (ctx) => MyTicketsScreen()));
+                        icon = Icons.support_agent;
+                        title = "Техническая поддержка";
                         break;
                       case 4:
                         onPressed = () {
@@ -126,16 +133,35 @@ class _ProfileScreenState extends State<ProfileScreen> {
                                 as SMITrigger;
                             _bump.fire();
                           }
-                          UserModel.get().courier == null
-                              ? showGeneralDialog(
-                                  context: context,
-                                  pageBuilder: (ctx, _, __) {
-                                    return MainDialogWidget(
-                                      isCourier: true,
-                                    );
-                                  })
-                              : Navigator.of(widget.parentContext)
-                                  .pushNamed(CourierNavigatorWidget.route);
+                          if (UserModel.get().courier == null) {
+                            showGeneralDialog(
+                                context: context,
+                                pageBuilder: (ctx, _, __) {
+                                  return MainDialogWidget(
+                                    isCourier: true,
+                                  );
+                                });
+                          } else {
+                            EmployeeProvider.findStatusById(
+                                    UserModel.get().login)
+                                .then((value) {
+                              var status =
+                                  (value.data!['employee'] as List<Object?>)
+                                      .cast<Map<String, dynamic>>()
+                                      .first['status'];
+                              if (status == "Принят") {
+                                Navigator.of(widget.parentContext)
+                                    .pushNamed(CourierNavigatorWidget.route);
+                              } else {
+                                showDialog(
+                                    context: context,
+                                    builder: (ctx) => AlertDialog(
+                                          content: Text(
+                                              "Курьерские функции недоступны, поскольку статус вашей заявки - ${status}"),
+                                        ));
+                              }
+                            });
+                          }
                         };
                         icon = FontAwesomeIcons.magnet;
                         title = UserModel.get().courier == null
@@ -149,14 +175,36 @@ class _ProfileScreenState extends State<ProfileScreen> {
                         title = UserModel.get().organizationModel == null
                             ? "Сотрудничество"
                             : "Управление предприятием";
-                        onPressed = UserModel.get().organizationModel == null
-                            ? () => showGeneralDialog(
-                                context: context,
-                                pageBuilder: (ctx, _, __) {
-                                  return MainDialogWidget();
-                                })
-                            : () => Navigator.of(widget.parentContext)
-                                .pushNamed(NavigatorOrganizationScreen.route);
+
+                        if (UserModel.get().organizationModel == null) {
+                          onPressed = () => showGeneralDialog(
+                              context: context,
+                              pageBuilder: (ctx, _, __) {
+                                return MainDialogWidget();
+                              });
+                        } else {
+                          onPressed = () =>
+                              OrganizationProvider.findCompanyStatusById(
+                                      companyId: UserModel.get()
+                                          .organizationModel!
+                                          .idCompany)
+                                  .then((value) {
+                                var status = value.data!['company_by_pk']
+                                    ['companystatusname'];
+                                if (status == "Принято") {
+                                  Navigator.of(widget.parentContext).pushNamed(
+                                      NavigatorOrganizationScreen.route);
+                                } else {
+                                  showDialog(
+                                      context: context,
+                                      builder: (ctx) => AlertDialog(
+                                            content: Text(
+                                                "Предпренимательские функции недоступны, поскольку статус вашей заявки - ${status}"),
+                                          ));
+                                }
+                              });
+                        }
+
                         break;
                     }
 

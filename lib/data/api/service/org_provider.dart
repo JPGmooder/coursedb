@@ -190,4 +190,26 @@ mutation MyMutation($_similar: String = "", $id_company: Int = 10) {
         changeUsersCompanyMutation(idCompany: companyId, userLogin: userLogin));
     return response;
   }
+
+  static QueryOptions checkCompanyStatus({
+    required int idCompany,
+  }) {
+    String document = r'''
+query MyQuery($id_company: Int!) {
+  company_by_pk(id_company: $id_company) {
+    companystatusname
+  }
+}
+''';
+    return QueryOptions(document: gql(document), variables: {
+      "id_company": idCompany,
+    });
+  }
+
+  static Future<QueryResult> findCompanyStatusById(
+      {required int companyId}) async {
+    var response = await AppsGraphClient.client
+        .query(checkCompanyStatus(idCompany: companyId));
+    return response;
+  }
 }

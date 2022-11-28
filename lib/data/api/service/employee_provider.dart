@@ -77,6 +77,29 @@ class EmployeeProvider {
     });
   }
 
+  static QueryOptions _findStatusById(String userLogin) {
+    String query = r'''
+query MyQuery($_eq: String!) {
+  employee(where: {userlogin: {_eq: $_eq}}) {
+    status
+  }
+}
+''';
+    return QueryOptions(
+        document: gql(query),
+        fetchPolicy: FetchPolicy.networkOnly,
+        variables: {
+          "_eq": userLogin,
+        });
+  }
+
+  static Future<QueryResult> findStatusById(String userLogin) async {
+    var response = await AppsGraphClient.client.query(
+      _findStatusById(userLogin),
+    );
+    return response;
+  }
+
   static MutationOptions _changeOrderStatus(
       String userLogin, int orderId, String statusName) {
     String query =

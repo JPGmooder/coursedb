@@ -11,6 +11,7 @@ import 'package:kursach/domain/orders/bloc/orders_bloc.dart';
 import 'package:kursach/domain/organization/bloc/org_bloc.dart';
 import 'package:kursach/domain/place_searcher/bloc/place_searcher_bloc.dart';
 import 'package:kursach/domain/product/bloc/product_bloc.dart';
+import 'package:kursach/domain/tickets/bloc/tickets_bloc.dart';
 import 'package:kursach/presentation/additional/setlocation_screen.dart';
 import 'package:kursach/presentation/auth/auth_personal/auth_personal_screen.dart';
 import 'package:kursach/presentation/auth/auth_screen.dart';
@@ -34,7 +35,8 @@ class MyApp extends StatelessWidget {
         BlocProvider(create: (ctx) => OrganizationBloc()),
         BlocProvider(create: (ctx) => ProductBloc()),
         BlocProvider(create: (ctx) => OrdersBloc()),
-        BlocProvider(create: (ctx) => EmployeeBloc())
+        BlocProvider(create: (ctx) => EmployeeBloc()),
+        BlocProvider(create: (ctx) => TicketsBloc())
       ],
       child: MaterialApp(
           title: 'Material App',

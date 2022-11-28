@@ -11,9 +11,8 @@ class ProductProvider {
 }
 ''';
     return QueryOptions(
-        document: gql(query), variables: {"_like": searchString});
+        document: gql(query), variables: {"_like": "%$searchString%"});
   }
-
 
   static QueryOptions _searchBrandByName(String searchString) {
     String query = r'''query SearchBrandByName($_like : String!) {
@@ -25,7 +24,7 @@ class ProductProvider {
 }
 ''';
     return QueryOptions(
-        document: gql(query), variables: {"_like": searchString});
+        document: gql(query), variables: {"_like": "%$searchString%"});
   }
 
   static MutationOptions addProductType(int color, String productName) {
@@ -150,20 +149,20 @@ class ProductProvider {
     if (brandName != null) {
       signature += r', $_brandLike: String = ""';
       inputParams += r', $brandname: {_like: $_brandLike}';
-      variables.addEntries({"_brandLike": brandName}.entries);
+      variables.addEntries({"_brandLike": "%$brandName%"}.entries);
     }
     if (productType != null) {
       signature += r', $_productTypeNameLike: String = ""';
       inputParams += r', producttypename: {_like: $_productTypeNameLike}';
       variables.addEntries({
-        "_productTypeNameLike": productType,
+        "_productTypeNameLike": "%$productType%",
       }.entries);
     }
     if (productTypes != null) {
       signature += r', $_productTypeNamesLike: String = ""';
       inputParams += r', producttypenames: {_like: $_productTypeNamesLike}';
       variables.addEntries({
-        "_productTypeNamesLike": productTypes,
+        "_productTypeNamesLike": "%$productTypes%",
       }.entries);
     }
     if (productTypet != null) {
@@ -174,7 +173,7 @@ class ProductProvider {
     if (searchString != null) {
       signature += r', $_productNameLike: String = ""';
       inputParams += r', productname: {_like: $_productNameLike}';
-      variables.addEntries({"_productNameLike": searchString}.entries);
+      variables.addEntries({"_productNameLike": "%$searchString%" }.entries);
     }
     signature += r')';
     inputParams += r'})';
@@ -237,8 +236,6 @@ class ProductProvider {
         await AppsGraphClient.client.query(searchCategoryByName(searchText));
     return response;
   }
-
- 
 
   static Future<QueryResult> addNewCategory(
       {required String productTypeName, required int color}) async {
