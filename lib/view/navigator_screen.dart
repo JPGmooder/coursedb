@@ -6,6 +6,7 @@ import 'package:kursachdesktop/domain/admin/users/users_cubit.dart';
 
 import 'package:kursachdesktop/domain/employee/courier/courier_cubit.dart';
 import 'package:kursachdesktop/domain/employee/organizations/organization_cubit.dart';
+import 'package:kursachdesktop/domain/support/support_cubit.dart';
 
 import 'package:kursachdesktop/view/admin/employee_screen.dart';
 import 'package:kursachdesktop/view/admin/settings_screen.dart';
@@ -13,6 +14,8 @@ import 'package:kursachdesktop/view/admin/users.dart';
 import 'package:kursachdesktop/view/employee/couriers/courier_screen.dart';
 import 'package:kursachdesktop/view/employee/dashboard/dashboard_screen.dart';
 import 'package:kursachdesktop/view/employee/organizations/organization_screen.dart';
+import 'package:kursachdesktop/view/operator/orders_screen.dart';
+import 'package:kursachdesktop/view/operator/statistic_screen.dart';
 import 'package:kursachdesktop/view/outsanding/mainscreen_navigator.dart';
 import 'package:kursachdesktop/view/employee/profile/profile_screen.dart';
 
@@ -35,9 +38,9 @@ class NavigatorScreen extends StatefulWidget {
           ProfileScreen()
         ];
       case NavigatorMode.operator:
+        return [OrdersScreen(), StatisticScreen()];
         break;
       default:
-        return [];
     }
     return [];
   }
@@ -54,7 +57,7 @@ class _NavigatorScreenState extends State<NavigatorScreen>
   @override
   void initState() {
     _controller = TabController(
-        length: widget.pages(widget.mode).length, vsync: this, initialIndex: 2);
+        length: widget.pages(widget.mode).length, vsync: this, initialIndex: 0);
     _controller.addListener(() => _changePage(_controller.index));
 
     super.initState();
@@ -121,20 +124,12 @@ class _NavigatorScreenState extends State<NavigatorScreen>
                   case NavigatorMode.operator:
                     switch (index) {
                       case 0:
-                        currentText = "Панель управления";
-                        currentIcon = Icons.precision_manufacturing_outlined;
+                        currentText = "Статистика";
+                        currentIcon = Icons.auto_graph_sharp;
                         break;
                       case 1:
-                        currentText = "Аккаунт";
-                        currentIcon = Icons.person;
-                        break;
-                      case 2:
-                        currentText = "Организации";
-                        currentIcon = Icons.cases_rounded;
-                        break;
-                      case 3:
-                        currentText = "Курьеры";
-                        currentIcon = FontAwesomeIcons.bicycle;
+                        currentText = "Заявки";
+                        currentIcon = Icons.list_alt_rounded;
                         break;
                     }
                     break;
@@ -153,7 +148,8 @@ class _NavigatorScreenState extends State<NavigatorScreen>
                 create: (context) => EmployeesCubit(),
               ),
               BlocProvider(create: (ctx) => CourierCubit()),
-              BlocProvider(create: (ctx) => OrganizationCubit())
+              BlocProvider(create: (ctx) => OrganizationCubit()),
+              BlocProvider(create: (ctx) => SupportCubit())
             ],
             child: AnimatedSwitcher(
               duration: Duration(milliseconds: 500),
