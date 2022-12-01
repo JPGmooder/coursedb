@@ -50,4 +50,72 @@ class OrganiztionRepository {
     }
     return modelsToReturn;
   }
+
+  static Future<Map<ProductModel, Map<DateTime, int>>> loadCompanyStatistic(
+      {required int companyId}) async {
+    var response = await OrganizationProvider.findCompanysOrderedItems(
+        companyId: companyId);
+    if (response.hasException) {
+      throw Exception(response.exception.toString());
+    }
+    List<int> itemsToLoad = [];
+    var loadedList =
+        (response.data!['getcompanysproductsfromorders'] as List<Object?>?)!
+            .cast<Map<String, dynamic>>()
+            .toList();
+    loadedList.forEach((element) {
+      var currentCartItems = ((element['cartitems'] as List<Object?>)
+          .cast<Map<String, dynamic>>());
+      if (currentCartItems.isNotEmpty) {
+        itemsToLoad.addAll(
+            currentCartItems.map((e) => e['id_product']! as int).toList());
+      }
+    });
+    itemsToLoad = itemsToLoad.toSet().toList();
+    Map<ProductModel, Map<DateTime, int>> mapToReturn = {};
+    var loadedProducts =
+        await ProductRepository.loadProductModels(idCompany: companyId);
+    for (var orderedItemId in itemsToLoad) {
+      var curItemIndex = loadedProducts
+          .indexWhere((element) => element.productId == orderedItemId);
+      if (curItemIndex != -1) {
+        Map<ProductModel, Map<DateTime, int>> mapToAdd = {
+          loadedProducts[curItemIndex]: {}
+        };
+        var filteredList = loadedList.where((element) {
+          var currentCartItems = (element['cartitems'] as List<Object?>?)!
+              .cast<Map<String, dynamic>>();
+
+          return currentCartItems.isNotEmpty &&
+              currentCartItems
+                  .where((item) => item['id_product'] == orderedItemId)
+                  .isNotEmpty;
+        });
+        for (var items in filteredList) {
+          var currentDate =
+              DateUtils.dateOnly(DateTime.parse(items['cartcreationtime']));
+          int currentItemCount = (items['cartitems'] as List<Object?>)
+              .cast<Map<String, dynamic>>()
+              .firstWhere((element) =>
+                  element['id_product'] ==
+                  loadedProducts[curItemIndex].productId)['cartitemquantity'];
+          if (mapToAdd[loadedProducts[curItemIndex]]!
+              .keys
+              .contains(currentDate)) {
+            mapToAdd[loadedProducts[curItemIndex]]![currentDate] =
+                mapToAdd[loadedProducts[curItemIndex]]![currentDate]! +
+                    currentItemCount;
+          } else {
+            var currentItems = (items['cartitems'] as List<Object?>)
+                .cast<Map<String, dynamic>>();
+            mapToAdd[loadedProducts[curItemIndex]]!
+                .addAll({currentDate: currentItemCount});
+          }
+          mapToReturn.addAll(mapToAdd);
+        }
+      }
+    }
+    return mapToReturn;
+    // return modelsToReturn;
+  }
 }

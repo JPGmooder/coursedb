@@ -24,4 +24,8 @@ abstract class OrganizationEvent with _$OrganizationEvent {
     String? brand,
     String? name,
   }) = _$OrganizationLoadOrganizationsEvent;
+
+  const factory OrganizationEvent.loadOrganizationStatistic({
+    required int companyId
+  }) = _$OrganizationLoadStatisticEvent;
 }

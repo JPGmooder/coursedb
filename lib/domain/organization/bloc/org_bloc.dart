@@ -1,7 +1,9 @@
 import 'dart:developer';
+import 'dart:ffi';
 
 import 'package:bloc/bloc.dart';
 import 'package:flutter/foundation.dart';
+import 'package:flutter/material.dart';
 import 'package:freezed_annotation/freezed_annotation.dart';
 import 'package:graphql_flutter/graphql_flutter.dart';
 import 'package:kursach/data/api/model/graphclient.dart';
@@ -10,6 +12,7 @@ import 'package:kursach/domain/model/address_model.dart';
 import 'package:kursach/domain/model/organization_model.dart';
 import 'package:kursach/domain/model/product_model.dart';
 import 'package:kursach/domain/model/user_model.dart';
+import 'package:kursach/domain/product/bloc/product_bloc.dart';
 import 'package:supabase_flutter/supabase_flutter.dart';
 import 'package:translit/translit.dart';
 
@@ -31,6 +34,13 @@ class OrganizationBloc extends Bloc<OrganizationEvent, OrganizationState> {
               await OrganiztionRepository.loadUsersCompanies(
                   addressId: address.id_address, maxDistance: 1500000);
           emit(OrganizationState.usersOrganizationsLoaded(loadedOrganizations));
+        },
+        loadOrganizationStatistic: (orgId) async {
+          emit(OrganizationState.loading());
+          var loadedStatistic =
+              await OrganiztionRepository.loadCompanyStatistic(
+                  companyId: orgId);
+          emit(OrganizationState.statisticLoaded(loadedStatistic));
         },
         createNew:
             (addressModel, name, deliveryPrice, logoImage, cardImage) async {

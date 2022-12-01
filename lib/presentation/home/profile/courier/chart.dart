@@ -15,6 +15,7 @@ class CourierChart extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return SfCartesianChart(
+    
         title: ChartTitle(text: "Стоимость доставок"),
         primaryXAxis: CategoryAxis(),
         series: <LineSeries<Map<DateTime, double>, String>>[

@@ -10,4 +10,6 @@ abstract class OrganizationState with _$OrganizationState {
     const factory OrganizationState.stuffLoaded(List<ProductModel> stuff) = _$OrganizationStuffLoadedState;
   const factory OrganizationState.errored(
       String errorTitle, String errorSubtitle) = _$OrganizationErroredState;
+      const factory OrganizationState.statisticLoaded(
+      Map<ProductModel, Map<DateTime, int>> statisticMap) = _$OrganizationStatisticLoadedState;
 }

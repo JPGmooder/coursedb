@@ -1,8 +1,6 @@
 part of '../../../domain/organization/bloc/org_bloc.dart';
 
 class OrganizationProvider {
-
-  
   static MutationOptions addNewCompanyMutation(
       {required int deliveryPrice,
       required int idAddress,
@@ -206,6 +204,33 @@ query MyQuery($id_company: Int!) {
     return QueryOptions(document: gql(document), variables: {
       "id_company": idCompany,
     });
+  }
+
+  static MutationOptions _findCompanysOrderedItems({
+    required int idCompany,
+  }) {
+    String document = r'''
+mutation MyMutation($p_id_company: Int!) {
+  getcompanysproductsfromorders(args: {p_id_company: $p_id_company}, where: {isactive: {_eq: false}}) {
+    cartcreationtime
+    cartitems {
+      id_product
+      cartitemquantity
+    }
+  }
+}
+
+''';
+    return MutationOptions(document: gql(document), variables: {
+      "p_id_company": idCompany,
+    });
+  }
+
+  static Future<QueryResult> findCompanysOrderedItems(
+      {required int companyId}) async {
+    var response = await AppsGraphClient.client
+        .mutate(_findCompanysOrderedItems(idCompany: companyId));
+    return response;
   }
 
   static Future<QueryResult> findCompanyStatusById(
