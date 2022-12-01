@@ -28,6 +28,8 @@ class MyTicketsScreen extends StatefulWidget {
 }
 
 class _MyOrdersScreenState extends State<MyTicketsScreen> {
+  
+  
   @override
   void initState() {
     context
@@ -272,6 +274,12 @@ class TicketWidget extends StatefulWidget {
 
 class _TicketWidgetState extends State<TicketWidget> {
   late ExpandableController _controller;
+
+  @override
+  void dispose() {
+    _controller.dispose();
+    super.dispose();
+  }
 
   @override
   void initState() {

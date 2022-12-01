@@ -35,6 +35,12 @@ class _CropperWidgetState extends State<CropperWidget> {
   }
 
   @override
+  void dispose() {
+    cropController.dispose();
+    super.dispose();
+  }
+
+  @override
   Widget build(BuildContext context) {
     return Material(
       child: SizedBox(

@@ -17,10 +17,11 @@ import 'package:kursach/presentation/outstanding/gradientmask.dart';
 import 'package:kursach/presentation/outstanding/product/product_screen.dart';
 import 'package:sliver_tools/sliver_tools.dart';
 import 'package:rxdart/rxdart.dart';
+import 'package:supabase_flutter/supabase_flutter.dart';
 
 class MyOrdersScreen extends StatefulWidget {
-  MyOrdersScreen({Key? key}) : super(key: key);
-
+  MyOrdersScreen({Key? key, this.isCourier = false}) : super(key: key);
+  bool isCourier;
   @override
   State<MyOrdersScreen> createState() => _MyOrdersScreenState();
 }
@@ -61,59 +62,109 @@ class _MyOrdersScreenState extends State<MyOrdersScreen> {
   }
 
   @override
+  void initState() {
+    if (widget.isCourier) {
+      context
+          .read<OrdersBloc>()
+          .add(OrdersEvent.loadCouriersOrders(userLogin: UserModel.get().login));
+    }
+    super.initState();
+  }
+
+  @override
   Widget build(BuildContext context) {
     return Scaffold(
       body: SafeArea(
         child: BlocBuilder<OrdersBloc, OrdersState>(
           builder: (context, state) {
-            return state.maybeWhen(orElse: () {
-              if (currentOrders == null) {
-                return CircularProgressIndicator();
-              } else {
-                var listToMap = parseList();
-                return Padding(
-                  padding: const EdgeInsets.all(8.0),
-                  child: CustomScrollView(slivers: [
-                    ...listToMap.entries
-                        .map((e) => Section(
-                            ordersAmount: e.value.length,
-                            title: DateFormat("d MMMM y", 'ru').format(e.key),
-                            items: e.value.map((e) {
-                              var cart = e['cart'] as CartModel;
-                              var order = e['order'] as OrderModel;
-                              return OrderWidget(order: order, cart: cart);
-                            }).toList()))
-                        .toList()
-                  ]),
-                );
-              }
-            }, usersOrdersLoaded: (orders) {
-              var listToMap = parseList(orders: orders);
-              return Padding(
-                padding: const EdgeInsets.all(8.0),
-                child: CustomScrollView(slivers: [
-                  SliverAppBar(
-                    iconTheme: IconThemeData(color: Colors.black),
-                    title: Text(
-                      "Мои заказы",
-                      style: Theme.of(context).textTheme.titleMedium,
-                    ),
-                    pinned: true,
-                    backgroundColor: Theme.of(context).colorScheme.surface,
-                  ),
-                  ...listToMap.entries
-                      .map((e) => Section(
-                          ordersAmount: e.value.length,
-                          title: DateFormat("d MMMM y", 'ru').format(e.key),
-                          items: e.value.map((e) {
-                            var cart = e['cart'] as CartModel;
-                            var order = e['order'] as OrderModel;
-                            return OrderWidget(order: order, cart: cart);
-                          }).toList()))
-                      .toList()
-                ]),
-              );
-            });
+            return state.maybeWhen(
+                orElse: () {
+                  if (currentOrders == null) {
+                    return CircularProgressIndicator();
+                  } else {
+                    var listToMap = parseList();
+                    return Padding(
+                      padding: const EdgeInsets.all(8.0),
+                      child: CustomScrollView(slivers: [
+                        ...listToMap.entries
+                            .map((e) => Section(
+                                ordersAmount: e.value.length,
+                                title:
+                                    DateFormat("d MMMM y", 'ru').format(e.key),
+                                items: e.value.map((e) {
+                                  var cart = e['cart'] as CartModel;
+                                  var order = e['order'] as OrderModel;
+                                  return OrderWidget(order: order, cart: cart);
+                                }).toList()))
+                            .toList()
+                      ]),
+                    );
+                  }
+                },
+                couriersOrdersLoaded: widget.isCourier
+                    ? (orders) {
+                        var listToMap = parseList(orders: orders);
+                        return Padding(
+                          padding: const EdgeInsets.all(8.0),
+                          child: CustomScrollView(slivers: [
+                            SliverAppBar(
+                              iconTheme: IconThemeData(color: Colors.black),
+                              title: Text(
+                                "Мои заказы",
+                                style: Theme.of(context).textTheme.titleMedium,
+                              ),
+                              pinned: true,
+                              backgroundColor:
+                                  Theme.of(context).colorScheme.surface,
+                            ),
+                            ...listToMap.entries
+                                .map((e) => Section(
+                                    ordersAmount: e.value.length,
+                                    title: DateFormat("d MMMM y", 'ru')
+                                        .format(e.key),
+                                    items: e.value.map((e) {
+                                      var cart = e['cart'] as CartModel;
+                                      var order = e['order'] as OrderModel;
+                                      return OrderWidget(
+                                          order: order, cart: cart);
+                                    }).toList()))
+                                .toList()
+                          ]),
+                        );
+                      }
+                    : null,
+                usersOrdersLoaded: widget.isCourier
+                    ? null
+                    : (orders) {
+                        var listToMap = parseList(orders: orders);
+                        return Padding(
+                          padding: const EdgeInsets.all(8.0),
+                          child: CustomScrollView(slivers: [
+                            SliverAppBar(
+                              iconTheme: IconThemeData(color: Colors.black),
+                              title: Text(
+                                "Мои заказы",
+                                style: Theme.of(context).textTheme.titleMedium,
+                              ),
+                              pinned: true,
+                              backgroundColor:
+                                  Theme.of(context).colorScheme.surface,
+                            ),
+                            ...listToMap.entries
+                                .map((e) => Section(
+                                    ordersAmount: e.value.length,
+                                    title: DateFormat("d MMMM y", 'ru')
+                                        .format(e.key),
+                                    items: e.value.map((e) {
+                                      var cart = e['cart'] as CartModel;
+                                      var order = e['order'] as OrderModel;
+                                      return OrderWidget(
+                                          order: order, cart: cart);
+                                    }).toList()))
+                                .toList()
+                          ]),
+                        );
+                      });
           },
         ),
       ),
@@ -139,6 +190,12 @@ class _OrderWidgetState extends State<OrderWidget> {
   late ExpandableController _controller;
   List<ProductModel>? orderedProducts;
   OrganizationModel? organization;
+
+  @override
+  void dispose() {
+    _controller.dispose();
+    super.dispose();
+  }
 
   @override
   void initState() {

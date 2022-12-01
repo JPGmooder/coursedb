@@ -46,6 +46,9 @@ class _MyOrdersDetailedScreenState extends State<MyOrdersDetailedScreen> {
   late List<MapObject> currentMapObjects;
 
   PlacemarkMapObject? _courierMark, _companyMark, _clientMarkl;
+
+
+
   @override
   void initState() {
     isPassedCompany = false;
@@ -141,9 +144,9 @@ class _MyOrdersDetailedScreenState extends State<MyOrdersDetailedScreen> {
           }));
       byciclingResult.result.then((value) => setState(() {
             _bicycleRoute = value;
-              var index = currentMapObjects.indexWhere(
+            var index = currentMapObjects.indexWhere(
                 (element) => element.mapId == MapObjectId("currentRoute"));
-             if (!isCarRoute) {
+            if (!isCarRoute) {
               currentMapObjects[index] =
                   getRoute(_bicycleRoute!.routes!.first.geometry);
             }

@@ -1,6 +1,8 @@
 part of '../../../domain/organization/bloc/org_bloc.dart';
 
 class OrganizationProvider {
+
+  
   static MutationOptions addNewCompanyMutation(
       {required int deliveryPrice,
       required int idAddress,

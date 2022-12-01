@@ -122,6 +122,35 @@ class OrdersProvider {
     return QueryOptions(document: gql(query), variables: {"_eq": userLogin});
   }
 
+  static QueryOptions _findCouriersOrdersById(String courierLogin) {
+    String query = r'''query findOrdersByUserLogin($_eq1: String!) {
+  orders(where: {userlogin: {_eq: $_eq1}}) {
+    cart {
+      cartcreationtime
+      cartitems {
+        cartitemquantity
+        cartitem_id
+        id_product
+      }
+      cart_id
+      isactive
+    }
+    orderstatus {
+      orderstatusname
+      orderstep
+    }
+    orderprice
+    id_address
+    id_order
+    cart_id
+  }
+}
+
+''';
+    return QueryOptions(
+        document: gql(query), variables: {"_eq1": courierLogin});
+  }
+
   static SubscriptionOptions _checkActualOrders() {
     String query = r'''subscription OrdersChecker {
   orders(limit: 1) {
@@ -139,6 +168,12 @@ class OrdersProvider {
   static Future<QueryResult> findOrders(String userLogin) async {
     var response =
         await AppsGraphClient.client.query(_findOrdersById(userLogin));
+    return response;
+  }
+
+  static Future<QueryResult> findCouriersOrders(String userLogin) async {
+    var response =
+        await AppsGraphClient.client.query(_findCouriersOrdersById(userLogin));
     return response;
   }
 

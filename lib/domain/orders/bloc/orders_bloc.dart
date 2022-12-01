@@ -25,6 +25,12 @@ class OrdersBloc extends Bloc<OrdersEvent, OrdersState> {
                 products: loadedInfo['products'],
                 organization: loadedInfo['company']));
           },
+          loadCouriersOrders: (courierLogin) async {
+            emit(const OrdersState.loading());
+            var loadedOrders = await OrdersRepository.loadCouriesOrders(
+                userLogin: courierLogin);
+            emit(OrdersState.couriersOrdersLoaded(loadedOrders));
+          },
           loadUserOrders: (userLogin) async {
             emit(const OrdersState.loading());
             var loadedOrders =

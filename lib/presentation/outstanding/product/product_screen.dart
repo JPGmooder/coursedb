@@ -34,6 +34,13 @@ class _ProductScreenState extends State<ProductScreen> {
   late ExpandableController _controller;
 
   @override
+  void dispose() {
+    _controller.dispose();
+    
+    super.dispose();
+  }
+
+  @override
   void initState() {
     _controller = ExpandableController(
       initialExpanded: false,

@@ -156,6 +156,56 @@ mutation MyMutation($p_addressstreetname: String!, $p_userlogin: String, $p_addr
     });
   }
 
+  static MutationOptions _updateUserPDByLogin(
+      {required String userLogin,
+      required String name,
+      required String lname,
+      String? patronymic,
+      required DateTime birthday,
+      required String mobileNumber}) {
+    String document = r'''
+mutation MyMutation($p_personaldateofbirth: date!, $p_personallname: String!, $p_personalmobilenumber: String!, $p_personalname: String!, $p_personalpatronymic: String!, $p_userlogin: String!) {
+  personaldata_updateex(args: {p_personaldateofbirth: $p_personaldateofbirth, p_personallname: $p_personallname, p_personalmobilenumber: $p_personalmobilenumber, p_personalname: $p_personalname, p_personalpatronymic: $p_personalpatronymic, p_userlogin: $p_userlogin}, limit: 1) {
+    personaldateofbirth
+    personallname
+    personalmobilenumber
+    personalname
+    personalpatronymic
+    userlogin
+  }
+}
+''';
+    return MutationOptions(document: gql(document), variables: {
+      "p_personaldateofbirth": birthday.toString(),
+      "p_personallname": lname,
+      "p_personalmobilenumber": mobileNumber,
+      "p_personalname": name,
+      "p_personalpatronymic": patronymic,
+      "p_userlogin": userLogin
+    });
+  }
+
+  static Future<QueryResult?> updateUserPd(
+      {required String userLogin,
+      required String name,
+      required String lname,
+      String? patronymic,
+      required DateTime birthday,
+      required String mobileNumber}) async {
+    var response = await AppsGraphClient.client
+        .mutate(_updateUserPDByLogin(
+            userLogin: userLogin,
+            patronymic: patronymic,
+            name: name,
+            lname: lname,
+            birthday: birthday,
+            mobileNumber: mobileNumber))
+        .timeout(Duration(seconds: 10),
+            onTimeout: () => throw Exception(
+                "Невозможно получить ответ от сервера, проверьте интернет-соединение и повторите попытку"));
+    return response;
+  }
+
   static MutationOptions getAddressesByUserLogin({required String userLogin}) {
     String document = r'''
 query FindAddressByLogin($_eq: String!) {

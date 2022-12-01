@@ -295,7 +295,20 @@ class _ExpandedCouriersOrderState extends State<ExpandedCouriersOrder> {
                 state.maybeWhen(
                     orElse: () => null,
                     orderStatusChanged: (orderId, status) {
-                      if (UserModel.get().courier!.currentOrder == null &&
+                      if (status.step == OrderStep.delivered &&
+                          UserModel.get()
+                                  .courier!
+                                  .currentOrder!
+                                  .order
+                                  .idOrder ==
+                              orderId) {
+                        UserModel.get().courier!.currentOrder = null;
+                        Navigator.pushReplacement(
+                            context,
+                            MaterialPageRoute(
+                                builder: (ctx) => CourierOrdersScreen()));
+                      } else if (UserModel.get().courier!.currentOrder ==
+                              null &&
                           widget.order.idOrder == orderId) {
                         context.read<EmployeeBloc>().add(
                             EmployeeEvent.regCourierPlacement(
@@ -738,7 +751,6 @@ class timeInfoWidget extends StatefulWidget {
 }
 
 class _timeInfoWidgetState extends State<timeInfoWidget> {
-  StateMachineController? _scontroller;
   late bool isCarPicked;
   late bool isBicyclePicked;
 

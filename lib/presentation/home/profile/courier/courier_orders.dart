@@ -57,6 +57,7 @@ class _CourierOrdersScreenState extends State<CourierOrdersScreen> {
 
   @override
   void dispose() {
+    geoListener.cancel();
     ordersListener?.cancel();
     super.dispose();
   }

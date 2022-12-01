@@ -192,6 +192,8 @@ class _CourierFieldManageState extends State<CourierFieldManage> {
               child: BlocConsumer<EmployeeBloc, EmployeeState>(
                 listener: (context, state) => state.maybeWhen(
                     orElse: () => null,
+                    distanceChanged: (distance) =>
+                        UserModel.get().courier!.deliverField = distance,
                     courierReged: (courier) {
                       UserModel.get().regNewCourier(courier);
                       Navigator.popUntil(
@@ -214,7 +216,11 @@ class _CourierFieldManageState extends State<CourierFieldManage> {
                                             userLogin: UserModel.get().login,
                                             deliveryAreaDiametr:
                                                 deliverSliderValue.toDouble()))
-                                    : null,
+                                    : context.read<EmployeeBloc>().add(
+                                        EmployeeEvent.changeCourierDistance(
+                                            userLogin: UserModel.get().login,
+                                            distance:
+                                                deliverSliderValue.toDouble())),
                                 child: Padding(
                                   padding: const EdgeInsets.all(8.0),
                                   child: Center(

@@ -7,6 +7,8 @@ abstract class OrdersState with _$OrdersState {
       _$OrdersLoadingState;
       const factory OrdersState.errored(String error) =
       _$OrdersErroredState;
+      const factory OrdersState.couriersOrdersLoaded(List<Map<String, dynamic>> orders) =
+      _$OrdersCouriersOrdersLoadedState;
       const factory OrdersState.usersOrdersLoaded(List<Map<String, dynamic>> orders) =
       _$OrdersUsersOrdersLoadedState;
        const factory OrdersState.ordersProductsLoaded({required List<ProductModel> products, required OrganizationModel organization}) =

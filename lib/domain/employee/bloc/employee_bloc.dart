@@ -10,6 +10,7 @@ import 'package:kursach/domain/model/cart_model.dart';
 import 'package:kursach/domain/model/employee_model.dart';
 import 'package:kursach/domain/model/order_model.dart';
 import 'package:kursach/domain/model/product_model.dart';
+import 'package:kursach/domain/model/statistic_model.dart';
 import 'package:kursach/domain/model/user_model.dart';
 import 'package:kursach/domain/orders/bloc/orders_bloc.dart';
 import 'package:kursach/domain/product/bloc/product_bloc.dart';
@@ -64,6 +65,18 @@ class EmployeeBloc extends Bloc<EmployeeEvent, EmployeeState> {
             var loadedCourier = await EmployeeRepository.findPersonalDataByPK(
                 addressPK: addressId);
             emit(EmployeeState.personalDataFindedState(loadedCourier));
+          },
+          changeCourierDistance: (userLogin, distance) async {
+            var loadedCourier = await EmployeeRepository.changeCouriersDistance(
+                distance: distance, userLogin: userLogin);
+            emit(EmployeeState.distanceChanged(loadedCourier));
+          },
+          loadStatisticEvent: (_) async {
+            emit(const EmployeeState.loading());
+
+            var loadedStatistic =
+                await EmployeeRepository.loadCuriersStatistic();
+            emit(EmployeeState.statisticLoaded(loadedStatistic));
           });
     });
   }

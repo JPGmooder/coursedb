@@ -29,7 +29,9 @@ class AuthRepository {
               as List<Object?>?)
           ?.map((e) => AddressModel.fromMap(e as Map<String, dynamic>))
           .toList(),
-      'employee': rawData.data!['users_login']['employee'] == null ? null : CourierModel.fromMap(rawData.data!['users_login']['employee']),
+      'employee': rawData.data!['users_login']['employee'] == null
+          ? null
+          : CourierModel.fromMap(rawData.data!['users_login']['employee']),
       'carts':
           (rawData.data!['users_login']['client']['carts'] as List<Object?>)
               .map((e) => CartModel.fromMap(e as Map<String, dynamic>))
@@ -112,5 +114,27 @@ class AuthRepository {
     }
 
     return addressesToReturn;
+  }
+
+  static Future<UserPersonalDataModel> changeUsersPersonalData(
+      {required String userLogin,
+      required UserPersonalDataModel pdModel}) async {
+    var rawData = await AuthProvider.updateUserPd(
+        birthday: pdModel.dateOfBirth,
+        lname: pdModel.fname,
+        mobileNumber: pdModel.mobileNumber,
+        name: pdModel.name,
+        userLogin: userLogin,
+        patronymic: pdModel.patronymic);
+    if (rawData!.data == null) {
+      throw Exception("Адреса не найдены, повторите попытку");
+    }
+
+    UserPersonalDataModel modelToReturn;
+
+    modelToReturn =
+        UserPersonalDataModel.fromMap(rawData.data!['personaldata_updateex']);
+
+    return modelToReturn;
   }
 }

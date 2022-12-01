@@ -27,6 +27,8 @@ class _LoadinScreenState extends State<LoadinScreen> {
 
   @override
   void initState() {
+    _controller?.dispose();
+
     super.initState();
   }
 
@@ -70,7 +72,8 @@ class _LoadinScreenState extends State<LoadinScreen> {
                 });
               });
             },
-            logedIn: (login, password, email, data, address, org, employee, carts) {
+            logedIn:
+                (login, password, email, data, address, org, employee, carts) {
               _thirdPackage!.value = true;
               Future.delayed(Duration(seconds: 1)).then((value) {
                 UserModel.get(

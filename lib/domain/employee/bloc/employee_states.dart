@@ -7,6 +7,8 @@ abstract class EmployeeState with _$EmployeeState {
   const factory EmployeeState.errored(String error) = _$EmployeeErroredState;
   const factory EmployeeState.courierReged(CourierModel courier) =
       _$EmployeeCourierRegistredState;
+  const factory EmployeeState.distanceChanged(double distance) =
+      _$EmployeeCourierDistanceChangedState;
   const factory EmployeeState.ordersFounded(List<Map<String, dynamic>> orders) =
       _$EmployeeOrdersFoundedState; 
   const factory EmployeeState.currentOrderFound(List<Map<String, dynamic>> orders) =
@@ -17,4 +19,6 @@ abstract class EmployeeState with _$EmployeeState {
       _$EmployeePersonalDataFindedState; 
   const factory EmployeeState.timeRegistred(DateTime time) =
       _$EmployeeTimeRegistredState; 
+  const factory EmployeeState.statisticLoaded(List<CourierStatistic> statistic) =
+      _$EmployeeStatisticLoadedState; 
 }

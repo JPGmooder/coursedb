@@ -36,6 +36,13 @@ class _RestarauntMainPageState extends State<RestarauntMainPage> {
   }
 
   @override
+  void dispose() {
+    _maincroller.dispose();
+    _scontroller?.dispose();
+    super.dispose();
+  }
+
+  @override
   void initState() {
     categories = [];
     context.read<ProductBloc>().add(ProductEvent.loadProducts(

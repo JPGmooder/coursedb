@@ -9,6 +9,9 @@ abstract class EmployeeEvent with _$EmployeeEvent {
       {required String userLogin,
       required double currentLat,
       required double currentLon}) = _$EmployeeFindNearestOrdersEvent;
+   const factory EmployeeEvent.changeCourierDistance(
+      {required String userLogin,
+      required double distance}) = _$EmployeeChangeCourierDistanceEvent;
   const factory EmployeeEvent.changeOrderStatus(
           {required String userLogin,
           required int orderId,
@@ -21,4 +24,6 @@ abstract class EmployeeEvent with _$EmployeeEvent {
       required bool isCompanyPassed}) = _$EmployeeRegCourierPlacementEvent;
    const factory EmployeeEvent.findPersonalDataByAddress(
       {required int addressId}) = _$EmployeeFindPDbyAddressEvent;
+   const factory EmployeeEvent.loadStatisticEvent(
+      {required String userLogin}) = _$EmployeeLoadStatisticEvent;
 }

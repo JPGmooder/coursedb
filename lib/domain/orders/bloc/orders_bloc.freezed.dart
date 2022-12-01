@@ -19,18 +19,21 @@ mixin _$OrdersEvent {
   @optionalTypeArgs
   TResult when<TResult extends Object?>({
     required TResult Function(String userLogin) loadUserOrders,
+    required TResult Function(String userLogin) loadCouriersOrders,
     required TResult Function(List<int> ids) loadOrdersProducts,
   }) =>
       throw _privateConstructorUsedError;
   @optionalTypeArgs
   TResult? whenOrNull<TResult extends Object?>({
     TResult? Function(String userLogin)? loadUserOrders,
+    TResult? Function(String userLogin)? loadCouriersOrders,
     TResult? Function(List<int> ids)? loadOrdersProducts,
   }) =>
       throw _privateConstructorUsedError;
   @optionalTypeArgs
   TResult maybeWhen<TResult extends Object?>({
     TResult Function(String userLogin)? loadUserOrders,
+    TResult Function(String userLogin)? loadCouriersOrders,
     TResult Function(List<int> ids)? loadOrdersProducts,
     required TResult orElse(),
   }) =>
@@ -38,6 +41,8 @@ mixin _$OrdersEvent {
   @optionalTypeArgs
   TResult map<TResult extends Object?>({
     required TResult Function(_$LoadUsersOrdersEvent value) loadUserOrders,
+    required TResult Function(_$LoadCouriersOrdersEvent value)
+        loadCouriersOrders,
     required TResult Function(_$LoadOrdersProductsEvent value)
         loadOrdersProducts,
   }) =>
@@ -45,12 +50,14 @@ mixin _$OrdersEvent {
   @optionalTypeArgs
   TResult? mapOrNull<TResult extends Object?>({
     TResult? Function(_$LoadUsersOrdersEvent value)? loadUserOrders,
+    TResult? Function(_$LoadCouriersOrdersEvent value)? loadCouriersOrders,
     TResult? Function(_$LoadOrdersProductsEvent value)? loadOrdersProducts,
   }) =>
       throw _privateConstructorUsedError;
   @optionalTypeArgs
   TResult maybeMap<TResult extends Object?>({
     TResult Function(_$LoadUsersOrdersEvent value)? loadUserOrders,
+    TResult Function(_$LoadCouriersOrdersEvent value)? loadCouriersOrders,
     TResult Function(_$LoadOrdersProductsEvent value)? loadOrdersProducts,
     required TResult orElse(),
   }) =>
@@ -142,6 +149,7 @@ class _$_$LoadUsersOrdersEvent implements _$LoadUsersOrdersEvent {
   @optionalTypeArgs
   TResult when<TResult extends Object?>({
     required TResult Function(String userLogin) loadUserOrders,
+    required TResult Function(String userLogin) loadCouriersOrders,
     required TResult Function(List<int> ids) loadOrdersProducts,
   }) {
     return loadUserOrders(userLogin);
@@ -151,6 +159,7 @@ class _$_$LoadUsersOrdersEvent implements _$LoadUsersOrdersEvent {
   @optionalTypeArgs
   TResult? whenOrNull<TResult extends Object?>({
     TResult? Function(String userLogin)? loadUserOrders,
+    TResult? Function(String userLogin)? loadCouriersOrders,
     TResult? Function(List<int> ids)? loadOrdersProducts,
   }) {
     return loadUserOrders?.call(userLogin);
@@ -160,6 +169,7 @@ class _$_$LoadUsersOrdersEvent implements _$LoadUsersOrdersEvent {
   @optionalTypeArgs
   TResult maybeWhen<TResult extends Object?>({
     TResult Function(String userLogin)? loadUserOrders,
+    TResult Function(String userLogin)? loadCouriersOrders,
     TResult Function(List<int> ids)? loadOrdersProducts,
     required TResult orElse(),
   }) {
@@ -173,6 +183,8 @@ class _$_$LoadUsersOrdersEvent implements _$LoadUsersOrdersEvent {
   @optionalTypeArgs
   TResult map<TResult extends Object?>({
     required TResult Function(_$LoadUsersOrdersEvent value) loadUserOrders,
+    required TResult Function(_$LoadCouriersOrdersEvent value)
+        loadCouriersOrders,
     required TResult Function(_$LoadOrdersProductsEvent value)
         loadOrdersProducts,
   }) {
@@ -183,6 +195,7 @@ class _$_$LoadUsersOrdersEvent implements _$LoadUsersOrdersEvent {
   @optionalTypeArgs
   TResult? mapOrNull<TResult extends Object?>({
     TResult? Function(_$LoadUsersOrdersEvent value)? loadUserOrders,
+    TResult? Function(_$LoadCouriersOrdersEvent value)? loadCouriersOrders,
     TResult? Function(_$LoadOrdersProductsEvent value)? loadOrdersProducts,
   }) {
     return loadUserOrders?.call(this);
@@ -192,6 +205,7 @@ class _$_$LoadUsersOrdersEvent implements _$LoadUsersOrdersEvent {
   @optionalTypeArgs
   TResult maybeMap<TResult extends Object?>({
     TResult Function(_$LoadUsersOrdersEvent value)? loadUserOrders,
+    TResult Function(_$LoadCouriersOrdersEvent value)? loadCouriersOrders,
     TResult Function(_$LoadOrdersProductsEvent value)? loadOrdersProducts,
     required TResult orElse(),
   }) {
@@ -210,6 +224,151 @@ abstract class _$LoadUsersOrdersEvent implements OrdersEvent {
   @JsonKey(ignore: true)
   _$$_$LoadUsersOrdersEventCopyWith<_$_$LoadUsersOrdersEvent> get copyWith =>
       throw _privateConstructorUsedError;
+}
+
+/// @nodoc
+abstract class _$$_$LoadCouriersOrdersEventCopyWith<$Res> {
+  factory _$$_$LoadCouriersOrdersEventCopyWith(
+          _$_$LoadCouriersOrdersEvent value,
+          $Res Function(_$_$LoadCouriersOrdersEvent) then) =
+      __$$_$LoadCouriersOrdersEventCopyWithImpl<$Res>;
+  @useResult
+  $Res call({String userLogin});
+}
+
+/// @nodoc
+class __$$_$LoadCouriersOrdersEventCopyWithImpl<$Res>
+    extends _$OrdersEventCopyWithImpl<$Res, _$_$LoadCouriersOrdersEvent>
+    implements _$$_$LoadCouriersOrdersEventCopyWith<$Res> {
+  __$$_$LoadCouriersOrdersEventCopyWithImpl(_$_$LoadCouriersOrdersEvent _value,
+      $Res Function(_$_$LoadCouriersOrdersEvent) _then)
+      : super(_value, _then);
+
+  @pragma('vm:prefer-inline')
+  @override
+  $Res call({
+    Object? userLogin = null,
+  }) {
+    return _then(_$_$LoadCouriersOrdersEvent(
+      userLogin: null == userLogin
+          ? _value.userLogin
+          : userLogin // ignore: cast_nullable_to_non_nullable
+              as String,
+    ));
+  }
+}
+
+/// @nodoc
+
+class _$_$LoadCouriersOrdersEvent implements _$LoadCouriersOrdersEvent {
+  const _$_$LoadCouriersOrdersEvent({required this.userLogin});
+
+  @override
+  final String userLogin;
+
+  @override
+  String toString() {
+    return 'OrdersEvent.loadCouriersOrders(userLogin: $userLogin)';
+  }
+
+  @override
+  bool operator ==(dynamic other) {
+    return identical(this, other) ||
+        (other.runtimeType == runtimeType &&
+            other is _$_$LoadCouriersOrdersEvent &&
+            (identical(other.userLogin, userLogin) ||
+                other.userLogin == userLogin));
+  }
+
+  @override
+  int get hashCode => Object.hash(runtimeType, userLogin);
+
+  @JsonKey(ignore: true)
+  @override
+  @pragma('vm:prefer-inline')
+  _$$_$LoadCouriersOrdersEventCopyWith<_$_$LoadCouriersOrdersEvent>
+      get copyWith => __$$_$LoadCouriersOrdersEventCopyWithImpl<
+          _$_$LoadCouriersOrdersEvent>(this, _$identity);
+
+  @override
+  @optionalTypeArgs
+  TResult when<TResult extends Object?>({
+    required TResult Function(String userLogin) loadUserOrders,
+    required TResult Function(String userLogin) loadCouriersOrders,
+    required TResult Function(List<int> ids) loadOrdersProducts,
+  }) {
+    return loadCouriersOrders(userLogin);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult? whenOrNull<TResult extends Object?>({
+    TResult? Function(String userLogin)? loadUserOrders,
+    TResult? Function(String userLogin)? loadCouriersOrders,
+    TResult? Function(List<int> ids)? loadOrdersProducts,
+  }) {
+    return loadCouriersOrders?.call(userLogin);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult maybeWhen<TResult extends Object?>({
+    TResult Function(String userLogin)? loadUserOrders,
+    TResult Function(String userLogin)? loadCouriersOrders,
+    TResult Function(List<int> ids)? loadOrdersProducts,
+    required TResult orElse(),
+  }) {
+    if (loadCouriersOrders != null) {
+      return loadCouriersOrders(userLogin);
+    }
+    return orElse();
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult map<TResult extends Object?>({
+    required TResult Function(_$LoadUsersOrdersEvent value) loadUserOrders,
+    required TResult Function(_$LoadCouriersOrdersEvent value)
+        loadCouriersOrders,
+    required TResult Function(_$LoadOrdersProductsEvent value)
+        loadOrdersProducts,
+  }) {
+    return loadCouriersOrders(this);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult? mapOrNull<TResult extends Object?>({
+    TResult? Function(_$LoadUsersOrdersEvent value)? loadUserOrders,
+    TResult? Function(_$LoadCouriersOrdersEvent value)? loadCouriersOrders,
+    TResult? Function(_$LoadOrdersProductsEvent value)? loadOrdersProducts,
+  }) {
+    return loadCouriersOrders?.call(this);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult maybeMap<TResult extends Object?>({
+    TResult Function(_$LoadUsersOrdersEvent value)? loadUserOrders,
+    TResult Function(_$LoadCouriersOrdersEvent value)? loadCouriersOrders,
+    TResult Function(_$LoadOrdersProductsEvent value)? loadOrdersProducts,
+    required TResult orElse(),
+  }) {
+    if (loadCouriersOrders != null) {
+      return loadCouriersOrders(this);
+    }
+    return orElse();
+  }
+}
+
+abstract class _$LoadCouriersOrdersEvent implements OrdersEvent {
+  const factory _$LoadCouriersOrdersEvent({required final String userLogin}) =
+      _$_$LoadCouriersOrdersEvent;
+
+  String get userLogin;
+  @JsonKey(ignore: true)
+  _$$_$LoadCouriersOrdersEventCopyWith<_$_$LoadCouriersOrdersEvent>
+      get copyWith => throw _privateConstructorUsedError;
 }
 
 /// @nodoc
@@ -285,6 +444,7 @@ class _$_$LoadOrdersProductsEvent implements _$LoadOrdersProductsEvent {
   @optionalTypeArgs
   TResult when<TResult extends Object?>({
     required TResult Function(String userLogin) loadUserOrders,
+    required TResult Function(String userLogin) loadCouriersOrders,
     required TResult Function(List<int> ids) loadOrdersProducts,
   }) {
     return loadOrdersProducts(ids);
@@ -294,6 +454,7 @@ class _$_$LoadOrdersProductsEvent implements _$LoadOrdersProductsEvent {
   @optionalTypeArgs
   TResult? whenOrNull<TResult extends Object?>({
     TResult? Function(String userLogin)? loadUserOrders,
+    TResult? Function(String userLogin)? loadCouriersOrders,
     TResult? Function(List<int> ids)? loadOrdersProducts,
   }) {
     return loadOrdersProducts?.call(ids);
@@ -303,6 +464,7 @@ class _$_$LoadOrdersProductsEvent implements _$LoadOrdersProductsEvent {
   @optionalTypeArgs
   TResult maybeWhen<TResult extends Object?>({
     TResult Function(String userLogin)? loadUserOrders,
+    TResult Function(String userLogin)? loadCouriersOrders,
     TResult Function(List<int> ids)? loadOrdersProducts,
     required TResult orElse(),
   }) {
@@ -316,6 +478,8 @@ class _$_$LoadOrdersProductsEvent implements _$LoadOrdersProductsEvent {
   @optionalTypeArgs
   TResult map<TResult extends Object?>({
     required TResult Function(_$LoadUsersOrdersEvent value) loadUserOrders,
+    required TResult Function(_$LoadCouriersOrdersEvent value)
+        loadCouriersOrders,
     required TResult Function(_$LoadOrdersProductsEvent value)
         loadOrdersProducts,
   }) {
@@ -326,6 +490,7 @@ class _$_$LoadOrdersProductsEvent implements _$LoadOrdersProductsEvent {
   @optionalTypeArgs
   TResult? mapOrNull<TResult extends Object?>({
     TResult? Function(_$LoadUsersOrdersEvent value)? loadUserOrders,
+    TResult? Function(_$LoadCouriersOrdersEvent value)? loadCouriersOrders,
     TResult? Function(_$LoadOrdersProductsEvent value)? loadOrdersProducts,
   }) {
     return loadOrdersProducts?.call(this);
@@ -335,6 +500,7 @@ class _$_$LoadOrdersProductsEvent implements _$LoadOrdersProductsEvent {
   @optionalTypeArgs
   TResult maybeMap<TResult extends Object?>({
     TResult Function(_$LoadUsersOrdersEvent value)? loadUserOrders,
+    TResult Function(_$LoadCouriersOrdersEvent value)? loadCouriersOrders,
     TResult Function(_$LoadOrdersProductsEvent value)? loadOrdersProducts,
     required TResult orElse(),
   }) {
@@ -363,6 +529,8 @@ mixin _$OrdersState {
     required TResult Function() loading,
     required TResult Function(String error) errored,
     required TResult Function(List<Map<String, dynamic>> orders)
+        couriersOrdersLoaded,
+    required TResult Function(List<Map<String, dynamic>> orders)
         usersOrdersLoaded,
     required TResult Function(
             List<ProductModel> products, OrganizationModel organization)
@@ -374,6 +542,7 @@ mixin _$OrdersState {
     TResult? Function()? initial,
     TResult? Function()? loading,
     TResult? Function(String error)? errored,
+    TResult? Function(List<Map<String, dynamic>> orders)? couriersOrdersLoaded,
     TResult? Function(List<Map<String, dynamic>> orders)? usersOrdersLoaded,
     TResult? Function(
             List<ProductModel> products, OrganizationModel organization)?
@@ -385,6 +554,7 @@ mixin _$OrdersState {
     TResult Function()? initial,
     TResult Function()? loading,
     TResult Function(String error)? errored,
+    TResult Function(List<Map<String, dynamic>> orders)? couriersOrdersLoaded,
     TResult Function(List<Map<String, dynamic>> orders)? usersOrdersLoaded,
     TResult Function(
             List<ProductModel> products, OrganizationModel organization)?
@@ -397,6 +567,8 @@ mixin _$OrdersState {
     required TResult Function(_$OrdersInitialState value) initial,
     required TResult Function(_$OrdersLoadingState value) loading,
     required TResult Function(_$OrdersErroredState value) errored,
+    required TResult Function(_$OrdersCouriersOrdersLoadedState value)
+        couriersOrdersLoaded,
     required TResult Function(_$OrdersUsersOrdersLoadedState value)
         usersOrdersLoaded,
     required TResult Function(_$OrdersUsersOrdersProductsLoadedState value)
@@ -408,6 +580,8 @@ mixin _$OrdersState {
     TResult? Function(_$OrdersInitialState value)? initial,
     TResult? Function(_$OrdersLoadingState value)? loading,
     TResult? Function(_$OrdersErroredState value)? errored,
+    TResult? Function(_$OrdersCouriersOrdersLoadedState value)?
+        couriersOrdersLoaded,
     TResult? Function(_$OrdersUsersOrdersLoadedState value)? usersOrdersLoaded,
     TResult? Function(_$OrdersUsersOrdersProductsLoadedState value)?
         ordersProductsLoaded,
@@ -418,6 +592,8 @@ mixin _$OrdersState {
     TResult Function(_$OrdersInitialState value)? initial,
     TResult Function(_$OrdersLoadingState value)? loading,
     TResult Function(_$OrdersErroredState value)? errored,
+    TResult Function(_$OrdersCouriersOrdersLoadedState value)?
+        couriersOrdersLoaded,
     TResult Function(_$OrdersUsersOrdersLoadedState value)? usersOrdersLoaded,
     TResult Function(_$OrdersUsersOrdersProductsLoadedState value)?
         ordersProductsLoaded,
@@ -486,6 +662,8 @@ class _$_$OrdersInitialState implements _$OrdersInitialState {
     required TResult Function() loading,
     required TResult Function(String error) errored,
     required TResult Function(List<Map<String, dynamic>> orders)
+        couriersOrdersLoaded,
+    required TResult Function(List<Map<String, dynamic>> orders)
         usersOrdersLoaded,
     required TResult Function(
             List<ProductModel> products, OrganizationModel organization)
@@ -500,6 +678,7 @@ class _$_$OrdersInitialState implements _$OrdersInitialState {
     TResult? Function()? initial,
     TResult? Function()? loading,
     TResult? Function(String error)? errored,
+    TResult? Function(List<Map<String, dynamic>> orders)? couriersOrdersLoaded,
     TResult? Function(List<Map<String, dynamic>> orders)? usersOrdersLoaded,
     TResult? Function(
             List<ProductModel> products, OrganizationModel organization)?
@@ -514,6 +693,7 @@ class _$_$OrdersInitialState implements _$OrdersInitialState {
     TResult Function()? initial,
     TResult Function()? loading,
     TResult Function(String error)? errored,
+    TResult Function(List<Map<String, dynamic>> orders)? couriersOrdersLoaded,
     TResult Function(List<Map<String, dynamic>> orders)? usersOrdersLoaded,
     TResult Function(
             List<ProductModel> products, OrganizationModel organization)?
@@ -532,6 +712,8 @@ class _$_$OrdersInitialState implements _$OrdersInitialState {
     required TResult Function(_$OrdersInitialState value) initial,
     required TResult Function(_$OrdersLoadingState value) loading,
     required TResult Function(_$OrdersErroredState value) errored,
+    required TResult Function(_$OrdersCouriersOrdersLoadedState value)
+        couriersOrdersLoaded,
     required TResult Function(_$OrdersUsersOrdersLoadedState value)
         usersOrdersLoaded,
     required TResult Function(_$OrdersUsersOrdersProductsLoadedState value)
@@ -546,6 +728,8 @@ class _$_$OrdersInitialState implements _$OrdersInitialState {
     TResult? Function(_$OrdersInitialState value)? initial,
     TResult? Function(_$OrdersLoadingState value)? loading,
     TResult? Function(_$OrdersErroredState value)? errored,
+    TResult? Function(_$OrdersCouriersOrdersLoadedState value)?
+        couriersOrdersLoaded,
     TResult? Function(_$OrdersUsersOrdersLoadedState value)? usersOrdersLoaded,
     TResult? Function(_$OrdersUsersOrdersProductsLoadedState value)?
         ordersProductsLoaded,
@@ -559,6 +743,8 @@ class _$_$OrdersInitialState implements _$OrdersInitialState {
     TResult Function(_$OrdersInitialState value)? initial,
     TResult Function(_$OrdersLoadingState value)? loading,
     TResult Function(_$OrdersErroredState value)? errored,
+    TResult Function(_$OrdersCouriersOrdersLoadedState value)?
+        couriersOrdersLoaded,
     TResult Function(_$OrdersUsersOrdersLoadedState value)? usersOrdersLoaded,
     TResult Function(_$OrdersUsersOrdersProductsLoadedState value)?
         ordersProductsLoaded,
@@ -617,6 +803,8 @@ class _$_$OrdersLoadingState implements _$OrdersLoadingState {
     required TResult Function() loading,
     required TResult Function(String error) errored,
     required TResult Function(List<Map<String, dynamic>> orders)
+        couriersOrdersLoaded,
+    required TResult Function(List<Map<String, dynamic>> orders)
         usersOrdersLoaded,
     required TResult Function(
             List<ProductModel> products, OrganizationModel organization)
@@ -631,6 +819,7 @@ class _$_$OrdersLoadingState implements _$OrdersLoadingState {
     TResult? Function()? initial,
     TResult? Function()? loading,
     TResult? Function(String error)? errored,
+    TResult? Function(List<Map<String, dynamic>> orders)? couriersOrdersLoaded,
     TResult? Function(List<Map<String, dynamic>> orders)? usersOrdersLoaded,
     TResult? Function(
             List<ProductModel> products, OrganizationModel organization)?
@@ -645,6 +834,7 @@ class _$_$OrdersLoadingState implements _$OrdersLoadingState {
     TResult Function()? initial,
     TResult Function()? loading,
     TResult Function(String error)? errored,
+    TResult Function(List<Map<String, dynamic>> orders)? couriersOrdersLoaded,
     TResult Function(List<Map<String, dynamic>> orders)? usersOrdersLoaded,
     TResult Function(
             List<ProductModel> products, OrganizationModel organization)?
@@ -663,6 +853,8 @@ class _$_$OrdersLoadingState implements _$OrdersLoadingState {
     required TResult Function(_$OrdersInitialState value) initial,
     required TResult Function(_$OrdersLoadingState value) loading,
     required TResult Function(_$OrdersErroredState value) errored,
+    required TResult Function(_$OrdersCouriersOrdersLoadedState value)
+        couriersOrdersLoaded,
     required TResult Function(_$OrdersUsersOrdersLoadedState value)
         usersOrdersLoaded,
     required TResult Function(_$OrdersUsersOrdersProductsLoadedState value)
@@ -677,6 +869,8 @@ class _$_$OrdersLoadingState implements _$OrdersLoadingState {
     TResult? Function(_$OrdersInitialState value)? initial,
     TResult? Function(_$OrdersLoadingState value)? loading,
     TResult? Function(_$OrdersErroredState value)? errored,
+    TResult? Function(_$OrdersCouriersOrdersLoadedState value)?
+        couriersOrdersLoaded,
     TResult? Function(_$OrdersUsersOrdersLoadedState value)? usersOrdersLoaded,
     TResult? Function(_$OrdersUsersOrdersProductsLoadedState value)?
         ordersProductsLoaded,
@@ -690,6 +884,8 @@ class _$_$OrdersLoadingState implements _$OrdersLoadingState {
     TResult Function(_$OrdersInitialState value)? initial,
     TResult Function(_$OrdersLoadingState value)? loading,
     TResult Function(_$OrdersErroredState value)? errored,
+    TResult Function(_$OrdersCouriersOrdersLoadedState value)?
+        couriersOrdersLoaded,
     TResult Function(_$OrdersUsersOrdersLoadedState value)? usersOrdersLoaded,
     TResult Function(_$OrdersUsersOrdersProductsLoadedState value)?
         ordersProductsLoaded,
@@ -775,6 +971,8 @@ class _$_$OrdersErroredState implements _$OrdersErroredState {
     required TResult Function() loading,
     required TResult Function(String error) errored,
     required TResult Function(List<Map<String, dynamic>> orders)
+        couriersOrdersLoaded,
+    required TResult Function(List<Map<String, dynamic>> orders)
         usersOrdersLoaded,
     required TResult Function(
             List<ProductModel> products, OrganizationModel organization)
@@ -789,6 +987,7 @@ class _$_$OrdersErroredState implements _$OrdersErroredState {
     TResult? Function()? initial,
     TResult? Function()? loading,
     TResult? Function(String error)? errored,
+    TResult? Function(List<Map<String, dynamic>> orders)? couriersOrdersLoaded,
     TResult? Function(List<Map<String, dynamic>> orders)? usersOrdersLoaded,
     TResult? Function(
             List<ProductModel> products, OrganizationModel organization)?
@@ -803,6 +1002,7 @@ class _$_$OrdersErroredState implements _$OrdersErroredState {
     TResult Function()? initial,
     TResult Function()? loading,
     TResult Function(String error)? errored,
+    TResult Function(List<Map<String, dynamic>> orders)? couriersOrdersLoaded,
     TResult Function(List<Map<String, dynamic>> orders)? usersOrdersLoaded,
     TResult Function(
             List<ProductModel> products, OrganizationModel organization)?
@@ -821,6 +1021,8 @@ class _$_$OrdersErroredState implements _$OrdersErroredState {
     required TResult Function(_$OrdersInitialState value) initial,
     required TResult Function(_$OrdersLoadingState value) loading,
     required TResult Function(_$OrdersErroredState value) errored,
+    required TResult Function(_$OrdersCouriersOrdersLoadedState value)
+        couriersOrdersLoaded,
     required TResult Function(_$OrdersUsersOrdersLoadedState value)
         usersOrdersLoaded,
     required TResult Function(_$OrdersUsersOrdersProductsLoadedState value)
@@ -835,6 +1037,8 @@ class _$_$OrdersErroredState implements _$OrdersErroredState {
     TResult? Function(_$OrdersInitialState value)? initial,
     TResult? Function(_$OrdersLoadingState value)? loading,
     TResult? Function(_$OrdersErroredState value)? errored,
+    TResult? Function(_$OrdersCouriersOrdersLoadedState value)?
+        couriersOrdersLoaded,
     TResult? Function(_$OrdersUsersOrdersLoadedState value)? usersOrdersLoaded,
     TResult? Function(_$OrdersUsersOrdersProductsLoadedState value)?
         ordersProductsLoaded,
@@ -848,6 +1052,8 @@ class _$_$OrdersErroredState implements _$OrdersErroredState {
     TResult Function(_$OrdersInitialState value)? initial,
     TResult Function(_$OrdersLoadingState value)? loading,
     TResult Function(_$OrdersErroredState value)? errored,
+    TResult Function(_$OrdersCouriersOrdersLoadedState value)?
+        couriersOrdersLoaded,
     TResult Function(_$OrdersUsersOrdersLoadedState value)? usersOrdersLoaded,
     TResult Function(_$OrdersUsersOrdersProductsLoadedState value)?
         ordersProductsLoaded,
@@ -868,6 +1074,193 @@ abstract class _$OrdersErroredState implements OrdersState {
   @JsonKey(ignore: true)
   _$$_$OrdersErroredStateCopyWith<_$_$OrdersErroredState> get copyWith =>
       throw _privateConstructorUsedError;
+}
+
+/// @nodoc
+abstract class _$$_$OrdersCouriersOrdersLoadedStateCopyWith<$Res> {
+  factory _$$_$OrdersCouriersOrdersLoadedStateCopyWith(
+          _$_$OrdersCouriersOrdersLoadedState value,
+          $Res Function(_$_$OrdersCouriersOrdersLoadedState) then) =
+      __$$_$OrdersCouriersOrdersLoadedStateCopyWithImpl<$Res>;
+  @useResult
+  $Res call({List<Map<String, dynamic>> orders});
+}
+
+/// @nodoc
+class __$$_$OrdersCouriersOrdersLoadedStateCopyWithImpl<$Res>
+    extends _$OrdersStateCopyWithImpl<$Res, _$_$OrdersCouriersOrdersLoadedState>
+    implements _$$_$OrdersCouriersOrdersLoadedStateCopyWith<$Res> {
+  __$$_$OrdersCouriersOrdersLoadedStateCopyWithImpl(
+      _$_$OrdersCouriersOrdersLoadedState _value,
+      $Res Function(_$_$OrdersCouriersOrdersLoadedState) _then)
+      : super(_value, _then);
+
+  @pragma('vm:prefer-inline')
+  @override
+  $Res call({
+    Object? orders = null,
+  }) {
+    return _then(_$_$OrdersCouriersOrdersLoadedState(
+      null == orders
+          ? _value._orders
+          : orders // ignore: cast_nullable_to_non_nullable
+              as List<Map<String, dynamic>>,
+    ));
+  }
+}
+
+/// @nodoc
+
+class _$_$OrdersCouriersOrdersLoadedState
+    implements _$OrdersCouriersOrdersLoadedState {
+  const _$_$OrdersCouriersOrdersLoadedState(
+      final List<Map<String, dynamic>> orders)
+      : _orders = orders;
+
+  final List<Map<String, dynamic>> _orders;
+  @override
+  List<Map<String, dynamic>> get orders {
+    // ignore: implicit_dynamic_type
+    return EqualUnmodifiableListView(_orders);
+  }
+
+  @override
+  String toString() {
+    return 'OrdersState.couriersOrdersLoaded(orders: $orders)';
+  }
+
+  @override
+  bool operator ==(dynamic other) {
+    return identical(this, other) ||
+        (other.runtimeType == runtimeType &&
+            other is _$_$OrdersCouriersOrdersLoadedState &&
+            const DeepCollectionEquality().equals(other._orders, _orders));
+  }
+
+  @override
+  int get hashCode =>
+      Object.hash(runtimeType, const DeepCollectionEquality().hash(_orders));
+
+  @JsonKey(ignore: true)
+  @override
+  @pragma('vm:prefer-inline')
+  _$$_$OrdersCouriersOrdersLoadedStateCopyWith<
+          _$_$OrdersCouriersOrdersLoadedState>
+      get copyWith => __$$_$OrdersCouriersOrdersLoadedStateCopyWithImpl<
+          _$_$OrdersCouriersOrdersLoadedState>(this, _$identity);
+
+  @override
+  @optionalTypeArgs
+  TResult when<TResult extends Object?>({
+    required TResult Function() initial,
+    required TResult Function() loading,
+    required TResult Function(String error) errored,
+    required TResult Function(List<Map<String, dynamic>> orders)
+        couriersOrdersLoaded,
+    required TResult Function(List<Map<String, dynamic>> orders)
+        usersOrdersLoaded,
+    required TResult Function(
+            List<ProductModel> products, OrganizationModel organization)
+        ordersProductsLoaded,
+  }) {
+    return couriersOrdersLoaded(orders);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult? whenOrNull<TResult extends Object?>({
+    TResult? Function()? initial,
+    TResult? Function()? loading,
+    TResult? Function(String error)? errored,
+    TResult? Function(List<Map<String, dynamic>> orders)? couriersOrdersLoaded,
+    TResult? Function(List<Map<String, dynamic>> orders)? usersOrdersLoaded,
+    TResult? Function(
+            List<ProductModel> products, OrganizationModel organization)?
+        ordersProductsLoaded,
+  }) {
+    return couriersOrdersLoaded?.call(orders);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult maybeWhen<TResult extends Object?>({
+    TResult Function()? initial,
+    TResult Function()? loading,
+    TResult Function(String error)? errored,
+    TResult Function(List<Map<String, dynamic>> orders)? couriersOrdersLoaded,
+    TResult Function(List<Map<String, dynamic>> orders)? usersOrdersLoaded,
+    TResult Function(
+            List<ProductModel> products, OrganizationModel organization)?
+        ordersProductsLoaded,
+    required TResult orElse(),
+  }) {
+    if (couriersOrdersLoaded != null) {
+      return couriersOrdersLoaded(orders);
+    }
+    return orElse();
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult map<TResult extends Object?>({
+    required TResult Function(_$OrdersInitialState value) initial,
+    required TResult Function(_$OrdersLoadingState value) loading,
+    required TResult Function(_$OrdersErroredState value) errored,
+    required TResult Function(_$OrdersCouriersOrdersLoadedState value)
+        couriersOrdersLoaded,
+    required TResult Function(_$OrdersUsersOrdersLoadedState value)
+        usersOrdersLoaded,
+    required TResult Function(_$OrdersUsersOrdersProductsLoadedState value)
+        ordersProductsLoaded,
+  }) {
+    return couriersOrdersLoaded(this);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult? mapOrNull<TResult extends Object?>({
+    TResult? Function(_$OrdersInitialState value)? initial,
+    TResult? Function(_$OrdersLoadingState value)? loading,
+    TResult? Function(_$OrdersErroredState value)? errored,
+    TResult? Function(_$OrdersCouriersOrdersLoadedState value)?
+        couriersOrdersLoaded,
+    TResult? Function(_$OrdersUsersOrdersLoadedState value)? usersOrdersLoaded,
+    TResult? Function(_$OrdersUsersOrdersProductsLoadedState value)?
+        ordersProductsLoaded,
+  }) {
+    return couriersOrdersLoaded?.call(this);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult maybeMap<TResult extends Object?>({
+    TResult Function(_$OrdersInitialState value)? initial,
+    TResult Function(_$OrdersLoadingState value)? loading,
+    TResult Function(_$OrdersErroredState value)? errored,
+    TResult Function(_$OrdersCouriersOrdersLoadedState value)?
+        couriersOrdersLoaded,
+    TResult Function(_$OrdersUsersOrdersLoadedState value)? usersOrdersLoaded,
+    TResult Function(_$OrdersUsersOrdersProductsLoadedState value)?
+        ordersProductsLoaded,
+    required TResult orElse(),
+  }) {
+    if (couriersOrdersLoaded != null) {
+      return couriersOrdersLoaded(this);
+    }
+    return orElse();
+  }
+}
+
+abstract class _$OrdersCouriersOrdersLoadedState implements OrdersState {
+  const factory _$OrdersCouriersOrdersLoadedState(
+          final List<Map<String, dynamic>> orders) =
+      _$_$OrdersCouriersOrdersLoadedState;
+
+  List<Map<String, dynamic>> get orders;
+  @JsonKey(ignore: true)
+  _$$_$OrdersCouriersOrdersLoadedStateCopyWith<
+          _$_$OrdersCouriersOrdersLoadedState>
+      get copyWith => throw _privateConstructorUsedError;
 }
 
 /// @nodoc
@@ -949,6 +1342,8 @@ class _$_$OrdersUsersOrdersLoadedState
     required TResult Function() loading,
     required TResult Function(String error) errored,
     required TResult Function(List<Map<String, dynamic>> orders)
+        couriersOrdersLoaded,
+    required TResult Function(List<Map<String, dynamic>> orders)
         usersOrdersLoaded,
     required TResult Function(
             List<ProductModel> products, OrganizationModel organization)
@@ -963,6 +1358,7 @@ class _$_$OrdersUsersOrdersLoadedState
     TResult? Function()? initial,
     TResult? Function()? loading,
     TResult? Function(String error)? errored,
+    TResult? Function(List<Map<String, dynamic>> orders)? couriersOrdersLoaded,
     TResult? Function(List<Map<String, dynamic>> orders)? usersOrdersLoaded,
     TResult? Function(
             List<ProductModel> products, OrganizationModel organization)?
@@ -977,6 +1373,7 @@ class _$_$OrdersUsersOrdersLoadedState
     TResult Function()? initial,
     TResult Function()? loading,
     TResult Function(String error)? errored,
+    TResult Function(List<Map<String, dynamic>> orders)? couriersOrdersLoaded,
     TResult Function(List<Map<String, dynamic>> orders)? usersOrdersLoaded,
     TResult Function(
             List<ProductModel> products, OrganizationModel organization)?
@@ -995,6 +1392,8 @@ class _$_$OrdersUsersOrdersLoadedState
     required TResult Function(_$OrdersInitialState value) initial,
     required TResult Function(_$OrdersLoadingState value) loading,
     required TResult Function(_$OrdersErroredState value) errored,
+    required TResult Function(_$OrdersCouriersOrdersLoadedState value)
+        couriersOrdersLoaded,
     required TResult Function(_$OrdersUsersOrdersLoadedState value)
         usersOrdersLoaded,
     required TResult Function(_$OrdersUsersOrdersProductsLoadedState value)
@@ -1009,6 +1408,8 @@ class _$_$OrdersUsersOrdersLoadedState
     TResult? Function(_$OrdersInitialState value)? initial,
     TResult? Function(_$OrdersLoadingState value)? loading,
     TResult? Function(_$OrdersErroredState value)? errored,
+    TResult? Function(_$OrdersCouriersOrdersLoadedState value)?
+        couriersOrdersLoaded,
     TResult? Function(_$OrdersUsersOrdersLoadedState value)? usersOrdersLoaded,
     TResult? Function(_$OrdersUsersOrdersProductsLoadedState value)?
         ordersProductsLoaded,
@@ -1022,6 +1423,8 @@ class _$_$OrdersUsersOrdersLoadedState
     TResult Function(_$OrdersInitialState value)? initial,
     TResult Function(_$OrdersLoadingState value)? loading,
     TResult Function(_$OrdersErroredState value)? errored,
+    TResult Function(_$OrdersCouriersOrdersLoadedState value)?
+        couriersOrdersLoaded,
     TResult Function(_$OrdersUsersOrdersLoadedState value)? usersOrdersLoaded,
     TResult Function(_$OrdersUsersOrdersProductsLoadedState value)?
         ordersProductsLoaded,
@@ -1136,6 +1539,8 @@ class _$_$OrdersUsersOrdersProductsLoadedState
     required TResult Function() loading,
     required TResult Function(String error) errored,
     required TResult Function(List<Map<String, dynamic>> orders)
+        couriersOrdersLoaded,
+    required TResult Function(List<Map<String, dynamic>> orders)
         usersOrdersLoaded,
     required TResult Function(
             List<ProductModel> products, OrganizationModel organization)
@@ -1150,6 +1555,7 @@ class _$_$OrdersUsersOrdersProductsLoadedState
     TResult? Function()? initial,
     TResult? Function()? loading,
     TResult? Function(String error)? errored,
+    TResult? Function(List<Map<String, dynamic>> orders)? couriersOrdersLoaded,
     TResult? Function(List<Map<String, dynamic>> orders)? usersOrdersLoaded,
     TResult? Function(
             List<ProductModel> products, OrganizationModel organization)?
@@ -1164,6 +1570,7 @@ class _$_$OrdersUsersOrdersProductsLoadedState
     TResult Function()? initial,
     TResult Function()? loading,
     TResult Function(String error)? errored,
+    TResult Function(List<Map<String, dynamic>> orders)? couriersOrdersLoaded,
     TResult Function(List<Map<String, dynamic>> orders)? usersOrdersLoaded,
     TResult Function(
             List<ProductModel> products, OrganizationModel organization)?
@@ -1182,6 +1589,8 @@ class _$_$OrdersUsersOrdersProductsLoadedState
     required TResult Function(_$OrdersInitialState value) initial,
     required TResult Function(_$OrdersLoadingState value) loading,
     required TResult Function(_$OrdersErroredState value) errored,
+    required TResult Function(_$OrdersCouriersOrdersLoadedState value)
+        couriersOrdersLoaded,
     required TResult Function(_$OrdersUsersOrdersLoadedState value)
         usersOrdersLoaded,
     required TResult Function(_$OrdersUsersOrdersProductsLoadedState value)
@@ -1196,6 +1605,8 @@ class _$_$OrdersUsersOrdersProductsLoadedState
     TResult? Function(_$OrdersInitialState value)? initial,
     TResult? Function(_$OrdersLoadingState value)? loading,
     TResult? Function(_$OrdersErroredState value)? errored,
+    TResult? Function(_$OrdersCouriersOrdersLoadedState value)?
+        couriersOrdersLoaded,
     TResult? Function(_$OrdersUsersOrdersLoadedState value)? usersOrdersLoaded,
     TResult? Function(_$OrdersUsersOrdersProductsLoadedState value)?
         ordersProductsLoaded,
@@ -1209,6 +1620,8 @@ class _$_$OrdersUsersOrdersProductsLoadedState
     TResult Function(_$OrdersInitialState value)? initial,
     TResult Function(_$OrdersLoadingState value)? loading,
     TResult Function(_$OrdersErroredState value)? errored,
+    TResult Function(_$OrdersCouriersOrdersLoadedState value)?
+        couriersOrdersLoaded,
     TResult Function(_$OrdersUsersOrdersLoadedState value)? usersOrdersLoaded,
     TResult Function(_$OrdersUsersOrdersProductsLoadedState value)?
         ordersProductsLoaded,

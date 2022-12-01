@@ -49,6 +49,20 @@ class EmployeeProvider {
     });
   }
 
+  static MutationOptions _changeCouriersDistance(
+      String userLogin, double distance) {
+    String query =
+        r'''mutation MyMutation($userlogin: String!, $deliverarea: numeric!) {
+  update_employee_by_pk(pk_columns: {userlogin: $userlogin}, _set: {deliverarea: $deliverarea}) {
+    deliverarea
+  }
+}
+''';
+    return MutationOptions(
+        document: gql(query),
+        variables: {"userlogin": userLogin, "deliverarea": distance});
+  }
+
   static QueryOptions _findActiveOrder(String userLogin) {
     String query = r'''query findActiveOrder($_eq: String!,) {
   orders(where: {userlogin: {_eq: $_eq}, orderstatusname: {_neq: "На рассмотрении"}, _and: {orderstatusname: {_neq: "Доставлено."}}}) {
@@ -186,6 +200,36 @@ query MyQuery($_eq: String!) {
     });
   }
 
+  static QueryOptions _loadCouriersStatistict() {
+    String query = r'''
+query MyQuery {
+  courierstatistic {
+    order {
+      orderprice
+      address {
+        addresscity
+      }
+      id_order
+      id_address
+      cart_id
+      orderstatus {
+        orderstatusname
+        orderstep
+      }
+    }
+    distance
+    delivertime
+    accepttime
+    userlogin
+  }
+}
+
+
+''';
+    return QueryOptions(
+        document: gql(query), fetchPolicy: FetchPolicy.networkOnly);
+  }
+
   static Future<QueryResult> regNewCourier(
       String userLogin, double deliverArea) async {
     var response = await AppsGraphClient.client
@@ -212,6 +256,13 @@ query MyQuery($_eq: String!) {
     return response;
   }
 
+  static Future<QueryResult> changeCourierDistance(
+      String userLogin, double distance) async {
+    var response = await AppsGraphClient.client
+        .mutate(_changeCouriersDistance(userLogin, distance));
+    return response;
+  }
+
   static Future<QueryResult> findCourierActiveOrder(String userLogin) async {
     var response =
         await AppsGraphClient.client.query(_findActiveOrder(userLogin));
@@ -229,6 +280,12 @@ query MyQuery($_eq: String!) {
       int orderId, double lat, double lon, bool isCompanyPassed) async {
     var response = await AppsGraphClient.client
         .mutate(_regCourierPlacement(orderId, lat, lon, isCompanyPassed));
+    return response;
+  }
+
+  static Future<QueryResult> loadCurierStatistic() async {
+    var response =
+        await AppsGraphClient.client.query(_loadCouriersStatistict());
     return response;
   }
 }

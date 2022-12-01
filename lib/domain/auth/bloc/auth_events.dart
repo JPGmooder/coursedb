@@ -13,4 +13,8 @@ abstract class AuthEvent with _$AuthEvent {
   const factory AuthEvent.addPersonalData(
       {required String name, required String lname, String? patronymic, required DateTime birthday, required String mobileNumber}) 
       = _$AutAddPersonalDataEvent;
+   const factory AuthEvent.updatePersonalData(
+      {required UserPersonalDataModel data, required String userLogin}) 
+      = _$AutUpdatePersonalDataEvent;
+
 }

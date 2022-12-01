@@ -1,12 +1,9 @@
 import 'package:flutter/material.dart';
-import 'package:geolocator/geolocator.dart';
 import 'package:intl/date_symbol_data_local.dart';
 import 'package:kursach/internal/app.dart';
-import 'package:location/location.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:supabase_flutter/supabase_flutter.dart';
 import 'package:yandex_mapkit/yandex_mapkit.dart';
-import 'package:android_alarm_manager_plus/android_alarm_manager_plus.dart';
 
 final supabaseUrl = 'https://xomxmkboeuoupjkirjnh.supabase.co';
 final supabaseKey = String.fromEnvironment('bqcccZS4hECsxy2T');

@@ -120,4 +120,25 @@ class EmployeeRepository {
             .first['client']['user']['personaldatum']);
     return personalData;
   }
+
+  static Future<double> changeCouriersDistance(
+      {required String userLogin, required double distance}) async {
+    var loadedResponse =
+        await EmployeeProvider.changeCourierDistance(userLogin, distance);
+    if (loadedResponse.hasException) throw loadedResponse.exception!;
+    return loadedResponse.data!['update_employee_by_pk']['deliverarea'];
+  }
+
+  static Future<List<CourierStatistic>> loadCuriersStatistic() async {
+    var loadedResponse = await EmployeeProvider.loadCurierStatistic();
+    if (loadedResponse.hasException) throw loadedResponse.exception!;
+    List<CourierStatistic> listToReturn = [];
+
+    listToReturn = (loadedResponse.data!['courierstatistic'] as List<Object?>)
+        .cast<Map<String, dynamic>>()
+        .map((e) => CourierStatistic.fromMap(e))
+        .toList();
+
+    return listToReturn;
+  }
 }

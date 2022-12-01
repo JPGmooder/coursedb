@@ -1,11 +1,13 @@
 import 'package:flutter/material.dart';
 import 'package:kursach/assets/Icons.dart';
 import 'package:kursach/assets/colors.dart';
+import 'package:kursach/domain/model/user_model.dart';
 import 'package:kursach/presentation/auth/auth_personal/auth_personal_body.dart';
 import 'package:kursach/presentation/outstanding/gradientmask.dart';
 
 class PersonalInfoScreen extends StatelessWidget {
-  const PersonalInfoScreen({Key? key}) : super(key: key);
+  const PersonalInfoScreen({Key? key, this.currentModel}) : super(key: key);
+  final UserPersonalDataModel? currentModel;
   static const String route = "/auth/personal";
   @override
   Widget build(BuildContext context) {
@@ -28,7 +30,9 @@ class PersonalInfoScreen extends StatelessWidget {
                         shape: RoundedRectangleBorder(
                             borderRadius: BorderRadius.vertical(
                                 top: Radius.circular(15))),
-                        child: PersonalInfoBody())),
+                        child: PersonalInfoBody(
+                          model: currentModel,
+                        ))),
               ),
             ],
           ),

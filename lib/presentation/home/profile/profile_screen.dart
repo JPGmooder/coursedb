@@ -7,6 +7,7 @@ import 'package:kursach/domain/model/user_model.dart';
 import 'package:kursach/domain/orders/bloc/orders_bloc.dart';
 import 'package:kursach/domain/organization/bloc/org_bloc.dart';
 import 'package:kursach/presentation/auth/auth_body.dart';
+import 'package:kursach/presentation/auth/auth_personal/auth_personal_screen.dart';
 import 'package:kursach/presentation/auth/auth_screen.dart';
 import 'package:kursach/presentation/home/profile/courier/courier_navigator.dart';
 import 'package:kursach/presentation/home/profile/orders/my_orders_screen.dart';
@@ -31,6 +32,13 @@ class ProfileScreen extends StatefulWidget {
 class _ProfileScreenState extends State<ProfileScreen> {
   late ScrollController _controller;
   StateMachineController? _scontroller;
+
+  @override
+  void dispose() {
+    _controller.dispose();
+    _scontroller?.dispose();
+    super.dispose();
+  }
 
   @override
   void initState() {
@@ -107,7 +115,13 @@ class _ProfileScreenState extends State<ProfileScreen> {
                         title = "Мои заказы";
                         break;
                       case 1:
-                        onPressed = () => null;
+                        onPressed = () => Navigator.push(
+                            context,
+                            MaterialPageRoute(
+                                builder: (ctx) => PersonalInfoScreen(
+                                      currentModel:
+                                          UserModel.get().personalData,
+                                    )));
 
                         icon = FontAwesomeIcons.passport;
                         title = "Мои данные";

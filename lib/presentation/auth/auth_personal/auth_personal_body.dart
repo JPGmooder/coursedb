@@ -13,8 +13,8 @@ import 'package:kursach/presentation/additional/setlocation_screen.dart';
 import 'package:kursach/presentation/outstanding/gradientmask.dart';
 
 class PersonalInfoBody extends StatefulWidget {
-  const PersonalInfoBody({Key? key}) : super(key: key);
-
+  const PersonalInfoBody({Key? key, this.model}) : super(key: key);
+  final UserPersonalDataModel? model;
   @override
   State<PersonalInfoBody> createState() => _PersonalInfoBodyState();
 }
@@ -25,13 +25,18 @@ class _PersonalInfoBodyState extends State<PersonalInfoBody> {
       patronymicController,
       phoneController;
   DateTime? pickedDate;
+  UserPersonalDataModel? _currentModel;
+  bool isLoading = false;
 
   @override
   void initState() {
-    nameController = TextEditingController();
-    lnameController = TextEditingController();
-    patronymicController = TextEditingController();
-    phoneController = TextEditingController();
+    _currentModel = widget.model;
+    pickedDate = _currentModel?.dateOfBirth;
+    nameController = TextEditingController(text: _currentModel?.name);
+    lnameController = TextEditingController(text: _currentModel?.fname);
+    patronymicController =
+        TextEditingController(text: _currentModel?.patronymic);
+    phoneController = TextEditingController(text: _currentModel?.mobileNumber);
 
     super.initState();
   }
@@ -65,7 +70,9 @@ class _PersonalInfoBodyState extends State<PersonalInfoBody> {
                 style: Theme.of(context).textTheme.titleMedium,
               ),
               Text(
-                "Введите ваши персональные данные, чтобы мы знали как к вам обращаться.",
+                _currentModel == null
+                    ? "Введите ваши персональные данные, чтобы мы знали как к вам обращаться."
+                    : "Здесь вы можете изменить свои персональные данные на актуальные.",
                 style: Theme.of(context).textTheme.labelMedium,
               ),
               Divider(
@@ -157,77 +164,104 @@ class _PersonalInfoBodyState extends State<PersonalInfoBody> {
       Spacer(
         flex: 2,
       ),
-      BlocBuilder<AuthBloc, AuthState>(
-        builder: (context, state) {
-          state.maybeWhen(
-            orElse: () => Container(),
-            loading: () => CircularProgressIndicator(),
-            addressesFinded: (addressModel) {
-              if (addressModel.isEmpty) {
-                Navigator.of(context).pushNamed(SetLocationScreen.path,
-                    arguments: LocationPickerMode.userAddress);
-              } else {
-                UserModel.get().addresses = addressModel;
-                print("ВСЁ ЕСТЬ!");
-              }
-            },
-            logedIn: (login, password, email, data, addresses, company, employee,  carts) {
-              UserModel.clearData();
-              UserModel.get(
-                  login: login,
-                  password: password,
-                  email: email,
-                  courierModel: employee,
-                  pd: data,
-                  addresses: addresses,
-                  orgmodel: company,
-                  carts: carts
-                  );
-            },
-          );
-          return GradientMask(
-              size: 170,
-              begin: Alignment.centerLeft,
-              end: Alignment.centerRight,
-              child: Padding(
-                padding:
-                    const EdgeInsets.only(left: 10.0, right: 10, bottom: 15),
-                child: NeumorphicButton(
-                    child: Center(
-                      child: Text(
-                        "Далее",
-                        style: Theme.of(context)
-                            .textTheme
-                            .titleMedium!
-                            .copyWith(color: Colors.grey),
-                      ),
-                    ),
-                    style: NeumorphicStyle(
-                        shadowDarkColorEmboss:
-                            Theme.of(context).colorScheme.secondary,
-                        shadowLightColorEmboss:
-                            Theme.of(context).colorScheme.primary,
-                        shadowLightColor: Theme.of(context).colorScheme.primary,
-                        shadowDarkColor:
-                            Theme.of(context).colorScheme.secondary,
-                        color: Colors.white,
-                        boxShape: NeumorphicBoxShape.roundRect(
-                            BorderRadius.all(Radius.circular(10)))),
-                    onPressed: () {
-                      if (UserModel.get().personalData == null) {
-                        context.read<AuthBloc>().add(AuthEvent.addPersonalData(
-                            birthday: pickedDate!,
-                            lname: lnameController.text,
-                            name: nameController.text,
-                            mobileNumber: phoneController.text,
-                            patronymic: patronymicController.text));
-                      } else {
-                        context.read<AuthBloc>().add(
-                            AuthEvent.findAddressUser(UserModel.get().login));
-                      }
-                    }),
-              ));
+      BlocListener<AuthBloc, AuthState>(
+        listener: (context, state) {
+          if (_currentModel == null) {
+            state.maybeWhen(
+              orElse: () => isLoading = false,
+              loading: () => isLoading = true,
+              addressesFinded: (addressModel) {
+                isLoading = false;
+                if (addressModel.isEmpty) {
+                  Navigator.of(context).pushNamed(SetLocationScreen.path,
+                      arguments: LocationPickerMode.userAddress);
+                } else {
+                  UserModel.get().addresses = addressModel;
+                  print("ВСЁ ЕСТЬ!");
+                }
+              },
+              pdUpdated: (personalData) {
+                isLoading = false;
+                UserModel.get().personalData = personalData;
+                ScaffoldMessenger.of(context).showSnackBar(SnackBar(
+                    content: Text("Персональные данные успешно изменены")));
+              },
+              logedIn: (login, password, email, data, addresses, company,
+                  employee, carts) {
+                isLoading = false;
+                UserModel.clearData();
+                UserModel.get(
+                    login: login,
+                    password: password,
+                    email: email,
+                    courierModel: employee,
+                    pd: data,
+                    addresses: addresses,
+                    orgmodel: company,
+                    carts: carts);
+              },
+            );
+          }
         },
+        child: isLoading
+            ? CircularProgressIndicator()
+            : GradientMask(
+                size: 170,
+                begin: Alignment.centerLeft,
+                end: Alignment.centerRight,
+                child: Padding(
+                  padding:
+                      const EdgeInsets.only(left: 10.0, right: 10, bottom: 15),
+                  child: NeumorphicButton(
+                      child: Center(
+                        child: Text(
+                          _currentModel == null ? "Далее" : "Принять изменения",
+                          style: Theme.of(context)
+                              .textTheme
+                              .titleMedium!
+                              .copyWith(color: Colors.grey),
+                        ),
+                      ),
+                      style: NeumorphicStyle(
+                          shadowDarkColorEmboss:
+                              Theme.of(context).colorScheme.secondary,
+                          shadowLightColorEmboss:
+                              Theme.of(context).colorScheme.primary,
+                          shadowLightColor:
+                              Theme.of(context).colorScheme.primary,
+                          shadowDarkColor:
+                              Theme.of(context).colorScheme.secondary,
+                          color: Colors.white,
+                          boxShape: NeumorphicBoxShape.roundRect(
+                              BorderRadius.all(Radius.circular(10)))),
+                      onPressed: () {
+                        if (widget.model == null) {
+                          if (UserModel.get().personalData == null) {
+                            context.read<AuthBloc>().add(
+                                AuthEvent.addPersonalData(
+                                    birthday: pickedDate!,
+                                    lname: lnameController.text,
+                                    name: nameController.text,
+                                    mobileNumber: phoneController.text,
+                                    patronymic: patronymicController.text));
+                          } else {
+                            context.read<AuthBloc>().add(
+                                AuthEvent.findAddressUser(
+                                    UserModel.get().login));
+                          }
+                        } else {
+                          context.read<AuthBloc>().add(
+                              AuthEvent.updatePersonalData(
+                                  data: UserPersonalDataModel(
+                                      dateOfBirth: pickedDate!,
+                                      fname: lnameController.text,
+                                      name: nameController.text,
+                                      mobileNumber: phoneController.text,
+                                      patronymic: patronymicController.text),
+                                  userLogin: UserModel.get().login));
+                        }
+                      }),
+                )),
       )
     ]);
   }

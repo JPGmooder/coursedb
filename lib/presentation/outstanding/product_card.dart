@@ -35,6 +35,12 @@ class _ProductCardState extends State<ProductCard> {
   StreamController<Map<String, dynamic>>? _productController;
 
   @override
+  void dispose() {
+    _productController?.close();
+    super.dispose();
+  }
+
+  @override
   void initState() {
     if (!widget.isReadctorMode &&
         widget.productModel != null &&

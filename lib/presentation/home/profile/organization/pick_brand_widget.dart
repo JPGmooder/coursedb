@@ -22,6 +22,14 @@ class _PickBrandWidgetState extends State<PickBrandWidget> {
   late TextEditingController _controller;
   late StreamController<String> _sender;
   List<BrandModel> findedBrands = [];
+
+  @override
+  void dispose() {
+    _controller.dispose();
+    _sender.close();
+    super.dispose();
+  }
+
   @override
   void initState() {
     _controller = TextEditingController();

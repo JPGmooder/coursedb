@@ -24,6 +24,12 @@ class AuthBloc extends Bloc<AuthEvent, AuthState> {
       emit(const AuthState.loading());
       await event.maybeWhen(
           orElse: () => null,
+          updatePersonalData: ((data, userLogin) async {
+            emit(const AuthState.loading());
+            var loadedResponse = await AuthRepository.changeUsersPersonalData(
+                userLogin: userLogin, pdModel: data);
+            emit(AuthState.pdUpdated(loadedResponse));
+          }),
           addPersonalData:
               (name, lname, patronymic, birthday, mobileNumber) async {
             try {
@@ -35,15 +41,14 @@ class AuthBloc extends Bloc<AuthEvent, AuthState> {
                   mobileNumber: mobileNumber);
 
               emit(AuthState.logedIn(
-                UserModel.get().login,
-                UserModel.get().password,
-                UserModel.get().email,
-                userData,
-                UserModel.get().addresses,
-                UserModel.get().organizationModel,
-                UserModel.get().courier,
-                UserModel.get().carts
-              ));
+                  UserModel.get().login,
+                  UserModel.get().password,
+                  UserModel.get().email,
+                  userData,
+                  UserModel.get().addresses,
+                  UserModel.get().organizationModel,
+                  UserModel.get().courier,
+                  UserModel.get().carts));
             } catch (e) {
               emit(AuthState.errored(e.toString()));
             }
@@ -62,15 +67,14 @@ class AuthBloc extends Bloc<AuthEvent, AuthState> {
               var userData = await AuthRepository.authUser(login, password);
 
               emit(AuthState.logedIn(
-                userData['login']!,
-                userData['password']!,
-                userData['email']!,
-                userData['pd'],
-                userData['addresses'],
-                userData['company'],
-                userData['employee'],
-                userData['carts']
-              ));
+                  userData['login']!,
+                  userData['password']!,
+                  userData['email']!,
+                  userData['pd'],
+                  userData['addresses'],
+                  userData['company'],
+                  userData['employee'],
+                  userData['carts']));
               if (userData['pd'] != null &&
                   (userData['addresses'] != null ||
                       userData['addresses'].isNotEmpty)) {

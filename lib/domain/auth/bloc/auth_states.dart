@@ -21,6 +21,8 @@ abstract class AuthState with _$AuthState {
       _$AuthAddressAddedState;
   const factory AuthState.addressesFinded(List<AddressModel> addressModel) =
       _$AuthAddressesFindedState;
+   const factory AuthState.pdUpdated(UserPersonalDataModel personalData) =
+      _$AuthUserPDUpdatedState;
 
   const factory AuthState.initial() = _$AuthInitialState;
 }

@@ -28,6 +28,16 @@ class _PartnerShipRegState extends State<PartnerShipReg> {
   Uint8List? cardImage;
   Uint8List? logoImage;
   @override
+  void dispose() {
+    _cityController.dispose();
+    _streetController.dispose();
+    _buildingController.dispose();
+    _nameController.dispose();
+    _priceController.dispose();
+    super.dispose();
+  }
+
+  @override
   void initState() {
     _cityController = TextEditingController(text: widget.pickedAddress?.city);
     _streetController =

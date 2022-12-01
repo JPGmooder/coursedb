@@ -19,6 +19,24 @@ class OrdersRepository {
     return listToReturn;
   }
 
+  static Future<List<Map<String, dynamic>>> loadCouriesOrders(
+      {required String userLogin}) async {
+    var loadedResponse = await OrdersProvider.findCouriersOrders(userLogin);
+    if (loadedResponse.hasException) {
+      throw Exception("Что-то пошло не так");
+    }
+    var loadedData = (loadedResponse.data!['orders'] as List<Object?>)
+        .cast<Map<String, dynamic>>()
+        .toList();
+    List<Map<String, dynamic>> listToReturn = [];
+    for (var element in loadedData) {
+      var orderModel = OrderModel.fromMap(element);
+      var orderCart = CartModel.fromMap(element['cart']);
+      listToReturn.add({"order": orderModel, "cart": orderCart});
+    }
+    return listToReturn;
+  }
+
   static Future<Map<String, dynamic>> loadOrdersProducts(
       {required List<int> ids}) async {
     var loadedProducts = await OrdersProvider.findOrderProduct(ids);
