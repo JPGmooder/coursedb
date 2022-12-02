@@ -6,7 +6,7 @@ class AuthRepository {
     var rawData = await AuthProvider.authUser(login, password);
 
     if (rawData!.data == null) {
-      throw Exception("Пользователи не найдены, повторите попытку");
+      throw rawData.exception!;
     }
 
     QueryResult<Object?>? companyRawData;
@@ -48,8 +48,8 @@ class AuthRepository {
   static Future<Map<String, dynamic>> regUser(
       String login, String password, String email) async {
     var rawData = await AuthProvider.regUser(login, password, email);
-    if (rawData!.data == null) {
-      throw Exception("Пользователи не найдены, повторите попытку");
+    if (rawData!.hasException) {
+      throw rawData.exception!;
     }
     return {
       'login': rawData.data!['users_register']['userlogin'],
@@ -70,9 +70,8 @@ class AuthRepository {
         patronymic: patronymic,
         birthday: birthday,
         mobileNumber: mobileNumber);
-    if (rawData!.exception != null) {
-      throw Exception(rawData.exception!.graphqlErrors.first
-          .extensions!['internal']['error']['message']);
+    if (rawData!.hasException) {
+      throw rawData.exception!;
     }
     var currentPersonalData =
         UserPersonalDataModel.fromMap(rawData.data!['personaldata_add']);
@@ -94,8 +93,8 @@ class AuthRepository {
         enterance: model.enterance ?? "",
         floor: model.floor ?? "",
         userID: userID);
-    if (rawData!.data == null) {
-      throw Exception("Пользователи не найдены, повторите попытку");
+    if (rawData!.hasException) {
+      throw rawData.exception!;
     }
     return AddressModel.fromMap(rawData.data!['address_addnew']);
   }
@@ -126,8 +125,8 @@ class AuthRepository {
         name: pdModel.name,
         userLogin: userLogin,
         patronymic: pdModel.patronymic);
-    if (rawData!.data == null) {
-      throw Exception("Адреса не найдены, повторите попытку");
+    if (rawData!.hasException) {
+      throw rawData.exception!;
     }
 
     UserPersonalDataModel modelToReturn;

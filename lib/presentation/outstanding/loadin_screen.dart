@@ -65,7 +65,7 @@ class _LoadinScreenState extends State<LoadinScreen> {
             loading: () {
               _secondPackage!.value = true;
             },
-            errored: (error) {
+            errored: (_, __) {
               SharedPreferences.getInstance().then((prefs) {
                 prefs.clear().then((value) {
                   Navigator.of(context).pushReplacementNamed(AuthScreen.route);

@@ -1769,7 +1769,7 @@ mixin _$ProductState {
   @optionalTypeArgs
   TResult when<TResult extends Object?>({
     required TResult Function() initial,
-    required TResult Function(String error) errored,
+    required TResult Function(String message, String? hint) errored,
     required TResult Function(bool isMass) loading,
     required TResult Function(ProductModel product) productAdded,
     required TResult Function(List<ProductModel> productModel) loaded,
@@ -1784,7 +1784,7 @@ mixin _$ProductState {
   @optionalTypeArgs
   TResult? whenOrNull<TResult extends Object?>({
     TResult? Function()? initial,
-    TResult? Function(String error)? errored,
+    TResult? Function(String message, String? hint)? errored,
     TResult? Function(bool isMass)? loading,
     TResult? Function(ProductModel product)? productAdded,
     TResult? Function(List<ProductModel> productModel)? loaded,
@@ -1797,7 +1797,7 @@ mixin _$ProductState {
   @optionalTypeArgs
   TResult maybeWhen<TResult extends Object?>({
     TResult Function()? initial,
-    TResult Function(String error)? errored,
+    TResult Function(String message, String? hint)? errored,
     TResult Function(bool isMass)? loading,
     TResult Function(ProductModel product)? productAdded,
     TResult Function(List<ProductModel> productModel)? loaded,
@@ -1917,7 +1917,7 @@ class _$_$ProductInitialState
   @optionalTypeArgs
   TResult when<TResult extends Object?>({
     required TResult Function() initial,
-    required TResult Function(String error) errored,
+    required TResult Function(String message, String? hint) errored,
     required TResult Function(bool isMass) loading,
     required TResult Function(ProductModel product) productAdded,
     required TResult Function(List<ProductModel> productModel) loaded,
@@ -1935,7 +1935,7 @@ class _$_$ProductInitialState
   @optionalTypeArgs
   TResult? whenOrNull<TResult extends Object?>({
     TResult? Function()? initial,
-    TResult? Function(String error)? errored,
+    TResult? Function(String message, String? hint)? errored,
     TResult? Function(bool isMass)? loading,
     TResult? Function(ProductModel product)? productAdded,
     TResult? Function(List<ProductModel> productModel)? loaded,
@@ -1951,7 +1951,7 @@ class _$_$ProductInitialState
   @optionalTypeArgs
   TResult maybeWhen<TResult extends Object?>({
     TResult Function()? initial,
-    TResult Function(String error)? errored,
+    TResult Function(String message, String? hint)? errored,
     TResult Function(bool isMass)? loading,
     TResult Function(ProductModel product)? productAdded,
     TResult Function(List<ProductModel> productModel)? loaded,
@@ -2032,7 +2032,7 @@ abstract class _$$_$ProductErroredStateCopyWith<$Res> {
           $Res Function(_$_$ProductErroredState) then) =
       __$$_$ProductErroredStateCopyWithImpl<$Res>;
   @useResult
-  $Res call({String error});
+  $Res call({String message, String? hint});
 }
 
 /// @nodoc
@@ -2046,13 +2046,18 @@ class __$$_$ProductErroredStateCopyWithImpl<$Res>
   @pragma('vm:prefer-inline')
   @override
   $Res call({
-    Object? error = null,
+    Object? message = null,
+    Object? hint = freezed,
   }) {
     return _then(_$_$ProductErroredState(
-      null == error
-          ? _value.error
-          : error // ignore: cast_nullable_to_non_nullable
+      message: null == message
+          ? _value.message
+          : message // ignore: cast_nullable_to_non_nullable
               as String,
+      hint: freezed == hint
+          ? _value.hint
+          : hint // ignore: cast_nullable_to_non_nullable
+              as String?,
     ));
   }
 }
@@ -2062,14 +2067,16 @@ class __$$_$ProductErroredStateCopyWithImpl<$Res>
 class _$_$ProductErroredState
     with DiagnosticableTreeMixin
     implements _$ProductErroredState {
-  const _$_$ProductErroredState(this.error);
+  const _$_$ProductErroredState({required this.message, this.hint});
 
   @override
-  final String error;
+  final String message;
+  @override
+  final String? hint;
 
   @override
   String toString({DiagnosticLevel minLevel = DiagnosticLevel.info}) {
-    return 'ProductState.errored(error: $error)';
+    return 'ProductState.errored(message: $message, hint: $hint)';
   }
 
   @override
@@ -2077,7 +2084,8 @@ class _$_$ProductErroredState
     super.debugFillProperties(properties);
     properties
       ..add(DiagnosticsProperty('type', 'ProductState.errored'))
-      ..add(DiagnosticsProperty('error', error));
+      ..add(DiagnosticsProperty('message', message))
+      ..add(DiagnosticsProperty('hint', hint));
   }
 
   @override
@@ -2085,11 +2093,12 @@ class _$_$ProductErroredState
     return identical(this, other) ||
         (other.runtimeType == runtimeType &&
             other is _$_$ProductErroredState &&
-            (identical(other.error, error) || other.error == error));
+            (identical(other.message, message) || other.message == message) &&
+            (identical(other.hint, hint) || other.hint == hint));
   }
 
   @override
-  int get hashCode => Object.hash(runtimeType, error);
+  int get hashCode => Object.hash(runtimeType, message, hint);
 
   @JsonKey(ignore: true)
   @override
@@ -2102,7 +2111,7 @@ class _$_$ProductErroredState
   @optionalTypeArgs
   TResult when<TResult extends Object?>({
     required TResult Function() initial,
-    required TResult Function(String error) errored,
+    required TResult Function(String message, String? hint) errored,
     required TResult Function(bool isMass) loading,
     required TResult Function(ProductModel product) productAdded,
     required TResult Function(List<ProductModel> productModel) loaded,
@@ -2113,14 +2122,14 @@ class _$_$ProductErroredState
     required TResult Function(List<ProductTypeModel> categories)
         categoriesAdded,
   }) {
-    return errored(error);
+    return errored(message, hint);
   }
 
   @override
   @optionalTypeArgs
   TResult? whenOrNull<TResult extends Object?>({
     TResult? Function()? initial,
-    TResult? Function(String error)? errored,
+    TResult? Function(String message, String? hint)? errored,
     TResult? Function(bool isMass)? loading,
     TResult? Function(ProductModel product)? productAdded,
     TResult? Function(List<ProductModel> productModel)? loaded,
@@ -2129,14 +2138,14 @@ class _$_$ProductErroredState
     TResult? Function(BrandModel addedBrand)? brandAdded,
     TResult? Function(List<ProductTypeModel> categories)? categoriesAdded,
   }) {
-    return errored?.call(error);
+    return errored?.call(message, hint);
   }
 
   @override
   @optionalTypeArgs
   TResult maybeWhen<TResult extends Object?>({
     TResult Function()? initial,
-    TResult Function(String error)? errored,
+    TResult Function(String message, String? hint)? errored,
     TResult Function(bool isMass)? loading,
     TResult Function(ProductModel product)? productAdded,
     TResult Function(List<ProductModel> productModel)? loaded,
@@ -2147,7 +2156,7 @@ class _$_$ProductErroredState
     required TResult orElse(),
   }) {
     if (errored != null) {
-      return errored(error);
+      return errored(message, hint);
     }
     return orElse();
   }
@@ -2208,10 +2217,12 @@ class _$_$ProductErroredState
 }
 
 abstract class _$ProductErroredState implements ProductState {
-  const factory _$ProductErroredState(final String error) =
-      _$_$ProductErroredState;
+  const factory _$ProductErroredState(
+      {required final String message,
+      final String? hint}) = _$_$ProductErroredState;
 
-  String get error;
+  String get message;
+  String? get hint;
   @JsonKey(ignore: true)
   _$$_$ProductErroredStateCopyWith<_$_$ProductErroredState> get copyWith =>
       throw _privateConstructorUsedError;
@@ -2293,7 +2304,7 @@ class _$_$ProductLoadingState
   @optionalTypeArgs
   TResult when<TResult extends Object?>({
     required TResult Function() initial,
-    required TResult Function(String error) errored,
+    required TResult Function(String message, String? hint) errored,
     required TResult Function(bool isMass) loading,
     required TResult Function(ProductModel product) productAdded,
     required TResult Function(List<ProductModel> productModel) loaded,
@@ -2311,7 +2322,7 @@ class _$_$ProductLoadingState
   @optionalTypeArgs
   TResult? whenOrNull<TResult extends Object?>({
     TResult? Function()? initial,
-    TResult? Function(String error)? errored,
+    TResult? Function(String message, String? hint)? errored,
     TResult? Function(bool isMass)? loading,
     TResult? Function(ProductModel product)? productAdded,
     TResult? Function(List<ProductModel> productModel)? loaded,
@@ -2327,7 +2338,7 @@ class _$_$ProductLoadingState
   @optionalTypeArgs
   TResult maybeWhen<TResult extends Object?>({
     TResult Function()? initial,
-    TResult Function(String error)? errored,
+    TResult Function(String message, String? hint)? errored,
     TResult Function(bool isMass)? loading,
     TResult Function(ProductModel product)? productAdded,
     TResult Function(List<ProductModel> productModel)? loaded,
@@ -2484,7 +2495,7 @@ class _$_$ProductAddedState
   @optionalTypeArgs
   TResult when<TResult extends Object?>({
     required TResult Function() initial,
-    required TResult Function(String error) errored,
+    required TResult Function(String message, String? hint) errored,
     required TResult Function(bool isMass) loading,
     required TResult Function(ProductModel product) productAdded,
     required TResult Function(List<ProductModel> productModel) loaded,
@@ -2502,7 +2513,7 @@ class _$_$ProductAddedState
   @optionalTypeArgs
   TResult? whenOrNull<TResult extends Object?>({
     TResult? Function()? initial,
-    TResult? Function(String error)? errored,
+    TResult? Function(String message, String? hint)? errored,
     TResult? Function(bool isMass)? loading,
     TResult? Function(ProductModel product)? productAdded,
     TResult? Function(List<ProductModel> productModel)? loaded,
@@ -2518,7 +2529,7 @@ class _$_$ProductAddedState
   @optionalTypeArgs
   TResult maybeWhen<TResult extends Object?>({
     TResult Function()? initial,
-    TResult Function(String error)? errored,
+    TResult Function(String message, String? hint)? errored,
     TResult Function(bool isMass)? loading,
     TResult Function(ProductModel product)? productAdded,
     TResult Function(List<ProductModel> productModel)? loaded,
@@ -2682,7 +2693,7 @@ class _$_$ProductsLoadedState
   @optionalTypeArgs
   TResult when<TResult extends Object?>({
     required TResult Function() initial,
-    required TResult Function(String error) errored,
+    required TResult Function(String message, String? hint) errored,
     required TResult Function(bool isMass) loading,
     required TResult Function(ProductModel product) productAdded,
     required TResult Function(List<ProductModel> productModel) loaded,
@@ -2700,7 +2711,7 @@ class _$_$ProductsLoadedState
   @optionalTypeArgs
   TResult? whenOrNull<TResult extends Object?>({
     TResult? Function()? initial,
-    TResult? Function(String error)? errored,
+    TResult? Function(String message, String? hint)? errored,
     TResult? Function(bool isMass)? loading,
     TResult? Function(ProductModel product)? productAdded,
     TResult? Function(List<ProductModel> productModel)? loaded,
@@ -2716,7 +2727,7 @@ class _$_$ProductsLoadedState
   @optionalTypeArgs
   TResult maybeWhen<TResult extends Object?>({
     TResult Function()? initial,
-    TResult Function(String error)? errored,
+    TResult Function(String message, String? hint)? errored,
     TResult Function(bool isMass)? loading,
     TResult Function(ProductModel product)? productAdded,
     TResult Function(List<ProductModel> productModel)? loaded,
@@ -2883,7 +2894,7 @@ class _$_$ProductCategoriesLoadedState
   @optionalTypeArgs
   TResult when<TResult extends Object?>({
     required TResult Function() initial,
-    required TResult Function(String error) errored,
+    required TResult Function(String message, String? hint) errored,
     required TResult Function(bool isMass) loading,
     required TResult Function(ProductModel product) productAdded,
     required TResult Function(List<ProductModel> productModel) loaded,
@@ -2901,7 +2912,7 @@ class _$_$ProductCategoriesLoadedState
   @optionalTypeArgs
   TResult? whenOrNull<TResult extends Object?>({
     TResult? Function()? initial,
-    TResult? Function(String error)? errored,
+    TResult? Function(String message, String? hint)? errored,
     TResult? Function(bool isMass)? loading,
     TResult? Function(ProductModel product)? productAdded,
     TResult? Function(List<ProductModel> productModel)? loaded,
@@ -2917,7 +2928,7 @@ class _$_$ProductCategoriesLoadedState
   @optionalTypeArgs
   TResult maybeWhen<TResult extends Object?>({
     TResult Function()? initial,
-    TResult Function(String error)? errored,
+    TResult Function(String message, String? hint)? errored,
     TResult Function(bool isMass)? loading,
     TResult Function(ProductModel product)? productAdded,
     TResult Function(List<ProductModel> productModel)? loaded,
@@ -3083,7 +3094,7 @@ class _$_$ProductBrandsLoadedState
   @optionalTypeArgs
   TResult when<TResult extends Object?>({
     required TResult Function() initial,
-    required TResult Function(String error) errored,
+    required TResult Function(String message, String? hint) errored,
     required TResult Function(bool isMass) loading,
     required TResult Function(ProductModel product) productAdded,
     required TResult Function(List<ProductModel> productModel) loaded,
@@ -3101,7 +3112,7 @@ class _$_$ProductBrandsLoadedState
   @optionalTypeArgs
   TResult? whenOrNull<TResult extends Object?>({
     TResult? Function()? initial,
-    TResult? Function(String error)? errored,
+    TResult? Function(String message, String? hint)? errored,
     TResult? Function(bool isMass)? loading,
     TResult? Function(ProductModel product)? productAdded,
     TResult? Function(List<ProductModel> productModel)? loaded,
@@ -3117,7 +3128,7 @@ class _$_$ProductBrandsLoadedState
   @optionalTypeArgs
   TResult maybeWhen<TResult extends Object?>({
     TResult Function()? initial,
-    TResult Function(String error)? errored,
+    TResult Function(String message, String? hint)? errored,
     TResult Function(bool isMass)? loading,
     TResult Function(ProductModel product)? productAdded,
     TResult Function(List<ProductModel> productModel)? loaded,
@@ -3276,7 +3287,7 @@ class _$_$ProductBrandAddedState
   @optionalTypeArgs
   TResult when<TResult extends Object?>({
     required TResult Function() initial,
-    required TResult Function(String error) errored,
+    required TResult Function(String message, String? hint) errored,
     required TResult Function(bool isMass) loading,
     required TResult Function(ProductModel product) productAdded,
     required TResult Function(List<ProductModel> productModel) loaded,
@@ -3294,7 +3305,7 @@ class _$_$ProductBrandAddedState
   @optionalTypeArgs
   TResult? whenOrNull<TResult extends Object?>({
     TResult? Function()? initial,
-    TResult? Function(String error)? errored,
+    TResult? Function(String message, String? hint)? errored,
     TResult? Function(bool isMass)? loading,
     TResult? Function(ProductModel product)? productAdded,
     TResult? Function(List<ProductModel> productModel)? loaded,
@@ -3310,7 +3321,7 @@ class _$_$ProductBrandAddedState
   @optionalTypeArgs
   TResult maybeWhen<TResult extends Object?>({
     TResult Function()? initial,
-    TResult Function(String error)? errored,
+    TResult Function(String message, String? hint)? errored,
     TResult Function(bool isMass)? loading,
     TResult Function(ProductModel product)? productAdded,
     TResult Function(List<ProductModel> productModel)? loaded,
@@ -3476,7 +3487,7 @@ class _$_$ProductCategoriesAddedState
   @optionalTypeArgs
   TResult when<TResult extends Object?>({
     required TResult Function() initial,
-    required TResult Function(String error) errored,
+    required TResult Function(String message, String? hint) errored,
     required TResult Function(bool isMass) loading,
     required TResult Function(ProductModel product) productAdded,
     required TResult Function(List<ProductModel> productModel) loaded,
@@ -3494,7 +3505,7 @@ class _$_$ProductCategoriesAddedState
   @optionalTypeArgs
   TResult? whenOrNull<TResult extends Object?>({
     TResult? Function()? initial,
-    TResult? Function(String error)? errored,
+    TResult? Function(String message, String? hint)? errored,
     TResult? Function(bool isMass)? loading,
     TResult? Function(ProductModel product)? productAdded,
     TResult? Function(List<ProductModel> productModel)? loaded,
@@ -3510,7 +3521,7 @@ class _$_$ProductCategoriesAddedState
   @optionalTypeArgs
   TResult maybeWhen<TResult extends Object?>({
     TResult Function()? initial,
-    TResult Function(String error)? errored,
+    TResult Function(String message, String? hint)? errored,
     TResult Function(bool isMass)? loading,
     TResult Function(ProductModel product)? productAdded,
     TResult Function(List<ProductModel> productModel)? loaded,

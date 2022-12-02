@@ -1,6 +1,5 @@
 import 'dart:async';
 
-import 'package:bottom_drawer/bottom_drawer.dart';
 import 'package:flutter/material.dart';
 import 'package:kursach/domain/auth/bloc/auth_bloc.dart';
 import 'package:kursach/domain/model/user_model.dart';
@@ -14,6 +13,7 @@ import 'package:kursach/domain/place_searcher/bloc/place_searcher_bloc.dart';
 import 'package:kursach/presentation/outstanding/gradientmask.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:yandex_mapkit/yandex_mapkit.dart';
+import 'package:bottom_drawer/bottom_drawer.dart';
 
 enum LocationPickerMode { userAddress, orgAddress, etc }
 
@@ -177,8 +177,8 @@ class _SetLocationScreenState extends State<SetLocationScreen> {
                                 orElse: () => null,
                                 addressAdded: (address) {
                                   UserModel.get().addresses = [address];
-                                  Navigator.of(context)
-                                      .pushNamed(NavigatorScreen.route);
+                                  Navigator.of(context).restorablePushNamed(
+                                      NavigatorScreen.route);
                                 });
                           },
                           child: GradientMask(
@@ -217,7 +217,11 @@ class _SetLocationScreenState extends State<SetLocationScreen> {
                 body: BottomBody(
                     setLocationOnMap: (model, isAnim) {
                       setState(() {
-                        pickedLocation = model;
+                        if (model.street.isNotEmpty &&
+                            model.city.isNotEmpty &&
+                            model.housenumber.isNotEmpty) {
+                          pickedLocation = model;
+                        }
                       });
                       if (_mapController != null && isAnim) {
                         _mapController!.moveCamera(
@@ -317,10 +321,13 @@ class BottomBody extends StatelessWidget {
                         },
                         searchedCoords: (address, isInitial) {
                           setLocationOnMap(address, isInitial);
-
-                          currentAddresses.add(address);
-                          _myListKey.currentState!
-                              .insertItem(0, duration: Duration(seconds: 1));
+                          if (address.street.isNotEmpty &&
+                              address.city.isNotEmpty &&
+                              address.housenumber.isNotEmpty) {
+                            currentAddresses.add(address);
+                            _myListKey.currentState!
+                                .insertItem(0, duration: Duration(seconds: 1));
+                          }
                         });
                   },
                   child: AnimatedList(
@@ -336,27 +343,30 @@ class BottomBody extends StatelessWidget {
                                     curve: Curves.easeOut, parent: anim)
                                 .drive(Tween(
                                     begin: Offset(-1, 0), end: Offset(0, 0))),
-                            child: Padding(
-                              padding: const EdgeInsets.all(8.0),
-                              child: Column(
-                                children: [
-                                  LocationWidget(
-                                    onTap: () {
-                                      if (pickedLocation !=
-                                          currentAddresses[index]) {
-                                        setLocationOnMap(
-                                            currentAddresses[index], true);
-                                      }
-                                    },
-                                    isCurrent: index == 0,
-                                    addressModel: currentAddresses[index],
+                            child: index >= currentAddresses.length
+                                ? Container()
+                                : Padding(
+                                    padding: const EdgeInsets.all(8.0),
+                                    child: Column(
+                                      children: [
+                                        LocationWidget(
+                                          onTap: () {
+                                            if (pickedLocation !=
+                                                currentAddresses[index]) {
+                                              setLocationOnMap(
+                                                  currentAddresses[index],
+                                                  true);
+                                            }
+                                          },
+                                          isCurrent: index == 0,
+                                          addressModel: currentAddresses[index],
+                                        ),
+                                        Divider(
+                                          height: 0,
+                                        )
+                                      ],
+                                    ),
                                   ),
-                                  Divider(
-                                    height: 0,
-                                  )
-                                ],
-                              ),
-                            ),
                           ),
                         );
                       })),

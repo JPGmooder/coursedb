@@ -259,6 +259,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
                         horizontal: 8.0, vertical: 20),
                     child: NeumorphicButton(
                         onPressed: () {
+                          UserModel.clearData();
                           SharedPreferences.getInstance()
                               .then((value) => value.clear());
                           Navigator.pushReplacementNamed(

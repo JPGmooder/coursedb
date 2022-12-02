@@ -5,23 +5,33 @@ class PlaceSearcherRepository {
     var rawRes = await PlaceSearcherProvider.findPlaceByName(querry);
     var listToReturn = <AddressModel>[];
     for (var element in rawRes.items!) {
-      var meta = element.toponymMetadata!.address.addressComponents;
-      var street = meta[SearchComponentKind.street];
-      var county = meta[SearchComponentKind.area];
-      var state = meta[SearchComponentKind.region];
-      var city = meta[SearchComponentKind.locality];
-      var housenumber = meta[SearchComponentKind.house];
-      var entrance = meta[SearchComponentKind.entrance];
-      listToReturn.add(AddressModel(
-          street: street ?? "",
-          housenumber: housenumber ?? "",
-          county: county ?? "",
-          state: state ?? "",
-          city: city ?? "",
-          enterance: entrance,
-          lat: element.toponymMetadata!.balloonPoint.latitude,
-          id_address: -1,
-          lon: element.toponymMetadata!.balloonPoint.longitude));
+      if (element.toponymMetadata != null) {
+        var meta = element.toponymMetadata!.address.addressComponents;
+
+        var street = meta[SearchComponentKind.street];
+        var county = meta[SearchComponentKind.area];
+        var state = meta[SearchComponentKind.region];
+        var city = meta[SearchComponentKind.locality];
+        var housenumber = meta[SearchComponentKind.house];
+        var entrance = meta[SearchComponentKind.entrance];
+        if (street != null &&
+            city != null &&
+            housenumber != null &&
+            street.isNotEmpty &&
+            city.isNotEmpty &&
+            housenumber.isNotEmpty) {
+          listToReturn.add(AddressModel(
+              street: street,
+              housenumber: housenumber,
+              county: county ?? "",
+              state: state ?? "",
+              city: city,
+              enterance: entrance,
+              lat: element.toponymMetadata!.balloonPoint.latitude,
+              id_address: -1,
+              lon: element.toponymMetadata!.balloonPoint.longitude));
+        }
+      }
     }
     print(listToReturn);
     return listToReturn;
@@ -31,24 +41,24 @@ class PlaceSearcherRepository {
     var rawRes = await PlaceSearcherProvider.findPlaceCoordinates(lat, lon);
     late AddressModel currentModel;
 
-      var meta = rawRes.items!.first.toponymMetadata!.address.addressComponents;
-      var street = meta[SearchComponentKind.street];
-      var county = meta[SearchComponentKind.area];
-      var state = meta[SearchComponentKind.region];
-      var city = meta[SearchComponentKind.locality];
-      var housenumber = meta[SearchComponentKind.house];
-      var entrance = meta[SearchComponentKind.entrance];
-      currentModel = AddressModel(
+    var meta = rawRes.items!.first.toponymMetadata!.address.addressComponents;
+    var street = meta[SearchComponentKind.street];
+    var county = meta[SearchComponentKind.area];
+    var state = meta[SearchComponentKind.region];
+    var city = meta[SearchComponentKind.locality];
+    var housenumber = meta[SearchComponentKind.house];
+    var entrance = meta[SearchComponentKind.entrance];
+    currentModel = AddressModel(
         id_address: -1,
-          street: street ?? "",
-          housenumber: housenumber ?? "",
-          county: county ?? "",
-          state: state ?? "",
-          city: city ?? "",
-          enterance: entrance,
-          lat: rawRes.items!.first.toponymMetadata!.balloonPoint.latitude,
-          lon: rawRes.items!.first.toponymMetadata!.balloonPoint.longitude);
-    
+        street: street ?? "",
+        housenumber: housenumber ?? "",
+        county: county ?? "",
+        state: state ?? "",
+        city: city ?? "",
+        enterance: entrance,
+        lat: rawRes.items!.first.toponymMetadata!.balloonPoint.latitude,
+        lon: rawRes.items!.first.toponymMetadata!.balloonPoint.longitude);
+
     return currentModel;
   }
 }

@@ -5,6 +5,7 @@ import 'package:bloc/bloc.dart';
 import 'package:freezed_annotation/freezed_annotation.dart';
 import 'package:graphql_flutter/graphql_flutter.dart';
 import 'package:kursach/data/api/model/graphclient.dart';
+import 'package:kursach/data/mapper/errormapper.dart';
 import 'package:kursach/domain/model/address_model.dart';
 import 'package:kursach/domain/model/cart_model.dart';
 import 'package:kursach/domain/model/employee_model.dart';
@@ -25,10 +26,18 @@ class AuthBloc extends Bloc<AuthEvent, AuthState> {
       await event.maybeWhen(
           orElse: () => null,
           updatePersonalData: ((data, userLogin) async {
-            emit(const AuthState.loading());
-            var loadedResponse = await AuthRepository.changeUsersPersonalData(
-                userLogin: userLogin, pdModel: data);
-            emit(AuthState.pdUpdated(loadedResponse));
+            try {
+              emit(const AuthState.loading());
+              var loadedResponse = await AuthRepository.changeUsersPersonalData(
+                  userLogin: userLogin, pdModel: data);
+              emit(AuthState.pdUpdated(loadedResponse));
+            } catch (e) {
+              var currentException =
+                  ErrorMapper.getReadableException(e as OperationException);
+              emit(AuthState.errored(
+                  error: currentException['message']!,
+                  hint: currentException['hint']));
+            }
           }),
           addPersonalData:
               (name, lname, patronymic, birthday, mobileNumber) async {
@@ -50,7 +59,11 @@ class AuthBloc extends Bloc<AuthEvent, AuthState> {
                   UserModel.get().courier,
                   UserModel.get().carts));
             } catch (e) {
-              emit(AuthState.errored(e.toString()));
+              var currentException =
+                  ErrorMapper.getReadableException(e as OperationException);
+              emit(AuthState.errored(
+                  error: currentException['message']!,
+                  hint: currentException['hint']));
             }
           },
           findAddressUser: (login) async {
@@ -59,7 +72,11 @@ class AuthBloc extends Bloc<AuthEvent, AuthState> {
                   await AuthRepository.findAddressByUser(userID: login);
               emit(AuthState.addressesFinded(findedAddresses));
             } catch (e) {
-              emit(AuthState.errored(e.toString()));
+              var currentException =
+                  ErrorMapper.getReadableException(e as OperationException);
+              emit(AuthState.errored(
+                  error: currentException['message']!,
+                  hint: currentException['hint']));
             }
           },
           logIn: (login, password) async {
@@ -86,19 +103,25 @@ class AuthBloc extends Bloc<AuthEvent, AuthState> {
                 await prefs.setString("password", password);
               }
             } catch (e) {
-              emit(AuthState.errored(e.toString()));
+              var currentException =
+                  ErrorMapper.getReadableException(e as OperationException);
+              emit(AuthState.errored(
+                  error: currentException['message']!,
+                  hint: currentException['hint']));
             }
           },
           addAddress: (model) async {
             try {
               var addedAddress = await AuthRepository.addAddressData(
                   model: model, userID: UserModel.get().login);
-              await SupaBaseClient.client.auth.signInWithPassword(
-                  password: UserModel.get().password,
-                  email: UserModel.get().email);
               emit(AuthState.addressAdded(addedAddress));
             } catch (e) {
-              emit(AuthState.errored(e.toString()));
+              var aboba = e;
+              var currentException =
+                  ErrorMapper.getReadableException(e as OperationException);
+              emit(AuthState.errored(
+                  error: currentException['message']!,
+                  hint: currentException['hint']));
             }
           },
           regNew: (login, password, email) async {
@@ -109,7 +132,11 @@ class AuthBloc extends Bloc<AuthEvent, AuthState> {
               emit(AuthState.signedUp(userData['login']!, userData['password']!,
                   userData['email']!));
             } catch (e) {
-              emit(AuthState.errored(e.toString()));
+              var currentException =
+                  ErrorMapper.getReadableException(e as OperationException);
+              emit(AuthState.errored(
+                  error: currentException['message']!,
+                  hint: currentException['hint']));
             }
           });
     });

@@ -49,7 +49,7 @@ class ProductRepository {
         brandDesc: brandDescription,
         brandImagePath: loadedLogo);
     if (loadedBrand.hasException) {
-      throw Exception(loadedBrand.exception);
+      throw loadedBrand.exception!;
     }
     var modelToReturn = BrandModel.fromMap(loadedBrand.data!['brand_addnew']);
     return modelToReturn;
@@ -85,7 +85,7 @@ class ProductRepository {
         productCategoryS: productCategoryS,
         productCategoryT: productCategoryT);
     if (loadedProduct.hasException) {
-      throw Exception(loadedProduct.exception);
+      throw loadedProduct.exception!;
     }
     var modelToReturn =
         ProductModel.fromMap(loadedProduct.data!['product_addnew']);

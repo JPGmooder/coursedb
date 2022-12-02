@@ -74,7 +74,7 @@ class _AuthBodyState extends State<AuthBody> {
                 email: email,
                 pd: pd,
                 courierModel: employee,
-                addresses:  address,
+                addresses: address,
                 orgmodel: org,
                 carts: carts);
             if (pd == null) {
@@ -86,13 +86,18 @@ class _AuthBodyState extends State<AuthBody> {
               Navigator.of(context).pushNamed(NavigatorScreen.route);
             }
           },
-          errored: (error) {
+          errored: (error, hint) {
             print(error.toString());
             showDialog(
                 context: context,
-                builder: (ctx) => AlertDialog(
-                      content: Text(error),
-                    ));
+                builder: (ctx) => hint == null
+                    ? AlertDialog(
+                        content: Text(error),
+                      )
+                    : AlertDialog(
+                        title: Text(error),
+                        content: Text(hint),
+                      ));
           });
     });
 
@@ -143,6 +148,18 @@ class _AuthBodyState extends State<AuthBody> {
                   (index) => TextFormField(
                         controller:
                             index == 0 ? _loginController : _emailController,
+                        validator: !widget.isLoginState && index == 0
+                            ? (value) {
+                                if (value == null || value.isEmpty) {
+                                  return "Поле не должно быть пустым";
+                                } else if (value.trim().length < 5) {
+                                  return "Логин должен содержать минимум 5 символов";
+                                } else if (RegExp(r'[^a-zA-Z]')
+                                    .hasMatch(value)) {
+                                  return "Логин должен содержать только латинские символы";
+                                }
+                              }
+                            : null,
                         decoration: InputDecoration(
                             labelText: index == 0 ? "Login" : "E-Mail",
                             isDense: false,
@@ -162,15 +179,17 @@ class _AuthBodyState extends State<AuthBody> {
                           controller: index == 0
                               ? _passwordController
                               : _repeaterController,
-                          validator: index == 0
-                              ? (value) => RegExp(
-                                          r'^(?=.*?[A-Z])(?=.*?[a-z])(?=.*?[0-9]).{8,}$')
-                                      .hasMatch(value!)
-                                  ? null
-                                  : "Пароль должен содержать 8 латинский символов, с заглавной, прописной буквой и 1 цифрой"
-                              : (value) => value != _passwordController.text
-                                  ? "Пароли не совпадают, повторите попытку"
-                                  : null,
+                          validator: widget.isLoginState
+                              ? null
+                              : index == 0
+                                  ? (value) => RegExp(
+                                              r'^(?=.*?[A-Z])(?=.*?[a-z])(?=.*?[0-9]).{8,}$')
+                                          .hasMatch(value!)
+                                      ? null
+                                      : "Пароль должен содержать 8 латинский символов, с заглавной, прописной буквой и 1 цифрой"
+                                  : (value) => value != _passwordController.text
+                                      ? "Пароли не совпадают, повторите попытку"
+                                      : null,
                           obscureText: isObscured,
                           style: TextStyle(
                               color: currentGradientSize == null
@@ -231,11 +250,16 @@ class _AuthBodyState extends State<AuthBody> {
                                   ? context.read<AuthBloc>().add(
                                       AuthEvent.logIn(_loginController.text,
                                           _passwordController.text))
-                                  : context.read<AuthBloc>().add(
-                                      AuthEvent.regNew(
-                                          _loginController.text,
-                                          _passwordController.text,
-                                          _emailController.text)),
+                                  : {
+                                      if (_formKey.currentState!.validate())
+                                        {
+                                          context.read<AuthBloc>().add(
+                                              AuthEvent.regNew(
+                                                  _loginController.text,
+                                                  _passwordController.text,
+                                                  _emailController.text))
+                                        }
+                                    },
                             ));
                   },
                 ),

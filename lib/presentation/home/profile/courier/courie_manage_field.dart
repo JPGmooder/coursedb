@@ -204,6 +204,11 @@ class _CourierFieldManageState extends State<CourierFieldManage> {
                 builder: (context, state) {
                   return state.maybeWhen(
                       loading: () => CircularProgressIndicator(),
+                      courierReged: (courier) {
+                        UserModel.get().courier = courier;
+                        Navigator.pop(context);
+                        return Container();
+                      },
                       orElse: () => GradientMask(
                             size: 200,
                             begin: Alignment.topLeft,

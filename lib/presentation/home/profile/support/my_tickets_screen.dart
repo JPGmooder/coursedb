@@ -28,8 +28,6 @@ class MyTicketsScreen extends StatefulWidget {
 }
 
 class _MyOrdersScreenState extends State<MyTicketsScreen> {
-  
-  
   @override
   void initState() {
     context
@@ -96,48 +94,53 @@ class _MyOrdersScreenState extends State<MyTicketsScreen> {
                 );
               }
             }, loaded: (tickets) {
-              var listToMap = parseList(tickets: tickets);
-              return Padding(
-                padding: const EdgeInsets.all(8.0),
-                child: CustomScrollView(slivers: [
-                  SliverAppBar(
-                    iconTheme: IconThemeData(color: Colors.black),
-                    title: Text(
-                      "Мои заявки",
-                      style: Theme.of(context).textTheme.titleMedium,
+              if (tickets.isEmpty) {
+                return Text("Нет активных тикетов");
+              } else {
+                var listToMap = parseList(tickets: tickets);
+                return Padding(
+                  padding: const EdgeInsets.all(8.0),
+                  child: CustomScrollView(slivers: [
+                    SliverAppBar(
+                      iconTheme: IconThemeData(color: Colors.black),
+                      title: Text(
+                        "Мои заявки",
+                        style: Theme.of(context).textTheme.titleMedium,
+                      ),
+                      actions: [
+                        IconButton(
+                            onPressed: () => showModalBottomSheet(
+                                isScrollControlled: true,
+                                context: context,
+                                constraints: BoxConstraints(
+                                    maxWidth:
+                                        MediaQuery.of(context).size.width *
+                                            0.95),
+                                shape: RoundedRectangleBorder(
+                                    borderRadius: BorderRadius.vertical(
+                                        top: Radius.circular(10))),
+                                builder: (ctx) => CreateRequestWIdget()),
+                            icon: Icon(
+                              Icons.add,
+                              color: Colors.lightGreen,
+                            ))
+                      ],
+                      pinned: true,
+                      backgroundColor: Theme.of(context).colorScheme.surface,
                     ),
-                    actions: [
-                      IconButton(
-                          onPressed: () => showModalBottomSheet(
-                              isScrollControlled: true,
-                              context: context,
-                              constraints: BoxConstraints(
-                                  maxWidth:
-                                      MediaQuery.of(context).size.width * 0.95),
-                              shape: RoundedRectangleBorder(
-                                  borderRadius: BorderRadius.vertical(
-                                      top: Radius.circular(10))),
-                              builder: (ctx) => CreateRequestWIdget()),
-                          icon: Icon(
-                            Icons.add,
-                            color: Colors.lightGreen,
-                          ))
-                    ],
-                    pinned: true,
-                    backgroundColor: Theme.of(context).colorScheme.surface,
-                  ),
-                  ...listToMap.entries
-                      .map((e) => Section(
-                          ordersAmount: e.value.length,
-                          title: DateFormat("d MMMM y", 'ru').format(e.key),
-                          items: e.value
-                              .map((e) => TicketWidget(
-                                    ticket: e,
-                                  ))
-                              .toList()))
-                      .toList()
-                ]),
-              );
+                    ...listToMap.entries
+                        .map((e) => Section(
+                            ordersAmount: e.value.length,
+                            title: DateFormat("d MMMM y", 'ru').format(e.key),
+                            items: e.value
+                                .map((e) => TicketWidget(
+                                      ticket: e,
+                                    ))
+                                .toList()))
+                        .toList()
+                  ]),
+                );
+              }
             });
           },
         ),

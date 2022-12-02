@@ -51,7 +51,7 @@ mutation MyMutation($p_companydeliveryprice: numeric = "",  $p_companyname: Stri
     String signature =
         r'''mutation searchUsersCompanies($maxdistance: Int!, $p_id_useraddress: Int!''';
     String inputParams = r'''{
-  searchnearcomapnies(args: {maxdistance: $maxdistance, p_id_useraddress: $p_id_useraddress}''';
+  searchnearcomapnies(where: {companystatusname: {_eq: "Принято"}}, args: {maxdistance: $maxdistance, p_id_useraddress: $p_id_useraddress}''';
     var variables = <String, dynamic>{
       "maxdistance": maxDistance,
       "p_id_useraddress": idUserAddress

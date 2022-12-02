@@ -139,35 +139,62 @@ class _ProductEditorScreenState extends State<ProductEditorScreen> {
                                   scrollDirection: Axis.horizontal,
                                   itemBuilder: (ctx, index) {
                                     if (index == 0 &&
-                                        _images.length > 1 &&
-                                        _images.first == "") {
-                                      return ProductImage(
-                                          isLeading: true,
-                                          setImage: (image) => setState(() {
-                                                _images.insert(0, image);
-                                              }));
+                                        _images.isNotEmpty &&
+                                        _images.first == null) {
+                                      return Padding(
+                                        padding: const EdgeInsets.symmetric(
+                                            horizontal: 3.0),
+                                        child: ProductImage(
+                                            isLeading: true,
+                                            onDelete: () => setState(() {
+                                                  _images[0] = null;
+                                                }),
+                                            setImage: (image) => setState(() {
+                                                  _images[0] = (image);
+                                                })),
+                                      );
+                                    } else if (_images.isEmpty && index == 0) {
+                                      return Padding(
+                                        padding: const EdgeInsets.symmetric(
+                                            horizontal: 3.0),
+                                        child: ProductImage(
+                                            isLeading: true,
+                                            setImage: (image) => setState(() {
+                                                  _images.add(image);
+                                                })),
+                                      );
                                     }
 
-                                    if (index == _images.length) {
-                                      return ProductImage(
-                                        setImage: (image) => setState(() {
-                                          _images.add(image);
-                                        }),
+                                    if (_images.isEmpty && index == 1 ||
+                                        index == _images.length) {
+                                      return Padding(
+                                        padding: const EdgeInsets.symmetric(
+                                            horizontal: 3.0),
+                                        child: ProductImage(
+                                          setImage: (image) => setState(() {
+                                            _images.add(image);
+                                          }),
+                                        ),
                                       );
                                     } else {
-                                      return ProductImage(
-                                        imageData: _images[index],
-                                        onDelete: () => setState(() {
-                                          if (index == 0) {
-                                            _images[0] = null;
-                                          } else {
-                                            _images.removeAt(index);
-                                          }
-                                        }),
+                                      return Padding(
+                                        padding: const EdgeInsets.symmetric(
+                                            horizontal: 3.0),
+                                        child: ProductImage(
+                                          imageData: _images[index],
+                                          onDelete: () => setState(() {
+                                            if (index == 0) {
+                                              _images[0] = null;
+                                            } else {
+                                              _images.removeAt(index);
+                                            }
+                                          }),
+                                        ),
                                       );
                                     }
                                   },
-                                  itemCount: _images.length + 1),
+                                  itemCount:
+                                      _images.isEmpty ? 2 : _images.length + 1),
                             ),
                           ),
                       ],
@@ -331,6 +358,16 @@ class _ProductEditorScreenState extends State<ProductEditorScreen> {
                   BlocConsumer<ProductBloc, ProductState>(
                     listener: (ctx, state) => state.maybeWhen(
                         orElse: () => null,
+                        errored: (message, hint) => showDialog(
+                            context: context,
+                            builder: (ctx) => hint == null
+                                ? AlertDialog(
+                                    content: Text(message),
+                                  )
+                                : AlertDialog(
+                                    title: Text(message),
+                                    content: Text(hint),
+                                  )),
                         productAdded: ((product) {
                           var productId = UserModel.get()
                               .organizationModel!
@@ -361,29 +398,46 @@ class _ProductEditorScreenState extends State<ProductEditorScreen> {
                                     vertical: 8.0, horizontal: 25),
                                 child: NeumorphicButton(
                                   style: NeumorphicStyle(depth: -5),
-                                  onPressed: () => context
-                                      .read<ProductBloc>()
-                                      .add(ProductEvent.addNewProduct(
-                                        idProduct: widget.model?.productId,
-                                        brandName: _currentBrand?.name ?? "",
-                                        album: _images.map((e) => e!).toList(),
-                                        productDesc: _descController.text,
-                                        productName: _nameController.text,
-                                        productPrice:
-                                            double.parse(_priceController.text),
-                                        quantity:
-                                            int.parse(_countyController.text),
-                                        productCategory:
-                                            productTypes.first.label,
-                                        productCategoryS:
-                                            productTypes.length > 1
-                                                ? productTypes[1].label
-                                                : null,
-                                        productCategoryT:
-                                            productTypes.length > 2
-                                                ? productTypes[2].label
-                                                : null,
-                                      )),
+                                  onPressed: (_currentBrand?.name != null &&
+                                          _images
+                                              .where(
+                                                  (element) => element != null)
+                                              .isNotEmpty &&
+                                          _descController.text.isNotEmpty &&
+                                          _nameController.text.isNotEmpty &&
+                                          double.tryParse(
+                                                  _priceController.text) !=
+                                              null &&
+                                          int.tryParse(
+                                                  _countyController.text) !=
+                                              null &&
+                                          productTypes.isNotEmpty)
+                                      ? () => context
+                                          .read<ProductBloc>()
+                                          .add(ProductEvent.addNewProduct(
+                                            idProduct: widget.model?.productId,
+                                            brandName:
+                                                _currentBrand?.name ?? "",
+                                            album:
+                                                _images.map((e) => e!).toList(),
+                                            productDesc: _descController.text,
+                                            productName: _nameController.text,
+                                            productPrice: double.parse(
+                                                _priceController.text),
+                                            quantity: int.parse(
+                                                _countyController.text),
+                                            productCategory:
+                                                productTypes.first.label,
+                                            productCategoryS:
+                                                productTypes.length > 1
+                                                    ? productTypes[1].label
+                                                    : null,
+                                            productCategoryT:
+                                                productTypes.length > 2
+                                                    ? productTypes[2].label
+                                                    : null,
+                                          ))
+                                      : null,
                                   child: Padding(
                                     padding: const EdgeInsets.all(5.0),
                                     child: Center(

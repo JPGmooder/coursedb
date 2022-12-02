@@ -48,90 +48,94 @@ class _PickBrandWidgetState extends State<PickBrandWidget> {
 
   @override
   Widget build(BuildContext context) {
-    return Column(
-      crossAxisAlignment: CrossAxisAlignment.start,
-      mainAxisSize: MainAxisSize.min,
-      children: [
-        Text(
-          "Добавление бренда",
-          style: Theme.of(context).textTheme.titleMedium,
-        ),
-        Padding(
-          padding: const EdgeInsets.symmetric(vertical: 8.0),
-          child: TextField(
-            controller: _controller,
-            decoration: InputDecoration(
-                hintText: "Введите название бренда",
-                hintStyle: Theme.of(context).textTheme.labelMedium,
-                suffixIcon: Icon(Icons.search),
-                border: OutlineInputBorder(
-                    borderRadius: BorderRadius.all(Radius.circular(16)))),
+    return SingleChildScrollView(
+      child: Column(
+        crossAxisAlignment: CrossAxisAlignment.start,
+        mainAxisSize: MainAxisSize.min,
+        children: [
+          Text(
+            "Добавление бренда",
+            style: Theme.of(context).textTheme.titleMedium,
           ),
-        ),
-        Card(
-          child: SizedBox(
-            height: MediaQuery.of(context).size.height * 0.3,
-            child: BlocListener<ProductBloc, ProductState>(
-              listener: (context, state) {
-                state.maybeWhen(
-                    orElse: () => null,
-                    brandsLoaded: (brands) => setState(() {
-                          findedBrands = brands;
-                        }));
-              },
-              child: ListView.builder(
-                  itemCount: findedBrands.length,
-                  itemBuilder: (ctx, index) {
-                    return InkWell(
-                        onTap: () {
-                          Future.delayed(Duration.zero).then(
-                              (value) => widget.setBrand(findedBrands[index]));
+          Padding(
+            padding: const EdgeInsets.symmetric(vertical: 8.0),
+            child: TextField(
+              controller: _controller,
+              decoration: InputDecoration(
+                  hintText: "Введите название бренда",
+                  hintStyle: Theme.of(context).textTheme.labelMedium,
+                  suffixIcon: Icon(Icons.search),
+                  border: OutlineInputBorder(
+                      borderRadius: BorderRadius.all(Radius.circular(16)))),
+            ),
+          ),
+          Card(
+            child: SizedBox(
+              height: MediaQuery.of(context).size.height * 0.3,
+              child: BlocListener<ProductBloc, ProductState>(
+                listener: (context, state) {
+                  state.maybeWhen(
+                      orElse: () => null,
+                      brandsLoaded: (brands) => setState(() {
+                            findedBrands = brands;
+                          }));
+                },
+                child: findedBrands.isEmpty
+                    ? Center(child: Text("Ничего не найдено"))
+                    : ListView.builder(
+                        itemCount: findedBrands.length,
+                        itemBuilder: (ctx, index) {
+                          return InkWell(
+                              onTap: () {
+                                Future.delayed(Duration.zero).then((value) =>
+                                    widget.setBrand(findedBrands[index]));
+                                Navigator.pop(context);
+                              },
+                              child: BrandWidget(brand: findedBrands[index]));
+                        }),
+              ),
+            ),
+          ),
+          Padding(
+            padding: const EdgeInsets.only(top: 8.0),
+            child: Center(
+              child: Column(
+                mainAxisSize: MainAxisSize.min,
+                children: [
+                  Text(
+                    "Не нашли нужный бренд?",
+                    style: Theme.of(context).textTheme.labelMedium!,
+                  ),
+                  GradientMask(
+                      size: 25,
+                      begin: Alignment.topLeft,
+                      end: Alignment.bottomRight,
+                      child: TextButton(
+                        onPressed: () {
                           Navigator.pop(context);
+                          showDialog(
+                              context: context,
+                              builder: (ctx) => Dialog(
+                                    insetPadding: EdgeInsets.symmetric(
+                                        vertical: 40, horizontal: 5),
+                                    child: AddNewBrandWidget(
+                                        setBrand: widget.setBrand),
+                                  ));
                         },
-                        child: BrandWidget(brand: findedBrands[index]));
-                  }),
+                        child: Text(
+                          "Добавить новый!",
+                          style: Theme.of(context)
+                              .textTheme
+                              .labelMedium!
+                              .copyWith(color: Colors.white),
+                        ),
+                      )),
+                ],
+              ),
             ),
-          ),
-        ),
-        Padding(
-          padding: const EdgeInsets.only(top: 8.0),
-          child: Center(
-            child: Column(
-              mainAxisSize: MainAxisSize.min,
-              children: [
-                Text(
-                  "Не нашли нужный бренд?",
-                  style: Theme.of(context).textTheme.labelMedium!,
-                ),
-                GradientMask(
-                    size: 25,
-                    begin: Alignment.topLeft,
-                    end: Alignment.bottomRight,
-                    child: TextButton(
-                      onPressed: () {
-                        Navigator.pop(context);
-                        showDialog(
-                            context: context,
-                            builder: (ctx) => Dialog(
-                                  insetPadding: EdgeInsets.symmetric(
-                                      vertical: 40, horizontal: 5),
-                                  child: AddNewBrandWidget(
-                                      setBrand: widget.setBrand),
-                                ));
-                      },
-                      child: Text(
-                        "Добавить новый!",
-                        style: Theme.of(context)
-                            .textTheme
-                            .labelMedium!
-                            .copyWith(color: Colors.white),
-                      ),
-                    )),
-              ],
-            ),
-          ),
-        )
-      ],
+          )
+        ],
+      ),
     );
   }
 }
@@ -295,13 +299,18 @@ class _AddNewBrandWidgetState extends State<AddNewBrandWidget> {
                       });
                       Navigator.pop(context);
                     },
-                    errored: (error) => showDialog(
+                    errored: (message, hint) => showDialog(
                         context: context,
-                        builder: (ctx) => AlertDialog(
-                              content: Text(error),
-                              title: const Text(
-                                  "Ошибка в процессе добавления бренда"),
-                            ))),
+                        builder: (ctx) => hint == null
+                            ? AlertDialog(
+                                content: Text(message),
+                                title:
+                                    Text("Ошибка в процессе добавления бренда"),
+                              )
+                            : AlertDialog(
+                                content: Text(hint),
+                                title: Text(message),
+                              ))),
                 builder: (context, state) {
                   return state.maybeWhen(
                       loading: (_) => CircularProgressIndicator.adaptive(),

@@ -64,9 +64,8 @@ class _MyOrdersScreenState extends State<MyOrdersScreen> {
   @override
   void initState() {
     if (widget.isCourier) {
-      context
-          .read<OrdersBloc>()
-          .add(OrdersEvent.loadCouriersOrders(userLogin: UserModel.get().login));
+      context.read<OrdersBloc>().add(
+          OrdersEvent.loadCouriersOrders(userLogin: UserModel.get().login));
     }
     super.initState();
   }
@@ -103,67 +102,77 @@ class _MyOrdersScreenState extends State<MyOrdersScreen> {
                 },
                 couriersOrdersLoaded: widget.isCourier
                     ? (orders) {
-                        var listToMap = parseList(orders: orders);
-                        return Padding(
-                          padding: const EdgeInsets.all(8.0),
-                          child: CustomScrollView(slivers: [
-                            SliverAppBar(
-                              iconTheme: IconThemeData(color: Colors.black),
-                              title: Text(
-                                "Мои заказы",
-                                style: Theme.of(context).textTheme.titleMedium,
+                        if (orders.isEmpty) {
+                          return Text("Вы еще не доставили ни одного заказа");
+                        } else {
+                          var listToMap = parseList(orders: orders);
+                          return Padding(
+                            padding: const EdgeInsets.all(8.0),
+                            child: CustomScrollView(slivers: [
+                              SliverAppBar(
+                                iconTheme: IconThemeData(color: Colors.black),
+                                title: Text(
+                                  "Мои заказы",
+                                  style:
+                                      Theme.of(context).textTheme.titleMedium,
+                                ),
+                                pinned: true,
+                                backgroundColor:
+                                    Theme.of(context).colorScheme.surface,
                               ),
-                              pinned: true,
-                              backgroundColor:
-                                  Theme.of(context).colorScheme.surface,
-                            ),
-                            ...listToMap.entries
-                                .map((e) => Section(
-                                    ordersAmount: e.value.length,
-                                    title: DateFormat("d MMMM y", 'ru')
-                                        .format(e.key),
-                                    items: e.value.map((e) {
-                                      var cart = e['cart'] as CartModel;
-                                      var order = e['order'] as OrderModel;
-                                      return OrderWidget(
-                                          order: order, cart: cart);
-                                    }).toList()))
-                                .toList()
-                          ]),
-                        );
+                              ...listToMap.entries
+                                  .map((e) => Section(
+                                      ordersAmount: e.value.length,
+                                      title: DateFormat("d MMMM y", 'ru')
+                                          .format(e.key),
+                                      items: e.value.map((e) {
+                                        var cart = e['cart'] as CartModel;
+                                        var order = e['order'] as OrderModel;
+                                        return OrderWidget(
+                                            order: order, cart: cart);
+                                      }).toList()))
+                                  .toList()
+                            ]),
+                          );
+                        }
                       }
                     : null,
                 usersOrdersLoaded: widget.isCourier
                     ? null
                     : (orders) {
-                        var listToMap = parseList(orders: orders);
-                        return Padding(
-                          padding: const EdgeInsets.all(8.0),
-                          child: CustomScrollView(slivers: [
-                            SliverAppBar(
-                              iconTheme: IconThemeData(color: Colors.black),
-                              title: Text(
-                                "Мои заказы",
-                                style: Theme.of(context).textTheme.titleMedium,
+                        if (orders.isEmpty) {
+                          return Text("Нет активных заказов");
+                        } else {
+                          var listToMap = parseList(orders: orders);
+                          return Padding(
+                            padding: const EdgeInsets.all(8.0),
+                            child: CustomScrollView(slivers: [
+                              SliverAppBar(
+                                iconTheme: IconThemeData(color: Colors.black),
+                                title: Text(
+                                  "Мои заказы",
+                                  style:
+                                      Theme.of(context).textTheme.titleMedium,
+                                ),
+                                pinned: true,
+                                backgroundColor:
+                                    Theme.of(context).colorScheme.surface,
                               ),
-                              pinned: true,
-                              backgroundColor:
-                                  Theme.of(context).colorScheme.surface,
-                            ),
-                            ...listToMap.entries
-                                .map((e) => Section(
-                                    ordersAmount: e.value.length,
-                                    title: DateFormat("d MMMM y", 'ru')
-                                        .format(e.key),
-                                    items: e.value.map((e) {
-                                      var cart = e['cart'] as CartModel;
-                                      var order = e['order'] as OrderModel;
-                                      return OrderWidget(
-                                          order: order, cart: cart);
-                                    }).toList()))
-                                .toList()
-                          ]),
-                        );
+                              ...listToMap.entries
+                                  .map((e) => Section(
+                                      ordersAmount: e.value.length,
+                                      title: DateFormat("d MMMM y", 'ru')
+                                          .format(e.key),
+                                      items: e.value.map((e) {
+                                        var cart = e['cart'] as CartModel;
+                                        var order = e['order'] as OrderModel;
+                                        return OrderWidget(
+                                            order: order, cart: cart);
+                                      }).toList()))
+                                  .toList()
+                            ]),
+                          );
+                        }
                       });
           },
         ),

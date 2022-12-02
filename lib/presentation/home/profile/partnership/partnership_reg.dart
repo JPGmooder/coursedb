@@ -65,7 +65,7 @@ class _PartnerShipRegState extends State<PartnerShipReg> {
                     "Информация об организации",
                     style: Theme.of(context).textTheme.titleMedium,
                   ))),
-          SliverFillRemaining(
+          SliverToBoxAdapter(
             child: Padding(
               padding: const EdgeInsets.all(8.0),
               child: Column(
@@ -152,8 +152,14 @@ class _PartnerShipRegState extends State<PartnerShipReg> {
                     Padding(
                       padding: const EdgeInsets.all(10.0),
                       child: CardPicker(
-                        setCard: (currentCard) => cardImage = currentCard,
-                        setLogo: (currentLogo) => logoImage = currentLogo,
+                        baseCard: cardImage,
+                        baseLogo: logoImage,
+                        setCard: (currentCard) => setState(() {
+                          cardImage = currentCard;
+                        }),
+                        setLogo: (currentLogo) => setState(() {
+                          logoImage = currentLogo;
+                        }),
                       ),
                     ),
                     Padding(
@@ -183,6 +189,7 @@ class _PartnerShipRegState extends State<PartnerShipReg> {
                                         ),
                                         Text(
                                           errorSubtitle,
+                                          textAlign: TextAlign.center,
                                           style: Theme.of(context)
                                               .textTheme
                                               .labelMedium,
@@ -205,8 +212,14 @@ class _PartnerShipRegState extends State<PartnerShipReg> {
                                         ? () => context
                                             .read<OrganizationBloc>()
                                             .add(OrganizationEvent.createNew(
-                                                addressModel:
-                                                    widget.pickedAddress!,
+                                                addressModel: widget.pickedAddress!.copyWith(
+                                                    city: _cityController.text,
+                                                    name: _nameController.text,
+                                                    street:
+                                                        _streetController.text,
+                                                    housenumber:
+                                                        _buildingController
+                                                            .text),
                                                 name: _nameController.text,
                                                 deliveryPrice: double.parse(
                                                     _priceController.text),
@@ -232,6 +245,11 @@ class _PartnerShipRegState extends State<PartnerShipReg> {
                                       )),
                                     ),
                                   ),
+                              loaded: (model) {
+                                UserModel.get().organizationModel = model;
+                                Navigator.pop(context);
+                                return Container();
+                              },
                               loading: () =>
                                   CircularProgressIndicator.adaptive());
                         },

@@ -1241,7 +1241,7 @@ mixin _$AuthState {
   @optionalTypeArgs
   TResult when<TResult extends Object?>({
     required TResult Function() logedOut,
-    required TResult Function(String error) errored,
+    required TResult Function(String error, String? hint) errored,
     required TResult Function() loading,
     required TResult Function(
             String login,
@@ -1264,7 +1264,7 @@ mixin _$AuthState {
   @optionalTypeArgs
   TResult? whenOrNull<TResult extends Object?>({
     TResult? Function()? logedOut,
-    TResult? Function(String error)? errored,
+    TResult? Function(String error, String? hint)? errored,
     TResult? Function()? loading,
     TResult? Function(
             String login,
@@ -1286,7 +1286,7 @@ mixin _$AuthState {
   @optionalTypeArgs
   TResult maybeWhen<TResult extends Object?>({
     TResult Function()? logedOut,
-    TResult Function(String error)? errored,
+    TResult Function(String error, String? hint)? errored,
     TResult Function()? loading,
     TResult Function(
             String login,
@@ -1404,7 +1404,7 @@ class _$_$AuthLogedOutState implements _$AuthLogedOutState {
   @optionalTypeArgs
   TResult when<TResult extends Object?>({
     required TResult Function() logedOut,
-    required TResult Function(String error) errored,
+    required TResult Function(String error, String? hint) errored,
     required TResult Function() loading,
     required TResult Function(
             String login,
@@ -1430,7 +1430,7 @@ class _$_$AuthLogedOutState implements _$AuthLogedOutState {
   @optionalTypeArgs
   TResult? whenOrNull<TResult extends Object?>({
     TResult? Function()? logedOut,
-    TResult? Function(String error)? errored,
+    TResult? Function(String error, String? hint)? errored,
     TResult? Function()? loading,
     TResult? Function(
             String login,
@@ -1455,7 +1455,7 @@ class _$_$AuthLogedOutState implements _$AuthLogedOutState {
   @optionalTypeArgs
   TResult maybeWhen<TResult extends Object?>({
     TResult Function()? logedOut,
-    TResult Function(String error)? errored,
+    TResult Function(String error, String? hint)? errored,
     TResult Function()? loading,
     TResult Function(
             String login,
@@ -1543,7 +1543,7 @@ abstract class _$$_$AuthErroredStateCopyWith<$Res> {
           $Res Function(_$_$AuthErroredState) then) =
       __$$_$AuthErroredStateCopyWithImpl<$Res>;
   @useResult
-  $Res call({String error});
+  $Res call({String error, String? hint});
 }
 
 /// @nodoc
@@ -1558,12 +1558,17 @@ class __$$_$AuthErroredStateCopyWithImpl<$Res>
   @override
   $Res call({
     Object? error = null,
+    Object? hint = freezed,
   }) {
     return _then(_$_$AuthErroredState(
-      null == error
+      error: null == error
           ? _value.error
           : error // ignore: cast_nullable_to_non_nullable
               as String,
+      hint: freezed == hint
+          ? _value.hint
+          : hint // ignore: cast_nullable_to_non_nullable
+              as String?,
     ));
   }
 }
@@ -1571,14 +1576,16 @@ class __$$_$AuthErroredStateCopyWithImpl<$Res>
 /// @nodoc
 
 class _$_$AuthErroredState implements _$AuthErroredState {
-  const _$_$AuthErroredState(this.error);
+  const _$_$AuthErroredState({required this.error, this.hint});
 
   @override
   final String error;
+  @override
+  final String? hint;
 
   @override
   String toString() {
-    return 'AuthState.errored(error: $error)';
+    return 'AuthState.errored(error: $error, hint: $hint)';
   }
 
   @override
@@ -1586,11 +1593,12 @@ class _$_$AuthErroredState implements _$AuthErroredState {
     return identical(this, other) ||
         (other.runtimeType == runtimeType &&
             other is _$_$AuthErroredState &&
-            (identical(other.error, error) || other.error == error));
+            (identical(other.error, error) || other.error == error) &&
+            (identical(other.hint, hint) || other.hint == hint));
   }
 
   @override
-  int get hashCode => Object.hash(runtimeType, error);
+  int get hashCode => Object.hash(runtimeType, error, hint);
 
   @JsonKey(ignore: true)
   @override
@@ -1603,7 +1611,7 @@ class _$_$AuthErroredState implements _$AuthErroredState {
   @optionalTypeArgs
   TResult when<TResult extends Object?>({
     required TResult Function() logedOut,
-    required TResult Function(String error) errored,
+    required TResult Function(String error, String? hint) errored,
     required TResult Function() loading,
     required TResult Function(
             String login,
@@ -1622,14 +1630,14 @@ class _$_$AuthErroredState implements _$AuthErroredState {
     required TResult Function(UserPersonalDataModel personalData) pdUpdated,
     required TResult Function() initial,
   }) {
-    return errored(error);
+    return errored(error, hint);
   }
 
   @override
   @optionalTypeArgs
   TResult? whenOrNull<TResult extends Object?>({
     TResult? Function()? logedOut,
-    TResult? Function(String error)? errored,
+    TResult? Function(String error, String? hint)? errored,
     TResult? Function()? loading,
     TResult? Function(
             String login,
@@ -1647,14 +1655,14 @@ class _$_$AuthErroredState implements _$AuthErroredState {
     TResult? Function(UserPersonalDataModel personalData)? pdUpdated,
     TResult? Function()? initial,
   }) {
-    return errored?.call(error);
+    return errored?.call(error, hint);
   }
 
   @override
   @optionalTypeArgs
   TResult maybeWhen<TResult extends Object?>({
     TResult Function()? logedOut,
-    TResult Function(String error)? errored,
+    TResult Function(String error, String? hint)? errored,
     TResult Function()? loading,
     TResult Function(
             String login,
@@ -1674,7 +1682,7 @@ class _$_$AuthErroredState implements _$AuthErroredState {
     required TResult orElse(),
   }) {
     if (errored != null) {
-      return errored(error);
+      return errored(error, hint);
     }
     return orElse();
   }
@@ -1733,9 +1741,11 @@ class _$_$AuthErroredState implements _$AuthErroredState {
 }
 
 abstract class _$AuthErroredState implements AuthState {
-  const factory _$AuthErroredState(final String error) = _$_$AuthErroredState;
+  const factory _$AuthErroredState(
+      {required final String error, final String? hint}) = _$_$AuthErroredState;
 
   String get error;
+  String? get hint;
   @JsonKey(ignore: true)
   _$$_$AuthErroredStateCopyWith<_$_$AuthErroredState> get copyWith =>
       throw _privateConstructorUsedError;
@@ -1780,7 +1790,7 @@ class _$_$AuthLoadingState implements _$AuthLoadingState {
   @optionalTypeArgs
   TResult when<TResult extends Object?>({
     required TResult Function() logedOut,
-    required TResult Function(String error) errored,
+    required TResult Function(String error, String? hint) errored,
     required TResult Function() loading,
     required TResult Function(
             String login,
@@ -1806,7 +1816,7 @@ class _$_$AuthLoadingState implements _$AuthLoadingState {
   @optionalTypeArgs
   TResult? whenOrNull<TResult extends Object?>({
     TResult? Function()? logedOut,
-    TResult? Function(String error)? errored,
+    TResult? Function(String error, String? hint)? errored,
     TResult? Function()? loading,
     TResult? Function(
             String login,
@@ -1831,7 +1841,7 @@ class _$_$AuthLoadingState implements _$AuthLoadingState {
   @optionalTypeArgs
   TResult maybeWhen<TResult extends Object?>({
     TResult Function()? logedOut,
-    TResult Function(String error)? errored,
+    TResult Function(String error, String? hint)? errored,
     TResult Function()? loading,
     TResult Function(
             String login,
@@ -2075,7 +2085,7 @@ class _$_$AuthLogedInState implements _$AuthLogedInState {
   @optionalTypeArgs
   TResult when<TResult extends Object?>({
     required TResult Function() logedOut,
-    required TResult Function(String error) errored,
+    required TResult Function(String error, String? hint) errored,
     required TResult Function() loading,
     required TResult Function(
             String login,
@@ -2102,7 +2112,7 @@ class _$_$AuthLogedInState implements _$AuthLogedInState {
   @optionalTypeArgs
   TResult? whenOrNull<TResult extends Object?>({
     TResult? Function()? logedOut,
-    TResult? Function(String error)? errored,
+    TResult? Function(String error, String? hint)? errored,
     TResult? Function()? loading,
     TResult? Function(
             String login,
@@ -2128,7 +2138,7 @@ class _$_$AuthLogedInState implements _$AuthLogedInState {
   @optionalTypeArgs
   TResult maybeWhen<TResult extends Object?>({
     TResult Function()? logedOut,
-    TResult Function(String error)? errored,
+    TResult Function(String error, String? hint)? errored,
     TResult Function()? loading,
     TResult Function(
             String login,
@@ -2314,7 +2324,7 @@ class _$_$AuthSignedUpState implements _$AuthSignedUpState {
   @optionalTypeArgs
   TResult when<TResult extends Object?>({
     required TResult Function() logedOut,
-    required TResult Function(String error) errored,
+    required TResult Function(String error, String? hint) errored,
     required TResult Function() loading,
     required TResult Function(
             String login,
@@ -2340,7 +2350,7 @@ class _$_$AuthSignedUpState implements _$AuthSignedUpState {
   @optionalTypeArgs
   TResult? whenOrNull<TResult extends Object?>({
     TResult? Function()? logedOut,
-    TResult? Function(String error)? errored,
+    TResult? Function(String error, String? hint)? errored,
     TResult? Function()? loading,
     TResult? Function(
             String login,
@@ -2365,7 +2375,7 @@ class _$_$AuthSignedUpState implements _$AuthSignedUpState {
   @optionalTypeArgs
   TResult maybeWhen<TResult extends Object?>({
     TResult Function()? logedOut,
-    TResult Function(String error)? errored,
+    TResult Function(String error, String? hint)? errored,
     TResult Function()? loading,
     TResult Function(
             String login,
@@ -2523,7 +2533,7 @@ class _$_$AuthAddressAddedState implements _$AuthAddressAddedState {
   @optionalTypeArgs
   TResult when<TResult extends Object?>({
     required TResult Function() logedOut,
-    required TResult Function(String error) errored,
+    required TResult Function(String error, String? hint) errored,
     required TResult Function() loading,
     required TResult Function(
             String login,
@@ -2549,7 +2559,7 @@ class _$_$AuthAddressAddedState implements _$AuthAddressAddedState {
   @optionalTypeArgs
   TResult? whenOrNull<TResult extends Object?>({
     TResult? Function()? logedOut,
-    TResult? Function(String error)? errored,
+    TResult? Function(String error, String? hint)? errored,
     TResult? Function()? loading,
     TResult? Function(
             String login,
@@ -2574,7 +2584,7 @@ class _$_$AuthAddressAddedState implements _$AuthAddressAddedState {
   @optionalTypeArgs
   TResult maybeWhen<TResult extends Object?>({
     TResult Function()? logedOut,
-    TResult Function(String error)? errored,
+    TResult Function(String error, String? hint)? errored,
     TResult Function()? loading,
     TResult Function(
             String login,
@@ -2737,7 +2747,7 @@ class _$_$AuthAddressesFindedState implements _$AuthAddressesFindedState {
   @optionalTypeArgs
   TResult when<TResult extends Object?>({
     required TResult Function() logedOut,
-    required TResult Function(String error) errored,
+    required TResult Function(String error, String? hint) errored,
     required TResult Function() loading,
     required TResult Function(
             String login,
@@ -2763,7 +2773,7 @@ class _$_$AuthAddressesFindedState implements _$AuthAddressesFindedState {
   @optionalTypeArgs
   TResult? whenOrNull<TResult extends Object?>({
     TResult? Function()? logedOut,
-    TResult? Function(String error)? errored,
+    TResult? Function(String error, String? hint)? errored,
     TResult? Function()? loading,
     TResult? Function(
             String login,
@@ -2788,7 +2798,7 @@ class _$_$AuthAddressesFindedState implements _$AuthAddressesFindedState {
   @optionalTypeArgs
   TResult maybeWhen<TResult extends Object?>({
     TResult Function()? logedOut,
-    TResult Function(String error)? errored,
+    TResult Function(String error, String? hint)? errored,
     TResult Function()? loading,
     TResult Function(
             String login,
@@ -2944,7 +2954,7 @@ class _$_$AuthUserPDUpdatedState implements _$AuthUserPDUpdatedState {
   @optionalTypeArgs
   TResult when<TResult extends Object?>({
     required TResult Function() logedOut,
-    required TResult Function(String error) errored,
+    required TResult Function(String error, String? hint) errored,
     required TResult Function() loading,
     required TResult Function(
             String login,
@@ -2970,7 +2980,7 @@ class _$_$AuthUserPDUpdatedState implements _$AuthUserPDUpdatedState {
   @optionalTypeArgs
   TResult? whenOrNull<TResult extends Object?>({
     TResult? Function()? logedOut,
-    TResult? Function(String error)? errored,
+    TResult? Function(String error, String? hint)? errored,
     TResult? Function()? loading,
     TResult? Function(
             String login,
@@ -2995,7 +3005,7 @@ class _$_$AuthUserPDUpdatedState implements _$AuthUserPDUpdatedState {
   @optionalTypeArgs
   TResult maybeWhen<TResult extends Object?>({
     TResult Function()? logedOut,
-    TResult Function(String error)? errored,
+    TResult Function(String error, String? hint)? errored,
     TResult Function()? loading,
     TResult Function(
             String login,
@@ -3122,7 +3132,7 @@ class _$_$AuthInitialState implements _$AuthInitialState {
   @optionalTypeArgs
   TResult when<TResult extends Object?>({
     required TResult Function() logedOut,
-    required TResult Function(String error) errored,
+    required TResult Function(String error, String? hint) errored,
     required TResult Function() loading,
     required TResult Function(
             String login,
@@ -3148,7 +3158,7 @@ class _$_$AuthInitialState implements _$AuthInitialState {
   @optionalTypeArgs
   TResult? whenOrNull<TResult extends Object?>({
     TResult? Function()? logedOut,
-    TResult? Function(String error)? errored,
+    TResult? Function(String error, String? hint)? errored,
     TResult? Function()? loading,
     TResult? Function(
             String login,
@@ -3173,7 +3183,7 @@ class _$_$AuthInitialState implements _$AuthInitialState {
   @optionalTypeArgs
   TResult maybeWhen<TResult extends Object?>({
     TResult Function()? logedOut,
-    TResult Function(String error)? errored,
+    TResult Function(String error, String? hint)? errored,
     TResult Function()? loading,
     TResult Function(
             String login,

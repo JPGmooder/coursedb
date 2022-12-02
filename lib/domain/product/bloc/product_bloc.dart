@@ -7,6 +7,7 @@ import 'package:flutter/material.dart';
 import 'package:freezed_annotation/freezed_annotation.dart';
 import 'package:graphql_flutter/graphql_flutter.dart';
 import 'package:kursach/data/api/model/graphclient.dart';
+import 'package:kursach/data/mapper/errormapper.dart';
 import 'package:kursach/domain/model/brand_model.dart';
 import 'package:kursach/domain/model/organization_model.dart';
 import 'package:kursach/domain/model/product_model.dart';
@@ -57,32 +58,53 @@ class ProductBloc extends Bloc<ProductEvent, ProductState> {
               idProduct) async {
             try {
               emit(const ProductState.loading(false));
-
-              var loadedProduct = await ProductRepository.addNewProduct(
-                  oldProductName: oldProductName,
-                  idProduct: idProduct,
-                  album: album,
-                  brandName: brandName,
-                  productCategory: productCategory,
-                  productDesc: productDesc,
-                  productName: productName,
-                  productPrice: productPrice,
-                  quantity: quantity,
-                  productCategoryS: productCategoryS,
-                  productCategoryT: productCategoryT);
-              emit(ProductState.productAdded(loadedProduct));
+              if (album.isEmpty) {
+                emit(ProductState.errored(
+                    message: "Ошибка в процессе добавления товара",
+                    hint:
+                        "Альбом прикрепленных изображений к товару должен быть не пустым"));
+              } else {
+                var loadedProduct = await ProductRepository.addNewProduct(
+                    oldProductName: oldProductName,
+                    idProduct: idProduct,
+                    album: album,
+                    brandName: brandName,
+                    productCategory: productCategory,
+                    productDesc: productDesc,
+                    productName: productName,
+                    productPrice: productPrice,
+                    quantity: quantity,
+                    productCategoryS: productCategoryS,
+                    productCategoryT: productCategoryT);
+                emit(ProductState.productAdded(loadedProduct));
+              }
             } catch (e) {
-              emit(ProductState.errored(e.toString()));
+              var currentException =
+                  ErrorMapper.getReadableException(e as OperationException);
+              emit(ProductState.errored(
+                  message: currentException['message']!,
+                  hint: currentException['hint']));
             }
           },
           addNewBrand: (title, description, image) async {
             try {
-              emit(const ProductState.loading(false));
-              var loadedBrand = await ProductRepository.addNewBrand(
-                  title, description, image);
-              emit(ProductState.brandAdded(loadedBrand));
+              if (title.isEmpty || description.isEmpty) {
+                emit(const ProductState.errored(
+                    message: "Ошибка в процессе добавления бренда",
+                    hint:
+                        "Одно из полей не было заполнено корректно, повторите попытку"));
+              } else {
+                emit(const ProductState.loading(false));
+                var loadedBrand = await ProductRepository.addNewBrand(
+                    title, description, image);
+                emit(ProductState.brandAdded(loadedBrand));
+              }
             } catch (e) {
-              emit(ProductState.errored(e.toString()));
+              var currentException =
+                  ErrorMapper.getReadableException(e as OperationException);
+              emit(ProductState.errored(
+                  message: currentException['message']!,
+                  hint: currentException['hint']));
             }
           },
           loadBrands: (searchText) async {
@@ -100,7 +122,6 @@ class ProductBloc extends Bloc<ProductEvent, ProductState> {
 
             emit(ProductState.categoriesAdded(categoriesToReturn));
           },
-        
           loadCategories: (searchText) async {
             var loadedCategories =
                 await ProductRepository.searchCategoryByText(searchText);

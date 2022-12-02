@@ -173,7 +173,7 @@ class ProductProvider {
     if (searchString != null) {
       signature += r', $_productNameLike: String = ""';
       inputParams += r', productname: {_like: $_productNameLike}';
-      variables.addEntries({"_productNameLike": "%$searchString%" }.entries);
+      variables.addEntries({"_productNameLike": "%$searchString%"}.entries);
     }
     signature += r')';
     inputParams += r'})';
@@ -264,12 +264,12 @@ class ProductProvider {
       {required String brandName, required Uint8List imageData}) async {
     var appleInBytes = utf8.encode(brandName);
     String codedName = (sha256.convert(appleInBytes)).toString();
-    var path = await SupaBaseClient.client.storage
-        .from('kursach')
-        .uploadBinary('brand/$codedName/logo.png', imageData);
-    var logoString = SupaBaseClient.client.storage
-        .from('kursach')
-        .getPublicUrl('brand/$codedName/logo.png');
+    var path = await SupaBaseClient.client.storage.from('kursach').uploadBinary(
+        'brand/$codedName/logo.png', imageData,
+        fileOptions: FileOptions(upsert: true));
+    var logoString = SupaBaseClient.client.storage.from('kursach').getPublicUrl(
+          'brand/$codedName/logo.png',
+        );
     return logoString;
   }
 
@@ -301,11 +301,13 @@ class ProductProvider {
               .isNotEmpty) {
         uploadMethod = SupaBaseClient.client.storage
             .from('kursach')
-            .updateBinary(uploadPath, uploadData);
+            .updateBinary(uploadPath, uploadData,
+                fileOptions: FileOptions(upsert: true));
       } else {
         uploadMethod = SupaBaseClient.client.storage
             .from('kursach')
-            .uploadBinary(uploadPath, uploadData);
+            .uploadBinary(uploadPath, uploadData,
+                fileOptions: FileOptions(upsert: true));
       }
 
       uploadMethod.then((value) {

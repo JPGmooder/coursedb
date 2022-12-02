@@ -166,42 +166,55 @@ class _PersonalInfoBodyState extends State<PersonalInfoBody> {
       ),
       BlocListener<AuthBloc, AuthState>(
         listener: (context, state) {
-          if (_currentModel == null) {
-            state.maybeWhen(
-              orElse: () => isLoading = false,
-              loading: () => isLoading = true,
-              addressesFinded: (addressModel) {
-                isLoading = false;
-                if (addressModel.isEmpty) {
-                  Navigator.of(context).pushNamed(SetLocationScreen.path,
-                      arguments: LocationPickerMode.userAddress);
-                } else {
-                  UserModel.get().addresses = addressModel;
-                  print("ВСЁ ЕСТЬ!");
-                }
-              },
-              pdUpdated: (personalData) {
-                isLoading = false;
-                UserModel.get().personalData = personalData;
-                ScaffoldMessenger.of(context).showSnackBar(SnackBar(
-                    content: Text("Персональные данные успешно изменены")));
-              },
-              logedIn: (login, password, email, data, addresses, company,
-                  employee, carts) {
-                isLoading = false;
-                UserModel.clearData();
-                UserModel.get(
-                    login: login,
-                    password: password,
-                    email: email,
-                    courierModel: employee,
-                    pd: data,
-                    addresses: addresses,
-                    orgmodel: company,
-                    carts: carts);
-              },
-            );
-          }
+          state.maybeWhen(
+            orElse: () => isLoading = false,
+            loading: () => isLoading = true,
+            errored: (message, hint) {
+              isLoading = false;
+              showDialog(
+                  context: context,
+                  builder: (ctx) {
+                    return hint == null
+                        ? AlertDialog(
+                            content: Text(message),
+                          )
+                        : AlertDialog(
+                            title: Text(message),
+                            content: Text(hint),
+                          );
+                  });
+            },
+            addressesFinded: (addressModel) {
+              isLoading = false;
+              if (addressModel.isEmpty) {
+                Navigator.of(context).pushNamed(SetLocationScreen.path,
+                    arguments: LocationPickerMode.userAddress);
+              } else {
+                UserModel.get().addresses = addressModel;
+                print("ВСЁ ЕСТЬ!");
+              }
+            },
+            pdUpdated: (personalData) {
+              isLoading = false;
+              UserModel.get().personalData = personalData;
+              ScaffoldMessenger.of(context).showSnackBar(SnackBar(
+                  content: Text("Персональные данные успешно изменены")));
+            },
+            logedIn: (login, password, email, data, addresses, company,
+                employee, carts) {
+              isLoading = false;
+              UserModel.clearData();
+              UserModel.get(
+                  login: login,
+                  password: password,
+                  email: email,
+                  courierModel: employee,
+                  pd: data,
+                  addresses: addresses,
+                  orgmodel: company,
+                  carts: carts);
+            },
+          );
         },
         child: isLoading
             ? CircularProgressIndicator()
@@ -237,13 +250,25 @@ class _PersonalInfoBodyState extends State<PersonalInfoBody> {
                       onPressed: () {
                         if (widget.model == null) {
                           if (UserModel.get().personalData == null) {
-                            context.read<AuthBloc>().add(
-                                AuthEvent.addPersonalData(
-                                    birthday: pickedDate!,
-                                    lname: lnameController.text,
-                                    name: nameController.text,
-                                    mobileNumber: phoneController.text,
-                                    patronymic: patronymicController.text));
+                            if (pickedDate == null ||
+                                lnameController.text.isEmpty ||
+                                nameController.text.isEmpty ||
+                                phoneController.text.isEmpty) {
+                              showDialog(
+                                  context: context,
+                                  builder: (ctx) => AlertDialog(
+                                        title: Text("Ошибка"),
+                                        content: Text(
+                                            "Одно из необходимых полей не заполнено, повторите попытку"),
+                                      ));
+                            } else
+                              context.read<AuthBloc>().add(
+                                  AuthEvent.addPersonalData(
+                                      birthday: pickedDate!,
+                                      lname: lnameController.text,
+                                      name: nameController.text,
+                                      mobileNumber: phoneController.text,
+                                      patronymic: patronymicController.text));
                           } else {
                             context.read<AuthBloc>().add(
                                 AuthEvent.findAddressUser(

@@ -48,40 +48,44 @@ class _RestarauntListState extends State<RestarauntList> {
                 floating: true,
                 forceElevated: isScrollerd,
                 backgroundColor: Theme.of(context).colorScheme.surface,
-                title: Row(
-                  children: [
-                    Text(
-                      "Текущий адрес: ",
-                      style: Theme.of(context)
-                          .textTheme
-                          .titleMedium!
-                          .copyWith(color: Colors.grey),
-                    ),
-                    GradientMask(
-                      size: 35,
-                      begin: Alignment.topLeft,
-                      end: Alignment.bottomRight,
-                      child: Text(
-                        UserModel.get().addresses!.first.toString(),
+                title: SingleChildScrollView(
+                  scrollDirection: Axis.horizontal,
+                  clipBehavior: Clip.none,
+                  child: Row(
+                    children: [
+                      Text(
+                        "Текущий адрес: ",
                         style: Theme.of(context)
                             .textTheme
                             .titleMedium!
-                            .copyWith(color: Colors.white54),
+                            .copyWith(color: Colors.grey),
                       ),
-                    ),
-                    GradientMask(
-                      size: 15,
-                      begin: Alignment.topLeft,
-                      end: Alignment.bottomRight,
-                      child: Padding(
-                        padding: const EdgeInsets.only(left: 2, top: 8.0),
-                        child: Icon(
-                          Icons.location_history,
-                          color: Colors.white38,
+                      GradientMask(
+                        size: 35,
+                        begin: Alignment.topLeft,
+                        end: Alignment.bottomRight,
+                        child: Text(
+                          UserModel.get().addresses!.first.toString(),
+                          style: Theme.of(context)
+                              .textTheme
+                              .titleMedium!
+                              .copyWith(color: Colors.white54),
                         ),
                       ),
-                    )
-                  ],
+                      GradientMask(
+                        size: 15,
+                        begin: Alignment.topLeft,
+                        end: Alignment.bottomRight,
+                        child: Padding(
+                          padding: const EdgeInsets.only(left: 2, top: 8.0),
+                          child: Icon(
+                            Icons.location_history,
+                            color: Colors.white38,
+                          ),
+                        ),
+                      )
+                    ],
+                  ),
                 ),
                 bottom: PreferredSize(
                   preferredSize: Size.fromHeight(110),
@@ -117,14 +121,6 @@ class _RestarauntListState extends State<RestarauntList> {
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.stretch,
               children: [
-                Text(
-                  "Продукты",
-                  style: Theme.of(context)
-                      .textTheme
-                      .titleLarge!
-                      .copyWith(color: Colors.grey[600]),
-                  textScaleFactor: 0.8,
-                ),
                 Expanded(
                   child: BlocBuilder<OrganizationBloc, OrganizationState>(
                     builder: (context, state) {
@@ -153,36 +149,39 @@ class _RestarauntListState extends State<RestarauntList> {
                                   CircularProgressIndicator.adaptive()
                                 ],
                               ),
-                          usersOrganizationsLoaded: (models) => SizedBox(
-                                height:
-                                    MediaQuery.of(context).size.height - 115,
-                                child: RefreshIndicator(
-                                  onRefresh: () async => context
-                                      .read<OrganizationBloc>()
-                                      .add(OrganizationEvent.loadOrganizations(
-                                          sort: sortType.none,
-                                          address: UserModel.get()
-                                              .addresses!
-                                              .first)),
-                                  child: ListView.builder(
-                                      shrinkWrap: true,
-                                      itemBuilder: (ctx, index) {
-                                        return InkWell(
-                                          onTap: () => Navigator.push(
-                                              context,
-                                              MaterialPageRoute(
-                                                  builder: (ctx) =>
-                                                      RestarauntMainPage(
-                                                          currentOrg:
-                                                              models[index]))),
-                                          child: MarketWidget(
-                                            model: models[index],
-                                          ),
-                                        );
-                                      },
-                                      itemCount: models.length),
-                                ),
-                              ));
+                          usersOrganizationsLoaded: (models) => models.isEmpty
+                              ? Text("Тут ничего нет")
+                              : SizedBox(
+                                  height:
+                                      MediaQuery.of(context).size.height - 115,
+                                  child: RefreshIndicator(
+                                    onRefresh: () async => context
+                                        .read<OrganizationBloc>()
+                                        .add(
+                                            OrganizationEvent.loadOrganizations(
+                                                sort: sortType.none,
+                                                address: UserModel.get()
+                                                    .addresses!
+                                                    .first)),
+                                    child: ListView.builder(
+                                        shrinkWrap: true,
+                                        itemBuilder: (ctx, index) {
+                                          return InkWell(
+                                            onTap: () => Navigator.push(
+                                                context,
+                                                MaterialPageRoute(
+                                                    builder: (ctx) =>
+                                                        RestarauntMainPage(
+                                                            currentOrg: models[
+                                                                index]))),
+                                            child: MarketWidget(
+                                              model: models[index],
+                                            ),
+                                          );
+                                        },
+                                        itemCount: models.length),
+                                  ),
+                                ));
                     },
                   ),
                 )
