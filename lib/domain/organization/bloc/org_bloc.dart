@@ -43,8 +43,8 @@ class OrganizationBloc extends Bloc<OrganizationEvent, OrganizationState> {
                   companyId: orgId);
           emit(OrganizationState.statisticLoaded(loadedStatistic));
         },
-        createNew:
-            (addressModel, name, deliveryPrice, logoImage, cardImage) async {
+        createNew: (addressModel, name, type, deliveryPrice, logoImage,
+            cardImage) async {
           try {
             var isValidName =
                 await OrganiztionRepository.checkOrganiztion(name);
@@ -66,8 +66,8 @@ class OrganizationBloc extends Bloc<OrganizationEvent, OrganizationState> {
                     model: addressModel, userID: null);
                 var loadedOrg = await OrganiztionRepository.addNewCompany(
                     companyName: name,
-                    status: "",
-                    type: "",
+                    status: "На рассмотрении",
+                    type: type,
                     addressId: address.id_address,
                     deliveryPrice: deliveryPrice.toInt());
                 await OrganizationProvider.loadCardsInfo(

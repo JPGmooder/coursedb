@@ -20,6 +20,7 @@ class PartnerShipReg extends StatefulWidget {
 }
 
 class _PartnerShipRegState extends State<PartnerShipReg> {
+  String currentOrgType = "Продукты";
   late TextEditingController _cityController;
   late TextEditingController _streetController;
   late TextEditingController _buildingController;
@@ -151,6 +152,46 @@ class _PartnerShipRegState extends State<PartnerShipReg> {
                     }),
                     Padding(
                       padding: const EdgeInsets.all(10.0),
+                      child: DropdownButtonFormField<String>(
+                          value: currentOrgType,
+                          decoration: InputDecoration(
+                              label: Text(
+                                'Вид деятельности вашего предприятия',
+                                style: Theme.of(context).textTheme.labelMedium,
+                              ),
+                              border: OutlineInputBorder()),
+                          items: [
+                            const DropdownMenuItem(
+                              value: "Продукты",
+                              child: Text("Продуктовый магазин"),
+                            ),
+                            const DropdownMenuItem(
+                              value: "Рестораны",
+                              child: Text("Ресторан"),
+                            ),
+                            const DropdownMenuItem(
+                              value: "Рынки",
+                              child: Text("Рыночная площадка"),
+                            ),
+                            const DropdownMenuItem(
+                              value: "Аптеки",
+                              child: Text("Аптека"),
+                            ),
+                            const DropdownMenuItem(
+                              value: "Книжный магазин",
+                              child: Text("Книжные"),
+                            ),
+                            const DropdownMenuItem(
+                              value: "Другое",
+                              child: Text("Другое"),
+                            )
+                          ],
+                          onChanged: (value) => setState(() {
+                                currentOrgType = value ?? currentOrgType;
+                              })),
+                    ),
+                    Padding(
+                      padding: const EdgeInsets.all(10.0),
                       child: CardPicker(
                         baseCard: cardImage,
                         baseLogo: logoImage,
@@ -212,6 +253,7 @@ class _PartnerShipRegState extends State<PartnerShipReg> {
                                         ? () => context
                                             .read<OrganizationBloc>()
                                             .add(OrganizationEvent.createNew(
+                                                type: currentOrgType,
                                                 addressModel: widget.pickedAddress!.copyWith(
                                                     city: _cityController.text,
                                                     name: _nameController.text,

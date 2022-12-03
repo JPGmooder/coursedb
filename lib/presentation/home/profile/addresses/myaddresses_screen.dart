@@ -183,6 +183,18 @@ class _AddressBodyState extends State<AddressBody> {
   }
 
   @override
+  void dispose() {
+    _cityController.dispose();
+    _streetController.dispose();
+    _buildingController.dispose();
+    _enteranceController.dispose();
+    _floorController.dispose();
+    _appartamentController.dispose();
+    _nameController.dispose();
+    super.dispose();
+  }
+
+  @override
   Widget build(BuildContext context) {
     return Column(
       crossAxisAlignment: CrossAxisAlignment.stretch,

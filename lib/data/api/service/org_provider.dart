@@ -147,7 +147,7 @@ mutation MyMutation($_similar: String = "", $id_company: Int = 10) {
     var response = await AppsGraphClient.client.mutate(addNewCompanyMutation(
       companyname: companyName,
       companystatus: 'На рассмотрении',
-      companytype: 'Магазин продуктов',
+      companytype: type,
       deliveryPrice: deliveryPrice,
       idAddress: addressId,
     ));
@@ -201,9 +201,12 @@ query MyQuery($id_company: Int!) {
   }
 }
 ''';
-    return QueryOptions(document: gql(document), variables: {
-      "id_company": idCompany,
-    });
+    return QueryOptions(
+        document: gql(document),
+        fetchPolicy: FetchPolicy.networkOnly,
+        variables: {
+          "id_company": idCompany,
+        });
   }
 
   static MutationOptions _findCompanysOrderedItems({

@@ -18,8 +18,13 @@ final _privateConstructorUsedError = UnsupportedError(
 mixin _$OrganizationEvent {
   @optionalTypeArgs
   TResult when<TResult extends Object?>({
-    required TResult Function(AddressModel addressModel, String name,
-            double deliveryPrice, Uint8List logoImage, Uint8List cardImage)
+    required TResult Function(
+            AddressModel addressModel,
+            String name,
+            String type,
+            double deliveryPrice,
+            Uint8List logoImage,
+            Uint8List cardImage)
         createNew,
     required TResult Function(int organizationId, sortType sort,
             String? category, String? brand, String? name)
@@ -32,7 +37,7 @@ mixin _$OrganizationEvent {
       throw _privateConstructorUsedError;
   @optionalTypeArgs
   TResult? whenOrNull<TResult extends Object?>({
-    TResult? Function(AddressModel addressModel, String name,
+    TResult? Function(AddressModel addressModel, String name, String type,
             double deliveryPrice, Uint8List logoImage, Uint8List cardImage)?
         createNew,
     TResult? Function(int organizationId, sortType sort, String? category,
@@ -46,7 +51,7 @@ mixin _$OrganizationEvent {
       throw _privateConstructorUsedError;
   @optionalTypeArgs
   TResult maybeWhen<TResult extends Object?>({
-    TResult Function(AddressModel addressModel, String name,
+    TResult Function(AddressModel addressModel, String name, String type,
             double deliveryPrice, Uint8List logoImage, Uint8List cardImage)?
         createNew,
     TResult Function(int organizationId, sortType sort, String? category,
@@ -120,6 +125,7 @@ abstract class _$$_$OrganizationCreateNewEventCopyWith<$Res> {
   $Res call(
       {AddressModel addressModel,
       String name,
+      String type,
       double deliveryPrice,
       Uint8List logoImage,
       Uint8List cardImage});
@@ -140,6 +146,7 @@ class __$$_$OrganizationCreateNewEventCopyWithImpl<$Res>
   $Res call({
     Object? addressModel = null,
     Object? name = null,
+    Object? type = null,
     Object? deliveryPrice = null,
     Object? logoImage = null,
     Object? cardImage = null,
@@ -152,6 +159,10 @@ class __$$_$OrganizationCreateNewEventCopyWithImpl<$Res>
       name: null == name
           ? _value.name
           : name // ignore: cast_nullable_to_non_nullable
+              as String,
+      type: null == type
+          ? _value.type
+          : type // ignore: cast_nullable_to_non_nullable
               as String,
       deliveryPrice: null == deliveryPrice
           ? _value.deliveryPrice
@@ -177,6 +188,7 @@ class _$_$OrganizationCreateNewEvent
   const _$_$OrganizationCreateNewEvent(
       {required this.addressModel,
       required this.name,
+      required this.type,
       required this.deliveryPrice,
       required this.logoImage,
       required this.cardImage});
@@ -186,6 +198,8 @@ class _$_$OrganizationCreateNewEvent
   @override
   final String name;
   @override
+  final String type;
+  @override
   final double deliveryPrice;
   @override
   final Uint8List logoImage;
@@ -194,7 +208,7 @@ class _$_$OrganizationCreateNewEvent
 
   @override
   String toString({DiagnosticLevel minLevel = DiagnosticLevel.info}) {
-    return 'OrganizationEvent.createNew(addressModel: $addressModel, name: $name, deliveryPrice: $deliveryPrice, logoImage: $logoImage, cardImage: $cardImage)';
+    return 'OrganizationEvent.createNew(addressModel: $addressModel, name: $name, type: $type, deliveryPrice: $deliveryPrice, logoImage: $logoImage, cardImage: $cardImage)';
   }
 
   @override
@@ -204,6 +218,7 @@ class _$_$OrganizationCreateNewEvent
       ..add(DiagnosticsProperty('type', 'OrganizationEvent.createNew'))
       ..add(DiagnosticsProperty('addressModel', addressModel))
       ..add(DiagnosticsProperty('name', name))
+      ..add(DiagnosticsProperty('type', type))
       ..add(DiagnosticsProperty('deliveryPrice', deliveryPrice))
       ..add(DiagnosticsProperty('logoImage', logoImage))
       ..add(DiagnosticsProperty('cardImage', cardImage));
@@ -217,6 +232,7 @@ class _$_$OrganizationCreateNewEvent
             (identical(other.addressModel, addressModel) ||
                 other.addressModel == addressModel) &&
             (identical(other.name, name) || other.name == name) &&
+            (identical(other.type, type) || other.type == type) &&
             (identical(other.deliveryPrice, deliveryPrice) ||
                 other.deliveryPrice == deliveryPrice) &&
             const DeepCollectionEquality().equals(other.logoImage, logoImage) &&
@@ -228,6 +244,7 @@ class _$_$OrganizationCreateNewEvent
       runtimeType,
       addressModel,
       name,
+      type,
       deliveryPrice,
       const DeepCollectionEquality().hash(logoImage),
       const DeepCollectionEquality().hash(cardImage));
@@ -242,8 +259,13 @@ class _$_$OrganizationCreateNewEvent
   @override
   @optionalTypeArgs
   TResult when<TResult extends Object?>({
-    required TResult Function(AddressModel addressModel, String name,
-            double deliveryPrice, Uint8List logoImage, Uint8List cardImage)
+    required TResult Function(
+            AddressModel addressModel,
+            String name,
+            String type,
+            double deliveryPrice,
+            Uint8List logoImage,
+            Uint8List cardImage)
         createNew,
     required TResult Function(int organizationId, sortType sort,
             String? category, String? brand, String? name)
@@ -253,13 +275,14 @@ class _$_$OrganizationCreateNewEvent
         loadOrganizations,
     required TResult Function(int companyId) loadOrganizationStatistic,
   }) {
-    return createNew(addressModel, name, deliveryPrice, logoImage, cardImage);
+    return createNew(
+        addressModel, name, type, deliveryPrice, logoImage, cardImage);
   }
 
   @override
   @optionalTypeArgs
   TResult? whenOrNull<TResult extends Object?>({
-    TResult? Function(AddressModel addressModel, String name,
+    TResult? Function(AddressModel addressModel, String name, String type,
             double deliveryPrice, Uint8List logoImage, Uint8List cardImage)?
         createNew,
     TResult? Function(int organizationId, sortType sort, String? category,
@@ -271,13 +294,13 @@ class _$_$OrganizationCreateNewEvent
     TResult? Function(int companyId)? loadOrganizationStatistic,
   }) {
     return createNew?.call(
-        addressModel, name, deliveryPrice, logoImage, cardImage);
+        addressModel, name, type, deliveryPrice, logoImage, cardImage);
   }
 
   @override
   @optionalTypeArgs
   TResult maybeWhen<TResult extends Object?>({
-    TResult Function(AddressModel addressModel, String name,
+    TResult Function(AddressModel addressModel, String name, String type,
             double deliveryPrice, Uint8List logoImage, Uint8List cardImage)?
         createNew,
     TResult Function(int organizationId, sortType sort, String? category,
@@ -290,7 +313,8 @@ class _$_$OrganizationCreateNewEvent
     required TResult orElse(),
   }) {
     if (createNew != null) {
-      return createNew(addressModel, name, deliveryPrice, logoImage, cardImage);
+      return createNew(
+          addressModel, name, type, deliveryPrice, logoImage, cardImage);
     }
     return orElse();
   }
@@ -343,12 +367,14 @@ abstract class _$OrganizationCreateNewEvent implements OrganizationEvent {
   const factory _$OrganizationCreateNewEvent(
       {required final AddressModel addressModel,
       required final String name,
+      required final String type,
       required final double deliveryPrice,
       required final Uint8List logoImage,
       required final Uint8List cardImage}) = _$_$OrganizationCreateNewEvent;
 
   AddressModel get addressModel;
   String get name;
+  String get type;
   double get deliveryPrice;
   Uint8List get logoImage;
   Uint8List get cardImage;
@@ -484,8 +510,13 @@ class _$_$OrganizationLoadStuffEvent
   @override
   @optionalTypeArgs
   TResult when<TResult extends Object?>({
-    required TResult Function(AddressModel addressModel, String name,
-            double deliveryPrice, Uint8List logoImage, Uint8List cardImage)
+    required TResult Function(
+            AddressModel addressModel,
+            String name,
+            String type,
+            double deliveryPrice,
+            Uint8List logoImage,
+            Uint8List cardImage)
         createNew,
     required TResult Function(int organizationId, sortType sort,
             String? category, String? brand, String? name)
@@ -501,7 +532,7 @@ class _$_$OrganizationLoadStuffEvent
   @override
   @optionalTypeArgs
   TResult? whenOrNull<TResult extends Object?>({
-    TResult? Function(AddressModel addressModel, String name,
+    TResult? Function(AddressModel addressModel, String name, String type,
             double deliveryPrice, Uint8List logoImage, Uint8List cardImage)?
         createNew,
     TResult? Function(int organizationId, sortType sort, String? category,
@@ -518,7 +549,7 @@ class _$_$OrganizationLoadStuffEvent
   @override
   @optionalTypeArgs
   TResult maybeWhen<TResult extends Object?>({
-    TResult Function(AddressModel addressModel, String name,
+    TResult Function(AddressModel addressModel, String name, String type,
             double deliveryPrice, Uint8List logoImage, Uint8List cardImage)?
         createNew,
     TResult Function(int organizationId, sortType sort, String? category,
@@ -725,8 +756,13 @@ class _$_$OrganizationLoadOrganizationsEvent
   @override
   @optionalTypeArgs
   TResult when<TResult extends Object?>({
-    required TResult Function(AddressModel addressModel, String name,
-            double deliveryPrice, Uint8List logoImage, Uint8List cardImage)
+    required TResult Function(
+            AddressModel addressModel,
+            String name,
+            String type,
+            double deliveryPrice,
+            Uint8List logoImage,
+            Uint8List cardImage)
         createNew,
     required TResult Function(int organizationId, sortType sort,
             String? category, String? brand, String? name)
@@ -742,7 +778,7 @@ class _$_$OrganizationLoadOrganizationsEvent
   @override
   @optionalTypeArgs
   TResult? whenOrNull<TResult extends Object?>({
-    TResult? Function(AddressModel addressModel, String name,
+    TResult? Function(AddressModel addressModel, String name, String type,
             double deliveryPrice, Uint8List logoImage, Uint8List cardImage)?
         createNew,
     TResult? Function(int organizationId, sortType sort, String? category,
@@ -759,7 +795,7 @@ class _$_$OrganizationLoadOrganizationsEvent
   @override
   @optionalTypeArgs
   TResult maybeWhen<TResult extends Object?>({
-    TResult Function(AddressModel addressModel, String name,
+    TResult Function(AddressModel addressModel, String name, String type,
             double deliveryPrice, Uint8List logoImage, Uint8List cardImage)?
         createNew,
     TResult Function(int organizationId, sortType sort, String? category,
@@ -922,8 +958,13 @@ class _$_$OrganizationLoadStatisticEvent
   @override
   @optionalTypeArgs
   TResult when<TResult extends Object?>({
-    required TResult Function(AddressModel addressModel, String name,
-            double deliveryPrice, Uint8List logoImage, Uint8List cardImage)
+    required TResult Function(
+            AddressModel addressModel,
+            String name,
+            String type,
+            double deliveryPrice,
+            Uint8List logoImage,
+            Uint8List cardImage)
         createNew,
     required TResult Function(int organizationId, sortType sort,
             String? category, String? brand, String? name)
@@ -939,7 +980,7 @@ class _$_$OrganizationLoadStatisticEvent
   @override
   @optionalTypeArgs
   TResult? whenOrNull<TResult extends Object?>({
-    TResult? Function(AddressModel addressModel, String name,
+    TResult? Function(AddressModel addressModel, String name, String type,
             double deliveryPrice, Uint8List logoImage, Uint8List cardImage)?
         createNew,
     TResult? Function(int organizationId, sortType sort, String? category,
@@ -956,7 +997,7 @@ class _$_$OrganizationLoadStatisticEvent
   @override
   @optionalTypeArgs
   TResult maybeWhen<TResult extends Object?>({
-    TResult Function(AddressModel addressModel, String name,
+    TResult Function(AddressModel addressModel, String name, String type,
             double deliveryPrice, Uint8List logoImage, Uint8List cardImage)?
         createNew,
     TResult Function(int organizationId, sortType sort, String? category,
