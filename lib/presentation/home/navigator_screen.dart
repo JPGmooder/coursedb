@@ -24,7 +24,8 @@ class NavigatorScreen extends StatefulWidget {
 class _NavigatorScreenState extends State<NavigatorScreen> {
   @override
   Widget build(BuildContext context) {
-    return         BlocProvider(create: (ctx) => CartBloc(),
+    return BlocProvider(
+      create: (ctx) => CartBloc(),
       child: PersistentTabView(
         screenTransitionAnimation:
             ScreenTransitionAnimation(animateTabTransition: true),
@@ -33,50 +34,37 @@ class _NavigatorScreenState extends State<NavigatorScreen> {
         navBarStyle: NavBarStyle.style9,
         screens: [
           RestarauntList(),
-          MarketScreen(),
-          CartScreen(),
           CartScreen(),
           ProfileScreen(
             parentContext: context,
           )
         ],
-      
-        items: List.generate(5, (index) {
+        items: List.generate(3, (index) {
           late IconData icon;
           late IconData inActiveIcon;
-    
+
           late String text;
-    
+
           switch (index) {
             case 0:
               icon = Icons.food_bank;
               inActiveIcon = Icons.food_bank_outlined;
               text = "Рестораны";
               break;
+
             case 1:
-              icon = Icons.shopping_cart;
-              inActiveIcon = Icons.shopping_cart_outlined;
-    
-              text = "Магазины";
-              break;
-            case 2:
               icon = Icons.shopping_basket;
               inActiveIcon = Icons.shopping_basket_outlined;
               text = "Корзина";
               break;
-            case 3:
-              icon = Icons.search;
-              inActiveIcon = Icons.search;
-              text = "Поиск";
-              break;
-            case 4:
+            case 2:
               icon = Icons.person;
               inActiveIcon = Icons.person_outline;
               text = "Профиль";
               break;
             default:
           }
-    
+
           return index == 2
               ? PersistentBottomNavBarItem(
                   icon: CartIconWidget(

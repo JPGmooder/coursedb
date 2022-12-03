@@ -29,28 +29,32 @@ class AddressModel {
     this.lat,
   });
 
-  AddressModel copyWith({
-    int? id_address,
-    String? name,
-    String? street,
-    String? housenumber,
-    String? county,
-    String? state,
-    String? city,
-    double? lon,
-    double? lat,
-  }) {
+  AddressModel copyWith(
+      {int? id_address,
+      String? name,
+      String? street,
+      String? housenumber,
+      String? county,
+      String? state,
+      String? city,
+      double? lon,
+      double? lat,
+      String? enterance,
+      String? apartament,
+      String? floor}) {
     return AddressModel(
-      id_address: id_address ?? this.id_address,
-      name: name ?? this.name,
-      street: street ?? this.street,
-      housenumber: housenumber ?? this.housenumber,
-      county: county ?? this.county,
-      state: state ?? this.state,
-      city: city ?? this.city,
-      lon: lon ?? this.lon,
-      lat: lat ?? this.lat,
-    );
+        id_address: id_address ?? this.id_address,
+        name: name ?? this.name,
+        street: street ?? this.street,
+        housenumber: housenumber ?? this.housenumber,
+        county: county ?? this.county,
+        state: state ?? this.state,
+        city: city ?? this.city,
+        lon: lon ?? this.lon,
+        lat: lat ?? this.lat,
+        enterance: enterance,
+        floor: floor,
+        apartament: apartament);
   }
 
   Map<String, dynamic> toMap() {

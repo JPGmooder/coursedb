@@ -40,6 +40,10 @@ class CartBloc extends Bloc<CartEvent, CartState> {
               quantity: productQuantity);
           emit(CartState.itemManaged(loadedItem));
         },
+        clearCartEvent: (cardId) async {
+          await CartRepository.clearCart(cardId: cardId);
+          emit(CartState.empty());
+        },
         loadProductsById: ((ids) async {
           emit(const CartState.loading());
           if (ids.isEmpty) {

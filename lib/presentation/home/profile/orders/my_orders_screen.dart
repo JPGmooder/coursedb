@@ -93,7 +93,11 @@ class _MyOrdersScreenState extends State<MyOrdersScreen> {
                                 items: e.value.map((e) {
                                   var cart = e['cart'] as CartModel;
                                   var order = e['order'] as OrderModel;
-                                  return OrderWidget(order: order, cart: cart);
+                                  return OrderWidget(
+                                      isCarted: false,
+                                      isCourier: widget.isCourier,
+                                      order: order,
+                                      cart: cart);
                                 }).toList()))
                             .toList()
                       ]),
@@ -129,7 +133,10 @@ class _MyOrdersScreenState extends State<MyOrdersScreen> {
                                         var cart = e['cart'] as CartModel;
                                         var order = e['order'] as OrderModel;
                                         return OrderWidget(
-                                            order: order, cart: cart);
+                                            isCarted: false,
+                                            isCourier: widget.isCourier,
+                                            order: order,
+                                            cart: cart);
                                       }).toList()))
                                   .toList()
                             ]),
@@ -167,7 +174,10 @@ class _MyOrdersScreenState extends State<MyOrdersScreen> {
                                         var cart = e['cart'] as CartModel;
                                         var order = e['order'] as OrderModel;
                                         return OrderWidget(
-                                            order: order, cart: cart);
+                                            isCarted: false,
+                                            isCourier: widget.isCourier,
+                                            order: order,
+                                            cart: cart);
                                       }).toList()))
                                   .toList()
                             ]),
@@ -184,10 +194,13 @@ class _MyOrdersScreenState extends State<MyOrdersScreen> {
 class OrderWidget extends StatefulWidget {
   const OrderWidget({
     Key? key,
+    required this.isCarted,
+    required this.isCourier,
     required this.order,
     required this.cart,
   }) : super(key: key);
-
+  final bool isCourier;
+  final bool isCarted;
   final OrderModel order;
   final CartModel cart;
 
@@ -199,7 +212,7 @@ class _OrderWidgetState extends State<OrderWidget> {
   late ExpandableController _controller;
   List<ProductModel>? orderedProducts;
   OrganizationModel? organization;
-
+  Future<Map<String, dynamic>>? _loader;
   @override
   void dispose() {
     _controller.dispose();
@@ -210,9 +223,11 @@ class _OrderWidgetState extends State<OrderWidget> {
   void initState() {
     _controller = ExpandableController();
     _controller.addListener(() {
-      if (_controller.expanded && orderedProducts == null) {
-        context.read<OrdersBloc>().add(OrdersEvent.loadOrdersProducts(
-            ids: widget.cart.items.map((e) => e.productId).toList()));
+      if (_controller.expanded) {
+        setState(() {
+          _loader = OrdersRepository.loadOrdersProducts(
+              ids: widget.cart.items.map((e) => e.productId).toList());
+        });
       }
     });
     super.initState();
@@ -252,124 +267,122 @@ class _OrderWidgetState extends State<OrderWidget> {
                 ),
               ],
             ),
-            expanded: BlocBuilder<OrdersBloc, OrdersState>(
-              builder: (context, state) {
-                return state.maybeWhen(
-                    orElse: () => Container(),
-                    loading: () {
-                      return orderedProducts == null
-                          ? CircularProgressIndicator()
-                          : Text("aboba");
-                    },
-                    ordersProductsLoaded: (products, organization) {
-                      var productsAmount = widget.cart.items
-                          .map((e) => e.amount)
-                          .reduce((value, element) => value + element);
-                      orderedProducts = [...products];
-                      this.organization = organization;
-                      return Column(
-                        crossAxisAlignment: CrossAxisAlignment.stretch,
+            expanded: FutureBuilder(
+              future: _loader,
+              builder: (context, snap) {
+                if (!snap.hasData) {
+                  return CircularProgressIndicator();
+                } else {
+                  var products =
+                      (snap.data! as Map<String, dynamic>)['products'];
+                  var organization =
+                      (snap.data! as Map<String, dynamic>)['company'];
+                  var productsAmount = widget.cart.items
+                      .map((e) => e.amount)
+                      .reduce((value, element) => value + element);
+                  orderedProducts = [...products];
+                  this.organization = organization;
+                  return Column(
+                    crossAxisAlignment: CrossAxisAlignment.stretch,
+                    children: [
+                      Row(
                         children: [
-                          Row(
-                            children: [
-                              Expanded(
-                                flex: 6,
-                                child: Text(
-                                  "${productsAmount == 1 ? "1 товар" : productsAmount < 5 ? "$productsAmount товара" : "$productsAmount товаров"} из ${this.organization!.companyName}",
-                                  style:
-                                      Theme.of(context).textTheme.titleMedium,
-                                ),
-                              ),
-                              if (widget.order.orderStatusName.step ==
-                                      OrderStep.delivery ||
-                                  widget.order.orderStatusName.step ==
-                                      OrderStep.waiting)
-                                Expanded(
-                                  flex: 1,
-                                  child: GradientMask(
-                                    size: 50,
-                                    begin: Alignment.topLeft,
-                                    end: Alignment.bottomRight,
-                                    child: IconButton(
-                                        onPressed: () => Navigator.push(
-                                            context,
-                                            MaterialPageRoute(
-                                                builder: (ctx) =>
-                                                    MyOrdersDetailedScreen(
-                                                      order: widget.order,
-                                                      cart: widget.cart,
-                                                      organization:
-                                                          organization,
-                                                      products: products,
-                                                    ))),
-                                        icon: Icon(
-                                          Icons.info_outline,
-                                          color: Colors.white,
-                                        )),
-                                  ),
-                                )
-                            ],
-                          ),
-                          Padding(
-                            padding: const EdgeInsets.all(8.0),
-                            child: Wrap(
-                              children: orderedProducts!
-                                  .map((e) => Card(
-                                        child: InkWell(
-                                          onTap: () => showBottomSheet(
-                                              context: context,
-                                              builder: (ctx) => ProductScreen(
-                                                  currentProduct: e,
-                                                  currentOrg:
-                                                      this.organization!)),
-                                          child: Padding(
-                                            padding: const EdgeInsets.only(
-                                                bottom: 5.0),
-                                            child: Column(
-                                              children: [
-                                                SizedBox.square(
-                                                  dimension: 74,
-                                                  child: CachedNetworkImage(
-                                                      fit: BoxFit.fill,
-                                                      imageUrl:
-                                                          e.photoAlbum.first),
-                                                ),
-                                                Text(
-                                                  "${widget.cart.items.firstWhere((element) => element.productId == e.productId).amount} шт.",
-                                                  style: Theme.of(context)
-                                                      .textTheme
-                                                      .labelMedium,
-                                                ),
-                                                Text(
-                                                  "${e.price} р.",
-                                                  style: Theme.of(context)
-                                                      .textTheme
-                                                      .labelMedium,
-                                                ),
-                                              ],
-                                            ),
-                                          ),
-                                        ),
-                                      ))
-                                  .toList(),
+                          Expanded(
+                            flex: 6,
+                            child: Text(
+                              "${productsAmount == 1 ? "1 товар" : productsAmount < 5 ? "$productsAmount товара" : "$productsAmount товаров"} из ${this.organization!.companyName}",
+                              style: Theme.of(context).textTheme.titleMedium,
                             ),
                           ),
-                          Row(
-                            mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                            children: [
-                              Text(
-                                "  ${DateFormat("Hm", 'ru').format(widget.cart.creationDate)}",
-                                style: Theme.of(context).textTheme.labelMedium,
+                          if (widget.order.orderStatusName.step ==
+                                  OrderStep.delivery ||
+                              widget.order.orderStatusName.step ==
+                                  OrderStep.waiting)
+                            Expanded(
+                              flex: 1,
+                              child: GradientMask(
+                                size: 50,
+                                begin: Alignment.topLeft,
+                                end: Alignment.bottomRight,
+                                child: IconButton(
+                                    onPressed: () => Navigator.push(
+                                        context,
+                                        MaterialPageRoute(
+                                            builder: (ctx) =>
+                                                MyOrdersDetailedScreen(
+                                                  order: widget.order,
+                                                  cart: widget.cart,
+                                                  organization: organization,
+                                                  products: products,
+                                                ))),
+                                    icon: Icon(
+                                      Icons.info_outline,
+                                      color: Colors.white,
+                                    )),
                               ),
-                              Text(
-                                widget.order.orderStatusName.name,
-                                style: Theme.of(context).textTheme.labelMedium,
-                              )
-                            ],
-                          ),
+                            )
                         ],
-                      );
-                    });
+                      ),
+                      Padding(
+                        padding: const EdgeInsets.all(8.0),
+                        child: Wrap(
+                          children: orderedProducts!
+                              .map((e) => Card(
+                                    child: InkWell(
+                                      onTap: () => showBottomSheet(
+                                          context: context,
+                                          builder: (ctx) => ProductScreen(
+                                              currentProduct: e,
+                                              isCourier: widget.isCourier,
+                                              isCarted: widget.isCarted,
+                                              currentOrg: this.organization!)),
+                                      child: Padding(
+                                        padding:
+                                            const EdgeInsets.only(bottom: 5.0),
+                                        child: Column(
+                                          children: [
+                                            SizedBox.square(
+                                              dimension: 74,
+                                              child: CachedNetworkImage(
+                                                  fit: BoxFit.fill,
+                                                  imageUrl: e.photoAlbum.first),
+                                            ),
+                                            Text(
+                                              "${widget.cart.items.firstWhere((element) => element.productId == e.productId).amount} шт.",
+                                              style: Theme.of(context)
+                                                  .textTheme
+                                                  .labelMedium,
+                                            ),
+                                            Text(
+                                              "${e.price} р.",
+                                              style: Theme.of(context)
+                                                  .textTheme
+                                                  .labelMedium,
+                                            ),
+                                          ],
+                                        ),
+                                      ),
+                                    ),
+                                  ))
+                              .toList(),
+                        ),
+                      ),
+                      Row(
+                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                        children: [
+                          Text(
+                            "  ${DateFormat("Hm", 'ru').format(widget.cart.creationDate)}",
+                            style: Theme.of(context).textTheme.labelMedium,
+                          ),
+                          Text(
+                            widget.order.orderStatusName.name,
+                            style: Theme.of(context).textTheme.labelMedium,
+                          )
+                        ],
+                      ),
+                    ],
+                  );
+                }
               },
             )),
       ),

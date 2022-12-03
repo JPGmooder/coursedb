@@ -2,6 +2,7 @@ import 'dart:math';
 
 import 'package:flutter/material.dart';
 import 'package:flutter_neumorphic/flutter_neumorphic.dart';
+import 'package:kursach/presentation/home/profile/support/my_tickets_screen.dart';
 
 class TechSupportCard extends StatelessWidget {
   const TechSupportCard({Key? key}) : super(key: key);
@@ -34,7 +35,8 @@ class TechSupportCard extends StatelessWidget {
                 style: NeumorphicStyle(
                   depth: -5,
                 ),
-                onPressed: () => null,
+                onPressed: () => Navigator.push(context,
+                    MaterialPageRoute(builder: (ctx) => MyTicketsScreen())),
                 child: Row(
                   mainAxisAlignment: MainAxisAlignment.center,
                   children: [
@@ -50,7 +52,7 @@ class TechSupportCard extends StatelessWidget {
                       width: 10,
                     ),
                     Text(
-                      "Чат",
+                      "Сообщить о проблеме",
                       textScaleFactor: 1.4,
                       style: Theme.of(context)
                           .textTheme

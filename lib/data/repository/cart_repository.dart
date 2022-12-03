@@ -52,6 +52,17 @@ class CartRepository {
         .first);
   }
 
+  static Future<void> clearCart({
+    required int cardId,
+  }) async {
+    var response = await CartProvider.clearCartById(id: cardId);
+    if (response.hasException ||
+        response.data == null ||
+        response.data!.isEmpty) {
+      throw Exception("Ошибка какая-та");
+    }
+  }
+
   static Future<OrderModel> createNewOrder(
       {required int cartId,
       required double deliveryPrice,

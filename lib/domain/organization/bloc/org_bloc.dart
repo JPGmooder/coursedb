@@ -33,7 +33,7 @@ class OrganizationBloc extends Bloc<OrganizationEvent, OrganizationState> {
           emit(OrganizationState.loading());
           var loadedOrganizations =
               await OrganiztionRepository.loadUsersCompanies(
-                  addressId: address.id_address, maxDistance: 1500000);
+                  addressId: address.id_address, maxDistance: 1000);
           emit(OrganizationState.usersOrganizationsLoaded(loadedOrganizations));
         },
         loadOrganizationStatistic: (orgId) async {

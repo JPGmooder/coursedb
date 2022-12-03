@@ -48,7 +48,9 @@ class CartItemWidget extends StatelessWidget {
                 : () => showBottomSheet(
                     context: context,
                     builder: (ctx) => ProductScreen(
-                        currentProduct: product, currentOrg: currentOrg!)),
+                        isCarted: true,
+                        currentProduct: product,
+                        currentOrg: currentOrg!)),
             leading: ConstrainedBox(
               constraints: BoxConstraints(maxWidth: 70, maxHeight: 70),
               child: CachedNetworkImage(

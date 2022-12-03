@@ -1,3 +1,5 @@
+import 'dart:async';
+
 import 'package:flutter/material.dart';
 import 'package:flutter/scheduler.dart';
 import 'package:kursach/domain/model/organization_model.dart';
@@ -8,6 +10,7 @@ import 'package:kursach/presentation/outstanding/product/product_screen.dart';
 import 'package:kursach/presentation/outstanding/product_card.dart';
 import 'package:rive/rive.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:rxdart/rxdart.dart';
 import 'package:flutter/src/painting/gradient.dart' as gradient;
 import 'package:supabase_flutter/supabase_flutter.dart';
 
@@ -24,6 +27,7 @@ class _RestarauntMainPageState extends State<RestarauntMainPage> {
   StateMachineController? _scontroller;
   late List<ProductTypeModel> categories;
   late ScrollController _maincroller;
+  late String searchString;
   void _onInit(Artboard art) {
     var ctrl = StateMachineController.fromArtboard(art, 'State Machine 1')
         as StateMachineController;
@@ -44,6 +48,7 @@ class _RestarauntMainPageState extends State<RestarauntMainPage> {
 
   @override
   void initState() {
+    searchString = '';
     categories = [];
     context.read<ProductBloc>().add(ProductEvent.loadProducts(
         widget.currentOrg.idCompany, null, null, null));
@@ -82,6 +87,11 @@ class _RestarauntMainPageState extends State<RestarauntMainPage> {
                                   children: [
                                     Text(
                                       widget.currentOrg.companyName,
+                                      textScaleFactor:
+                                          widget.currentOrg.companyName.length >
+                                                  20
+                                              ? 0.7
+                                              : 1,
                                       style: Theme.of(context)
                                           .textTheme
                                           .titleLarge!
@@ -195,6 +205,9 @@ class _RestarauntMainPageState extends State<RestarauntMainPage> {
                   crossAxisAlignment: CrossAxisAlignment.stretch,
                   children: [
                     CatalogTitle(
+                        searchProducts: (searchString) => setState(() {
+                              this.searchString = searchString;
+                            }),
                         onSelected: (value, index) => setState(() {
                               categories[index].isSelected = value;
                             }),
@@ -259,6 +272,15 @@ class _RestarauntMainPageState extends State<RestarauntMainPage> {
                                             .isNotEmpty)
                                         .toList();
                                   }
+                                  if (searchString.isNotEmpty) {
+                                    products = products
+                                        .where((element) =>
+                                            element.name
+                                                .contains(searchString) ||
+                                            element.description
+                                                .contains(searchString))
+                                        .toList();
+                                  }
                                   return Padding(
                                     padding: const EdgeInsets.symmetric(
                                         horizontal: 15.0),
@@ -320,11 +342,13 @@ class _RestarauntMainPageState extends State<RestarauntMainPage> {
 class CatalogTitle extends StatefulWidget {
   CatalogTitle(
       {Key? key,
+      required this.searchProducts,
       required this.controller,
       required this.orgName,
       required this.onSelected,
       required this.productTypes})
       : super(key: key);
+  void Function(String) searchProducts;
   ScrollController controller;
   String orgName;
   void Function(bool, int) onSelected;
@@ -334,8 +358,24 @@ class CatalogTitle extends StatefulWidget {
 }
 
 class _CatalogTitleState extends State<CatalogTitle> {
+  late bool isSearchingMode;
+  late TextEditingController _searcher;
+  late StreamController<String> _searcherController;
   @override
   void initState() {
+    _searcher = TextEditingController();
+    _searcherController = StreamController<String>();
+    _searcher.addListener(() {
+      _searcherController.add(_searcher.text);
+    });
+
+    _searcherController.stream
+        .distinct()
+        .debounceTime(Duration(milliseconds: 300))
+        .listen((event) {
+      widget.searchProducts(event);
+    });
+    isSearchingMode = false;
     widget.controller.addListener(() {
       if (widget.controller.position.maxScrollExtent !=
               widget.controller.position.pixels &&
@@ -345,6 +385,13 @@ class _CatalogTitleState extends State<CatalogTitle> {
       }
     });
     super.initState();
+  }
+
+  @override
+  void dispose() {
+    _searcher.dispose();
+    _searcherController.close();
+    super.dispose();
   }
 
   @override
@@ -358,27 +405,54 @@ class _CatalogTitleState extends State<CatalogTitle> {
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.stretch,
               children: [
-                Row(
-                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                  children: [
-                    IconButton(
-                        onPressed: () =>
-                            SchedulerBinding.instance.addPostFrameCallback((_) {
-                              Navigator.pop(context);
-                            }),
-                        icon: Icon(Icons.arrow_back)),
-                    Text(
-                      widget.orgName,
-                      style: Theme.of(context).textTheme.titleMedium,
-                    ),
-                    IconButton(onPressed: () => null, icon: Icon(Icons.search))
-                  ],
+                SingleChildScrollView(
+                  scrollDirection: Axis.horizontal,
+                  child: AnimatedSwitcher(
+                    duration: Duration(milliseconds: 500),
+                    child: isSearchingMode
+                        ? SizedBox(
+                            height: 50,
+                            width: MediaQuery.of(context).size.width,
+                            child: TextField(
+                              controller: _searcher,
+                              decoration: InputDecoration(
+                                  hintText: "Введите поисковую строку",
+                                  border: OutlineInputBorder(),
+                                  suffixIcon: IconButton(
+                                    icon: Icon(Icons.close),
+                                    onPressed: () => setState(() {
+                                      widget.searchProducts('');
+                                      isSearchingMode = false;
+                                    }),
+                                  )),
+                            ),
+                          )
+                        : Row(
+                            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                            children: [
+                              IconButton(
+                                  onPressed: () => SchedulerBinding.instance
+                                          .addPostFrameCallback((_) {
+                                        Navigator.pop(context);
+                                      }),
+                                  icon: Icon(Icons.arrow_back)),
+                              Text(
+                                widget.orgName,
+                                style: Theme.of(context).textTheme.titleMedium,
+                              ),
+                              IconButton(
+                                  onPressed: () => setState(() {
+                                        isSearchingMode = true;
+                                      }),
+                                  icon: Icon(Icons.search)),
+                            ],
+                          ),
+                  ),
                 ),
                 Card(
                   child: Row(
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
-                      IconButton(onPressed: () => null, icon: Icon(Icons.menu)),
                       Expanded(
                           child: SizedBox(
                         height: 50,

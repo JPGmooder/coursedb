@@ -136,4 +136,31 @@ class AuthRepository {
 
     return modelToReturn;
   }
+
+  static Future<AddressModel> updateAddressById(
+      {required AddressModel changedAddress}) async {
+    var rawData = await AuthProvider.updateUsersAddressByPk(
+        idAddress: changedAddress.id_address,
+        addressApartament: changedAddress.apartament!,
+        addressBuildingnum: changedAddress.housenumber,
+        addressCity: changedAddress.city,
+        addressEntrance: changedAddress.enterance!,
+        addressFloor: changedAddress.floor!,
+        addressLat: changedAddress.lat!,
+        addressLon: changedAddress.lon!,
+        addressName: changedAddress.name!,
+        addressState: changedAddress.state,
+        addressCounty: changedAddress.county,
+        addressStreetname: changedAddress.street);
+    if (rawData!.hasException) {
+      throw rawData.exception!;
+    }
+
+    AddressModel modelToReturn;
+
+    modelToReturn =
+        AddressModel.fromMap(rawData.data!['update_address_by_pk']);
+
+    return modelToReturn;
+  }
 }

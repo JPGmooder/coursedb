@@ -245,6 +245,88 @@ query FindAddressByLogin($_eq: String!) {
     return response;
   }
 
+  static MutationOptions _updateAddressById(
+      {required int idAddress,
+      required String addressApartament,
+      required String addressBuildingnum,
+      required String addressCity,
+      required String addressEntrance,
+      required String addressFloor,
+      required double addressLat,
+      required double addressLon,
+      required String addressName,
+      required String addressState,
+      required String addressCounty,
+      required String addressStreetname}) {
+    String document = r'''
+mutation MyMutation($id_address: Int!, $addressapartament: String = "", $addressbuildingnum: String = "", $addresscity: String = "", $addressentrance: String = "", $addressfloor: String = "", $addresslat: numeric = "", $addresslon: numeric = "", $addressname: String = "", $addressstate: String = "", $addresscounty: String = "", $addressstreetname: String = "") {
+  update_address_by_pk(pk_columns: {id_address: $id_address}, _set: {addressbuildingnum: $addressbuildingnum, addressapartament: $addressapartament, addresscity: $addresscity, addressentrance: $addressentrance, addressfloor: $addressfloor, addresslat: $addresslat, addresslon: $addresslon, addressname: $addressname, addressstate: $addressstate, addresscounty: $addresscounty, addressstreetname: $addressstreetname}) {
+    addressapartament
+    addressbuildingnum
+    addresscity
+    addresscounty
+    addressentrance
+    addressfloor
+    addresslat
+    addresslon
+    addressname
+    addressstate
+    addressstreetname
+    id_address
+  }
+}
+''';
+    return MutationOptions(document: gql(document), variables: {
+      "id_address": idAddress,
+      "addressapartament": addressApartament,
+      "addressbuildingnum": addressBuildingnum,
+      "addresscity": addressCity,
+      "addressentrance": addressEntrance,
+      "addressfloor": addressFloor,
+      "addresslat": addressLat,
+      "addresslon": addressLon,
+      "addressname": addressName,
+      "addressstate": addressState,
+      "addresscounty": addressCounty,
+      "addressstreetname": addressStreetname
+    });
+  }
+
+  static Future<QueryResult?> updateUsersAddressByPk(
+      {required int idAddress,
+      required String addressApartament,
+      required String addressBuildingnum,
+      required String addressCity,
+      required String addressEntrance,
+      required String addressFloor,
+      required double addressLat,
+      required double addressLon,
+      required String addressName,
+      required String addressState,
+      required String addressCounty,
+      required String addressStreetname}) async {
+    var response = await AppsGraphClient.client
+        .mutate(
+          _updateAddressById(
+              idAddress: idAddress,
+              addressApartament: addressApartament,
+              addressBuildingnum: addressBuildingnum,
+              addressCity: addressCity,
+              addressEntrance: addressEntrance,
+              addressFloor: addressFloor,
+              addressLat: addressLat,
+              addressLon: addressLon,
+              addressName: addressName,
+              addressState: addressState,
+              addressCounty: addressCounty,
+              addressStreetname: addressStreetname),
+        )
+        .timeout(Duration(seconds: 10),
+            onTimeout: () => throw Exception(
+                "Невозможно получить ответ от сервера, проверьте интернет-соединение и повторите попытку"));
+    return response;
+  }
+
   static Future<QueryResult?> regUser(
       String login, String password, String email) async {
     var response = await AppsGraphClient.client

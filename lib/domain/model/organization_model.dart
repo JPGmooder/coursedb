@@ -10,16 +10,20 @@ class OrganizationModel {
   String companyStatusName;
   String companyTypeName;
   AddressModel addressModel;
-  List<ProductModel> loadedProduct;
+  List<ProductModel> loadedProduct = [];
   OrganizationModel({
+    List<ProductModel>? loadedProduct,
     required this.idCompany,
     required this.companyDeliveryPrice,
     required this.companyName,
     required this.companyStatusName,
     required this.companyTypeName,
     required this.addressModel,
-    this.loadedProduct = const []
-  });
+  }) {
+    if (loadedProduct != null) {
+      this.loadedProduct = loadedProduct;
+    }
+  }
 
   OrganizationModel copyWith({
     int? idCompany,

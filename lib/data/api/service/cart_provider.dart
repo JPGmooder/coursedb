@@ -55,7 +55,7 @@ class CartProvider {
     return QueryOptions(document: gql(query), variables: {"id_product": id});
   }
 
-static QueryOptions _findActualCart(String userLogin) {
+  static QueryOptions _findActualCart(String userLogin) {
     String query = r'''
 query searchNewCart($_eq: String = "") {
   cart(where: {client: {userlogin: {_eq: $_eq}}, isactive: {_eq: true}}) {
@@ -70,8 +70,6 @@ query searchNewCart($_eq: String = "") {
 ''';
     return QueryOptions(document: gql(query), variables: {"_eq": userLogin});
   }
-
-  
 
   static MutationOptions _mutateProductToCart(
       int productId, int quantity, String userLogin) {
@@ -118,6 +116,25 @@ mutation addNewOrder($p_cart_id: Int!, $p_id_address: Int!, $p_orderprice: numer
     return MutationOptions(document: gql(mutationQuery), variables: variables);
   }
 
+  static MutationOptions _clearCart(int cartId) {
+    String mutationQuery = r'''
+mutation MyMutation($_eq: Int!) {
+  delete_cartitem(where: {cart_id: {_eq: $_eq}}) {
+    returning {
+      cart_id
+    }
+  }
+}
+''';
+    var variables = {"_eq": cartId};
+    return MutationOptions(document: gql(mutationQuery), variables: variables, fetchPolicy: FetchPolicy.networkOnly);
+  }
+
+  static Future<QueryResult> clearCartById({required int id}) async {
+    var response = await AppsGraphClient.client.mutate(_clearCart(id));
+    return response;
+  }
+
   static Future<QueryResult> loadProductById({required int id}) async {
     var response = await AppsGraphClient.client.query(_findProductById(id));
     return response;
@@ -137,10 +154,9 @@ mutation addNewOrder($p_cart_id: Int!, $p_id_address: Int!, $p_orderprice: numer
     return response;
   }
 
-  static Future<QueryResult> findActualCard(
-      String userLogin) async {
-    var response = await AppsGraphClient.client
-        .query(_findActualCart(userLogin));
+  static Future<QueryResult> findActualCard(String userLogin) async {
+    var response =
+        await AppsGraphClient.client.query(_findActualCart(userLogin));
     return response;
   }
 }

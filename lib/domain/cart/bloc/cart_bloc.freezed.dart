@@ -21,6 +21,7 @@ mixin _$CartEvent {
     required TResult Function(
             String userLogin, int productQuantity, int productId)
         manageCartItem,
+    required TResult Function(int cartId) clearCartEvent,
     required TResult Function(List<int> ids) loadProductsById,
     required TResult Function(
             int cartId, double itemsPrice, double deliveryPrice, int addressId)
@@ -31,6 +32,7 @@ mixin _$CartEvent {
   TResult? whenOrNull<TResult extends Object?>({
     TResult? Function(String userLogin, int productQuantity, int productId)?
         manageCartItem,
+    TResult? Function(int cartId)? clearCartEvent,
     TResult? Function(List<int> ids)? loadProductsById,
     TResult? Function(
             int cartId, double itemsPrice, double deliveryPrice, int addressId)?
@@ -41,6 +43,7 @@ mixin _$CartEvent {
   TResult maybeWhen<TResult extends Object?>({
     TResult Function(String userLogin, int productQuantity, int productId)?
         manageCartItem,
+    TResult Function(int cartId)? clearCartEvent,
     TResult Function(List<int> ids)? loadProductsById,
     TResult Function(
             int cartId, double itemsPrice, double deliveryPrice, int addressId)?
@@ -51,6 +54,7 @@ mixin _$CartEvent {
   @optionalTypeArgs
   TResult map<TResult extends Object?>({
     required TResult Function(_$CartManageCartItemEvent value) manageCartItem,
+    required TResult Function(_$CartClearEvent value) clearCartEvent,
     required TResult Function(_$CartLoadProductsByIdEvent value)
         loadProductsById,
     required TResult Function(_$CartCreateOrderEvent value) createOrder,
@@ -59,6 +63,7 @@ mixin _$CartEvent {
   @optionalTypeArgs
   TResult? mapOrNull<TResult extends Object?>({
     TResult? Function(_$CartManageCartItemEvent value)? manageCartItem,
+    TResult? Function(_$CartClearEvent value)? clearCartEvent,
     TResult? Function(_$CartLoadProductsByIdEvent value)? loadProductsById,
     TResult? Function(_$CartCreateOrderEvent value)? createOrder,
   }) =>
@@ -66,6 +71,7 @@ mixin _$CartEvent {
   @optionalTypeArgs
   TResult maybeMap<TResult extends Object?>({
     TResult Function(_$CartManageCartItemEvent value)? manageCartItem,
+    TResult Function(_$CartClearEvent value)? clearCartEvent,
     TResult Function(_$CartLoadProductsByIdEvent value)? loadProductsById,
     TResult Function(_$CartCreateOrderEvent value)? createOrder,
     required TResult orElse(),
@@ -182,6 +188,7 @@ class _$_$CartManageCartItemEvent implements _$CartManageCartItemEvent {
     required TResult Function(
             String userLogin, int productQuantity, int productId)
         manageCartItem,
+    required TResult Function(int cartId) clearCartEvent,
     required TResult Function(List<int> ids) loadProductsById,
     required TResult Function(
             int cartId, double itemsPrice, double deliveryPrice, int addressId)
@@ -195,6 +202,7 @@ class _$_$CartManageCartItemEvent implements _$CartManageCartItemEvent {
   TResult? whenOrNull<TResult extends Object?>({
     TResult? Function(String userLogin, int productQuantity, int productId)?
         manageCartItem,
+    TResult? Function(int cartId)? clearCartEvent,
     TResult? Function(List<int> ids)? loadProductsById,
     TResult? Function(
             int cartId, double itemsPrice, double deliveryPrice, int addressId)?
@@ -208,6 +216,7 @@ class _$_$CartManageCartItemEvent implements _$CartManageCartItemEvent {
   TResult maybeWhen<TResult extends Object?>({
     TResult Function(String userLogin, int productQuantity, int productId)?
         manageCartItem,
+    TResult Function(int cartId)? clearCartEvent,
     TResult Function(List<int> ids)? loadProductsById,
     TResult Function(
             int cartId, double itemsPrice, double deliveryPrice, int addressId)?
@@ -224,6 +233,7 @@ class _$_$CartManageCartItemEvent implements _$CartManageCartItemEvent {
   @optionalTypeArgs
   TResult map<TResult extends Object?>({
     required TResult Function(_$CartManageCartItemEvent value) manageCartItem,
+    required TResult Function(_$CartClearEvent value) clearCartEvent,
     required TResult Function(_$CartLoadProductsByIdEvent value)
         loadProductsById,
     required TResult Function(_$CartCreateOrderEvent value) createOrder,
@@ -235,6 +245,7 @@ class _$_$CartManageCartItemEvent implements _$CartManageCartItemEvent {
   @optionalTypeArgs
   TResult? mapOrNull<TResult extends Object?>({
     TResult? Function(_$CartManageCartItemEvent value)? manageCartItem,
+    TResult? Function(_$CartClearEvent value)? clearCartEvent,
     TResult? Function(_$CartLoadProductsByIdEvent value)? loadProductsById,
     TResult? Function(_$CartCreateOrderEvent value)? createOrder,
   }) {
@@ -245,6 +256,7 @@ class _$_$CartManageCartItemEvent implements _$CartManageCartItemEvent {
   @optionalTypeArgs
   TResult maybeMap<TResult extends Object?>({
     TResult Function(_$CartManageCartItemEvent value)? manageCartItem,
+    TResult Function(_$CartClearEvent value)? clearCartEvent,
     TResult Function(_$CartLoadProductsByIdEvent value)? loadProductsById,
     TResult Function(_$CartCreateOrderEvent value)? createOrder,
     required TResult orElse(),
@@ -268,6 +280,163 @@ abstract class _$CartManageCartItemEvent implements CartEvent {
   @JsonKey(ignore: true)
   _$$_$CartManageCartItemEventCopyWith<_$_$CartManageCartItemEvent>
       get copyWith => throw _privateConstructorUsedError;
+}
+
+/// @nodoc
+abstract class _$$_$CartClearEventCopyWith<$Res> {
+  factory _$$_$CartClearEventCopyWith(
+          _$_$CartClearEvent value, $Res Function(_$_$CartClearEvent) then) =
+      __$$_$CartClearEventCopyWithImpl<$Res>;
+  @useResult
+  $Res call({int cartId});
+}
+
+/// @nodoc
+class __$$_$CartClearEventCopyWithImpl<$Res>
+    extends _$CartEventCopyWithImpl<$Res, _$_$CartClearEvent>
+    implements _$$_$CartClearEventCopyWith<$Res> {
+  __$$_$CartClearEventCopyWithImpl(
+      _$_$CartClearEvent _value, $Res Function(_$_$CartClearEvent) _then)
+      : super(_value, _then);
+
+  @pragma('vm:prefer-inline')
+  @override
+  $Res call({
+    Object? cartId = null,
+  }) {
+    return _then(_$_$CartClearEvent(
+      cartId: null == cartId
+          ? _value.cartId
+          : cartId // ignore: cast_nullable_to_non_nullable
+              as int,
+    ));
+  }
+}
+
+/// @nodoc
+
+class _$_$CartClearEvent implements _$CartClearEvent {
+  const _$_$CartClearEvent({required this.cartId});
+
+  @override
+  final int cartId;
+
+  @override
+  String toString() {
+    return 'CartEvent.clearCartEvent(cartId: $cartId)';
+  }
+
+  @override
+  bool operator ==(dynamic other) {
+    return identical(this, other) ||
+        (other.runtimeType == runtimeType &&
+            other is _$_$CartClearEvent &&
+            (identical(other.cartId, cartId) || other.cartId == cartId));
+  }
+
+  @override
+  int get hashCode => Object.hash(runtimeType, cartId);
+
+  @JsonKey(ignore: true)
+  @override
+  @pragma('vm:prefer-inline')
+  _$$_$CartClearEventCopyWith<_$_$CartClearEvent> get copyWith =>
+      __$$_$CartClearEventCopyWithImpl<_$_$CartClearEvent>(this, _$identity);
+
+  @override
+  @optionalTypeArgs
+  TResult when<TResult extends Object?>({
+    required TResult Function(
+            String userLogin, int productQuantity, int productId)
+        manageCartItem,
+    required TResult Function(int cartId) clearCartEvent,
+    required TResult Function(List<int> ids) loadProductsById,
+    required TResult Function(
+            int cartId, double itemsPrice, double deliveryPrice, int addressId)
+        createOrder,
+  }) {
+    return clearCartEvent(cartId);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult? whenOrNull<TResult extends Object?>({
+    TResult? Function(String userLogin, int productQuantity, int productId)?
+        manageCartItem,
+    TResult? Function(int cartId)? clearCartEvent,
+    TResult? Function(List<int> ids)? loadProductsById,
+    TResult? Function(
+            int cartId, double itemsPrice, double deliveryPrice, int addressId)?
+        createOrder,
+  }) {
+    return clearCartEvent?.call(cartId);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult maybeWhen<TResult extends Object?>({
+    TResult Function(String userLogin, int productQuantity, int productId)?
+        manageCartItem,
+    TResult Function(int cartId)? clearCartEvent,
+    TResult Function(List<int> ids)? loadProductsById,
+    TResult Function(
+            int cartId, double itemsPrice, double deliveryPrice, int addressId)?
+        createOrder,
+    required TResult orElse(),
+  }) {
+    if (clearCartEvent != null) {
+      return clearCartEvent(cartId);
+    }
+    return orElse();
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult map<TResult extends Object?>({
+    required TResult Function(_$CartManageCartItemEvent value) manageCartItem,
+    required TResult Function(_$CartClearEvent value) clearCartEvent,
+    required TResult Function(_$CartLoadProductsByIdEvent value)
+        loadProductsById,
+    required TResult Function(_$CartCreateOrderEvent value) createOrder,
+  }) {
+    return clearCartEvent(this);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult? mapOrNull<TResult extends Object?>({
+    TResult? Function(_$CartManageCartItemEvent value)? manageCartItem,
+    TResult? Function(_$CartClearEvent value)? clearCartEvent,
+    TResult? Function(_$CartLoadProductsByIdEvent value)? loadProductsById,
+    TResult? Function(_$CartCreateOrderEvent value)? createOrder,
+  }) {
+    return clearCartEvent?.call(this);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult maybeMap<TResult extends Object?>({
+    TResult Function(_$CartManageCartItemEvent value)? manageCartItem,
+    TResult Function(_$CartClearEvent value)? clearCartEvent,
+    TResult Function(_$CartLoadProductsByIdEvent value)? loadProductsById,
+    TResult Function(_$CartCreateOrderEvent value)? createOrder,
+    required TResult orElse(),
+  }) {
+    if (clearCartEvent != null) {
+      return clearCartEvent(this);
+    }
+    return orElse();
+  }
+}
+
+abstract class _$CartClearEvent implements CartEvent {
+  const factory _$CartClearEvent({required final int cartId}) =
+      _$_$CartClearEvent;
+
+  int get cartId;
+  @JsonKey(ignore: true)
+  _$$_$CartClearEventCopyWith<_$_$CartClearEvent> get copyWith =>
+      throw _privateConstructorUsedError;
 }
 
 /// @nodoc
@@ -345,6 +514,7 @@ class _$_$CartLoadProductsByIdEvent implements _$CartLoadProductsByIdEvent {
     required TResult Function(
             String userLogin, int productQuantity, int productId)
         manageCartItem,
+    required TResult Function(int cartId) clearCartEvent,
     required TResult Function(List<int> ids) loadProductsById,
     required TResult Function(
             int cartId, double itemsPrice, double deliveryPrice, int addressId)
@@ -358,6 +528,7 @@ class _$_$CartLoadProductsByIdEvent implements _$CartLoadProductsByIdEvent {
   TResult? whenOrNull<TResult extends Object?>({
     TResult? Function(String userLogin, int productQuantity, int productId)?
         manageCartItem,
+    TResult? Function(int cartId)? clearCartEvent,
     TResult? Function(List<int> ids)? loadProductsById,
     TResult? Function(
             int cartId, double itemsPrice, double deliveryPrice, int addressId)?
@@ -371,6 +542,7 @@ class _$_$CartLoadProductsByIdEvent implements _$CartLoadProductsByIdEvent {
   TResult maybeWhen<TResult extends Object?>({
     TResult Function(String userLogin, int productQuantity, int productId)?
         manageCartItem,
+    TResult Function(int cartId)? clearCartEvent,
     TResult Function(List<int> ids)? loadProductsById,
     TResult Function(
             int cartId, double itemsPrice, double deliveryPrice, int addressId)?
@@ -387,6 +559,7 @@ class _$_$CartLoadProductsByIdEvent implements _$CartLoadProductsByIdEvent {
   @optionalTypeArgs
   TResult map<TResult extends Object?>({
     required TResult Function(_$CartManageCartItemEvent value) manageCartItem,
+    required TResult Function(_$CartClearEvent value) clearCartEvent,
     required TResult Function(_$CartLoadProductsByIdEvent value)
         loadProductsById,
     required TResult Function(_$CartCreateOrderEvent value) createOrder,
@@ -398,6 +571,7 @@ class _$_$CartLoadProductsByIdEvent implements _$CartLoadProductsByIdEvent {
   @optionalTypeArgs
   TResult? mapOrNull<TResult extends Object?>({
     TResult? Function(_$CartManageCartItemEvent value)? manageCartItem,
+    TResult? Function(_$CartClearEvent value)? clearCartEvent,
     TResult? Function(_$CartLoadProductsByIdEvent value)? loadProductsById,
     TResult? Function(_$CartCreateOrderEvent value)? createOrder,
   }) {
@@ -408,6 +582,7 @@ class _$_$CartLoadProductsByIdEvent implements _$CartLoadProductsByIdEvent {
   @optionalTypeArgs
   TResult maybeMap<TResult extends Object?>({
     TResult Function(_$CartManageCartItemEvent value)? manageCartItem,
+    TResult Function(_$CartClearEvent value)? clearCartEvent,
     TResult Function(_$CartLoadProductsByIdEvent value)? loadProductsById,
     TResult Function(_$CartCreateOrderEvent value)? createOrder,
     required TResult orElse(),
@@ -530,6 +705,7 @@ class _$_$CartCreateOrderEvent implements _$CartCreateOrderEvent {
     required TResult Function(
             String userLogin, int productQuantity, int productId)
         manageCartItem,
+    required TResult Function(int cartId) clearCartEvent,
     required TResult Function(List<int> ids) loadProductsById,
     required TResult Function(
             int cartId, double itemsPrice, double deliveryPrice, int addressId)
@@ -543,6 +719,7 @@ class _$_$CartCreateOrderEvent implements _$CartCreateOrderEvent {
   TResult? whenOrNull<TResult extends Object?>({
     TResult? Function(String userLogin, int productQuantity, int productId)?
         manageCartItem,
+    TResult? Function(int cartId)? clearCartEvent,
     TResult? Function(List<int> ids)? loadProductsById,
     TResult? Function(
             int cartId, double itemsPrice, double deliveryPrice, int addressId)?
@@ -556,6 +733,7 @@ class _$_$CartCreateOrderEvent implements _$CartCreateOrderEvent {
   TResult maybeWhen<TResult extends Object?>({
     TResult Function(String userLogin, int productQuantity, int productId)?
         manageCartItem,
+    TResult Function(int cartId)? clearCartEvent,
     TResult Function(List<int> ids)? loadProductsById,
     TResult Function(
             int cartId, double itemsPrice, double deliveryPrice, int addressId)?
@@ -572,6 +750,7 @@ class _$_$CartCreateOrderEvent implements _$CartCreateOrderEvent {
   @optionalTypeArgs
   TResult map<TResult extends Object?>({
     required TResult Function(_$CartManageCartItemEvent value) manageCartItem,
+    required TResult Function(_$CartClearEvent value) clearCartEvent,
     required TResult Function(_$CartLoadProductsByIdEvent value)
         loadProductsById,
     required TResult Function(_$CartCreateOrderEvent value) createOrder,
@@ -583,6 +762,7 @@ class _$_$CartCreateOrderEvent implements _$CartCreateOrderEvent {
   @optionalTypeArgs
   TResult? mapOrNull<TResult extends Object?>({
     TResult? Function(_$CartManageCartItemEvent value)? manageCartItem,
+    TResult? Function(_$CartClearEvent value)? clearCartEvent,
     TResult? Function(_$CartLoadProductsByIdEvent value)? loadProductsById,
     TResult? Function(_$CartCreateOrderEvent value)? createOrder,
   }) {
@@ -593,6 +773,7 @@ class _$_$CartCreateOrderEvent implements _$CartCreateOrderEvent {
   @optionalTypeArgs
   TResult maybeMap<TResult extends Object?>({
     TResult Function(_$CartManageCartItemEvent value)? manageCartItem,
+    TResult Function(_$CartClearEvent value)? clearCartEvent,
     TResult Function(_$CartLoadProductsByIdEvent value)? loadProductsById,
     TResult Function(_$CartCreateOrderEvent value)? createOrder,
     required TResult orElse(),

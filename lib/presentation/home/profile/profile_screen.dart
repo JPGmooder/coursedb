@@ -9,6 +9,7 @@ import 'package:kursach/domain/organization/bloc/org_bloc.dart';
 import 'package:kursach/presentation/auth/auth_body.dart';
 import 'package:kursach/presentation/auth/auth_personal/auth_personal_screen.dart';
 import 'package:kursach/presentation/auth/auth_screen.dart';
+import 'package:kursach/presentation/home/profile/addresses/myaddresses_screen.dart';
 import 'package:kursach/presentation/home/profile/courier/courier_navigator.dart';
 import 'package:kursach/presentation/home/profile/orders/my_orders_screen.dart';
 import 'package:kursach/presentation/home/profile/organization/manage_organization.dart';
@@ -127,8 +128,8 @@ class _ProfileScreenState extends State<ProfileScreen> {
                         title = "Мои данные";
                         break;
                       case 2:
-                        onPressed = () => null;
-
+                        onPressed = () => Navigator.push(context,
+                            MaterialPageRoute(builder: (ctx) => MyAddresses()));
                         icon = FontAwesomeIcons.addressCard;
                         title = "Мои адреса";
                         break;
