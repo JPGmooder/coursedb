@@ -15,7 +15,9 @@ import 'package:kursach/domain/model/user_model.dart';
 import 'package:kursach/domain/orders/bloc/orders_bloc.dart';
 import 'package:kursach/domain/tickets/bloc/tickets_bloc.dart';
 import 'package:kursach/presentation/home/profile/orders/my_orders_detailed.dart';
+import 'package:kursach/presentation/home/restaurant/restaraunt_screen.dart';
 import 'package:kursach/presentation/outstanding/gradientmask.dart';
+import 'package:kursach/presentation/outstanding/notfound_screen.dart';
 import 'package:kursach/presentation/outstanding/product/product_screen.dart';
 import 'package:sliver_tools/sliver_tools.dart';
 import 'package:rxdart/rxdart.dart';
@@ -74,7 +76,7 @@ class _MyOrdersScreenState extends State<MyTicketsScreen> {
           builder: (context, state) {
             return state.maybeWhen(orElse: () {
               if (currentTickets == null) {
-                return CircularProgressIndicator();
+                return LoadingWidget();
               } else {
                 var listToMap = parseList();
                 return Padding(
@@ -94,40 +96,46 @@ class _MyOrdersScreenState extends State<MyTicketsScreen> {
                 );
               }
             }, loaded: (tickets) {
-              if (tickets.isEmpty) {
-                return Text("Нет активных тикетов");
-              } else {
-                var listToMap = parseList(tickets: tickets);
-                return Padding(
-                  padding: const EdgeInsets.all(8.0),
-                  child: CustomScrollView(slivers: [
-                    SliverAppBar(
-                      iconTheme: IconThemeData(color: Colors.black),
-                      title: Text(
-                        "Мои заявки",
-                        style: Theme.of(context).textTheme.titleMedium,
-                      ),
-                      actions: [
-                        IconButton(
-                            onPressed: () => showModalBottomSheet(
-                                isScrollControlled: true,
-                                context: context,
-                                constraints: BoxConstraints(
-                                    maxWidth:
-                                        MediaQuery.of(context).size.width *
-                                            0.95),
-                                shape: RoundedRectangleBorder(
-                                    borderRadius: BorderRadius.vertical(
-                                        top: Radius.circular(10))),
-                                builder: (ctx) => CreateRequestWIdget()),
-                            icon: Icon(
-                              Icons.add,
-                              color: Colors.lightGreen,
-                            ))
-                      ],
-                      pinned: true,
-                      backgroundColor: Theme.of(context).colorScheme.surface,
+              Map<DateTime, List<TicketModel>>? listToMap;
+              if (tickets.isNotEmpty) {
+                listToMap = parseList(tickets: tickets);
+              }
+              return Padding(
+                padding: const EdgeInsets.all(8.0),
+                child: CustomScrollView(slivers: [
+                  SliverAppBar(
+                    iconTheme: IconThemeData(color: Colors.black),
+                    title: Text(
+                      "Мои заявки",
+                      style: Theme.of(context).textTheme.titleMedium,
                     ),
+                    actions: [
+                      IconButton(
+                          onPressed: () => showModalBottomSheet(
+                              isScrollControlled: true,
+                              context: context,
+                              constraints: BoxConstraints(
+                                  maxWidth:
+                                      MediaQuery.of(context).size.width * 0.95),
+                              shape: RoundedRectangleBorder(
+                                  borderRadius: BorderRadius.vertical(
+                                      top: Radius.circular(10))),
+                              builder: (ctx) => CreateRequestWIdget()),
+                          icon: Icon(
+                            Icons.add,
+                            color: Colors.lightGreen,
+                          ))
+                    ],
+                    pinned: true,
+                    backgroundColor: Theme.of(context).colorScheme.surface,
+                  ),
+                  if (listToMap == null)
+                    SliverToBoxAdapter(
+                      child: NotFoundScreen(
+                          text:
+                              "Похоже вы еще не создавали запросов в техническую поддержку."),
+                    )
+                  else
                     ...listToMap.entries
                         .map((e) => Section(
                             ordersAmount: e.value.length,
@@ -138,9 +146,8 @@ class _MyOrdersScreenState extends State<MyTicketsScreen> {
                                     ))
                                 .toList()))
                         .toList()
-                  ]),
-                );
-              }
+                ]),
+              );
             });
           },
         ),
@@ -222,7 +229,7 @@ class _CreateRequestWIdgetState extends State<CreateRequestWIdget> {
               },
               builder: (context, state) {
                 return state.maybeWhen(
-                    loading: (_) => CircularProgressIndicator(),
+                    loading: (_) => LoadingWidget(),
                     orElse: () => GradientMask(
                           size: _controller.text.length < 20 ? 0 : 50,
                           begin: Alignment.topLeft,

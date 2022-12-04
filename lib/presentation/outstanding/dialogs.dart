@@ -4,11 +4,33 @@ import 'package:flutter_neumorphic/flutter_neumorphic.dart';
 import 'package:kursach/presentation/additional/setlocation_screen.dart';
 import 'package:kursach/presentation/home/profile/courier/courie_manage_field.dart';
 import 'package:kursach/presentation/outstanding/gradientmask.dart';
+import 'package:rive/rive.dart';
 
-class MainDialogWidget extends StatelessWidget {
-  const MainDialogWidget({Key? key, this.isCourier = false}) : super(key: key);
-
+class MainDialogWidget extends StatefulWidget {
+  const MainDialogWidget(
+      {Key? key, this.isCourier = false, required this.updateParentScreen})
+      : super(key: key);
+  final void Function() updateParentScreen;
   final bool isCourier;
+
+  @override
+  State<MainDialogWidget> createState() => _MainDialogWidgetState();
+}
+
+class _MainDialogWidgetState extends State<MainDialogWidget> {
+  StateMachineController? _scontroller;
+
+  void _onInit(Artboard art) {
+    var ctrl = StateMachineController.fromArtboard(
+            art, widget.isCourier ? "State Machine 1" : "main")
+        as StateMachineController;
+    ctrl.isActive = false;
+    art.addController(ctrl);
+    setState(() {
+      _scontroller = ctrl;
+      _scontroller!.isActive = true;
+    });
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -21,13 +43,20 @@ class MainDialogWidget extends StatelessWidget {
             stretch: true,
             flexibleSpace: FlexibleSpaceBar(
                 background: FittedBox(
-              fit: BoxFit.fill,
-              child: Container(
-                color: Colors.red,
-                width: 100,
-                height: 300,
-              ),
-            )),
+                    fit: BoxFit.fill,
+                    child: SizedBox(
+                      height: 300,
+                      width: MediaQuery.of(context).size.width * 0.8,
+                      child: RiveAnimation.asset(
+                        widget.isCourier
+                            ? "lib/assets/anim/logistic_box1.riv"
+                            : 'lib/assets/anim/handshake.riv',
+                        fit: BoxFit.fill,
+                        onInit: _onInit,
+                        controllers:
+                            _scontroller == null ? [] : [_scontroller!],
+                      ),
+                    ))),
           ),
           SliverToBoxAdapter(
             child: Card(
@@ -38,14 +67,16 @@ class MainDialogWidget extends StatelessWidget {
                     crossAxisAlignment: CrossAxisAlignment.stretch,
                     children: [
                       Text(
-                        isCourier ? "Стать курьером" : "Стать предпринимателем",
+                        widget.isCourier
+                            ? "Стать курьером"
+                            : "Стать предпринимателем",
                         textScaleFactor: 0.8,
                         style: Theme.of(context).textTheme.titleLarge,
                       ),
                       Padding(
                         padding: const EdgeInsets.only(top: 8.0),
                         child: Text(
-                          isCourier
+                          widget.isCourier
                               ? "Станьте курьером в два клика и сделайте свой вклад в развитие нашей системы доставки"
                               : "Опубликуйте своё предприятие в Deliver, чтобы получить полные возможности по осуществлению доставки",
                           style: Theme.of(context).textTheme.labelMedium,
@@ -65,10 +96,10 @@ class MainDialogWidget extends StatelessWidget {
                               Icons.map_outlined,
                               color: Colors.white,
                             );
-                            title = isCourier
+                            title = widget.isCourier
                                 ? "Персональная зона доставки"
                                 : "Запредельная зона покрытия";
-                            subTitle = isCourier
+                            subTitle = widget.isCourier
                                 ? "Выберите свою поисковую зону поиска заказов, чтобы обеспечить максимальную скорость их выполнения."
                                 : "Зоны покрытия формируются на текущем местоположении курьеров, обеспечивая доступность доставки по всему миру";
                             break;
@@ -94,7 +125,7 @@ class MainDialogWidget extends StatelessWidget {
                               ],
                             );
                             title = "Технически бесплатный сервис";
-                            subTitle = isCourier
+                            subTitle = widget.isCourier
                                 ? "Осуществляйте благотворительную деятельность и зарабатывайте карму."
                                 : "Размещение компаний в Deliver абсолютно бесплатно!";
                             break;
@@ -104,17 +135,19 @@ class MainDialogWidget extends StatelessWidget {
                               color: Colors.white,
                             );
                             title = "Актуальная статистика";
-                            subTitle = isCourier
+                            subTitle = widget.isCourier
                                 ? "Получите доступ к актуальной статистике ваших доставок, соревнуйтесь с друзьями.. "
                                 : "Получите доступ к актуальной статистике предприятия для осуществления точного прогнозирования с помощью наших автоматизированных систем. ";
                             break;
                           case 3:
                             leading = Icon(
-                              isCourier ? Icons.bedroom_baby : Icons.security,
+                              widget.isCourier
+                                  ? Icons.bedroom_baby
+                                  : Icons.security,
                               color: Colors.white,
                             );
-                            title = isCourier ? "Удобно" : "Безопасно";
-                            subTitle = isCourier
+                            title = widget.isCourier ? "Удобно" : "Безопасно";
+                            subTitle = widget.isCourier
                                 ? "Перед принятием заказа, вы получите оптимально-сформированный маршрут, следуя которому, вы экономите время."
                                 : "Каждый курьер отслеживается на нашей карте в режиме реального времени, а техническая поддержка работает в формате 24/7 ";
                             break;
@@ -124,7 +157,7 @@ class MainDialogWidget extends StatelessWidget {
                               color: Colors.white,
                             );
                             title = "Эффективно";
-                            subTitle = isCourier
+                            subTitle = widget.isCourier
                                 ? "Прокачайте свои физические данные и сделайте вклад в отечественную коммерческую благотворительность уже сегодня"
                                 : "Благодаря Deliver десятки компаний увеличили свой доход более чем на 25%";
                             break;
@@ -174,14 +207,22 @@ class MainDialogWidget extends StatelessWidget {
                         padding: const EdgeInsets.symmetric(
                             vertical: 10.0, horizontal: 8),
                         child: NeumorphicButton(
-                          onPressed: () => isCourier
+                          onPressed: () => widget.isCourier
                               ? Navigator.push(
-                                  context,
-                                  MaterialPageRoute(
-                                      builder: (ctx) => CourierFieldManage(isReg: true,)))
-                              : Navigator.of(context).pushNamed(
-                                  SetLocationScreen.path,
-                                  arguments: LocationPickerMode.orgAddress),
+                                      context,
+                                      MaterialPageRoute(
+                                          builder: (ctx) => CourierFieldManage(
+                                                isReg: true,
+                                              )))
+                                  .then((value) => widget.updateParentScreen())
+                              : Navigator.of(context)
+                                  .pushNamed(SetLocationScreen.path,
+                                      arguments: LocationPickerMode.orgAddress)
+                                  .then((value) {
+                                  if (value == true) {
+                                    widget.updateParentScreen();
+                                  }
+                                }),
                           style: const NeumorphicStyle(depth: -5),
                           child: Padding(
                             padding: const EdgeInsets.all(5.0),

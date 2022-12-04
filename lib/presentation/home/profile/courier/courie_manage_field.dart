@@ -206,7 +206,7 @@ class _CourierFieldManageState extends State<CourierFieldManage> {
                       loading: () => CircularProgressIndicator(),
                       courierReged: (courier) {
                         UserModel.get().courier = courier;
-                        Navigator.pop(context);
+                        Navigator.pop(context, true);
                         return Container();
                       },
                       orElse: () => GradientMask(

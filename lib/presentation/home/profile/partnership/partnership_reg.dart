@@ -7,8 +7,10 @@ import 'package:kursach/domain/model/address_model.dart';
 import 'package:kursach/domain/model/user_model.dart';
 import 'package:kursach/domain/organization/bloc/org_bloc.dart';
 import 'package:kursach/presentation/home/navigator_screen.dart';
+import 'package:kursach/presentation/home/restaurant/restaraunt_screen.dart';
 import 'package:kursach/presentation/outstanding/card_picker.dart';
 import 'package:kursach/presentation/outstanding/gradientmask.dart';
+import 'package:rive/rive.dart';
 
 class PartnerShipReg extends StatefulWidget {
   const PartnerShipReg({Key? key, this.pickedAddress}) : super(key: key);
@@ -28,6 +30,19 @@ class _PartnerShipRegState extends State<PartnerShipReg> {
   late TextEditingController _priceController;
   Uint8List? cardImage;
   Uint8List? logoImage;
+  StateMachineController? _scontroller;
+
+  void _onInit(Artboard art) {
+    var ctrl = StateMachineController.fromArtboard(art, 'State Machine 1')
+        as StateMachineController;
+    ctrl.isActive = false;
+    art.addController(ctrl);
+    setState(() {
+      _scontroller = ctrl;
+      _scontroller!.isActive = true;
+    });
+  }
+
   @override
   void dispose() {
     _cityController.dispose();
@@ -59,13 +74,31 @@ class _PartnerShipRegState extends State<PartnerShipReg> {
       body: CustomScrollView(
         slivers: [
           SliverAppBar.large(
+              iconTheme: IconThemeData(color: Colors.black),
               expandedHeight: MediaQuery.of(context).size.height * 0.3,
+              backgroundColor: Theme.of(context).colorScheme.surface,
               flexibleSpace: FlexibleSpaceBar(
-                  collapseMode: CollapseMode.pin,
-                  title: Text(
-                    "Информация об организации",
-                    style: Theme.of(context).textTheme.titleMedium,
-                  ))),
+                collapseMode: CollapseMode.pin,
+                expandedTitleScale: 1,
+                centerTitle: true,
+                title: Text(
+                  "Информация об организации",
+                  style: Theme.of(context)
+                      .textTheme
+                      .titleMedium!
+                      .copyWith(fontWeight: FontWeight.bold),
+                ),
+                background: SizedBox(
+                  width: MediaQuery.of(context).size.width,
+                  height: 200,
+                  child: RiveAnimation.asset(
+                    "lib/assets/anim/castle.riv",
+                    fit: BoxFit.fill,
+                    onInit: _onInit,
+                    controllers: _scontroller == null ? [] : [_scontroller!],
+                  ),
+                ),
+              )),
           SliverToBoxAdapter(
             child: Padding(
               padding: const EdgeInsets.all(8.0),
@@ -178,8 +211,8 @@ class _PartnerShipRegState extends State<PartnerShipReg> {
                               child: Text("Аптека"),
                             ),
                             const DropdownMenuItem(
-                              value: "Книжный магазин",
-                              child: Text("Книжные"),
+                              value: "Книжные",
+                              child: Text("Книжный магазин"),
                             ),
                             const DropdownMenuItem(
                               value: "Другое",
@@ -289,11 +322,11 @@ class _PartnerShipRegState extends State<PartnerShipReg> {
                                   ),
                               loaded: (model) {
                                 UserModel.get().organizationModel = model;
-                                Navigator.pop(context);
+                                Navigator.pop(context,  true);
                                 return Container();
                               },
                               loading: () =>
-                                  CircularProgressIndicator.adaptive());
+                                  LoadingWidget());
                         },
                       ),
                     ),

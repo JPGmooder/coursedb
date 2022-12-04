@@ -89,7 +89,14 @@ flutter:
   assets:
     - lib/assets/anim/delivery.riv
     - lib/assets/anim/logistic_box.riv
+    - lib/assets/anim/logistic_box1.riv
+
     - lib/assets/prost.jpeg
+    - lib/assets/anim/handshake.riv
+    - lib/assets/anim/castle.riv
+    - lib/assets/anim/kotek.riv
+    - lib/assets/anim/empty.riv
+
 
   #   - images/a_dot_ham.jpeg
   # An image asset can refer to one or more resolution-specific "variants", see

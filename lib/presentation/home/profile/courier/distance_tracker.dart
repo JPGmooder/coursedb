@@ -59,10 +59,17 @@ class _DistanceTrackerExampleState extends State<DistanceTrackerExample> {
           .value;
       var values = widget.data.values.toList();
       values.sort();
-      maxValue = values.first;
+      if (!widget.isTime) {
+        values = values.reversed.toList();
+      }
+      if (widget.isTime) {
+        maxValue = values.last;
+      } else {
+        maxValue = values.first;
+      }
       var currentIndex =
           values.indexWhere((element) => element == currentValue) + 1;
-      percent = (values.length / currentIndex * 100).toInt();
+      percent = 100 - (currentIndex / values.length * 100).toInt();
     }
     return Card(
       child: widget.isLoading
@@ -104,8 +111,7 @@ class _DistanceTrackerExampleState extends State<DistanceTrackerExample> {
                                       fontSize: 20)),
                               if (!widget.isTime)
                                 const Padding(
-                                  padding:
-                                       EdgeInsets.fromLTRB(0, 2, 0, 0),
+                                  padding: EdgeInsets.fromLTRB(0, 2, 0, 0),
                                   child: Text(
                                     'Метров',
                                     style: TextStyle(

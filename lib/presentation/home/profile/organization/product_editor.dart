@@ -11,6 +11,7 @@ import 'package:kursach/domain/model/user_model.dart';
 import 'package:kursach/domain/product/bloc/product_bloc.dart';
 import 'package:kursach/presentation/home/profile/organization/pick_brand_widget.dart';
 import 'package:kursach/presentation/home/profile/organization/pick_product_type_widget.dart';
+import 'package:kursach/presentation/home/restaurant/restaraunt_screen.dart';
 import 'package:kursach/presentation/outstanding/brand_widget.dart';
 import 'package:kursach/presentation/outstanding/category_chip.dart';
 import 'package:kursach/presentation/outstanding/product_image.dart';
@@ -391,7 +392,7 @@ class _ProductEditorScreenState extends State<ProductEditorScreen> {
                     builder: (context, state) {
                       return state.maybeWhen(
                           loading: (_) {
-                            return CircularProgressIndicator();
+                            return LoadingWidget();
                           },
                           orElse: () => Padding(
                                 padding: const EdgeInsets.symmetric(

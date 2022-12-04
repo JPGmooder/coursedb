@@ -7,14 +7,18 @@ import 'package:kursach/domain/model/organization_model.dart';
 import 'package:kursach/domain/model/user_model.dart';
 import 'package:kursach/domain/organization/bloc/org_bloc.dart';
 import 'package:kursach/presentation/home/markets/market_widget.dart';
+import 'package:kursach/presentation/home/profile/addresses/myaddresses_screen.dart';
 import 'package:kursach/presentation/home/restaurant/mainpage/restaraunt_mainpage.dart';
 import 'package:kursach/presentation/home/restaurant/pickers.dart';
 import 'package:kursach/presentation/outstanding/gradientmask.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:kursach/presentation/outstanding/notfound_screen.dart';
+import 'package:persistent_bottom_nav_bar/persistent_tab_view.dart';
 import 'package:supabase_flutter/supabase_flutter.dart';
 
 class RestarauntList extends StatefulWidget {
-  const RestarauntList({Key? key}) : super(key: key);
+  const RestarauntList({Key? key, required this.controller}) : super(key: key);
+  final PersistentTabController controller;
 
   @override
   State<RestarauntList> createState() => _RestarauntListState();
@@ -66,160 +70,155 @@ class _RestarauntListState extends State<RestarauntList> {
                           return Card(
                             child: SizedBox(
                               height: MediaQuery.of(context).size.height * 0.4,
-                              child: ListView.builder(
-                                  itemCount: UserModel.get().addresses!.length,
-                                  itemBuilder: (ctx, index) {
-                                    var currentAddress =
-                                        UserModel.get().addresses![index];
-                                    return RadioListTile<int>(
-                                        title: Text(
-                                          currentAddress.name!,
+                              child: Column(
+                                crossAxisAlignment: CrossAxisAlignment.stretch,
+                                children: [
+                                  Padding(
+                                    padding: const EdgeInsets.all(8.0),
+                                    child: Row(
+                                      mainAxisAlignment:
+                                          MainAxisAlignment.spaceBetween,
+                                      children: [
+                                        Text(
+                                          "Доступные адреса",
                                           style: Theme.of(context)
                                               .textTheme
                                               .titleMedium,
                                         ),
-                                        subtitle: Text(
-                                          "${currentAddress.city}, ${currentAddress.street} ${currentAddress.housenumber}",
-                                          style: Theme.of(context)
-                                              .textTheme
-                                              .labelMedium,
-                                        ),
-                                        value: currentAddress.id_address,
-                                        groupValue: UserModel.get()
-                                            .addresses!
-                                            .first
-                                            .id_address,
-                                        onChanged: (value) {
-                                          if (value !=
-                                              UserModel.get()
+                                        IconButton(
+                                            onPressed: () {
+                                              widget.controller.jumpToTab(2);
+                                            },
+                                            icon: Icon(Icons.list_alt))
+                                      ],
+                                    ),
+                                  ),
+                                  Expanded(
+                                    child: ListView.builder(
+                                        itemCount:
+                                            UserModel.get().addresses!.length,
+                                        itemBuilder: (ctx, index) {
+                                          var currentAddress =
+                                              UserModel.get().addresses![index];
+                                          return RadioListTile<int>(
+                                              title: Text(
+                                                currentAddress.name!,
+                                                style: Theme.of(context)
+                                                    .textTheme
+                                                    .titleMedium,
+                                              ),
+                                              subtitle: Text(
+                                                "${currentAddress.city}, ${currentAddress.street} ${currentAddress.housenumber}",
+                                                style: Theme.of(context)
+                                                    .textTheme
+                                                    .labelMedium,
+                                              ),
+                                              value: currentAddress.id_address,
+                                              groupValue: UserModel.get()
                                                   .addresses!
                                                   .first
-                                                  .id_address) {
-                                            showDialog(
-                                                context: context,
-                                                builder: (ctx) => AlertDialog(
-                                                      content: Text(
-                                                        "Смена адреса приведёт к очистке текущей корзины, желаете продолжить?",
-                                                      ),
-                                                      actionsAlignment:
-                                                          MainAxisAlignment
-                                                              .spaceBetween,
-                                                      actions: [
-                                                        ElevatedButton(
-                                                            style: ElevatedButton
-                                                                .styleFrom(
-                                                                    backgroundColor:
-                                                                        Colors.red[
-                                                                            200]),
-                                                            onPressed: () =>
-                                                                Navigator.pop(
-                                                                    context),
-                                                            child: Text(
-                                                              "Отмена",
-                                                              style: Theme.of(
-                                                                      context)
-                                                                  .textTheme
-                                                                  .labelMedium!
-                                                                  .copyWith(
-                                                                      color: Colors
-                                                                          .white),
-                                                            )),
-                                                        GradientMask(
-                                                          size: 250,
-                                                          begin:
-                                                              Alignment.topLeft,
-                                                          end: Alignment
-                                                              .bottomRight,
-                                                          child: ElevatedButton(
-                                                              style: ElevatedButton
-                                                                  .styleFrom(
-                                                                      backgroundColor:
-                                                                          Colors
-                                                                              .white54),
-                                                              onPressed: () {
-                                                                UserModel.get()
-                                                                    .addresses = [
-                                                                  ...UserModel
-                                                                          .get()
-                                                                      .addresses!
-                                                                ];
-                                                                var curIndex = UserModel
-                                                                        .get()
-                                                                    .addresses!
-                                                                    .indexWhere((element) =>
-                                                                        element
-                                                                            .id_address ==
-                                                                        value);
-                                                                setState(() {
-                                                                  var currentAddress =
-                                                                      UserModel.get()
-                                                                              .addresses![
-                                                                          curIndex];
-                                                                  UserModel.get()
-                                                                          .addresses![
-                                                                      curIndex] = UserModel
-                                                                          .get()
-                                                                      .addresses![0];
-                                                                  UserModel.get()
-                                                                          .addresses![0] =
-                                                                      currentAddress;
-                                                                });
-                                                                var currentCart = UserModel
-                                                                        .get()
-                                                                    .carts
-                                                                    .firstWhere(
-                                                                        (element) =>
-                                                                            element.isActive);
-                                                                for (var element
-                                                                    in currentCart
-                                                                        .items) {
-                                                                  context.read<CartBloc>().add(CartEvent.manageCartItem(
-                                                                      userLogin:
+                                                  .id_address,
+                                              onChanged: (value) {
+                                                if (value !=
+                                                    UserModel.get()
+                                                        .addresses!
+                                                        .first
+                                                        .id_address) {
+                                                  showDialog(
+                                                      context: context,
+                                                      builder:
+                                                          (ctx) => AlertDialog(
+                                                                content: Text(
+                                                                  "Смена адреса приведёт к очистке текущей корзины, желаете продолжить?",
+                                                                ),
+                                                                actionsAlignment:
+                                                                    MainAxisAlignment
+                                                                        .spaceBetween,
+                                                                actions: [
+                                                                  ElevatedButton(
+                                                                      style: ElevatedButton.styleFrom(
+                                                                          backgroundColor: Colors.red[
+                                                                              200]),
+                                                                      onPressed: () =>
+                                                                          Navigator.pop(
+                                                                              context),
+                                                                      child:
+                                                                          Text(
+                                                                        "Отмена",
+                                                                        style: Theme.of(context)
+                                                                            .textTheme
+                                                                            .labelMedium!
+                                                                            .copyWith(color: Colors.white),
+                                                                      )),
+                                                                  GradientMask(
+                                                                    size: 250,
+                                                                    begin: Alignment
+                                                                        .topLeft,
+                                                                    end: Alignment
+                                                                        .bottomRight,
+                                                                    child: ElevatedButton(
+                                                                        style: ElevatedButton.styleFrom(backgroundColor: Colors.white54),
+                                                                        onPressed: () {
+                                                                          UserModel.get().addresses =
+                                                                              [
+                                                                            ...UserModel.get().addresses!
+                                                                          ];
+                                                                          var curIndex = UserModel.get().addresses!.indexWhere((element) =>
+                                                                              element.id_address ==
+                                                                              value);
+                                                                          setState(
+                                                                              () {
+                                                                            var currentAddress =
+                                                                                UserModel.get().addresses![curIndex];
+                                                                            UserModel.get().addresses![curIndex] =
+                                                                                UserModel.get().addresses![0];
+                                                                            UserModel.get().addresses![0] =
+                                                                                currentAddress;
+                                                                          });
+                                                                          var currentCart = UserModel.get()
+                                                                              .carts
+                                                                              .firstWhere((element) => element.isActive);
+                                                                          for (var element
+                                                                              in currentCart.items) {
+                                                                            context.read<CartBloc>().add(CartEvent.manageCartItem(
+                                                                                userLogin: UserModel.get().login,
+                                                                                productQuantity: 0,
+                                                                                productId: element.productId));
+                                                                          }
+                                                                          // context
+                                                                          //     .read<
+                                                                          //         CartBloc>()
+                                                                          //     .add(CartEvent
+                                                                          //         .clearCartEvent(
+                                                                          //             cartId:
+                                                                          //                 currentCart.cartID));
                                                                           UserModel.get()
-                                                                              .login,
-                                                                      productQuantity:
-                                                                          0,
-                                                                      productId:
-                                                                          element
-                                                                              .productId));
-                                                                }
-                                                                // context
-                                                                //     .read<
-                                                                //         CartBloc>()
-                                                                //     .add(CartEvent
-                                                                //         .clearCartEvent(
-                                                                //             cartId:
-                                                                //                 currentCart.cartID));
-                                                                UserModel.get()
-                                                                    .carts
-                                                                    .firstWhere(
-                                                                        (element) =>
-                                                                            element.isActive)
-                                                                    .items
-                                                                    .clear();
-                                                                context.read<OrganizationBloc>().add(OrganizationEvent.loadOrganizations(
-                                                                    sort: sortType
-                                                                        .ascending,
-                                                                    address: UserModel
-                                                                            .get()
-                                                                        .addresses!
-                                                                        .first));
-                                                                Navigator.pop(
-                                                                    ctx);
-                                                              },
-                                                              child: Text(
-                                                                "Принять",
-                                                                style: Theme.of(
-                                                                        context)
-                                                                    .textTheme
-                                                                    .labelMedium!,
-                                                              )),
-                                                        )
-                                                      ],
-                                                    ));
-                                          }
-                                        });
-                                  }),
+                                                                              .carts
+                                                                              .firstWhere((element) => element.isActive)
+                                                                              .items
+                                                                              .clear();
+                                                                          context.read<OrganizationBloc>().add(OrganizationEvent.loadOrganizations(
+                                                                              sort: sortType.ascending,
+                                                                              address: UserModel.get().addresses!.first));
+                                                                          Navigator.pop(
+                                                                              ctx);
+                                                                        },
+                                                                        child: Text(
+                                                                          "Принять",
+                                                                          style: Theme.of(context)
+                                                                              .textTheme
+                                                                              .labelMedium!,
+                                                                        )),
+                                                                  )
+                                                                ],
+                                                              )).then((value) =>
+                                                      Navigator.pop(ctx));
+                                                }
+                                              });
+                                        }),
+                                  ),
+                                ],
+                              ),
                             ),
                           );
                         }),
@@ -318,29 +317,7 @@ class _RestarauntListState extends State<RestarauntList> {
                     builder: (context, state) {
                       return state.maybeWhen(
                           orElse: () => Container(),
-                          loading: () => Column(
-                                mainAxisAlignment: MainAxisAlignment.center,
-                                crossAxisAlignment: CrossAxisAlignment.center,
-                                children: [
-                                  GradientMask(
-                                    size: 40,
-                                    begin: Alignment.topLeft,
-                                    end: Alignment.bottomRight,
-                                    child: Text(
-                                      "Загрузка",
-                                      textScaleFactor: 1.6,
-                                      style: Theme.of(context)
-                                          .textTheme
-                                          .titleMedium!
-                                          .copyWith(color: Colors.white54),
-                                    ),
-                                  ),
-                                  SizedBox(
-                                    height: 25,
-                                  ),
-                                  CircularProgressIndicator.adaptive()
-                                ],
-                              ),
+                          loading: () => LoadingWidget(),
                           usersOrganizationsLoaded: (models) {
                             var pickedCategories = categories.entries.where(
                                 (element) => element.value['status'] == true);
@@ -360,7 +337,9 @@ class _RestarauntListState extends State<RestarauntList> {
                                   .toList();
                             }
                             if (models.isEmpty) {
-                              return Text("Тут ничего нет");
+                              return NotFoundScreen(
+                                  text:
+                                      "Похоже на указанный адрес нет ни одной доставляющей компании... Поробуйте сменить таковой и повторите попытку");
                             } else {
                               return SizedBox(
                                 height:
@@ -400,6 +379,43 @@ class _RestarauntListState extends State<RestarauntList> {
               ],
             ),
           )),
+    );
+  }
+}
+
+class LoadingWidget extends StatelessWidget {
+  const LoadingWidget({
+    Key? key,
+  }) : super(key: key);
+
+  @override
+  Widget build(BuildContext context) {
+    return Expanded(
+      child: Center(
+        child: Column(
+          mainAxisAlignment: MainAxisAlignment.center,
+          crossAxisAlignment: CrossAxisAlignment.center,
+          children: [
+            GradientMask(
+              size: 40,
+              begin: Alignment.topLeft,
+              end: Alignment.bottomRight,
+              child: Text(
+                "Загрузка",
+                textScaleFactor: 1.6,
+                style: Theme.of(context)
+                    .textTheme
+                    .titleMedium!
+                    .copyWith(color: Colors.white54),
+              ),
+            ),
+            SizedBox(
+              height: 25,
+            ),
+            CircularProgressIndicator.adaptive()
+          ],
+        ),
+      ),
     );
   }
 }

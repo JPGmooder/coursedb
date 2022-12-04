@@ -18,14 +18,17 @@ import 'package:kursach/presentation/home/profile/support/my_tickets_screen.dart
 import 'package:kursach/presentation/outstanding/dialogs.dart';
 import 'package:kursach/presentation/outstanding/gradientmask.dart';
 import 'package:kursach/presentation/outstanding/techsupport_card_widget.dart';
+import 'package:persistent_bottom_nav_bar/persistent_tab_view.dart';
 import 'package:rive/rive.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
 class ProfileScreen extends StatefulWidget {
-  const ProfileScreen({Key? key, required this.parentContext})
+  const ProfileScreen(
+      {Key? key, required this.parentContext, required this.controller})
       : super(key: key);
   final BuildContext parentContext;
+  final PersistentTabController controller;
   @override
   State<ProfileScreen> createState() => _ProfileScreenState();
 }
@@ -153,6 +156,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
                                 context: context,
                                 pageBuilder: (ctx, _, __) {
                                   return MainDialogWidget(
+                                    updateParentScreen: () => setState(() {}),
                                     isCourier: true,
                                   );
                                 });
@@ -195,7 +199,8 @@ class _ProfileScreenState extends State<ProfileScreen> {
                           onPressed = () => showGeneralDialog(
                               context: context,
                               pageBuilder: (ctx, _, __) {
-                                return MainDialogWidget();
+                                return MainDialogWidget(
+                                    updateParentScreen: () => setState(() {}));
                               });
                         } else {
                           onPressed = () =>

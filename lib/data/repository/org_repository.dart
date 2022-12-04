@@ -21,6 +21,9 @@ class OrganiztionRepository {
         type: type,
         addressId: addressId,
         deliveryPrice: deliveryPrice);
+    if (response.hasException) {
+      throw response.exception!;
+    }
     var modelToReturn =
         OrganizationModel.fromMap(response.data!['company_addnew']);
     await OrganizationProvider.changeUsersCompany(

@@ -42,6 +42,7 @@ class _LoadinScreenState extends State<LoadinScreen> {
     Artboard artboard,
   ) {
     setState(() {
+      
       final _controller =
           StateMachineController.fromArtboard(artboard, 'State Machine 1');
       artboard.addController(_controller!);

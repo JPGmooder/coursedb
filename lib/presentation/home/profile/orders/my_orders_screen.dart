@@ -13,7 +13,9 @@ import 'package:kursach/domain/model/product_model.dart';
 import 'package:kursach/domain/model/user_model.dart';
 import 'package:kursach/domain/orders/bloc/orders_bloc.dart';
 import 'package:kursach/presentation/home/profile/orders/my_orders_detailed.dart';
+import 'package:kursach/presentation/home/restaurant/restaraunt_screen.dart';
 import 'package:kursach/presentation/outstanding/gradientmask.dart';
+import 'package:kursach/presentation/outstanding/notfound_screen.dart';
 import 'package:kursach/presentation/outstanding/product/product_screen.dart';
 import 'package:sliver_tools/sliver_tools.dart';
 import 'package:rxdart/rxdart.dart';
@@ -79,7 +81,7 @@ class _MyOrdersScreenState extends State<MyOrdersScreen> {
             return state.maybeWhen(
                 orElse: () {
                   if (currentOrders == null) {
-                    return CircularProgressIndicator();
+                    return LoadingWidget();
                   } else {
                     var listToMap = parseList();
                     return Padding(
@@ -107,7 +109,9 @@ class _MyOrdersScreenState extends State<MyOrdersScreen> {
                 couriersOrdersLoaded: widget.isCourier
                     ? (orders) {
                         if (orders.isEmpty) {
-                          return Text("Вы еще не доставили ни одного заказа");
+                          return NotFoundScreen(
+                              text:
+                                  "Похоже вы еще не доставили ни ожного заказа.");
                         } else {
                           var listToMap = parseList(orders: orders);
                           return Padding(
@@ -148,7 +152,9 @@ class _MyOrdersScreenState extends State<MyOrdersScreen> {
                     ? null
                     : (orders) {
                         if (orders.isEmpty) {
-                          return Text("Нет активных заказов");
+                          return NotFoundScreen(
+                              text:
+                                  "Похоже вы еще не совершили свой первый заказ.");
                         } else {
                           var listToMap = parseList(orders: orders);
                           return Padding(

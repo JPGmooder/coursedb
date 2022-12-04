@@ -3,7 +3,7 @@ import 'dart:math';
 import 'dart:typed_data';
 
 import 'package:custom_image_crop/custom_image_crop.dart';
-import 'package:flutter/foundation.dart';
+import 'package:flutter/material.dart';
 import 'package:flutter_neumorphic/flutter_neumorphic.dart';
 
 //* Виджет для обрезки изображения
@@ -15,6 +15,7 @@ class CropperWidget extends StatefulWidget {
       required this.defaultImage,
       required this.onCroppingComplete})
       : super(key: key);
+
   BoxConstraints constraints;
   void Function(MemoryImage croppedImage) onCroppingComplete;
   Uint8List defaultImage;
@@ -42,23 +43,15 @@ class _CropperWidgetState extends State<CropperWidget> {
 
   @override
   Widget build(BuildContext context) {
-    return Material(
+    return Center(
       child: SizedBox(
-        width: widget.constraints.maxHeight / 3 < 300
-            ? 300
-            : widget.constraints.maxHeight / 3,
-        height: widget.constraints.maxHeight / 1.6 < 300
-            ? 300
-            : widget.constraints.maxHeight / 1.6,
+        height: MediaQuery.of(context).size.height * 0.65,
+        width: MediaQuery.of(context).size.width * 0.8,
         child: Column(
           children: [
             SizedBox(
-              width: widget.constraints.maxHeight / 3 < 300
-                  ? 300
-                  : widget.constraints.maxHeight / 3,
-              height: widget.constraints.maxHeight / 3 < 150
-                  ? 150
-                  : widget.constraints.maxHeight / 2,
+              height: MediaQuery.of(context).size.height * 0.5,
+              width: MediaQuery.of(context).size.width * 0.8,
               child: CustomImageCrop(
                 cropController: cropController,
                 image: Image.memory(widget.defaultImage).image,
@@ -66,35 +59,38 @@ class _CropperWidgetState extends State<CropperWidget> {
             ),
             Column(
               children: [
-                Row(
-                  mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                  children: [
-                    IconButton(
-                        icon: const Icon(Icons.refresh),
-                        onPressed: cropController.reset),
-                    IconButton(
-                        icon: const Icon(Icons.rotate_left),
-                        onPressed: () => cropController
-                            .addTransition(CropImageData(angle: -pi / 4))),
-                    IconButton(
-                        icon: const Icon(Icons.rotate_right),
-                        onPressed: () => cropController
-                            .addTransition(CropImageData(angle: pi / 4))),
-                    isCropping
-                        ? const CircularProgressIndicator.adaptive()
-                        : IconButton(
-                            icon: const Icon(Icons.done),
-                            onPressed: () async {
-                              setState(() {
-                                isCropping = true;
-                              });
-                              final image = await cropController.onCropImage();
-                              if (image != null) {
-                                widget.onCroppingComplete(image);
-                              }
-                            },
-                          ),
-                  ],
+                Material(
+                  child: Row(
+                    mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                    children: [
+                      IconButton(
+                          icon: const Icon(Icons.refresh),
+                          onPressed: cropController.reset),
+                      IconButton(
+                          icon: const Icon(Icons.rotate_left),
+                          onPressed: () => cropController
+                              .addTransition(CropImageData(angle: -pi / 4))),
+                      IconButton(
+                          icon: const Icon(Icons.rotate_right),
+                          onPressed: () => cropController
+                              .addTransition(CropImageData(angle: pi / 4))),
+                      isCropping
+                          ? const CircularProgressIndicator.adaptive()
+                          : IconButton(
+                              icon: const Icon(Icons.done),
+                              onPressed: () async {
+                                setState(() {
+                                  isCropping = true;
+                                });
+                                final image =
+                                    await cropController.onCropImage();
+                                if (image != null) {
+                                  widget.onCroppingComplete(image);
+                                }
+                              },
+                            ),
+                    ],
+                  ),
                 ),
                 if (Platform.isWindows)
                   NeumorphicSlider(

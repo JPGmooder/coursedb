@@ -9,6 +9,7 @@ import 'package:kursach/domain/model/address_model.dart';
 import 'package:kursach/domain/model/user_model.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:kursach/domain/place_searcher/bloc/place_searcher_bloc.dart';
+import 'package:kursach/presentation/home/restaurant/restaraunt_screen.dart';
 import 'package:kursach/presentation/outstanding/gradientmask.dart';
 
 class MyAddresses extends StatefulWidget {
@@ -52,17 +53,26 @@ class _MyAddressesState extends State<MyAddresses> {
             IconButton(
                 onPressed: () => showModalBottomSheet(
                     isDismissible: true,
+                    isScrollControlled: true,
                     context: context,
                     builder: (ctx) => Padding(
-                          padding: const EdgeInsets.only(top: 8.0),
+                          padding: EdgeInsets.only(
+                              top: 8.0,
+                              bottom: MediaQuery.of(context).viewInsets.bottom >
+                                      50
+                                  ? MediaQuery.of(context).viewInsets.bottom -
+                                      50
+                                  : MediaQuery.of(context).viewInsets.bottom),
                           child: SizedBox(
                             height: MediaQuery.of(context).size.height * 0.65,
                             child: SingleChildScrollView(
                               child: AddressBody(
-                                changeAddress: (changed) => context
-                                    .read<AuthBloc>()
-                                    .add(AuthEvent.findAddressUser(
-                                        UserModel.get().login)),
+                                changeAddress: (changed) {
+                                  context.read<AuthBloc>().add(
+                                      AuthEvent.findAddressUser(
+                                          UserModel.get().login));
+                                  Navigator.pop(context);
+                                },
                                 currentAddress: null,
                               ),
                             ),
@@ -85,7 +95,7 @@ class _MyAddressesState extends State<MyAddresses> {
                       addresses: currentAddresses,
                     );
                   },
-                  loading: () => CircularProgressIndicator(),
+                  loading: () => LoadingWidget(),
                   orElse: () => AddressesBody(
                         addresses: currentAddresses,
                       ));
@@ -320,7 +330,7 @@ class _AddressBodyState extends State<AddressBody> {
                     );
         }),
         isLoading
-            ? CircularProgressIndicator()
+            ? LoadingWidget()
             : Padding(
                 padding: EdgeInsets.symmetric(
                     vertical: 8.0,

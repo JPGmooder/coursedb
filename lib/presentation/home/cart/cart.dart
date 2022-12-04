@@ -9,12 +9,15 @@ import 'package:kursach/domain/model/user_model.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:kursach/domain/product/bloc/product_bloc.dart';
 import 'package:kursach/presentation/home/cart/cart_item_widget.dart';
+import 'package:kursach/presentation/home/restaurant/restaraunt_screen.dart';
 import 'package:kursach/presentation/outstanding/gradientmask.dart';
+import 'package:persistent_bottom_nav_bar/persistent_tab_view.dart';
+import 'package:rive/rive.dart';
 import 'package:supabase_flutter/supabase_flutter.dart';
 
 class CartScreen extends StatefulWidget {
-  const CartScreen({Key? key}) : super(key: key);
-
+  const CartScreen({Key? key, required this.controller}) : super(key: key);
+  final PersistentTabController controller;
   @override
   State<CartScreen> createState() => _CartScreenState();
 }
@@ -22,9 +25,12 @@ class CartScreen extends StatefulWidget {
 class _CartScreenState extends State<CartScreen> {
   OrganizationModel? orgModel;
   List<ProductModel>? orderedProducts;
+  late bool isInit;
+  RiveAnimationController? _controller;
 
   @override
   void initState() {
+    isInit = false;
     var items =
         UserModel.get().carts.firstWhere((element) => element.isActive).items;
     context.read<CartBloc>().add(
@@ -32,16 +38,100 @@ class _CartScreenState extends State<CartScreen> {
     super.initState();
   }
 
+  void _onRiveInit(
+    Artboard artboard,
+  ) {
+    setState(() {
+      final _controller =
+          StateMachineController.fromArtboard(artboard, 'State Machine 1');
+
+      artboard.addController(_controller!);
+      _controller.isActive = true;
+      isInit = true;
+    });
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      backgroundColor: Colors.white,
       body: BlocBuilder<CartBloc, CartState>(
         builder: (context, state) {
           return state.maybeWhen(
               loading: () => CircularProgressIndicator(),
               empty: () {
                 orderedProducts = [];
-                return Text("Тут ничего нет");
+                return Stack(
+                  children: [
+                    Padding(
+                      padding: EdgeInsets.only(
+                          right: MediaQuery.of(context).size.width * 0.05),
+                      child: RiveAnimation.asset(
+                        "lib/assets/anim/kotek.riv",
+                        onInit: _onRiveInit,
+                        controllers: _controller == null ? [] : [_controller!],
+                      ),
+                    ),
+                    Positioned(
+                      top: MediaQuery.of(context).size.height * 0.15,
+                      left: MediaQuery.of(context).size.width * 0.05,
+                      child: Center(
+                        child: AnimatedOpacity(
+                          opacity: isInit ? 1 : 0,
+                          duration: Duration(milliseconds: 500),
+                          child: Text(
+                            "В корзине пока ничего нет..",
+                            style: Theme.of(context).textTheme.titleMedium,
+                            textScaleFactor: 1.3,
+                          ),
+                        ),
+                      ),
+                    ),
+                    Positioned(
+                      bottom: 30,
+                      child: SizedBox(
+                        width: MediaQuery.of(context).size.width,
+                        child: Column(
+                          children: [
+                            AnimatedOpacity(
+                              opacity: isInit ? 1 : 0,
+                              duration: Duration(seconds: 2),
+                              child: Text(
+                                "Чтобы ее заполнить, выберите нужные товары в любом из доступных для доставки предприятий!",
+                                textAlign: TextAlign.center,
+                                style: Theme.of(context).textTheme.labelMedium,
+                                textScaleFactor: 1.3,
+                              ),
+                            ),
+                            Padding(
+                              padding: const EdgeInsets.only(top: 20.0),
+                              child: AnimatedOpacity(
+                                opacity: isInit ? 1 : 0,
+                                duration: Duration(seconds: 3),
+                                child: GradientMask(
+                                  size: 250,
+                                  begin: Alignment.topLeft,
+                                  end: Alignment.bottomRight,
+                                  child: NeumorphicButton(
+                                      onPressed: () =>
+                                          widget.controller.jumpToTab(0),
+                                      style: NeumorphicStyle(
+                                          color: Colors.white54),
+                                      child: Text(
+                                        "Начать покупки",
+                                        style: Theme.of(context)
+                                            .textTheme
+                                            .labelMedium,
+                                      )),
+                                ),
+                              ),
+                            ),
+                          ],
+                        ),
+                      ),
+                    ),
+                  ],
+                );
               },
               itemManaged: (managedItem) {
                 UserModel.get()
@@ -56,7 +146,7 @@ class _CartScreenState extends State<CartScreen> {
                 context.read<CartBloc>().add(CartEvent.loadProductsById(
                     items.map((e) => e.productId).toList()));
 
-                return CircularProgressIndicator();
+                return LoadingWidget();
               },
               cartToOrderCompleted: (order, newCart) {
                 UserModel.get().orders!.add(order);
@@ -95,7 +185,7 @@ class _CartScreenState extends State<CartScreen> {
                     orderedProducts: orderedProducts!,
                     orgModel: organizations.first);
               }),
-              orElse: () => CircularProgressIndicator());
+              orElse: () => LoadingWidget());
         },
       ),
     );

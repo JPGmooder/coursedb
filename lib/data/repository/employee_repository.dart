@@ -43,6 +43,10 @@ class EmployeeRepository {
     }
 
     List<Map<String, dynamic>> modelsToReturn = [];
+    if (mapper.isEmpty) {
+      completer.complete([{'isCurrent': isCurrentAvailable}]);
+    }
+
     for (var order in mapper) {
       var currentOrder = OrderModel.fromMap(order);
       var addressResponse =

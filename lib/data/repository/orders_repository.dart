@@ -12,9 +12,12 @@ class OrdersRepository {
         .toList();
     List<Map<String, dynamic>> listToReturn = [];
     for (var element in loadedData) {
-      var orderModel = OrderModel.fromMap(element);
       var orderCart = CartModel.fromMap(element['cart']);
-      listToReturn.add({"order": orderModel, "cart": orderCart});
+      if (orderCart.items.isNotEmpty) {
+        var orderModel = OrderModel.fromMap(element);
+
+        listToReturn.add({"order": orderModel, "cart": orderCart});
+      }
     }
     return listToReturn;
   }

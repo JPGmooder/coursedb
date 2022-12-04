@@ -16,6 +16,37 @@ class CourierChart extends StatelessWidget {
   Widget build(BuildContext context) {
     return SfCartesianChart(
         title: ChartTitle(text: "Стоимость доставок"),
+        legend: Legend(
+          title: LegendTitle(
+            textStyle: Theme.of(context).textTheme.titleMedium,
+            text: "Легенда",
+          ),
+          width: '100%',
+          isVisible: true,
+          orientation: LegendItemOrientation.horizontal,
+          position: LegendPosition.bottom,
+          overflowMode: LegendItemOverflowMode.scroll,
+          borderColor: AppsColors.accentColor,
+          itemPadding: 5,
+          isResponsive: true,
+          legendItemBuilder: (legendText, series, point, seriesIndex) {
+            var currentSeries =
+                (series as LineSeries<Map<DateTime, double>, String>);
+
+            return SizedBox(
+              width: loadedInfo.isNotEmpty
+                  ? MediaQuery.of(context).size.width * 0.3
+                  : null,
+              child: Text(
+                loadedInfo[seriesIndex].entries.first.key,
+                style: Theme.of(context)
+                    .textTheme
+                    .labelMedium!
+                    .copyWith(color: currentSeries.color),
+              ),
+            );
+          },
+        ),
         primaryXAxis: CategoryAxis(),
         series: <LineSeries<Map<DateTime, double>, String>>[
           ...loadedInfo.map((element) {

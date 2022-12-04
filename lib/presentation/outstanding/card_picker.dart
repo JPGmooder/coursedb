@@ -92,15 +92,21 @@ class CardPicker extends StatelessWidget {
                       if (value != null) {
                         showDialog(
                             context: context,
-                            builder: (ctx) => CropperWidget(
-                                  defaultImage: value,
-                                  constraints: BoxConstraints(
-                                      maxWidth: 250, maxHeight: 100),
-                                  onCroppingComplete: (memoryImage) {
-                                    setLogo(memoryImage.bytes);
+                            builder: (context) => SizedBox(
+                                  height:
+                                      MediaQuery.of(context).size.height * 0.5,
+                                  width:
+                                      MediaQuery.of(context).size.width * 0.8,
+                                  child: CropperWidget(
+                                    defaultImage: value,
+                                    constraints: BoxConstraints(
+                                        maxWidth: 250, maxHeight: 100),
+                                    onCroppingComplete: (memoryImage) {
+                                      setLogo(memoryImage.bytes);
 
-                                    Navigator.pop(context);
-                                  },
+                                      Navigator.pop(context);
+                                    },
+                                  ),
                                 ));
                       }
                     });

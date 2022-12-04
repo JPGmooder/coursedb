@@ -17,6 +17,8 @@ import 'package:kursach/domain/model/user_model.dart';
 import 'package:kursach/domain/orders/bloc/orders_bloc.dart';
 import 'package:kursach/presentation/home/profile/courier/courier_main_order_screen.dart';
 import 'package:kursach/presentation/home/profile/courier/courier_order_widget.dart';
+import 'package:kursach/presentation/home/restaurant/restaraunt_screen.dart';
+import 'package:kursach/presentation/outstanding/notfound_screen.dart';
 import 'package:rxdart/rxdart.dart';
 import 'package:yandex_mapkit/yandex_mapkit.dart';
 
@@ -51,7 +53,14 @@ class _CourierOrdersScreenState extends State<CourierOrdersScreen> {
             currentLon: value.longitude));
       });
     }
-
+    geoListener = Geolocator.getPositionStream()
+        .throttleTime(Duration(minutes: 1))
+        .listen((event) {
+      context.read<EmployeeBloc>().add(EmployeeEvent.findNearestOrders(
+          userLogin: UserModel.get().login,
+          currentLat: event.latitude,
+          currentLon: event.longitude));
+    });
     super.initState();
   }
 
@@ -94,7 +103,14 @@ class _CourierOrdersScreenState extends State<CourierOrdersScreen> {
                 },
                 ordersFounded: (orders) {
                   if (currentOrders == null) {
-                    currentOrders = [...orders];
+                    if (orders.length == 1 &&
+                        orders.first.entries.length == 1) {
+                      setState(() {
+                        currentOrders = [];
+                      });
+                    } else {
+                      currentOrders = [...orders];
+                    }
 
                     ordersListener ??=
                         OrdersProvider.checkActualOrders().listen((event) {
@@ -181,7 +197,7 @@ class _CourierOrdersScreenState extends State<CourierOrdersScreen> {
           },
           child: isCurrent
               ? currentLat == null || currentLon == null
-                  ? CircularProgressIndicator()
+                  ? LoadingWidget()
                   : CourierMainOrderScreen(
                       courierMark: PlacemarkMapObject(
                         mapId: MapObjectId("courierMark"),
@@ -222,34 +238,53 @@ class _CourierOrdersScreenState extends State<CourierOrdersScreen> {
                               .lon!,
                         ),
                       ))
-              : Padding(
-                  padding: const EdgeInsets.all(8.0),
-                  child: CustomScrollView(
-                    slivers: [
-                      SliverAnimatedList(
-                          key: _listKey,
-                          initialItemCount: currentOrders?.length ?? 0,
-                          itemBuilder: (ctx, index, anim) {
-                            return FadeTransition(
-                              opacity: anim,
-                              child: CourierOrder(
-                                  currentLat: currentLat!,
-                                  currentLonl: currentLon!,
-                                  addressModel: currentOrders![index]['address']
-                                      as AddressModel,
-                                  cart: currentOrders![index]['cart']
-                                      as CartModel,
-                                  order: currentOrders![index]['order']
-                                      as OrderModel,
-                                  organization: currentOrders![index]['company']
-                                      as OrganizationModel,
-                                  products: currentOrders![index]['products']
-                                      as List<ProductModel>),
-                            );
-                          })
-                    ],
-                  ),
-                ),
+              : currentOrders == null
+                  ? LoadingWidget()
+                  : currentOrders!.isEmpty
+                      ? SizedBox(
+                          height: MediaQuery.of(context).size.height * 0.8,
+                          width: MediaQuery.of(context).size.width,
+                          child: Column(
+                            children: [
+                              Spacer(),
+                              Center(
+                                child: NotFoundScreen(
+                                    text:
+                                        "Похоже в вашей области нет активных заказов, попробуйте какое-нибудь другое место."),
+                              ),
+                              Spacer(),
+                            ],
+                          ),
+                        )
+                      : Padding(
+                          padding: const EdgeInsets.all(8.0),
+                          child: CustomScrollView(
+                            slivers: [
+                              SliverAnimatedList(
+                                  key: _listKey,
+                                  initialItemCount: currentOrders?.length ?? 0,
+                                  itemBuilder: (ctx, index, anim) {
+                                    return FadeTransition(
+                                      opacity: anim,
+                                      child: CourierOrder(
+                                          currentLat: currentLat!,
+                                          currentLonl: currentLon!,
+                                          addressModel: currentOrders![index]
+                                              ['address'] as AddressModel,
+                                          cart: currentOrders![index]['cart']
+                                              as CartModel,
+                                          order: currentOrders![index]['order']
+                                              as OrderModel,
+                                          organization: currentOrders![index]
+                                              ['company'] as OrganizationModel,
+                                          products: currentOrders![index]
+                                                  ['products']
+                                              as List<ProductModel>),
+                                    );
+                                  })
+                            ],
+                          ),
+                        ),
         ),
       ),
     );

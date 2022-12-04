@@ -119,7 +119,10 @@ class OrdersProvider {
 
 
 ''';
-    return QueryOptions(document: gql(query), variables: {"_eq": userLogin});
+    return QueryOptions(
+        document: gql(query),
+        variables: {"_eq": userLogin},
+        fetchPolicy: FetchPolicy.networkOnly);
   }
 
   static QueryOptions _findCouriersOrdersById(String courierLogin) {
@@ -148,7 +151,7 @@ class OrdersProvider {
 
 ''';
     return QueryOptions(
-        document: gql(query), variables: {"_eq1": courierLogin});
+        document: gql(query), variables: {"_eq1": courierLogin}, fetchPolicy: FetchPolicy.networkOnly);
   }
 
   static SubscriptionOptions _checkActualOrders() {
@@ -162,7 +165,7 @@ class OrdersProvider {
 
 
 ''';
-    return SubscriptionOptions(document: gql(query));
+    return SubscriptionOptions(document: gql(query), fetchPolicy: FetchPolicy.networkOnly);
   }
 
   static Future<QueryResult> findOrders(String userLogin) async {

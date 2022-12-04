@@ -22,20 +22,29 @@ class NavigatorScreen extends StatefulWidget {
 }
 
 class _NavigatorScreenState extends State<NavigatorScreen> {
+  late PersistentTabController _controller;
+  @override
+  void initState() {
+    _controller = PersistentTabController();
+    super.initState();
+  }
+
   @override
   Widget build(BuildContext context) {
     return BlocProvider(
       create: (ctx) => CartBloc(),
       child: PersistentTabView(
+        controller: _controller,
         screenTransitionAnimation:
             ScreenTransitionAnimation(animateTabTransition: true),
         padding: NavBarPadding.all(0),
         context,
         navBarStyle: NavBarStyle.style9,
         screens: [
-          RestarauntList(),
-          CartScreen(),
+          RestarauntList(controller: _controller,),
+          CartScreen(controller: _controller),
           ProfileScreen(
+            controller: _controller,
             parentContext: context,
           )
         ],

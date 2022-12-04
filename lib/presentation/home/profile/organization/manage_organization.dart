@@ -5,6 +5,7 @@ import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_neumorphic/flutter_neumorphic.dart';
+import 'package:kursach/assets/colors.dart';
 import 'package:kursach/data/api/model/graphclient.dart';
 import 'package:kursach/domain/model/brand_model.dart';
 import 'package:kursach/domain/model/product_model.dart';
@@ -57,7 +58,7 @@ class _ManageOrganizationState extends State<ManageOrganization> {
       body: CustomScrollView(
         slivers: [
           SliverAppBar(
-            backgroundColor: Theme.of(context).colorScheme.surface,
+            backgroundColor: AppsColors.primaryColor,
             actions: [
               Padding(
                 padding: const EdgeInsets.only(top: 8.0, right: 8),
@@ -90,6 +91,8 @@ class _ManageOrganizationState extends State<ManageOrganization> {
             ],
             expandedHeight: 250,
             flexibleSpace: FlexibleSpaceBar(
+              titlePadding: EdgeInsets.all(8),
+              expandedTitleScale: 1.2,
               title: Row(
                 children: [
                   AnimatedSwitcher(
@@ -109,10 +112,8 @@ class _ManageOrganizationState extends State<ManageOrganization> {
                   SizedBox(
                     width: 10,
                   ),
-                  GradientMask(
-                    size: 50,
-                    begin: Alignment.topLeft,
-                    end: Alignment.bottomRight,
+                  SizedBox(
+                    width: MediaQuery.of(context).size.width * 0.8,
                     child: Text(
                       UserModel.get().organizationModel!.companyName,
                       style: Theme.of(context)
