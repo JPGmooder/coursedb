@@ -70,7 +70,7 @@ class OrganizationRepository {
         if (value.hasException) {
           throw Exception(value.exception.toString());
         }
-        updatedStatusesResult.add(value.data!['employeeupdatefun']);
+        updatedStatusesResult.add(value.data!['company_changestatus']);
         if (editedStatuses.length == updatedStatusesResult.length) {
           editCompleter.complete(editedStatuses);
         }

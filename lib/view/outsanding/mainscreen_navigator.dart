@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_neumorphic/flutter_neumorphic.dart';
 import 'package:kursachdesktop/assets/Icons.dart';
 import 'package:kursachdesktop/data/colors.dart';
+import 'package:kursachdesktop/view/auth/auth_screen.dart';
 import 'package:kursachdesktop/view/outsanding/gradientmask.dart';
 
 // * Основной навигационный элемент для широкоэкранный устройств
@@ -104,6 +105,29 @@ class MainScreenSwitcher extends StatelessWidget {
               ],
             ),
           ),
+          Spacer(
+            flex: 5,
+          ),
+          Padding(
+            padding: const EdgeInsets.all(8.0),
+            child: NeumorphicButton(
+              child: Center(
+                child: Text(
+                  "Выйти из аккаунта",
+                  style: Theme.of(context)
+                      .textTheme
+                      .titleMedium!
+                      .copyWith(color: Colors.white),
+                ),
+              ),
+              style: NeumorphicStyle(
+                  shadowDarkColor: AppsColors.darkerPrimaryColor,
+                  shadowLightColor: AppsColors.accentColor,
+                  color: AppsColors.darkerPrimaryColor),
+              onPressed: () => Navigator.of(context).pushReplacement(
+                  MaterialPageRoute(builder: (ctx) => AuthScreen())),
+            ),
+          )
         ],
       ),
     );

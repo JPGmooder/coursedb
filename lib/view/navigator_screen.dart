@@ -17,7 +17,6 @@ import 'package:kursachdesktop/view/employee/organizations/organization_screen.d
 import 'package:kursachdesktop/view/operator/orders_screen.dart';
 import 'package:kursachdesktop/view/operator/statistic_screen.dart';
 import 'package:kursachdesktop/view/outsanding/mainscreen_navigator.dart';
-import 'package:kursachdesktop/view/employee/profile/profile_screen.dart';
 
 enum NavigatorMode { admin, employee, operator }
 
@@ -32,10 +31,8 @@ class NavigatorScreen extends StatefulWidget {
         return [UsersScreen(), EmployeeScreen(), SettingsScreen()];
       case NavigatorMode.employee:
         return [
-          DashboardScreen(),
           OrganizationScreen(),
           CouriersScreen(),
-          ProfileScreen()
         ];
       case NavigatorMode.operator:
         return [OrdersScreen(), StatisticScreen()];
@@ -103,19 +100,13 @@ class _NavigatorScreenState extends State<NavigatorScreen>
                     break;
                   case NavigatorMode.employee:
                     switch (index) {
+                
+                  
                       case 0:
-                        currentText = "Панель управления";
-                        currentIcon = Icons.precision_manufacturing_outlined;
-                        break;
-                      case 1:
-                        currentText = "Аккаунт";
-                        currentIcon = Icons.person;
-                        break;
-                      case 2:
                         currentText = "Организации";
                         currentIcon = Icons.cases_rounded;
                         break;
-                      case 3:
+                      case 1:
                         currentText = "Курьеры";
                         currentIcon = FontAwesomeIcons.bicycle;
                         break;

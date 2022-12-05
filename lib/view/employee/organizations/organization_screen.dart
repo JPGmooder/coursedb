@@ -14,63 +14,7 @@ class OrganizationScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      body: Padding(
-        padding: const EdgeInsets.all(8.0),
-        child:
-            Column(crossAxisAlignment: CrossAxisAlignment.stretch, children: [
-          Row(
-            children: [],
-          ),
-          Row(
-            mainAxisAlignment: MainAxisAlignment.spaceBetween,
-            children: [
-              Text(
-                "Данные компаний",
-                style: Theme.of(context).textTheme.titleMedium,
-              ),
-              NeumorphicButton(
-                style: NeumorphicStyle(color: AppsColors.accentColor),
-                onPressed: () => null,
-                child: Row(
-                  mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                  children: [
-                    const Icon(
-                      Icons.refresh,
-                      color: Colors.white,
-                    ),
-                    const SizedBox(
-                      width: 10,
-                    ),
-                    Text(
-                      "Обновить",
-                      style: Theme.of(context)
-                          .textTheme
-                          .labelMedium!
-                          .copyWith(color: Colors.white),
-                    ),
-                  ],
-                ),
-              )
-            ],
-          ),
-          Center(
-            child: Wrap(
-                crossAxisAlignment: WrapCrossAlignment.center,
-                spacing: 15,
-                runSpacing: 15,
-                children: List.generate(
-                    4,
-                    (index) => Container(
-                          width: 150,
-                          height: 150,
-                          color: Colors.red,
-                        ))),
-          ),
-          Expanded(child: OrganizationTableScreen())
-        ]),
-      ),
-    );
+    return Scaffold(body: OrganizationTableScreen());
   }
 }
 
